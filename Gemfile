@@ -72,3 +72,9 @@ group :test do
   gem "capybara"
   gem "selenium-webdriver"
 end
+
+# Fake Seed data
+gem "faker", "~> 3.4", require: false
+
+# For Active Storage with Cloudinary
+gem "cloudinary"
