@@ -21,6 +21,9 @@ class User < ApplicationRecord
   attribute :counsellor, :boolean, default: false
   attribute :strike_count, :integer, default: 0
 
+  # Cöloudinary Avatar Picture
+  has_one_attached :avatar
+
   def can_post_to_room?
     messaging_suspended_until.nil? || messaging_suspended_until < Time.current
   end

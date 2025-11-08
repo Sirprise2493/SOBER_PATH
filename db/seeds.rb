@@ -1,4 +1,3 @@
-# db/seeds.rb
 require "faker"
 
 Faker::Config.locale = "en"

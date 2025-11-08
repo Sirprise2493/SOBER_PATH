@@ -10,9 +10,38 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2025_11_08_095259) do
+ActiveRecord::Schema[7.1].define(version: 2025_11_08_102510) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "aa_meetings", force: :cascade do |t|
+    t.bigint "aa_venue_id", null: false
+    t.integer "weekday", default: 0, null: false
+    t.time "starts_at", null: false
+    t.time "ends_at"
+    t.boolean "is_online", default: false, null: false
+    t.string "online_url"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["aa_venue_id", "weekday", "starts_at"], name: "idx_meetings_schedule"
+    t.index ["aa_venue_id"], name: "index_aa_meetings_on_aa_venue_id"
+  end
+
+  create_table "aa_venues", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "street"
+    t.string "city"
+    t.string "zip"
+    t.string "country", default: "DE"
+    t.decimal "latitude", precision: 10, scale: 6
+    t.decimal "longitude", precision: 10, scale: 6
+    t.string "website_url"
+    t.text "notes"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["city", "zip"], name: "index_aa_venues_on_city_and_zip"
+    t.index ["latitude", "longitude"], name: "index_aa_venues_on_latitude_and_longitude"
+  end
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -111,6 +140,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_11_08_095259) do
     t.index "lower((username)::text)", name: "index_users_on_lower_username", unique: true
   end
 
+  add_foreign_key "aa_meetings", "aa_venues"
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "ai_chat_messages", "users"
