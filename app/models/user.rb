@@ -1,5 +1,8 @@
 class User < ApplicationRecord
-  # Beziehungen
+  devise :database_authenticatable, :registerable,
+         :recoverable, :rememberable, :validatable, :trackable
+
+  # Relationships
   has_many :journal_contents, dependent: :destroy
   has_many :ai_chat_messages, dependent: :destroy
   has_many :user_chat_messages, dependent: :destroy
