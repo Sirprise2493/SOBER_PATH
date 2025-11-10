@@ -1,5 +1,6 @@
 class AaVenue < ApplicationRecord
-  has_many :aa_meetings, dependent: :destroy
+  has_many :aa_meetings, dependent: :destroy, inverse_of: :aa_venue
+  accepts_nested_attributes_for :aa_meetings, allow_destroy: true, reject_if: :all_blank
 
   # --- Validations ---
   validates :name, presence: true

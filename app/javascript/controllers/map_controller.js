@@ -8,17 +8,22 @@ export default class extends Controller {
   connect() {
     mapboxgl.accessToken = this.apiKeyValue
 
+    this._onFocus = (e) => {
+      const { lat, lng } = e.detail || {}
+      if (!this.map || lat == null || lng == null) return
+      this.map.flyTo({ center: [lng, lat], zoom: 15, essential: true })
+      const key = `${Number(lat).toFixed(6)},${Number(lng).toFixed(6)}`
+      const mk = this._markerIndex?.get(key)
+      if (mk) mk.togglePopup()
+    }
+    window.addEventListener("map:focus", this._onFocus)
+
     this.map = new mapboxgl.Map({
       container: this.element,
       style: "mapbox://styles/mapbox/streets-v10"
     })
 
     this.map.on("load", () => {
-      // Diagnose
-      console.log("markers:", this.markersValue)
-      console.log("center:", this.centerValue)
-      console.log("radiusKm:", this.radiusKmValue)
-
       this.#addMarkersToMap()
       if (this.centerValue?.lat && this.centerValue?.lng && this.radiusKmValue) {
         this.#drawRadiusCircle(this.centerValue, this.radiusKmValue)
@@ -29,8 +34,14 @@ export default class extends Controller {
     })
   }
 
+  disconnect() {
+    window.removeEventListener("map:focus", this._onFocus)
+  }
+
   #addMarkersToMap() {
     this._markerInstances = []
+    this._markerIndex = new Map()
+
     if (!Array.isArray(this.markersValue)) return
     this.markersValue.forEach((marker) => {
       const popup = new mapboxgl.Popup().setHTML(marker.info_window_html || "")
@@ -39,6 +50,9 @@ export default class extends Controller {
         .setPopup(popup)
         .addTo(this.map)
       this._markerInstances.push(m)
+
+      const key = `${Number(marker.lat).toFixed(6)},${Number(marker.lng).toFixed(6)}`
+      this._markerIndex.set(key, m)
     })
   }
 
@@ -46,7 +60,7 @@ export default class extends Controller {
     if (!this.markersValue?.length) return
     const bounds = new mapboxgl.LngLatBounds()
     this.markersValue.forEach(m => bounds.extend([Number(m.lng), Number(m.lat)]))
-    this.map.fitBounds(bounds, { padding: 70, maxZoom: 32, duration: 120 })
+    this.map.fitBounds(bounds, { padding: 70, maxZoom: 13, duration: 120 })
   }
 
   #fitToCircleOrMarkers() {
@@ -55,7 +69,7 @@ export default class extends Controller {
       const coords = src._data.features[0].geometry.coordinates[0]
       const bounds = new mapboxgl.LngLatBounds()
       coords.forEach(([lng, lat]) => bounds.extend([lng, lat]))
-      this.map.fitBounds(bounds, { padding: 70, maxZoom: 32, duration: 120 })
+      this.map.fitBounds(bounds, { padding: 70, maxZoom: 16, duration: 120 })
     } else {
       this.#fitMapToMarkers()
     }

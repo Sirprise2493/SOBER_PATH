@@ -85,3 +85,5 @@ gem "devise"
 
 # Geocoding
 gem "geocoder"
+
+gem "country_select", "~> 11.0"

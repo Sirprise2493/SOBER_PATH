@@ -1,23 +1,22 @@
-# app/controllers/pages_controller.rb
 class PagesController < ApplicationController
   skip_before_action :authenticate_user!, only: :home
 
   def home; end
 
   def meetings
-    # Simple Form -> flach spiegeln (falls genutzt)
+    # Map Simple Form nested params to flat keys
     if params[:search].present?
       params[:address]   = params[:search][:address]
       params[:radius_km] = params[:search][:radius_km]
     end
 
-    # Radius: Float, Default 20.0, clamp 0.3..50.0
+    # Radius as float, clamp 0.3..50.0
     @radius_km = params[:radius_km].presence ? params[:radius_km].to_f : 20.0
     @radius_km = @radius_km.clamp(0.3, 50.0)
 
     start_address = params[:address].presence || current_user&.address
 
-    # Mittelpunkt bestimmen (per Geocoder)
+    # Determine center (geocode)
     @center_lat = @center_lng = @center_label = nil
     if start_address.present?
       if (geo = Geocoder.search(start_address).first)
@@ -27,23 +26,24 @@ class PagesController < ApplicationController
       end
     end
 
-    # Fallback: erstes Venue
+    # Fallback: first venue
     if @center_lat.blank? || @center_lng.blank?
       if (first = AaVenue.geocoded.first)
         @center_lat  = first.latitude
         @center_lng  = first.longitude
-        @center_label = first.try(:address) || [first.street, first.zip, first.city].compact_blank.join(", ")
+        @center_label = [first.street, first.zip, first.city].compact_blank.join(", ")
       end
     end
 
-    # Venues innerhalb des Radius (km)
+    # Venues within radius (sorted by distance) or all geocoded if no center
     @venues =
       if @center_lat && @center_lng
-        AaVenue.near([@center_lat, @center_lng], @radius_km, units: :km)
+        AaVenue.near([@center_lat, @center_lng], @radius_km, units: :km).order("distance")
       else
         AaVenue.geocoded
       end
 
+    # Build markers for Mapbox
     @markers = @venues.map do |venue|
       {
         lat: venue.latitude,
@@ -55,7 +55,9 @@ class PagesController < ApplicationController
         )
       }
     end
+
+    # New venues
+    @venue = AaVenue.new
+    @venue.aa_meetings.new
   end
-
-
 end

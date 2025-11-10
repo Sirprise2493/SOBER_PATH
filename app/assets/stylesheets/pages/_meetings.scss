@@ -1,0 +1,196 @@
+.meetings {
+  display: flex;
+  gap: 16px;
+  align-items: stretch;
+
+  &__sidebar {
+    width: 380px;
+    max-width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  &__title {
+    margin: 0 0 4px;
+    font-size: 1.25rem;
+    font-weight: 600;
+  }
+
+  &__form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+    // simple_form spacing tweaks
+    .input { margin-bottom: 10px; }
+    .btn   { width: 100%; }
+  }
+
+  &__radius {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+
+    &-label {
+      font-size: 0.95rem;
+      color: #374151; // gray-700
+    }
+
+    &-value {
+      font-variant-numeric: tabular-nums;
+      font-weight: 600;
+      margin: 0 4px;
+      display: inline-block;
+      min-width: 2.5ch;
+      text-align: right;
+    }
+
+    input[type="range"] { width: 100%; }
+  }
+
+  &__submit { margin-top: 4px; }
+
+  &__summary {
+    font-size: 0.85rem;
+    color: #6b7280; // gray-500
+  }
+
+  &__list {
+    list-style: none;
+    padding: 0;
+    margin: 8px 0 0;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  &__item {
+    border: 1px solid #e5e7eb; // gray-200
+    border-radius: 10px;
+    padding: 10px;
+    cursor: pointer;
+    transition: background 120ms ease;
+
+    &:hover { background: #f9fafb; } // gray-50
+
+    &-title   { font-weight: 600; margin-bottom: 2px; }
+    &-address { font-size: 0.9rem; color: #4b5563; } // gray-600
+    &-distance{ font-size: 0.9rem; color: #4b5563; }
+    &-link    { font-size: 0.9rem; color: #4b5563;
+
+      a { text-decoration: underline; }
+    }
+  }
+
+  &__map {
+    flex: 1;
+    min-height: 600px;
+    height: 70vh;
+
+    // Make Mapbox canvas look nice
+    .mapboxgl-canvas { border-radius: 12px; }
+  }
+
+  /* Create Venue block under the map */
+  &__create {
+    margin-top: 16px;
+    padding-top: 16px;
+    border-top: 1px solid #e5e7eb;
+
+    &-title {
+      margin: 0 0 8px;
+      font-size: 1.1rem;
+      font-weight: 600;
+    }
+
+    &-form {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+
+      .error { color: #b91c1c; } // red-700 for error messages
+    }
+  }
+
+  &__grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+
+    .input { margin-bottom: 0; } // simple_form
+
+    @media (max-width: 700px) {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  &__meetings {
+    border: 1px solid #e5e7eb;
+    border-radius: 10px;
+    padding: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+    &-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 4px;
+    }
+
+    &-rows {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+  }
+
+  &__meeting-row {
+    border: 1px dashed #d1d5db;
+    border-radius: 8px;
+    padding: 10px;
+    background: #fafafa;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  // weekday, starts_at, ends_at, checkbox, url
+  &__meeting-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr auto 1fr;
+    gap: 8px;
+    align-items: center;
+
+    @media (max-width: 900px) {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  &__actions {
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  /* Responsive */
+  @media (max-width: 900px) {
+    flex-direction: column;
+
+    &__sidebar { width: 100%; }
+    &__map     { height: 60vh; }
+  }
+
+  &__meeting-grid {
+    // for readability: 2 narrow selects + preview + checkbox + url
+    grid-template-columns: 1.1fr 1.1fr 1.1fr auto 1.6fr;
+    @media (max-width: 900px) { grid-template-columns: 1fr 1fr; }
+  }
+
+  .form-control-plaintext {
+    padding: 0.375rem 0;
+    min-height: 2.4rem;
+  }
+
+}
