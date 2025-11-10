@@ -1,3 +1,4 @@
+# db/seeds.rb
 require "faker"
 
 Faker::Config.locale = "en"
@@ -20,14 +21,26 @@ end
 [User, JournalContent, AiChatMessage, Friendship, UserChatMessage, UserChatMessagesResponse].each { |m| reset_pk!(m) }
 
 puts "==> Creating users…"
+Faker::UniqueGenerator.clear # falls Seeds erneut laufen
+
 N_USERS = 30
 users = Array.new(N_USERS) do |i|
   first = Faker::Name.first_name
   last  = Faker::Name.last_name
+
+  # Username: nur Buchstaben, Ziffern, Unterstrich (deine Validierung)
+  base = "#{first}_#{last}".downcase
+  uname = base.gsub(/[^a-z0-9_]/, "_").gsub(/_+/, "_")[0..31]
+  # Falls schon vorhanden (case-insensitive), häng Index an
+  if User.where("LOWER(username) = ?", uname.downcase).exists?
+    uname = "#{uname}_#{i}"
+    uname = uname[0..31]
+  end
+
   User.create!(
     first_name: first,
     last_name:  last,
-    username:   Faker::Internet.unique.username(specifier: "#{first} #{last}", separators: %w[._-])[0..31],
+    username:   uname,
     date_of_birth: Faker::Date.birthday(min_age: 20, max_age: 65),
     address:    Faker::Address.full_address,
     email:      Faker::Internet.unique.email(name: "#{first}.#{last}"),
@@ -37,7 +50,11 @@ users = Array.new(N_USERS) do |i|
     counsellor: (i % 10 == 0), # ~10% are counsellors
     # Moderation
     strike_count: [0, 0, 0, 1].sample,
-    messaging_suspended_until: (rand < 0.08 ? 2.days.from_now : nil) # ~8% temporarily suspended
+    messaging_suspended_until: (rand < 0.08 ? 2.days.from_now : nil),
+
+    # Devise-Pflichtfelder
+    password: "Test1234!",
+    password_confirmation: "Test1234!"
   )
 end
 
@@ -60,27 +77,46 @@ while JournalContent.count < 10
 end
 
 puts "==> Creating AI chat transcripts…"
+USER_PROMPTS = [
+  "It's hard to stay sober today.",
+  "I just reached 30 days!",
+  "Cravings are stronger in the evening.",
+  "I slipped yesterday and feel ashamed.",
+  "How do I handle a party invitation?"
+]
+
+AI_RESPONSES = [
+  "Thanks for sharing. Urges pass—try a 10-minute distraction and check in afterward.",
+  "Congrats on 30 days! Celebrate safely and note what helped you get here.",
+  "Evenings are tough; plan a short routine for that window and message a buddy.",
+  "Be kind to yourself. One lapse isn’t a collapse; what’s one thing you learned?",
+  "If you go, bring support and an exit plan. If not, suggest an alternative."
+]
+
 users.each do |u|
-  # 10 messages per user, alternating user/AI
-  10.times do |i|
+  # 5 Konversationen pro User: je eine Zeile mit user message + ai_answer
+  5.times do
+    prompt = USER_PROMPTS.sample || Faker::Lorem.sentence(word_count: 12)
+    answer = AI_RESPONSES.sample || Faker::Lorem.sentence(word_count: 16)
     AiChatMessage.create!(
       user: u,
-      is_ai_message: i.odd?,
-      message_content: i.odd? ?
-        Faker::Lorem.sentence(word_count: 16) :
-        ["It's hard to stay sober today.",
-         "I just reached 30 days!",
-         "Cravings are stronger in the evening."].sample
+      message_content: prompt,
+      ai_answer: answer
     )
   end
 end
+# Fallback: mindestens 10 Datensätze
 while AiChatMessage.count < 10
-  AiChatMessage.create!(user: users.sample, is_ai_message: [true, false].sample, message_content: Faker::Lorem.sentence)
+  AiChatMessage.create!(
+    user: users.sample,
+    message_content: Faker::Lorem.sentence(word_count: 10),
+    ai_answer: Faker::Lorem.sentence(word_count: 16)
+  )
 end
 
 puts "==> Creating friendships…"
-pairs = users.combination(2).to_a.sample(80) # up to 80 attempts
-states = [0, 0, 1, 2] # more pending than others
+pairs = users.combination(2).to_a.sample(80) # bis zu 80 Versuche
+states = [0, 0, 1, 2] # mehr pending als andere
 pairs.each do |a, b|
   begin
     Friendship.create!(
