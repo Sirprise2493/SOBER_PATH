@@ -1,5 +1,7 @@
 # app/models/user.rb
 class User < ApplicationRecord
+  geocoded_by :address
+  after_validation :geocode, if: :will_save_change_to_address?
   # ---- Devise ----
   # :validatable adds presence/format/uniqueness for email.
   devise :database_authenticatable, :registerable,
