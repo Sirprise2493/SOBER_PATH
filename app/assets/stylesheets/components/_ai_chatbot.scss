@@ -1,0 +1,60 @@
+.chatbot {
+  background: white;
+  margin-top: 9px;
+  height: calc(100vh - 75px);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  flex-grow: 1;
+
+  h1 {
+    border-bottom: 1px solid $gray-200;
+    margin-bottom: 0;
+    padding: 1rem;
+  }
+
+  /* Liste der Messages */
+  #ai_chat_messages {
+    height: 100%;
+    overflow: auto; /* scroll -> auto ist hier meist besser */
+    padding: 1rem;
+  }
+
+  /* Einzelne Message-Container */
+  .ai_chat_message {
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* Bubbles (User & AI) */
+  .user-ai_chat_message,
+  .ai-answer {
+    border-radius: 1rem;
+    margin-bottom: 1rem;
+    padding: 0.5rem;
+    max-width: 70%;
+    width: fit-content;
+    word-wrap: break-word;
+  }
+
+  .user-ai_chat_message {
+    align-self: flex-end;
+    background: $blue;
+    color: $light-gray;
+  }
+
+  .ai-answer {
+    align-self: flex-start;
+    background: $gray-200;
+  }
+
+  /* Formularbereich – nutzt die generierte ID von simple_form: #new_ai_chat_message */
+  #new_ai_chat_message {
+    border-top: 1px solid $gray-200;
+    padding: 1rem;
+
+    .form-group {
+      margin-bottom: 0;
+    }
+  }
+}

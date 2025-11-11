@@ -30,5 +30,7 @@ module SoberPath
     #
     # config.time_zone = "Central Time (US & Canada)"
     # config.eager_load_paths << Rails.root.join("extras")
+
+    config.active_job.queue_adapter = :solid_queue
   end
 end
