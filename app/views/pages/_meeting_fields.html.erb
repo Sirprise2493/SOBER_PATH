@@ -1,0 +1,43 @@
+<%# expects local: f (SimpleForm::FormBuilder for AaMeeting) %>
+<div class="meetings__meeting-row" data-controller="meeting-row" data-nested-target="row">
+  <div class="meetings__meeting-grid">
+    <%= f.input :weekday,
+                collection: AaMeeting.weekdays.keys.map { |k| [k.titleize, k] },
+                include_blank: false,
+                label: "Weekday" %>
+
+    <%= f.input :starts_at,
+                as: :select,
+                collection: times_15min_collection,
+                include_blank: false,
+                label: "Starts at",
+                input_html: { data: { meeting_row_target: "start", action: "change->meeting-row#recalc" } } %>
+
+    <%= f.input :duration_minutes,
+                as: :select,
+                collection: duration_collection,
+                include_blank: false,
+                label: "Duration",
+                input_html: { data: { meeting_row_target: "duration", action: "change->meeting-row#recalc" } } %>
+
+    <div class="form-group">
+      <label class="form-label">Ends at</label>
+      <div class="form-control-plaintext" data-meeting-row-target="endsPreview">—</div>
+      <%= f.input :ends_at, as: :hidden, input_html: { data: { meeting_row_target: "endsHidden" } }, label: false %>
+    </div>
+
+    <%= f.input :is_online, as: :boolean, label: "Online?",
+                input_html: { data: { action: "change->meeting-row#toggleOnline" } } %>
+
+    <div data-meeting-row-target="onlineUrlWrap" class="w-100">
+      <%= f.input :online_url, placeholder: "https://…", label: "Online URL" %>
+    </div>
+  </div>
+
+  <%= f.input :_destroy, as: :hidden %>
+  <button class="btn btn-sm btn-outline-danger"
+          type="button"
+          data-action="nested#remove">
+    Remove
+  </button>
+</div>

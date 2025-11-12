@@ -1,0 +1,76 @@
+<div class="meetings">
+  <aside class="meetings__sidebar">
+    <h2 class="meetings__title">Meetings near you</h2>
+
+    <%= simple_form_for :search, url: meetings_path, method: :get, html: { class: "meetings__form" } do |f| %>
+      <%= f.input :address,
+        label: "Address",
+        input_html: { value: params[:address].presence || current_user&.address, placeholder: "e.g. Luisenplatz, Darmstadt" } %>
+
+      <div class="meetings__radius" data-controller="range">
+        <label class="meetings__radius-label">
+          Radius:
+          <span class="meetings__radius-value" data-range-target="label">
+            <%= number_with_precision(radius_km || 20, precision: 1) %>
+          </span>
+          km
+        </label>
+
+        <%= f.input :radius_km,
+          as: :range,
+          label: false,
+          input_html: {
+            min: 0.3, max: 50, step: 0.1,
+            value: (radius_km || 20),
+            data: { action: "input->range#update" }
+          } %>
+      </div>
+
+      <%= f.button :submit, "Search", class: "meetings__submit btn btn-primary" %>
+    <% end %>
+
+    <div class="meetings__summary">
+      <small>
+        Center: <%= center_label || "-" %><br>
+        Radius: <%= number_with_precision(radius_km, precision: 1) %> km ·
+        Results: <%= venues.size %>
+      </small>
+    </div>
+
+    <ul class="meetings__list">
+      <% venues.each do |v| %>
+        <li class="meetings__item"
+            data-controller="map-focus"
+            data-action="click->map-focus#go"
+            data-map-focus-lat-value="<%= v.latitude %>"
+            data-map-focus-lng-value="<%= v.longitude %>">
+          <div class="meetings__item-title"><%= v.name %></div>
+          <div class="meetings__item-address">
+            <%= [v.street, v.zip, v.city].compact_blank.join(", ") %>
+          </div>
+          <% if v.respond_to?(:distance) && v.distance.present? %>
+            <div class="meetings__item-distance"><%= number_with_precision(v.distance, precision: 1) %> km</div>
+          <% end %>
+          <% if v.website_url.present? %>
+            <div class="meetings__item-link">
+              <a href="<%= v.website_url %>" target="_blank" rel="noopener">Website</a>
+            </div>
+          <% end %>
+        </li>
+      <% end %>
+    </ul>
+  </aside>
+
+  <div class="meetings__map"
+       data-controller="map"
+       data-map-markers-value='<%= raw markers.to_json %>'
+       data-map-api-key-value='<%= ENV["MAPBOX_API_KEY"] %>'
+       data-map-center-value='<%= raw(center.to_json) %>'
+       data-map-radius-km-value='<%= radius_km %>'>
+  </div>
+</div>
+
+
+<%= turbo_frame_tag "venue_form" do %>
+  <%= render "pages/venue_form", venue: @venue %>
+<% end %>
