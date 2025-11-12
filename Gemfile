@@ -82,3 +82,9 @@ gem "cloudinary"
 
 # Authentification
 gem "devise"
+
+
+# Open-Ai
+gem "ruby-openai"
+gem "solid_cable", "~> 1.0.3"
+gem "solid_queue"

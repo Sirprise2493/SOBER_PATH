@@ -1,0 +1,5 @@
+<div id="<%= dom_id(ai_chat_message) %>" class="ai_chat_message">
+  <%= turbo_stream_from dom_id(ai_chat_message) %>
+  <p class="user-ai_chat_message"><%= ai_chat_message.message_content %></p>
+  <p class="ai-answer"><%= ai_chat_message.ai_answer || "..." %></p>
+</div>
