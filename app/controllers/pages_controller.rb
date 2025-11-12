@@ -60,4 +60,9 @@ class PagesController < ApplicationController
     @venue = AaVenue.new
     @venue.aa_meetings.new
   end
+
+  def chatroom
+    @ai_chat_messages = current_user.ai_chat_messages.order(created_at: :desc).limit(30).to_a.reverse
+    @ai_chat_message = AiChatMessage.new
+  end
 end

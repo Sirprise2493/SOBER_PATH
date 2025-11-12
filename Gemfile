@@ -87,3 +87,8 @@ gem "devise"
 gem "geocoder"
 
 gem "country_select", "~> 11.0"
+
+# Open-Ai
+gem "ruby-openai"
+gem "solid_cable", "~> 1.0.3"
+gem "solid_queue"
