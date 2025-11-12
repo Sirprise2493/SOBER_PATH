@@ -6,8 +6,6 @@ Rails.application.routes.draw do
 
   resources :aa_venues, only: [:create, :destroy, :edit, :update]
   get 'ai_chat_messages/create'
-  devise_for :users
-  root to: "pages#home"
 
   # Chatroom
   get "chatroom", to: "pages#chatroom", as: :chatroom
