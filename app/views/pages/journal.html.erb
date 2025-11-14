@@ -1,0 +1,9 @@
+<!-- app/views/pages/journal.html.erb -->
+
+<h1>Your Journal</h1>
+
+<% if notice.present? %>
+  <p class="alert alert-info"><%= notice %></p>
+<% end %>
+
+<%= render "journal_book", journal_content: @journal_content %>

@@ -11,4 +11,10 @@ Rails.application.routes.draw do
   get "chatroom", to: "pages#chatroom", as: :chatroom
   # AI Chat (Rest Routes for Hotwire/Turbo)
   resources :ai_chat_messages, only: [:create]
+
+  # Journal
+  get "/journal", to: "pages#journal", as: :journal
+  resources :journal_contents, only: [:create, :show] do
+    post :regenerate_photo, on: :member
+  end
 end

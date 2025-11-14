@@ -1,0 +1,5 @@
+
+<li id="<%= dom_id(journal_content) %>">
+  <strong><%= l(journal_content.created_at.to_date) %>:</strong>
+  <%= truncate(journal_content.content, length: 80) %>
+</li>

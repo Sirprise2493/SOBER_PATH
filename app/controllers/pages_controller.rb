@@ -65,4 +65,14 @@ class PagesController < ApplicationController
     @ai_chat_messages = current_user.ai_chat_messages.order(created_at: :desc).limit(30).to_a.reverse
     @ai_chat_message = AiChatMessage.new
   end
+
+  def journal
+    @date = Date.current
+
+    @journal_content =
+      current_user.journal_contents
+                  .where("DATE(created_at) = ?", @date)
+                  .first ||
+      current_user.journal_contents.new
+  end
 end
