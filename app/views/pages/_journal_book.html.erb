@@ -44,33 +44,18 @@
 
 
   <!-- Right page: photo + motivational text -->
-<div class="book-page right">
-  <% if journal_content&.persisted? %>
-    <% if journal_content.photo.attached? %>
-      <div class="photo">
-        <%= image_tag url_for(journal_content.photo) %>
-        <!-- Wenn Varianten bei Cloudinary funktionieren, kannst du auch:
-        <%= image_tag journal_content.photo.variant(resize_to_limit: [600, 600]) %>
-        -->
-      </div>
+  <div class="book-page right">
+    <% if journal_content&.persisted? %>
+      <turbo-frame id="<%= dom_id(journal_content, :ai_panel) %>">
+        <%= render "journal_contents/ai_panel", journal_content: journal_content %>
+      </turbo-frame>
+    <% elsif date == today %>
+      <p>After saving today's entry, an AI-generated picture and motivational text will appear here.</p>
     <% else %>
-      <p>AI picture is being generated…</p>
+      <p>No picture for this day.</p>
     <% end %>
+  </div>
 
-    <% if journal_content.motivational_text.present? %>
-      <p class="motivational"><%= journal_content.motivational_text %></p>
-    <% end %>
 
-    <%= button_to "Regenerate picture",
-                  regenerate_photo_journal_content_path(journal_content),
-                  method: :post,
-                  class: "btn" %>
-
-  <% elsif date == today %>
-    <p>After saving today's entry, an AI-generated picture and motivational text will appear here.</p>
-  <% else %>
-    <p>No picture for this day.</p>
-  <% end %>
-</div>
 
 </div>

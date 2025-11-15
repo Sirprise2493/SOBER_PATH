@@ -1,0 +1,21 @@
+<% if journal_content.photo.attached? %>
+  <div class="photo">
+    <%= image_tag url_for(journal_content.photo) %>
+    <!-- Optional: Cloudinary-Variante
+    <%= image_tag journal_content.photo.variant(resize_to_limit: [600, 600]) %>
+    -->
+  </div>
+<% else %>
+  <p>AI picture is being generated…</p>
+<% end %>
+
+<% if journal_content.motivational_text.present? %>
+  <p class="motivational"><%= journal_content.motivational_text %></p>
+<% else %>
+  <p>Motivational text is being generated…</p>
+<% end %>
+
+<%= button_to "Regenerate picture",
+              regenerate_photo_journal_content_path(journal_content),
+              method: :post,
+              class: "btn" %>
