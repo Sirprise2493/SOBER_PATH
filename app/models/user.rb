@@ -2,6 +2,7 @@
 class User < ApplicationRecord
   geocoded_by :address
   after_validation :geocode, if: :will_save_change_to_address?
+  after_validation :set_time_zone_from_coordinates, if: :will_save_change_to_address?
   # ---- Devise ----
   # :validatable adds presence/format/uniqueness for email.
   devise :database_authenticatable, :registerable,
@@ -80,5 +81,17 @@ class User < ApplicationRecord
   def sobriety_days
     return 0 unless sobriety_start_date
     (Date.current - sobriety_start_date).to_i
+  end
+
+  def set_time_zone_from_coordinates
+    return if latitude.blank? || longitude.blank?
+
+    begin
+      zone = Timezone.lookup(latitude, longitude)  # aus dem timezone-Gem
+      self.time_zone = zone.name if zone
+    rescue StandardError => e
+      Rails.logger.error "Timezone lookup failed: #{e.class} - #{e.message}"
+      self.time_zone ||= "Europe/Berlin"
+    end
   end
 end

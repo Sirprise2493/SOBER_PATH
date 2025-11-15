@@ -1,9 +1,21 @@
-<!-- app/views/pages/journal.html.erb -->
+<div class="journal-nav">
+  <%= link_to "⟵ Previous day", journal_path(date: (@date - 1.day)), class: "btn" %>
 
-<h1>Your Journal</h1>
+  <span><%= l @date %></span>
 
-<% if notice.present? %>
-  <p class="alert alert-info"><%= notice %></p>
-<% end %>
+  <% if @date < @today %>
+    <%= link_to "Next day ⟶", journal_path(date: (@date + 1.day)), class: "btn" %>
+  <% else %>
+    <span class="btn disabled">Next day ⟶</span>
+  <% end %>
 
-<%= render "journal_book", journal_content: @journal_content %>
+  <%= form_with url: journal_path, method: :get, local: true do |f| %>
+    <%= f.date_field :date, value: @date %>
+    <%= f.submit "Go" %>
+  <% end %>
+</div>
+
+<%= render "pages/journal_book",
+           journal_content: @journal_content,
+           date: @date,
+           today: @today %>
