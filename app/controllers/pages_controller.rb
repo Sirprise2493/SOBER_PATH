@@ -66,5 +66,6 @@ class PagesController < ApplicationController
     @ai_chat_message = AiChatMessage.new
     @user_chat_messages = UserChatMessage.order(created_at: :desc).limit(50).to_a.reverse
     @user_chat_partners = User.joins(:user_chat_messages).where.not(id: current_user.id).distinct
+    @all_chat_users = User.where.not(id: current_user.id).order(:username)
   end
 end

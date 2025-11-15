@@ -40,28 +40,58 @@
 
   </aside>
 
-  <!-- main chat area -->
-  <main class="chat-main">
-    <h1>Chat with us</h1>
+  <!-- main chat area + members panel -->
+  <div class="chat-main-wrapper">
+    <main class="chat-main">
+      <h1>Chat with us</h1>
 
-    <section id="ai-chat-section" class="chat-main__section" data-chat-switcher-target="aiSection">
-      <div id="ai_chat_messages"><%= render @ai_chat_messages %></div>
-      <%= render "ai_chat_messages/form", ai_chat_message: @ai_chat_message %>
-    </section>
+      <section id="ai-chat-section" class="chat-main__section" data-chat-switcher-target="aiSection">
+        <div id="ai_chat_messages"><%= render @ai_chat_messages %></div>
+        <%= render "ai_chat_messages/form", ai_chat_message: @ai_chat_message %>
+      </section>
 
-    <section id="user-chat-section" class="chat-main__section d-none" data-chat-switcher-target="communitySection">
-      <% if @user_chat_partners.present? %>
-        <div id="user_chat_messages"><%= render @user_chat_messages %></div>
-        <%= render "user_chat_messages/form" %>
-      <% else %>
-        <div class="chat-empty-state">
-          <div class="chat-empty-state__content">
-            <p class="chat-empty-state__title">No messages yet</p>
-            <p class="chat-empty-state__text">Once you start a chat, your conversation will appear here.</p>
+      <section id="user-chat-section" class="chat-main__section d-none" data-chat-switcher-target="communitySection">
+        <% if @user_chat_partners&.any? %>
+          <div id="user_chat_messages"><%= render @user_chat_messages %></div>
+          <%= render "user_chat_messages/form" %>
+        <% else %>
+          <div class="chat-empty-state">
+            <div class="chat-empty-state__content">
+              <p class="chat-empty-state__title">No messages yet</p>
+              <p class="chat-empty-state__text">Once you start a chat, your conversation will appear here.</p>
+            </div>
           </div>
-        </div>
-      <% end %>
-    </section>
-  </main>
+        <% end %>
+      </section>
+    </main>
+
+    <aside class="chat-users-panel d-none" data-controller="user-list" data-chat-switcher-target="membersPanel">
+      <div class="chat-users-panel__header">
+        <h2 class="chat-users-panel__title">Members</h2>
+        <input type="text" class="chat-users-panel__search" placeholder="Search members..." data-user-list-target="filter" data-action="input->user-list#filter">
+      </div>
+
+      <div class="chat-users-panel__list">
+        <% @all_chat_users.each do |member| %>
+          <button class="chat-users-panel__item" type="button" data-user-list-target="item" data-username="<%= member.username.downcase %>">
+            <div class="chat-users-panel__avatar">
+              <% if member.avatar.attached? %>
+                <%= image_tag member.avatar.variant(resize_to_fill: [32, 32]), alt: member.username %>
+              <% else %>
+                <div class="chat-users-panel__avatar-fallback"><%= member.username.first.upcase %></div>
+              <% end %>
+            </div>
+            <div class="chat-users-panel__info">
+              <div class="chat-users-panel__name"><%= member.username %></div>
+              <% if member.sobriety_start_date.present? %>
+                <div class="chat-users-panel__meta"><%= member.sobriety_days %> days sober</div>
+              <% end %>
+            </div>
+          </button>
+        <% end %>
+      </div>
+    </aside>
+  </div>
 
 </div>
+
