@@ -11,4 +11,6 @@ Rails.application.routes.draw do
   get "chatroom", to: "pages#chatroom", as: :chatroom
   # AI Chat (Rest Routes for Hotwire/Turbo)
   resources :ai_chat_messages, only: [:create]
+  # User chat messages
+  resources :user_chat_messages, only: [:create]
 end

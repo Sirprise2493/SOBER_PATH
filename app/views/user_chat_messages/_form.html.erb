@@ -1,0 +1,9 @@
+<%= simple_form_for UserChatMessage.new, url: user_chat_messages_path do |f| %>
+  <div class="input-group mb-3 w-100">
+    <div class="form-floating">
+      <%= f.input :message_content, label: false, wrapper: false %>
+      <%= f.label :message_content, "Share something with the community" %>
+    </div>
+    <%= f.submit "Send", class: "btn btn-primary" %>
+  </div>
+<% end %>

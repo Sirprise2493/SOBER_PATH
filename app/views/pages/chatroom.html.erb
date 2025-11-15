@@ -1,7 +1,67 @@
-<div class="container chatbot">
-  <h1>Chat with us</h1>
-  <div id="ai_chat_messages">
-    <%= render @ai_chat_messages %>
-  </div>
-  <%= render "ai_chat_messages/form", ai_chat_message: @ai_chat_message %>
+<div class="chat-layout chatbot" data-controller="chat-switcher">
+
+  <!-- left sidebar -->
+  <aside class="chat-sidebar chat-sidebar--compact" data-chat-switcher-target="sidebar">
+
+    <!-- left column navigation -->
+    <div class="chat-sidebar__nav">
+      <h2 class="chat-sidebar__title">Chats</h2>
+      <ul class="chat-sidebar__menu">
+        <li><button class="chat-sidebar__item chat-sidebar__item--active" data-chat-switcher-target="tab" data-action="click->chat-switcher#showAi">AI chat</button></li>
+        <li><button class="chat-sidebar__item" data-chat-switcher-target="tab" data-action="click->chat-switcher#showCommunity">Chats</button></li>
+      </ul>
+    </div>
+
+    <!-- right column list of chat users -->
+    <div class="chat-sidebar__list d-none" data-chat-switcher-target="communityList">
+      <% if @user_chat_partners&.any? %>
+        <% @user_chat_partners.each do |partner| %>
+          <% last_message = partner.user_chat_messages.order(created_at: :desc).first %>
+
+          <button class="chat-sidebar__conversation" type="button" data-user-id="<%= partner.id %>">
+            <div class="chat-sidebar__avatar">
+              <% if partner.avatar.attached? %>
+                <%= image_tag partner.avatar.variant(resize_to_fill: [32, 32]), alt: partner.username %>
+              <% else %>
+                <div class="chat-sidebar__avatar-fallback"><%= partner.username.first.upcase %></div>
+              <% end %>
+            </div>
+
+            <div class="chat-sidebar__conversation-text">
+              <div class="chat-sidebar__conversation-name"><%= partner.username %></div>
+              <div class="chat-sidebar__conversation-snippet"><%= truncate(last_message&.message_content.to_s, length: 35) %></div>
+            </div>
+          </button>
+        <% end %>
+      <% else %>
+        <p class="text-muted small">Start chatting in Community chat and your conversations will appear here.</p>
+      <% end %>
+    </div>
+
+  </aside>
+
+  <!-- main chat area -->
+  <main class="chat-main">
+    <h1>Chat with us</h1>
+
+    <section id="ai-chat-section" class="chat-main__section" data-chat-switcher-target="aiSection">
+      <div id="ai_chat_messages"><%= render @ai_chat_messages %></div>
+      <%= render "ai_chat_messages/form", ai_chat_message: @ai_chat_message %>
+    </section>
+
+    <section id="user-chat-section" class="chat-main__section d-none" data-chat-switcher-target="communitySection">
+      <% if @user_chat_partners.present? %>
+        <div id="user_chat_messages"><%= render @user_chat_messages %></div>
+        <%= render "user_chat_messages/form" %>
+      <% else %>
+        <div class="chat-empty-state">
+          <div class="chat-empty-state__content">
+            <p class="chat-empty-state__title">No messages yet</p>
+            <p class="chat-empty-state__text">Once you start a chat, your conversation will appear here.</p>
+          </div>
+        </div>
+      <% end %>
+    </section>
+  </main>
+
 </div>
