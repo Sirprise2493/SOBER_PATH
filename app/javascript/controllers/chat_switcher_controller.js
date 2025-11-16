@@ -1,6 +1,6 @@
 import { Controller } from "@hotwired/stimulus"
 
-// handles switching between AI chat and Chats on left sidebar
+// handles switching between AI chat and Chats on the left sidebar
 export default class extends Controller {
   static targets = ["aiSection", "communitySection", "tab", "communityList", "sidebar"]
 
@@ -31,6 +31,12 @@ export default class extends Controller {
     }
     if (this.hasSidebarTarget) {
       this.sidebarTarget.classList.remove("chat-sidebar--compact")
+    }
+
+    // jump to latest message
+    const feed = document.getElementById("user_chat_messages")
+    if (feed) {
+      feed.scrollTop = feed.scrollHeight
     }
   }
 
