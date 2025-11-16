@@ -1,0 +1,10 @@
+<h1>Hi <%= @username %></h1>
+<p>AI Chat Messages: <%= @all_ai_messages %></p>
+<p>Journal Entries: <%= @all_journal_entries %></p>
+<p>Group Chat messages: <%= @all_user_chat_messages %> </p>
+<p>Group Chat responses: <%= @all_user_chat_messages_responses  %> </p>
+<p>Number of friends: <%= @friends_count %> </p>
+
+
+
+<%= render "milestones_pie_chart", pie_data: @pie_data %>

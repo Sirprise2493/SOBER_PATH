@@ -17,4 +17,7 @@ Rails.application.routes.draw do
   resources :journal_contents, only: [:create, :show] do
     post :regenerate_photo, on: :member
   end
+
+  #Milstones
+  get "/milestones", to: "pages#milestones", as: :milestones
 end

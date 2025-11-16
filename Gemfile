@@ -96,3 +96,6 @@ gem "solid_queue"
 
 #Timezone
 gem "timezone"
+
+# Piechart
+gem "chartkick"

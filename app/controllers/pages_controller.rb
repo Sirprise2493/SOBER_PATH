@@ -91,4 +91,22 @@ class PagesController < ApplicationController
     end
   end
 
+  def milestones
+    @all_ai_messages = current_user.ai_chat_messages.count
+    @all_journal_entries = current_user.journal_contents.count
+    @all_user_chat_messages = current_user.user_chat_messages.count
+    @all_user_chat_messages_responses = current_user.user_chat_messages_responses.count
+
+    @pie_data = {
+      "AI Messages"         => @all_ai_messages,
+      "User Chat Messages"  => @all_user_chat_messages,
+      "Journal Entries"     => @all_journal_entries,
+      "User Chat Responses" => @all_user_chat_messages_responses
+    }
+
+    @friends_count = Friendship.where(status_of_friendship_request: 1)
+    .where("asker_id = :user_id OR receiver_id = :user_id", user_id: current_user.id).count
+
+    @username = current_user.username
+  end
 end
