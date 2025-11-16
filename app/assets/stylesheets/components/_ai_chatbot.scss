@@ -463,6 +463,15 @@ turbo-frame#message_thread:empty {
   margin-bottom: 0.5rem;
 }
 
+.user-chat-message__actions {
+  margin-top: 0.25rem;
+}
+
+.user-chat-message__comment-count {
+  font-weight: 500;
+}
+
+
 /* form fixed at the bottom of the thread panel */
 
 .message-thread__form {
