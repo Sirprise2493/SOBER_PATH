@@ -1,6 +1,16 @@
-<div class="user-chat-message">
-  <p>
+<div id="<%= dom_id(user_chat_message) %>" class="user-chat-message">
+  <p class="mb-1">
     <strong><%= user_chat_message.user.username %>:</strong>
     <%= simple_format(user_chat_message.message_content) %>
   </p>
+
+  <% if user_chat_message.user == current_user %>
+    <div class="small text-muted">
+      <%= button_to "Delete",
+                    user_chat_message_path(user_chat_message),
+                    method: :delete,
+                    data: { turbo_confirm: "Delete this message?" },
+                    class: "btn btn-link btn-sm text-danger p-0 align-baseline" %>
+    </div>
+  <% end %>
 </div>

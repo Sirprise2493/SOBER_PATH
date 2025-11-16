@@ -14,9 +14,20 @@
         <div class="message-thread__author-avatar">
           <%= @user_chat_message.user.username.to_s.first.upcase %>
         </div>
+
         <div class="message-thread__meta">
           <p class="message-thread__author"><%= @user_chat_message.user.username %></p>
           <p class="message-thread__timestamp"><%= l @user_chat_message.created_at, format: :short %></p>
+
+          <% if @user_chat_message.user == current_user %>
+            <div class="mt-1">
+              <%= button_to "Delete message",
+                            user_chat_message_path(@user_chat_message),
+                            method: :delete,
+                            data: { turbo_confirm: "Delete this message?" },
+                            class: "btn btn-link btn-sm text-danger p-0" %>
+            </div>
+          <% end %>
         </div>
       </div>
 
@@ -30,10 +41,20 @@
         <% if @user_chat_message.user_chat_messages_responses.any? %>
           <ul class="message-thread__comments-list">
             <% @user_chat_message.user_chat_messages_responses.includes(:user).order(:created_at).each do |response| %>
-              <li class="message-thread__comment">
+                <li id="<%= dom_id(response) %>" class="message-thread__comment">
                 <p class="message-thread__comment-author"><%= response.user.username %></p>
                 <p class="message-thread__comment-body"><%= simple_format(response.message_content) %></p>
-              </li>
+
+                <% if response.user == current_user %>
+                    <div class="message-thread__comment-actions">
+                    <%= button_to "Delete",
+                                    user_chat_messages_response_path(response),
+                                    method: :delete,
+                                    data: { turbo_confirm: "Delete this comment?" },
+                                    class: "btn btn-link btn-sm text-danger p-0" %>
+                    </div>
+                <% end %>
+                </li>
             <% end %>
           </ul>
         <% else %>
@@ -47,7 +68,11 @@
       <%= simple_form_for UserChatMessagesResponse.new, url: user_chat_messages_responses_path do |f| %>
         <%= f.hidden_field :user_chat_message_id, value: @user_chat_message.id %>
         <div class="form-floating mb-2">
-          <%= f.input :message_content, as: :text, label: false, wrapper: false, input_html: { rows: 3, placeholder: "Add a comment..." } %>
+          <%= f.input :message_content,
+                      as: :text,
+                      label: false,
+                      wrapper: false,
+                      input_html: { rows: 3, placeholder: "Add a comment..." } %>
           <%= f.label :message_content, "Add a comment" %>
         </div>
         <%= f.submit "Post comment", class: "btn btn-sm btn-primary" %>

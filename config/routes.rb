@@ -12,9 +12,9 @@ Rails.application.routes.draw do
   # AI Chat (Rest Routes for Hotwire/Turbo)
   resources :ai_chat_messages, only: [:create]
   # User chat messages
-  resources :user_chat_messages, only: [:create, :show]
+  resources :user_chat_messages, only: [:create, :show, :destroy]
   
   get "user_chat_messages_responses", to: redirect("/chatroom")
   # User chat responses
-  resources :user_chat_messages_responses, only: [:create]
+  resources :user_chat_messages_responses, only: [:create, :destroy]
 end
