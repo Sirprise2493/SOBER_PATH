@@ -1,4 +1,5 @@
-.milestones-pie-chart-card {
+.milestones-pie-chart-card,
+.milestones-bar-chart-card {
   max-width: 720px;
   margin: 1.5rem auto;
   padding: 1.5rem 1.75rem;
@@ -8,11 +9,22 @@
 
   &__header {
     margin-bottom: 0.75rem;
+
+    h2 {
+      margin: 0;
+      font-size: 1.25rem;
+    }
+  }
+
+  &__subtitle {
+    margin: 0.3rem 0 0;
+    color: #6b7280;
+    font-size: 0.9rem;
   }
 
   &__chart {
     margin-top: 0.5rem;
-    height: 440px; // desktop height
+    height: 440px; // gleiche Höhe für beide Cards am Desktop
   }
 
   /* Tablet / kleines Laptop */

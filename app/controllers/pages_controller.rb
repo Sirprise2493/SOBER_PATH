@@ -108,5 +108,44 @@ class PagesController < ApplicationController
     .where("asker_id = :user_id OR receiver_id = :user_id", user_id: current_user.id).count
 
     @username = current_user.username
+
+
+
+
+
+
+  start_date = 4.weeks.ago.beginning_of_day
+    end_date   = Time.current.end_of_day
+
+    @weekly_activity = [
+      {
+        name: "AI messages",
+        data: current_user.ai_chat_messages
+                        .where(created_at: start_date..end_date)
+                        .group_by_week(:created_at, format: "%d %b")
+                        .count
+      },
+      {
+        name: "Journal entries",
+        data: current_user.journal_contents
+                        .where(created_at: start_date..end_date)
+                        .group_by_week(:created_at, format: "%d %b")
+                        .count
+      },
+      {
+        name: "Chat messages",
+        data: current_user.user_chat_messages
+                        .where(created_at: start_date..end_date)
+                        .group_by_week(:created_at, format: "%d %b")
+                        .count
+      },
+      {
+        name: "Chat responses",
+        data: current_user.user_chat_messages_responses
+                        .where(created_at: start_date..end_date)
+                        .group_by_week(:created_at, format: "%d %b")
+                        .count
+      }
+    ]
   end
 end

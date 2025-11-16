@@ -99,3 +99,6 @@ gem "timezone"
 
 # Piechart
 gem "chartkick"
+
+# Goup by date
+gem "groupdate"

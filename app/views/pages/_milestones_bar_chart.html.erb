@@ -1,0 +1,51 @@
+<div class="milestones-bar-chart-card">
+  <div class="milestones-bar-chart-card__header">
+    <div>
+      <h2>Last 4 weeks</h2>
+      <p class="milestones-bar-chart-card__subtitle">
+        Weekly activity by content type
+      </p>
+    </div>
+  </div>
+
+  <div class="milestones-bar-chart-card__chart">
+    <%= column_chart(
+      @weekly_activity,
+      adapter: "google",
+      height: "100%",
+      stacked: false,
+      legend: "right",
+      library: {
+        backgroundColor: "transparent",
+        legend: {
+          position: "right",
+          alignment: "start",
+          textStyle: {
+            fontSize: 14
+          }
+        },
+        hAxis: {
+          title: "Week",
+          textStyle: { fontSize: 11 },
+          slantedText: true,
+          slantedTextAngle: 30
+        },
+        vAxis: {
+          title: "Count",
+          minValue: 0,
+          viewWindow: { min: 0 },
+          textStyle: { fontSize: 11 }
+        },
+        chartArea: {
+          left: "8%",
+          top: 20,
+          width: "66%",
+          height: "70%"
+        },
+        bar: {
+          groupWidth: "60%"
+        }
+      }
+    ) %>
+  </div>
+</div>
