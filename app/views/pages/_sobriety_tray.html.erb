@@ -1,0 +1,26 @@
+<% milestones = user.earned_coin_milestones %>
+
+<% if milestones.any? %>
+  <section class="page-milestones__tray">
+    <h2>Coins you have earned</h2>
+
+    <div class="sobriety-tray">
+      <%# Tray background %>
+      <%= image_tag "aa_backgrounds/schale.png",
+                    class: "sobriety-tray__background" %>
+
+      <%# Randomly scatter the coins on the tray %>
+      <% milestones.each do |milestone| %>
+        <% x_percent  = rand(30..70)  # narrower horizontally %>
+        <% y_percent  = rand(35..70)  # narrower vertically %>
+        <% rotate_deg = rand(-15..15) # less extreme tilt %>
+
+        <%= image_tag "aa_coins/#{milestone[:file]}",
+                      alt:   milestone[:name],
+                      class: "sobriety-tray__coin",
+                      style: "left: #{x_percent}%; top: #{y_percent}%; transform: translate(-50%, -50%) rotate(#{rotate_deg}deg);",
+                      loading: "lazy" %>
+      <% end %>
+    </div>
+  </section>
+<% end %>

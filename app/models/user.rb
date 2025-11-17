@@ -94,4 +94,12 @@ class User < ApplicationRecord
       self.time_zone ||= "Europe/Berlin"
     end
   end
+
+  def current_coin_milestone
+    SobrietyMilestones.current_for(self)
+  end
+
+  def earned_coin_milestones
+    SobrietyMilestones.earned_for(self)
+  end
 end
