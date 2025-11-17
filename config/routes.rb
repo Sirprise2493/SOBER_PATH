@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   get 'aa_venues/create'
   devise_for :users
+
   root to: "pages#home"
   get 'meetings', to: 'pages#meetings', as: :meetings
 
@@ -9,12 +10,21 @@ Rails.application.routes.draw do
 
   # Chatroom
   get "chatroom", to: "pages#chatroom", as: :chatroom
+
   # AI Chat (Rest Routes for Hotwire/Turbo)
   resources :ai_chat_messages, only: [:create]
+
   # User chat messages
   resources :user_chat_messages, only: [:create, :show, :destroy]
-  
+
   get "user_chat_messages_responses", to: redirect("/chatroom")
+
   # User chat responses
   resources :user_chat_messages_responses, only: [:create, :destroy]
+
+  # User profiles (for "click username" profile page)
+  resources :users, only: [:show]
+
+  # Friendships (connect requests)
+  resources :friendships, only: [:create, :update, :destroy]
 end

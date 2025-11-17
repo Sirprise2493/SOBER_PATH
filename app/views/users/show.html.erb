@@ -1,0 +1,102 @@
+<%= turbo_frame_tag "user_profile_panel" do %>
+  <div class="user-profile-panel" data-controller="user-profile-panel">
+    <button
+      type="button"
+      class="user-profile-panel__close"
+      data-action="click->user-profile-panel#close"
+      aria-label="Close profile">
+      &times;
+    </button>
+
+    <h2><%= @user.username %></h2>
+
+    <% if @user.avatar.attached? %>
+      <p><%= image_tag @user.avatar.variant(resize_to_fill: [80, 80]) %></p>
+    <% end %>
+
+    <p><strong>headline:</strong> <%= @user.headline.presence || "no headline yet" %></p>
+    <p><strong>bio:</strong><br><%= simple_format(@user.bio.to_s) %></p>
+
+    <% if @user.sobriety_start_date.present? %>
+      <p><strong>sobriety days:</strong> <%= @user.sobriety_days %></p>
+    <% end %>
+
+    <hr>
+
+    <% if @user == current_user %>
+      <h3>my connections</h3>
+
+      <h4>friends</h4>
+      <% if @friends.any? %>
+        <ul>
+          <% @friends.each do |friend| %>
+            <li><%= link_to friend.username, user_path(friend) %></li>
+          <% end %>
+        </ul>
+      <% else %>
+        <p>no connections yet.</p>
+      <% end %>
+
+      <h4>incoming requests</h4>
+      <% if @incoming_requests.any? %>
+        <ul>
+          <% @incoming_requests.each do |fr| %>
+            <li>
+              <%= link_to fr.asker.username, user_path(fr.asker) %>
+              (<%= fr.status_of_friendship_request %>)
+
+              <%= button_to "accept",
+                            friendship_path(fr, status: "accepted"),
+                            method: :patch %>
+              <%= button_to "decline",
+                            friendship_path(fr, status: "declined"),
+                            method: :patch,
+                            data: { turbo_confirm: "decline this request?" } %>
+            </li>
+          <% end %>
+        </ul>
+      <% else %>
+        <p>no incoming requests.</p>
+      <% end %>
+
+      <h4>outgoing requests</h4>
+      <% if @outgoing_requests.any? %>
+        <ul>
+          <% @outgoing_requests.each do |fr| %>
+            <li>
+              <%= link_to fr.receiver.username, user_path(fr.receiver) %>
+              (<%= fr.status_of_friendship_request %>)
+            </li>
+          <% end %>
+        </ul>
+      <% else %>
+        <p>no outgoing requests.</p>
+      <% end %>
+
+    <% else %>
+      <h3>connection</h3>
+
+      <% if current_user.connected_with?(@user) %>
+        <p>you are connected.</p>
+      <% elsif current_user.pending_friend_request_for?(@user) %>
+        <% if @friendship&.asker == current_user %>
+          <p>connection request sent. waiting for response.</p>
+        <% else %>
+          <p><%= @user.username %> has sent you a request.</p>
+          <%= button_to "accept",
+                        friendship_path(@friendship, status: "accepted"),
+                        method: :patch %>
+          <%= button_to "decline",
+                        friendship_path(@friendship, status: "declined"),
+                        method: :patch,
+                        data: { turbo_confirm: "decline this request?" } %>
+        <% end %>
+      <% else %>
+        <%= button_to "connect",
+                      friendships_path(receiver_id: @user.id),
+                      method: :post,
+                      class: "btn btn-primary" %>
+      <% end %>
+    <% end %>
+  </div>
+<% end %>

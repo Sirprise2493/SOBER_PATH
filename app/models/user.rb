@@ -1,29 +1,42 @@
-# app/models/user.rb
 class User < ApplicationRecord
   geocoded_by :address
   after_validation :geocode, if: :will_save_change_to_address?
-  # ---- Devise ----
-  # :validatable adds presence/format/uniqueness for email.
+
+  # devise
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable, :trackable
 
-  # ---- Associations ----
-  has_many :journal_contents, dependent: :destroy
-  has_many :ai_chat_messages, dependent: :destroy
-  has_many :user_chat_messages, dependent: :destroy
-  has_many :user_chat_messages_responses, dependent: :destroy
+  # associations
+  has_many :journal_contents,                dependent: :destroy
+  has_many :ai_chat_messages,                dependent: :destroy
+  has_many :user_chat_messages,              dependent: :destroy
+  has_many :user_chat_messages_responses,    dependent: :destroy
 
-  # Friendships (self-join)
-  has_many :friendships_sent,     class_name: "Friendship", foreign_key: :asker_id,    dependent: :destroy
-  has_many :friendships_received, class_name: "Friendship", foreign_key: :receiver_id, dependent: :destroy
+  # friendships (self-join)
+  has_many :friendships_sent,
+           class_name: "Friendship",
+           foreign_key: :asker_id,
+           dependent: :destroy
 
-  has_many :friends_i_asked,      -> { accepted }, through: :friendships_sent,     source: :receiver
-  has_many :friends_who_asked_me, -> { accepted }, through: :friendships_received, source: :asker
+  has_many :friendships_received,
+           class_name: "Friendship",
+           foreign_key: :receiver_id,
+           dependent: :destroy
 
-  # ---- Files ----
+  has_many :friends_i_asked,
+           -> { merge(Friendship.accepted) },
+           through: :friendships_sent,
+           source: :receiver
+
+  has_many :friends_who_asked_me,
+           -> { merge(Friendship.accepted) },
+           through: :friendships_received,
+           source: :asker
+
+  # files
   has_one_attached :avatar
 
-  # ---- Normalization (before validations) ----
+  # normalization (before validations)
   before_validation :normalize_auth_fields
 
   def normalize_auth_fields
@@ -31,32 +44,19 @@ class User < ApplicationRecord
     self.username = username.to_s.strip.downcase.presence
   end
 
-  # ---- Validations ----
+  # validations
   validates :username,
             presence: true,
             uniqueness: { case_sensitive: false },
             length: { in: 3..32 },
             format: { with: /\A[a-z0-9_]+\z/, message: "letters, digits, and underscore only" }
 
-  # Email is handled by Devise::Validatable (presence/format/uniqueness).
   validates :date_of_birth, presence: true
   validate  :must_be_adult, if: -> { date_of_birth.present? }
 
-  def must_be_adult
-    if date_of_birth > 18.years.ago.to_date
-      errors.add(:date_of_birth, "must be at least 18 years old")
-    end
-  end
-
-  # Simple avatar validation (optional)
   validate :avatar_type
-  def avatar_type
-    return unless avatar.attached?
-    unless avatar.content_type&.start_with?("image/")
-      errors.add(:avatar, "must be an image")
-    end
-  end
 
+  # login via username or email
   attr_writer :login
 
   def login
@@ -66,13 +66,15 @@ class User < ApplicationRecord
   def self.find_for_database_authentication(warden_conditions)
     conditions = warden_conditions.dup
     login = conditions.delete(:login)&.downcase
+
     where(conditions.to_h).where(
       "LOWER(username) = :value OR LOWER(email) = :value",
       value: login
     ).first
   end
 
-  # ---- Business logic / helpers ----
+  # business logic / helpers
+
   def can_post_to_room?
     messaging_suspended_until.nil? || messaging_suspended_until < Time.current
   end
@@ -80,5 +82,43 @@ class User < ApplicationRecord
   def sobriety_days
     return 0 unless sobriety_start_date
     (Date.current - sobriety_start_date).to_i
+  end
+
+  # friendships helpers
+
+  # all accepted friends (both directions)
+  def friends
+    (friends_i_asked + friends_who_asked_me).uniq
+  end
+
+  # the friendship record between self and another user, if any
+  def friendship_with(other_user)
+    Friendship.between(self, other_user).first
+  end
+
+  def connected_with?(other_user)
+    friendship = friendship_with(other_user)
+    friendship&.accepted?
+  end
+
+  def pending_friend_request_for?(other_user)
+    friendship = friendship_with(other_user)
+    friendship&.pending?
+  end
+
+  private
+
+  def must_be_adult
+    if date_of_birth > 18.years.ago.to_date
+      errors.add(:date_of_birth, "must be at least 18 years old")
+    end
+  end
+
+  def avatar_type
+    return unless avatar.attached?
+
+    unless avatar.content_type&.start_with?("image/")
+      errors.add(:avatar, "must be an image")
+    end
   end
 end
