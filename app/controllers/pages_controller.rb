@@ -109,11 +109,6 @@ class PagesController < ApplicationController
 
     @username = current_user.username
 
-
-
-
-
-
   start_date = 4.weeks.ago.beginning_of_day
     end_date   = Time.current.end_of_day
 
