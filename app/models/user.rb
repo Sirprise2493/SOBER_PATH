@@ -107,6 +107,10 @@ class User < ApplicationRecord
   def earned_coin_milestones
     SobrietyMilestones.earned_for(self)
   end
+
+  def next_coin_milestone_with_time
+    SobrietyMilestones.next_for(self)
+  end
   # friendships helpers
   
   # all accepted friends (both directions)
@@ -147,6 +151,5 @@ class User < ApplicationRecord
     unless avatar.content_type&.start_with?("image/")
       errors.add(:avatar, "must be an image")
     end
-
   end
 end
