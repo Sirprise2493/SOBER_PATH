@@ -19,8 +19,17 @@ Rails.application.routes.draw do
 
   # Chat + AI messages
   resources :ai_chat_messages, only: [:create]
+
+
+  # Journal
+  get "/journal", to: "pages#journal", as: :journal
+  resources :journal_contents, only: [:create, :show] do
+    post :regenerate_photo, on: :member
+  end
+
   resources :user_chat_messages, only: [:create, :show, :destroy]
   resources :user_chat_messages_responses, only: [:create, :destroy]
 
   resources :aa_venues, only: [:create, :destroy, :edit, :update]
 end
+

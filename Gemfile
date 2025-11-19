@@ -92,3 +92,7 @@ gem "country_select", "~> 11.0"
 gem "ruby-openai"
 gem "solid_cable", "~> 1.0.3"
 gem "solid_queue"
+
+
+#Timezone
+gem "timezone"
