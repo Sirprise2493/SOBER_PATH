@@ -106,6 +106,10 @@ class User < ApplicationRecord
     friendship&.pending?
   end
 
+  def fullname
+    [first_name, last_name].compact.join(" ").strip
+  end
+
   private
 
   def must_be_adult

@@ -1,0 +1,112 @@
+<div class="user-profile-page">
+
+  <h2>My Profile</h2>
+
+  <%# --- Avatar --- %>
+  <% if user.avatar.attached? %>
+    <div class="profile-avatar">
+      <%= image_tag user.avatar.variant(resize_to_fill: [150, 150]), class: "profile-avatar-img" %>
+    </div>
+  <% else %>
+    <p><em>No profile photo uploaded yet.</em></p>
+  <% end %>
+
+  <div class="profile-section">
+    <h3>Personal Information</h3>
+
+    <p><strong>First Name:</strong> <%= user.first_name.presence || "Not set" %></p>
+    <p><strong>Last Name:</strong> <%= user.last_name.presence || "Not set" %></p>
+    <p><strong>Email:</strong> <%= user.email %></p>
+
+    <p><strong>Age:</strong>
+      <% if user.date_of_birth.present? %>
+        <%= ((Date.current - user.date_of_birth).to_i / 365) %> years
+      <% else %>
+        Not set
+      <% end %>
+    </p>
+
+    <p><strong>Address:</strong> <%= user.address.presence || "Not set" %></p>
+
+    <p><strong>City:</strong>
+      <% if user.address.present? %>
+        <%= user.address.split(",").last.strip rescue user.address %>
+      <% else %>
+        Not set
+      <% end %>
+    </p>
+
+    <p><strong>Counsellor:</strong> <%= user.counsellor? ? "Yes" : "No" %></p>
+  </div>
+
+  <div class="profile-section">
+    <h3>Recovery</h3>
+
+    <p><strong>Sobriety Start Date:</strong>
+      <%= user.sobriety_start_date || "Not set" %>
+    </p>
+
+    <p><strong>Sobriety Days:</strong> <%= user.sobriety_days %></p>
+  </div>
+
+  <div class="profile-section">
+    <h3>About</h3>
+
+    <p><strong>Headline:</strong> <%= user.headline.presence || "No headline yet" %></p>
+
+    <p><strong>Bio:</strong><br>
+      <%= simple_format(user.bio.to_s) %>
+    </p>
+  </div>
+
+  <hr>
+
+  <%# ================= CONNECTION LIST ================= %>
+  <h3>My Connections</h3>
+
+  <h4>Friends</h4>
+  <% if friends.any? %>
+    <ul>
+      <% friends.each do |friend| %>
+        <li><%= link_to friend.username, user_path(friend) %></li>
+      <% end %>
+    </ul>
+  <% else %>
+    <p>No connections yet.</p>
+  <% end %>
+
+  <h4>Incoming Requests</h4>
+  <% if incoming_requests.any? %>
+    <ul>
+      <% incoming_requests.each do |fr| %>
+        <li>
+          <%= link_to fr.asker.username, user_path(fr.asker) %>
+          (<%= fr.status_of_friendship_request %>)
+
+          <%= button_to "Accept", friendship_path(fr, status: "accepted"), method: :patch %>
+          <%= button_to "Decline",
+                        friendship_path(fr, status: "declined"),
+                        method: :patch,
+                        data: { turbo_confirm: "Decline this request?" } %>
+        </li>
+      <% end %>
+    </ul>
+  <% else %>
+    <p>No incoming requests.</p>
+  <% end %>
+
+  <h4>Outgoing Requests</h4>
+  <% if outgoing_requests.any? %>
+    <ul>
+      <% outgoing_requests.each do |fr| %>
+        <li>
+          <%= link_to fr.receiver.username, user_path(fr.receiver) %>
+          (<%= fr.status_of_friendship_request %>)
+        </li>
+      <% end %>
+    </ul>
+  <% else %>
+    <p>No outgoing requests.</p>
+  <% end %>
+
+</div>
