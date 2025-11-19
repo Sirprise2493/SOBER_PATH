@@ -9,6 +9,13 @@ class Friendship < ApplicationRecord
                                      message: "hat bereits eine Anfrage an diesen User gestellt" }
   validate :not_self
 
+  # friendships between two users, regardless of direction
+  scope :between, ->(user_a, user_b) {
+    where(asker: user_a, receiver: user_b).or(
+      where(asker: user_b, receiver: user_a)
+    )
+  }
+
   private
 
   def not_self
