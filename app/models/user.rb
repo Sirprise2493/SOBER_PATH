@@ -98,8 +98,17 @@ class User < ApplicationRecord
       self.time_zone ||= "Europe/Berlin"
     end
   end
-  # friendships helpers
 
+
+  def current_coin_milestone
+    SobrietyMilestones.current_for(self)
+  end
+
+  def earned_coin_milestones
+    SobrietyMilestones.earned_for(self)
+  end
+  # friendships helpers
+  
   # all accepted friends (both directions)
   def friends
     (friends_i_asked + friends_who_asked_me).uniq
@@ -138,5 +147,6 @@ class User < ApplicationRecord
     unless avatar.content_type&.start_with?("image/")
       errors.add(:avatar, "must be an image")
     end
+
   end
 end

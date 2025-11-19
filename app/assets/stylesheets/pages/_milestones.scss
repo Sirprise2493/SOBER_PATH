@@ -1,0 +1,82 @@
+.page-milestones {
+  padding: 2rem 1rem;
+  text-align: center;
+
+  &__header {
+    margin-bottom: 2rem;
+
+    h1 {
+      margin-bottom: 0.5rem;
+    }
+
+    p {
+      margin: 0;
+      font-size: 1rem;
+
+      strong {
+        font-weight: 600;
+      }
+    }
+  }
+
+  &__badge,
+  &__tray {
+    margin: 2rem auto;
+    max-width: 800px;
+
+    h2 {
+      margin-bottom: 1rem;
+    }
+  }
+
+  &__badge-label {
+    margin-top: 1rem;
+    font-size: 1rem;
+  }
+}
+
+// Badge: congratulations background + current coin
+.sobriety-badge {
+  position: relative;
+  display: inline-block;
+  max-width: 600px;
+
+  &__bg-img {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
+  &__coin {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -45%);
+
+    &-img {
+      width: 100%; // was smaller before; now clearly bigger
+      height: auto;
+    }
+  }
+}
+
+// Tray: bowl with randomly scattered coins
+.sobriety-tray {
+  position: relative;
+  display: inline-block;
+  max-width: 800px;
+  width: 100%;
+
+  &__background {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
+  &__coin {
+    position: absolute;
+    width: 16%;  // bigger than before
+    height: auto;
+    pointer-events: none;
+  }
+}
