@@ -1,0 +1,30 @@
+<% comments_count = user_chat_message.user_chat_messages_responses.count %>
+
+<div id="<%= dom_id(user_chat_message) %>" class="user-chat-message">
+  <p class="mb-1">
+    <strong><%= user_chat_message.user.username %>:</strong>
+    <%= simple_format(user_chat_message.message_content) %>
+  </p>
+
+  <div class="user-chat-message__actions small text-muted">
+    <% if comments_count.positive? %>
+      <%= link_to "#{comments_count} #{'comment'.pluralize(comments_count)}",
+                  user_chat_message_path(user_chat_message),
+                  data: { turbo_frame: "message_thread" },
+                  class: "me-2 user-chat-message__comment-count" %>
+    <% end %>
+
+    <%= link_to "Comment",
+                user_chat_message_path(user_chat_message),
+                data: { turbo_frame: "message_thread" },
+                class: "me-2" %>
+
+    <% if user_chat_message.user == current_user %>
+      <%= button_to "Delete",
+                    user_chat_message_path(user_chat_message),
+                    method: :delete,
+                    data: { turbo_confirm: "Delete this message?" },
+                    class: "btn btn-link btn-sm text-danger p-0 align-baseline" %>
+    <% end %>
+  </div>
+</div>
