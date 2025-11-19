@@ -1,0 +1,49 @@
+<h2><%= user.username %></h2>
+
+<% if user.avatar.attached? %>
+  <div class="public-profile-avatar">
+    <%= image_tag user.avatar.variant(resize_to_fill: [80, 80]), class: "public-profile-avatar-img" %>
+  </div>
+<% end %>
+
+<p><strong>Sobriety days:</strong> <%= user.sobriety_days %></p>
+
+<% if user.headline.present? %>
+  <p><strong>Headline:</strong> <%= user.headline %></p>
+<% end %>
+
+<% if user.counsellor? %>
+  <p><span class="badge badge-info">Counsellor</span></p>
+<% end %>
+
+<hr>
+
+<h3>Connection</h3>
+
+<% if current_user.connected_with?(user) %>
+  <p>You are connected.</p>
+<% elsif current_user.pending_friend_request_for?(user) %>
+
+  <% if @friendship&.asker == current_user %>
+    <p>Connection request sent. Waiting for response.</p>
+  <% else %>
+    <p><%= user.username %> has sent you a request.</p>
+
+    <%= button_to "Accept",
+                  friendship_path(@friendship, status: "accepted"),
+                  method: :patch %>
+
+    <%= button_to "Decline",
+                  friendship_path(@friendship, status: "declined"),
+                  method: :patch,
+                  data: { turbo_confirm: "Decline this request?" } %>
+  <% end %>
+
+<% else %>
+
+  <%= button_to "Connect",
+                friendships_path(receiver_id: user.id),
+                method: :post,
+                class: "btn btn-primary" %>
+
+<% end %>
