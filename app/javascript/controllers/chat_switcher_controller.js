@@ -2,7 +2,7 @@ import { Controller } from "@hotwired/stimulus"
 
 // handles switching between AI chat and Chats on the left sidebar
 export default class extends Controller {
-  static targets = ["aiSection", "communitySection", "tab", "communityList", "sidebar"]
+  static targets = ["aiSection", "communitySection", "tab", "communityList", "sidebar", "connections"]
 
   showAi(event) {
     event.preventDefault()
@@ -16,6 +16,9 @@ export default class extends Controller {
     }
     if (this.hasSidebarTarget) {
       this.sidebarTarget.classList.add("chat-sidebar--compact")
+    }
+    if (this.hasConnectionsTarget) {
+      this.connectionsTarget.classList.add("d-none")
     }
   }
 
@@ -31,6 +34,9 @@ export default class extends Controller {
     }
     if (this.hasSidebarTarget) {
       this.sidebarTarget.classList.remove("chat-sidebar--compact")
+    }
+    if (this.hasConnectionsTarget) {
+      this.connectionsTarget.classList.remove("d-none")
     }
 
     // jump to latest message

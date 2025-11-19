@@ -2,7 +2,16 @@
 
 <div id="<%= dom_id(user_chat_message) %>" class="user-chat-message">
   <p class="mb-1">
-    <strong><%= user_chat_message.user.username %>:</strong>
+    <strong class="user-chat-message__author">
+      <% if user_chat_message.user == current_user %>
+        <%= user_chat_message.user.username %>:
+      <% else %>
+        <%= link_to user_chat_message.user.username,
+                    user_path(user_chat_message.user),
+                    class: "user-chat-message__author-link",
+                    data: { turbo_frame: "user_profile_panel" } %>:
+      <% end %>
+    </strong>
     <%= simple_format(user_chat_message.message_content) %>
   </p>
 

@@ -62,10 +62,12 @@ class PagesController < ApplicationController
   end
 
   def chatroom
-    @ai_chat_messages = current_user.ai_chat_messages.order(created_at: :desc).limit(30).to_a.reverse
-    @ai_chat_message = AiChatMessage.new
+    @ai_chat_messages   = current_user.ai_chat_messages.order(created_at: :desc).limit(30).to_a.reverse
+    @ai_chat_message    = AiChatMessage.new
     @user_chat_messages = UserChatMessage.order(created_at: :desc).limit(50).to_a.reverse
     @user_chat_partners = User.joins(:user_chat_messages).where.not(id: current_user.id).distinct
-    @all_chat_users = User.where.not(id: current_user.id).order(:username)
+    @all_chat_users     = User.where.not(id: current_user.id).order(:username)
+
+    @friends = current_user.friends
   end
 end

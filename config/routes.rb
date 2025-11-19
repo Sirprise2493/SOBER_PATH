@@ -1,20 +1,26 @@
 Rails.application.routes.draw do
-  get 'aa_venues/create'
   devise_for :users
+
   root to: "pages#home"
-  get 'meetings', to: 'pages#meetings', as: :meetings
+
+  get "meetings", to: "pages#meetings", as: :meetings
+  get "chatroom", to: "pages#chatroom", as: :chatroom
+
+  # Full private profile
+  get "profile", to: "users#profile", as: :profile
+  get  "profile/edit", to: "users#edit_profile", as: :edit_profile
+  patch "profile",     to: "users#update_profile"
+
+  # Mini public profiles inside chat
+  resources :users, only: [:show]
+
+  # Friendships
+  resources :friendships, only: [:create, :update, :destroy]
+
+  # Chat + AI messages
+  resources :ai_chat_messages, only: [:create]
+  resources :user_chat_messages, only: [:create, :show, :destroy]
+  resources :user_chat_messages_responses, only: [:create, :destroy]
 
   resources :aa_venues, only: [:create, :destroy, :edit, :update]
-  get 'ai_chat_messages/create'
-
-  # Chatroom
-  get "chatroom", to: "pages#chatroom", as: :chatroom
-  # AI Chat (Rest Routes for Hotwire/Turbo)
-  resources :ai_chat_messages, only: [:create]
-  # User chat messages
-  resources :user_chat_messages, only: [:create, :show, :destroy]
-  
-  get "user_chat_messages_responses", to: redirect("/chatroom")
-  # User chat responses
-  resources :user_chat_messages_responses, only: [:create, :destroy]
 end
