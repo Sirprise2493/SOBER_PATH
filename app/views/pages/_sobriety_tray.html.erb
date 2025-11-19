@@ -1,10 +1,10 @@
 <% milestones = user.earned_coin_milestones %>
 
 <% if milestones.any? %>
-  <section class="page-milestones__tray">
+  <section class="page-milestones__tray" data-controller="sobriety-tray">
     <h2>Coins you have earned</h2>
 
-    <div class="sobriety-tray">
+    <div class="sobriety-tray" data-sobriety-tray-target="tray">
       <%# Tray background %>
       <%= image_tag "aa_backgrounds/schale.png",
                     class: "sobriety-tray__background" %>
@@ -14,13 +14,44 @@
         <% x_percent  = rand(30..70)  # narrower horizontally %>
         <% y_percent  = rand(35..70)  # narrower vertically %>
         <% rotate_deg = rand(-15..15) # less extreme tilt %>
+        <% reached_at = SobrietyMilestones.reached_at(user, milestone) %>
 
         <%= image_tag "aa_coins/#{milestone[:file]}",
                       alt:   milestone[:name],
                       class: "sobriety-tray__coin",
                       style: "left: #{x_percent}%; top: #{y_percent}%; transform: translate(-50%, -50%) rotate(#{rotate_deg}deg);",
-                      loading: "lazy" %>
+                      loading: "lazy",
+                      role: "button",
+                      tabindex: "0",
+                      data: {
+                        action: "click->sobriety-tray#showCard keydown.enter->sobriety-tray#showCard",
+                        sobriety_tray_name: milestone[:name],
+                        sobriety_tray_description: milestone[:description],
+                        sobriety_tray_reached_at: (reached_at ? reached_at.strftime('%B %e, %Y') : nil)
+                      } %>
       <% end %>
+
+      <%# Overlay card that appears above the tray %>
+      <div class="sobriety-tray-overlay"
+           data-sobriety-tray-target="overlay"
+           data-action="click->sobriety-tray#backgroundClick">
+
+        <div class="sobriety-tray-card">
+          <button type="button"
+                  class="sobriety-tray-card__close"
+                  aria-label="Close"
+                  data-action="click->sobriety-tray#hideCard">
+            &times;
+          </button>
+
+          <h3 class="sobriety-tray-card__title" data-sobriety-tray-target="title"></h3>
+          <p class="sobriety-tray-card__date" data-sobriety-tray-target="date"></p>
+          <p class="sobriety-tray-card__description" data-sobriety-tray-target="description"></p>
+        </div>
+      </div>
+
+
+
     </div>
   </section>
 <% end %>
