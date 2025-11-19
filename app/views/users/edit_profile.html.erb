@@ -1,0 +1,110 @@
+<div class="profile-wrapper">
+
+  <h1 class="profile-title">Edit Profile</h1>
+
+  <div class="profile-grid">
+
+    <!-- LEFT CARD: AVATAR -->
+    <div class="profile-card profile-card--left">
+
+      <h2 class="profile-card-title">Profile Photo</h2>
+
+      <div class="profile-avatar-container">
+        <% if @user.avatar.attached? %>
+          <%= image_tag @user.avatar.variant(resize_to_fill: [220, 220]),
+                        class: "profile-avatar" %>
+        <% else %>
+          <div class="profile-avatar placeholder-avatar">
+            <i>No Photo</i>
+          </div>
+        <% end %>
+      </div>
+
+      <%= form_with model: @user,
+                    url: profile_path,
+                    method: :patch,
+                    html: { multipart: true },
+                    class: "avatar-form" do |f| %>
+
+        <div class="profile-field full-width">
+          <label>Upload new photo</label>
+          <%= f.file_field :avatar, accept: "image/*" %>
+        </div>
+
+        <%= f.submit "Update Photo", class: "profile-button" %>
+      <% end %>
+
+    </div>
+
+    <!-- RIGHT CARD: FORM -->
+    <div class="profile-card profile-card--right">
+
+      <h2 class="profile-card-title">Edit Details</h2>
+
+      <%= form_with model: @user,
+                    url: profile_path,
+                    method: :patch,
+                    local: true,
+                    html: { multipart: true } do |f| %>
+
+        <div class="profile-details-grid">
+
+          <div class="profile-field">
+            <label>First Name</label>
+            <%= f.text_field :first_name, class: "profile-input" %>
+          </div>
+
+          <div class="profile-field">
+            <label>Last Name</label>
+            <%= f.text_field :last_name, class: "profile-input" %>
+          </div>
+
+          <div class="profile-field">
+            <label>Email</label>
+            <%= f.email_field :email, class: "profile-input" %>
+          </div>
+
+          <div class="profile-field">
+            <label>Username</label>
+            <%= f.text_field :username, class: "profile-input" %>
+          </div>
+
+          <div class="profile-field">
+            <label>Date of Birth</label>
+            <%= f.date_field :date_of_birth, class: "profile-input" %>
+          </div>
+
+          <div class="profile-field full-width">
+            <label>Address</label>
+            <%= f.text_field :address, class: "profile-input" %>
+          </div>
+
+          <div class="profile-field full-width">
+            <label>Sobriety Start Date</label>
+            <%= f.date_field :sobriety_start_date, class: "profile-input" %>
+          </div>
+
+          <div class="profile-field full-width">
+            <label>Headline</label>
+            <%= f.text_field :headline, class: "profile-input" %>
+          </div>
+
+          <div class="profile-field full-width">
+            <label>Bio</label>
+            <%= f.text_area :bio, rows: 4, class: "profile-input" %>
+          </div>
+
+        </div>
+
+        <%= f.submit "Save Changes", class: "profile-button" %>
+
+      <% end %>
+
+    </div>
+
+  </div>
+</div>
+
+<div class="profile-footer">
+  <%= link_to "Back to Profile", profile_path, class: "profile-footer-link" %>
+</div>
