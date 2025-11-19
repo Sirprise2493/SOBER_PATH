@@ -1,0 +1,176 @@
+/* =========================================
+   PROFILE PAGE (matches screenshot style)
+   ========================================= */
+
+.profile-wrapper {
+  max-width: 1200px;
+  margin: 40px auto;
+  padding: 0 20px;
+}
+
+.profile-title {
+  font-size: 2.3rem;
+  font-weight: 700;
+  margin-bottom: 30px;
+  color: #064e3b;
+}
+
+/* ---------- GRID ---------- */
+
+.profile-grid {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 30px;
+
+  @media (max-width: 900px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ---------- CARDS ---------- */
+
+.profile-card {
+  background: #a7c4a0; /* soft green */
+  padding: 40px 30px;
+  border-radius: 12px;
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+
+  &--left {
+    text-align: center;
+  }
+}
+
+/* ---------- TITLES ---------- */
+
+.profile-card-title {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: #064e3b;
+  margin-bottom: 25px;
+}
+
+/* ---------- AVATAR ---------- */
+
+.profile-avatar-container {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 25px;
+}
+
+.profile-avatar {
+  width: 240px;
+  height: 240px;
+  border-radius: 50%;
+  object-fit: cover;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.25);
+}
+
+.placeholder-avatar {
+  width: 240px;
+  height: 240px;
+  border-radius: 50%;
+  background: #dfe9d9;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #064e3b;
+}
+
+/* ---------- EDIT PROFILE LINK ---------- */
+
+.profile-edit-link {
+  display: inline-block;
+  margin-top: 20px;
+  text-decoration: underline;
+  font-size: 1rem;
+  color: #064e3b;
+  font-weight: 600;
+
+  &:hover {
+    color: #043f30;
+  }
+}
+
+/* ---------- PROFILE FIELDS GRID ---------- */
+
+.profile-details-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 25px;
+
+  @media (max-width: 700px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.profile-field {
+  display: flex;
+  flex-direction: column;
+
+  label {
+    font-size: 0.95rem;
+    font-weight: 600;
+    margin-bottom: 8px;
+    color: #064e3b;
+  }
+
+  .profile-field-value {
+    background: #ddd;
+    border-radius: 6px;
+    padding: 14px;
+    font-size: 0.95rem;
+    border: none;
+  }
+}
+
+.full-width {
+  grid-column: 1 / -1;
+}
+
+/* ---------- EDIT FORM INPUTS ---------- */
+
+.profile-input {
+  padding: 12px;
+  font-size: 1rem;
+  border-radius: 8px;
+  border: 1px solid #c4c4c4;
+
+  &:focus {
+    outline: none;
+    border-color: #064e3b;
+    box-shadow: 0 0 0 2px rgba(6, 78, 59, 0.2);
+  }
+}
+
+/* ---------- FOOTER ---------- */
+
+.profile-footer {
+  margin-top: 40px;
+  background: #064e3b;
+  padding: 20px;
+  text-align: center;
+}
+
+.profile-footer-link {
+  color: #fff !important;
+  margin: 0 15px;
+  font-size: 1rem;
+  text-decoration: underline;
+}
+
+.profile-button {
+  background: #064e3b;
+  color: #fff;
+  font-weight: 600;
+  border: none;
+  padding: 12px 20px;
+  border-radius: 8px;
+  cursor: pointer;
+  display: inline-block;
+  margin-top: 15px;
+  text-align: center;
+
+  &:hover {
+    background: #043f30;
+  }
+}
