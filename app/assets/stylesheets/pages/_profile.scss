@@ -1,176 +1,258 @@
-/* =========================================
-   PROFILE PAGE (matches screenshot style)
-   ========================================= */
-
 .profile-wrapper {
-  max-width: 1200px;
+  max-width: 1100px;
   margin: 40px auto;
   padding: 0 20px;
 }
 
+/* Title */
+
 .profile-title {
-  font-size: 2.3rem;
+  font-size: 2rem;
   font-weight: 700;
-  margin-bottom: 30px;
+  margin-bottom: 1.5rem;
   color: #064e3b;
 }
 
-/* ---------- GRID ---------- */
 
 .profile-grid {
   display: grid;
   grid-template-columns: 1fr 2fr;
   gap: 30px;
+  margin-bottom: 40px;
 
   @media (max-width: 900px) {
     grid-template-columns: 1fr;
   }
 }
 
-/* ---------- CARDS ---------- */
-
 .profile-card {
-  background: #a7c4a0; /* soft green */
-  padding: 40px 30px;
+  background: #ffffff;
+  padding: 1.75rem;
   border-radius: 12px;
-  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
-
-  &--left {
-    text-align: center;
-  }
+  border: 1px solid #e5e7eb;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
 }
-
-/* ---------- TITLES ---------- */
 
 .profile-card-title {
-  font-size: 1.8rem;
-  font-weight: 700;
+  font-size: 1.4rem;
+  font-weight: 600;
+  margin-bottom: 1.2rem;
   color: #064e3b;
-  margin-bottom: 25px;
 }
-
-/* ---------- AVATAR ---------- */
 
 .profile-avatar-container {
   display: flex;
   justify-content: center;
-  margin-bottom: 25px;
+  margin-bottom: 1rem;
 }
 
 .profile-avatar {
-  width: 240px;
-  height: 240px;
+  width: 220px;
+  height: 220px;
   border-radius: 50%;
   object-fit: cover;
-  box-shadow: 0 6px 18px rgba(0,0,0,0.25);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
 }
 
 .placeholder-avatar {
-  width: 240px;
-  height: 240px;
+  width: 220px;
+  height: 220px;
   border-radius: 50%;
-  background: #dfe9d9;
+  background: #e5e7eb;
+  color: #6b7280;
   display: flex;
   justify-content: center;
   align-items: center;
-  color: #064e3b;
+  font-style: italic;
 }
 
-/* ---------- EDIT PROFILE LINK ---------- */
+.profile-edit-wrapper {
+  text-align: center;
+  margin-top: 1rem;
+}
 
-.profile-edit-link {
+/* use same style as primary buttons */
+.profile-edit-button,
+.profile-primary-button {
   display: inline-block;
-  margin-top: 20px;
-  text-decoration: underline;
-  font-size: 1rem;
-  color: #064e3b;
+  background: #064e3b;
+  color: #ffffff;
+  padding: 10px 20px;
+  border-radius: 8px;
+  border: none;
+  font-size: 0.95rem;
+  text-decoration: none;
   font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s ease;
 
   &:hover {
-    color: #043f30;
+    background: #046c50;
+    text-decoration: none;
+    color: #ffffff;
   }
 }
 
-/* ---------- PROFILE FIELDS GRID ---------- */
+.profile-form-actions {
+  text-align: center;
+  margin-top: 1.5rem;
+}
 
 .profile-details-grid {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 25px;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px;
 
-  @media (max-width: 700px) {
-    grid-template-columns: 1fr;
+  .full-width {
+    grid-column: 1 / -1;
   }
 }
+
+/* shared block for read-only fields + form fields */
 
 .profile-field {
   display: flex;
   flex-direction: column;
 
   label {
-    font-size: 0.95rem;
     font-weight: 600;
-    margin-bottom: 8px;
-    color: #064e3b;
+    font-size: 0.9rem;
+    color: #374151;
+    margin-bottom: 4px;
   }
 
   .profile-field-value {
-    background: #ddd;
-    border-radius: 6px;
-    padding: 14px;
+    background: #f9fafb;
+    padding: 0.6rem 0.75rem;
+    border-radius: 8px;
+    border: 1px solid #e5e7eb;
     font-size: 0.95rem;
-    border: none;
   }
 }
 
-.full-width {
-  grid-column: 1 / -1;
-}
-
-/* ---------- EDIT FORM INPUTS ---------- */
+/* inputs in edit form */
 
 .profile-input {
-  padding: 12px;
-  font-size: 1rem;
+  width: 100%;
+  padding: 0.6rem 0.75rem;
   border-radius: 8px;
-  border: 1px solid #c4c4c4;
+  border: 1px solid #e5e7eb;
+  font-size: 0.95rem;
+  background: #ffffff;
 
   &:focus {
     outline: none;
-    border-color: #064e3b;
-    box-shadow: 0 0 0 2px rgba(6, 78, 59, 0.2);
+    border-color: #6ee7b7;
+    box-shadow: 0 0 0 1px rgba(16, 185, 129, 0.4);
   }
 }
 
-/* ---------- FOOTER ---------- */
+.profile-card--connections {
+  margin-top: 40px;
+}
+
+/* Subtitle headings (Friends / Incoming / Outgoing) */
+
+.profile-subtitle {
+  font-size: 1.15rem;
+  font-weight: 600;
+  margin: 1.4rem 0 0.6rem;
+  color: #065f46;
+}
+
+/* Empty state text */
+
+.profile-empty {
+  color: #6b7280;
+  font-size: 0.9rem;
+  margin-bottom: 1rem;
+}
+
+/* List of connections */
+
+.profile-list {
+  list-style: none;
+  padding-left: 0;
+  margin-bottom: 1rem;
+}
+
+.profile-list-item {
+  padding: 0.5rem 0;
+  border-bottom: 1px solid #e5e7eb;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  &:last-child {
+    border-bottom: none;
+  }
+
+  a {
+    font-weight: 500;
+    text-decoration: none;
+    color: #064e3b;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
+
+/* Buttons inside list items (Accept / Decline) */
+
+.profile-actions {
+  display: flex;
+  gap: 8px;
+
+  .btn {
+    padding: 4px 10px;
+    font-size: 0.8rem;
+  }
+}
+
+/* Show all friends / Show less button */
+
+.profile-show-more {
+  background: #e5e7eb;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 8px;
+  margin-top: 8px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  color: #064e3b;
+
+  &:hover {
+    background: #d1d5db;
+  }
+}
 
 .profile-footer {
-  margin-top: 40px;
-  background: #064e3b;
-  padding: 20px;
-  text-align: center;
+  margin-top: 2rem;
+  display: flex;
+  justify-content: center; 
+  gap: 1rem;
+  flex-wrap: wrap;
 }
 
 .profile-footer-link {
-  color: #fff !important;
-  margin: 0 15px;
-  font-size: 1rem;
-  text-decoration: underline;
-}
-
-.profile-button {
-  background: #064e3b;
-  color: #fff;
-  font-weight: 600;
-  border: none;
-  padding: 12px 20px;
-  border-radius: 8px;
-  cursor: pointer;
   display: inline-block;
-  margin-top: 15px;
-  text-align: center;
+  padding: 0.55rem 1.1rem;
+  border-radius: 999px;
+  border: 1px solid #e5e7eb;
+  background: #ffffff;
+  color: #064e3b;
+  font-weight: 500;
+  font-size: 0.9rem;
+  text-decoration: none;
+  transition: background 0.15s ease, border-color 0.15s ease, color 0.15s ease;
 
   &:hover {
-    background: #043f30;
+    background: #f3f4f6;
+    border-color: #cbd5f5;
+    color: #022c22;
+    text-decoration: none;
   }
 }
