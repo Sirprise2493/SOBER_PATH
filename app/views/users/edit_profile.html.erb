@@ -28,10 +28,12 @@
 
         <div class="profile-field full-width">
           <label>Upload new photo</label>
-          <%= f.file_field :avatar, accept: "image/*" %>
+          <%= f.file_field :avatar, accept: "image/*", class: "profile-input" %>
         </div>
 
-        <%= f.submit "Update Photo", class: "profile-button" %>
+        <div class="profile-form-actions">
+          <%= f.submit "Update Photo", class: "profile-primary-button" %>
+        </div>
       <% end %>
 
     </div>
@@ -96,7 +98,9 @@
 
         </div>
 
-        <%= f.submit "Save Changes", class: "profile-button" %>
+        <div class="profile-form-actions">
+          <%= f.submit "Save Changes", class: "profile-primary-button" %>
+        </div>
 
       <% end %>
 
