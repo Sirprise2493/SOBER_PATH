@@ -26,17 +26,27 @@ class FriendshipsController < ApplicationController
     case params[:status]
     when "accepted"
       @friendship.accepted!
-      message = "Connection accepted."
+      @notice = "Connection accepted."
     when "declined"
       @friendship.declined!
-      message = "Connection declined."
+      @notice = "Connection declined."
     else
-      message = "Invalid action."
+      @notice = "Invalid action."
     end
 
-    redirect_back fallback_location: user_path(@friendship.asker),
-                  notice: message
+    # Daten für die Connections-Sidebar neu laden
+    @friends           = current_user.friends
+    @incoming_requests = current_user.friendships_received.merge(Friendship.pending)
+
+    respond_to do |format|
+      format.turbo_stream
+      format.html do
+        redirect_back fallback_location: user_path(@friendship.asker),
+                      notice: @notice
+      end
+    end
   end
+
 
   # Remove an existing friendship/connection (either side can do this)
   def destroy

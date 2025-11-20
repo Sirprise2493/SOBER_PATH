@@ -69,6 +69,7 @@ class PagesController < ApplicationController
     @all_chat_users     = User.where.not(id: current_user.id).order(:username)
 
     @friends = current_user.friends
+    @incoming_requests = current_user.friendships_received.merge(Friendship.pending)
   end
 
   def journal
