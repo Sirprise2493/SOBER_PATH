@@ -11,16 +11,21 @@
         <%= @user.fullname.presence || "Fullname" %>
       </h2>
 
-      <div class="profile-avatar-container">
-        <% if @user.avatar.attached? %>
-          <%= image_tag @user.avatar.variant(resize_to_fill: [220, 220]),
-                        class: "profile-avatar" %>
-        <% else %>
-          <div class="profile-avatar placeholder-avatar">
-            <i>No Photo</i>
-          </div>
-        <% end %>
-      </div>
+<div class="profile-avatar-container">
+  <% if @user.avatar.attached? %>
+    <%= image_tag @user.avatar
+                      .variant(resize_to_fill: [220, 220])
+                      .processed,
+                  alt: @user.username,
+                  class: "profile-avatar" %>
+  <% else %>
+    <div class="profile-avatar placeholder-avatar">
+      <i>No Photo</i>
+    </div>
+  <% end %>
+</div>
+
+
 
       <%= link_to "Edit profile",
                   edit_profile_path,
