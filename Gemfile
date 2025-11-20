@@ -102,3 +102,7 @@ gem "chartkick"
 
 # Goup by date
 gem "groupdate"
+
+# Process pictures
+gem "image_processing", "~> 1.2"
+gem "mini_magick"

@@ -1,49 +1,95 @@
-<h2><%= user.username %></h2>
+<div class="public-profile-card">
+  <!-- Header: Avatar + Username in einer Reihe -->
+  <div class="public-profile-header">
+    <div class="public-profile-header__avatar">
+      <% if user.avatar.attached? %>
+        <%= image_tag user.avatar
+                          .variant(resize_to_fill: [48, 48])
+                          .processed,
+                      alt: user.username,
+                      class: "public-profile-header__avatar-image" %>
+      <% else %>
+        <div class="public-profile-header__avatar-fallback">
+          <span><%= user.username.to_s.first.to_s.upcase.presence || "?" %></span>
+        </div>
+      <% end %>
+    </div>
 
-<% if user.avatar.attached? %>
-  <div class="public-profile-avatar">
-    <%= image_tag user.avatar.variant(resize_to_fill: [80, 80]), class: "public-profile-avatar-img" %>
+    <div class="public-profile-header__info">
+      <h2 class="public-profile-header__username"><%= user.username %></h2>
+
+      <p class="public-profile-header__meta">
+        <strong>Sobriety days:</strong> <%= user.sobriety_days %>
+      </p>
+
+      <% if user.headline.present? %>
+        <p class="public-profile-header__headline"><%= user.headline %></p>
+      <% end %>
+
+      <% if user.counsellor? %>
+        <p><span class="badge badge-info">Counsellor</span></p>
+      <% end %>
+    </div>
   </div>
-<% end %>
 
-<p><strong>Sobriety days:</strong> <%= user.sobriety_days %></p>
+  <hr>
 
-<% if user.headline.present? %>
-  <p><strong>Headline:</strong> <%= user.headline %></p>
-<% end %>
+  <h3>Connection</h3>
 
-<% if user.counsellor? %>
-  <p><span class="badge badge-info">Counsellor</span></p>
-<% end %>
+  <% if current_user.connected_with?(user) %>
+    <p>You are connected.</p>
 
-<hr>
+  <% elsif current_user.pending_friend_request_for?(user) %>
 
-<h3>Connection</h3>
+    <% if @friendship&.asker == current_user %>
+      <p>Connection request sent. Waiting for response.</p>
+    <% else %>
+      <!-- Hübscher Block für eingehende Anfrage -->
+      <div class="connection-request">
+        <div class="connection-request__user">
+          <div class="connection-request__avatar">
+            <% if user.avatar.attached? %>
+              <%= image_tag user.avatar
+                                .variant(resize_to_fill: [32, 32])
+                                .processed,
+                            alt: user.username,
+                            class: "connection-request__avatar-image" %>
+            <% else %>
+              <div class="connection-request__avatar-fallback">
+                <span><%= user.username.to_s.first.to_s.upcase.presence || "?" %></span>
+              </div>
+            <% end %>
+          </div>
 
-<% if current_user.connected_with?(user) %>
-  <p>You are connected.</p>
-<% elsif current_user.pending_friend_request_for?(user) %>
+          <div class="connection-request__info">
+            <p class="connection-request__username"><%= user.username %></p>
+            <p class="connection-request__text">
+              <%= user.username %> has sent you a connection request.
+            </p>
+          </div>
+        </div>
 
-  <% if @friendship&.asker == current_user %>
-    <p>Connection request sent. Waiting for response.</p>
+        <div class="connection-request__actions">
+          <%= button_to "Accept",
+                        friendship_path(@friendship, status: "accepted"),
+                        method: :patch,
+                        class: "btn btn-sm btn-primary me-2" %>
+
+          <%= button_to "Decline",
+                        friendship_path(@friendship, status: "declined"),
+                        method: :patch,
+                        data: { turbo_confirm: "Decline this request?" },
+                        class: "btn btn-sm btn-outline-secondary" %>
+        </div>
+      </div>
+    <% end %>
+
   <% else %>
-    <p><%= user.username %> has sent you a request.</p>
 
-    <%= button_to "Accept",
-                  friendship_path(@friendship, status: "accepted"),
-                  method: :patch %>
+    <%= button_to "Connect",
+                  friendships_path(receiver_id: user.id),
+                  method: :post,
+                  class: "btn btn-primary" %>
 
-    <%= button_to "Decline",
-                  friendship_path(@friendship, status: "declined"),
-                  method: :patch,
-                  data: { turbo_confirm: "Decline this request?" } %>
   <% end %>
-
-<% else %>
-
-  <%= button_to "Connect",
-                friendships_path(receiver_id: user.id),
-                method: :post,
-                class: "btn btn-primary" %>
-
-<% end %>
+</div>
