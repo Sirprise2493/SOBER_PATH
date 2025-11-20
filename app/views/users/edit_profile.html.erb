@@ -11,8 +11,7 @@
 
       <div class="profile-avatar-container">
         <% if @user.avatar.attached? %>
-          <%= image_tag @user.avatar.variant(resize_to_fill: [220, 220]),
-                        class: "profile-avatar" %>
+          <%= image_tag @user.avatar, class: "profile-avatar" %>
         <% else %>
           <div class="profile-avatar placeholder-avatar">
             <i>No Photo</i>
@@ -21,10 +20,11 @@
       </div>
 
       <%= form_with model: @user,
-                    url: profile_path,
-                    method: :patch,
-                    html: { multipart: true },
-                    class: "avatar-form" do |f| %>
+                url: profile_path,
+                method: :patch,
+                local: true,
+                html: { multipart: true },
+                class: "avatar-form" do |f| %>
 
         <div class="profile-field full-width">
           <label>Upload new photo</label>
