@@ -567,3 +567,181 @@ turbo-frame#user_profile_panel:empty {
     display: none;
   }
 }
+
+
+.user-chat-message {
+  display: flex;
+  gap: 0.75rem;
+  margin-bottom: 0.75rem;
+}
+
+.user-chat-message__avatar {
+  flex: 0 0 32px;
+}
+
+.user-chat-message__avatar-image {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  object-fit: cover;
+  display: block;
+}
+
+.user-chat-message__avatar-fallback {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: #0d6efd; /* Blau */
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+}
+
+.user-chat-message__avatar-fallback span {
+  line-height: 1;
+}
+
+
+.message-thread__author-avatar,
+.message-thread__comment-avatar {
+  flex: 0 0 auto;
+}
+
+.message-thread__avatar-image {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+  display: block;
+}
+
+.message-thread__comment-avatar .message-thread__avatar-image {
+  width: 28px;
+  height: 28px;
+}
+
+.message-thread__avatar-fallback {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: #0d6efd; /* Blau */
+  color: #ffffff;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.message-thread__author-avatar .message-thread__avatar-fallback {
+  width: 40px;
+  height: 40px;
+}
+
+.message-thread__comment-avatar .message-thread__avatar-fallback {
+  width: 28px;
+  height: 28px;
+}
+
+.message-thread__avatar-fallback span {
+  line-height: 1;
+}
+
+
+
+/* Root-Header: Avatar + Username + Datum in einer Reihe */
+.message-thread__header-line {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+/* Comment-Header: Avatar + Username + Datum in einer Reihe */
+.message-thread__comment-header {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+/* Text-Styles */
+.message-thread__author-name,
+.message-thread__timestamp,
+.message-thread__comment-author,
+.message-thread__comment-timestamp {
+  margin: 0;
+  font-size: 0.9rem;
+}
+
+.message-thread__timestamp,
+.message-thread__comment-timestamp {
+  opacity: 0.7;
+}
+
+
+/* Abstand der Comments zur Hauptmessage */
+.message-thread__comments {
+  margin-top: 1.5rem;
+}
+
+/* Sichtbar abgegrenzte Box für alle Comments */
+.message-thread__comments-inner {
+  margin-top: 0.5rem;
+  padding: 1rem 1.25rem;
+  border-radius: 0.75rem;
+  border: 1px solid #e0e0e0;
+  background: #f8f9fa;        /* leicht graues Panel */
+}
+
+/* Titel + Badge in einer Zeile */
+.message-thread__comments-header-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.75rem;
+}
+
+.message-thread__comments-title {
+  margin: 0;
+  font-size: 0.95rem;
+  font-weight: 600;
+}
+
+.message-thread__comments-count {
+  min-width: 1.5rem;
+  padding: 0 0.4rem;
+  border-radius: 999px;
+  background: #0d6efd;
+  color: #ffffff;
+  font-size: 0.8rem;
+  text-align: center;
+}
+
+/* Liste & einzelne Comments etwas „Card“-artig */
+.message-thread__comments-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.message-thread__comment {
+  padding: 0.5rem 0;
+  border-top: 1px solid #e5e5e5;
+}
+
+.message-thread__comment:first-child {
+  border-top: none;
+}
+
+/* Text für "No comments yet" leicht grau */
+.message-thread__no-comments {
+  margin: 0;
+  font-size: 0.9rem;
+  color: #777;
+}
+
+
+.message-thread__body-actions {
+  margin-top: 0.5rem;
+}
