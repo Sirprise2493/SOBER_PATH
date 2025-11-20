@@ -121,22 +121,53 @@
       </div>
     </div>
 
+
+
+
     <!-- fixed at bottom of panel -->
     <div class="message-thread__form">
       <%= simple_form_for UserChatMessagesResponse.new, url: user_chat_messages_responses_path do |f| %>
         <%= f.hidden_field :user_chat_message_id, value: @user_chat_message.id %>
 
-        <div class="form-floating mb-2">
-          <%= f.input :message_content,
-                      as: :text,
-                      label: false,
-                      wrapper: false,
-                      input_html: { rows: 3, placeholder: "Add a comment..." } %>
-          <%= f.label :message_content, "Add a comment" %>
-        </div>
+        <!-- Alles, was den Emoji-Picker betrifft, kommt in diesen Wrapper -->
+        <div data-controller="emoji-picker">
+          <div class="d-flex align-items-start mb-2">
+            <div class="form-floating flex-grow-1">
+              <%= f.input :message_content,
+                          as: :text,
+                          label: false,
+                          wrapper: false,
+                          input_html: {
+                            rows: 3,
+                            placeholder: "Add a comment...",
+                            "data-emoji-picker-target": "input"
+                          } %>
+              <%= f.label :message_content, "Add a comment" %>
+            </div>
 
-        <%= f.submit "Post comment", class: "btn btn-sm btn-primary" %>
+            <!-- Emoji-Toggle-Button neben das Textfeld -->
+            <button
+              type="button"
+              class="btn btn-outline-secondary ms-2 mt-1"
+              data-action="click->emoji-picker#toggle"
+            >
+              😊
+            </button>
+          </div>
+
+          <!-- Emoji-Panel: gleiche Partial wie beim Hauptformular -->
+          <%= render "user_chat_messages/emoji_panel" %>
+
+          <!-- Submit-Button bleibt im gleichen Controller-Wrapper, aber unabhängig vom Panel -->
+          <%= f.submit "Post comment", class: "btn btn-sm btn-primary mt-2" %>
+        </div>
       <% end %>
     </div>
+
+
+
+
+
+
   </div>
 </turbo-frame>
