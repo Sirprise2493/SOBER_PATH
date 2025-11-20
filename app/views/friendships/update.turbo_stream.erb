@@ -1,0 +1,5 @@
+<%= turbo_stream.update "connections_panel" do %>
+  <%= render "pages/connections_panel",
+             friends: @friends,
+             incoming_requests: @incoming_requests %>
+<% end %>

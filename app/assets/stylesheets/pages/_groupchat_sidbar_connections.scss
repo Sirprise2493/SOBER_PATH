@@ -1,0 +1,125 @@
+.chat-connections {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  text-align: left; // 👈 alles in der Spalte links statt center
+
+  &__title {
+    margin-bottom: 0.75rem;
+    flex: 0 0 auto;
+  }
+
+  /* Sektionen: Friends oben, Requests unten */
+  &__section {
+    flex: 1 1 0;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+
+    & + & {
+      margin-top: 1rem;
+      padding-top: 0.75rem;
+      border-top: 1px solid #e0e0e0;
+    }
+  }
+
+  &__subtitle {
+    margin: 0 0 0.5rem;
+    font-size: 0.9rem;
+    font-weight: 600;
+    flex: 0 0 auto;
+  }
+
+  /* Gemeinsame Zeile: Avatar + Username */
+  &__row {
+    display: flex;
+    align-items: flex-start;     // Avatar oben ausgerichtet
+    justify-content: flex-start; // 👈 explizit links, NICHT center
+    gap: 0.5rem;
+  }
+
+  &__avatar {
+    flex: 0 0 auto;
+  }
+
+  &__avatar-image {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    object-fit: cover;
+    display: block;
+  }
+
+  &__avatar-fallback {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: #0d6efd;
+    color: #ffffff;
+    display: flex;
+    align-items: center;   // Buchstabe mittig IM Kreis ist okay
+    justify-content: center;
+    font-weight: 600;
+    text-transform: uppercase;
+
+    span {
+      line-height: 1;
+    }
+  }
+
+  &__name {
+    font-size: 0.9rem;
+    font-weight: 600;
+  }
+
+  &__meta {
+    font-size: 0.8rem;
+    color: #666;
+
+    &--indented {
+      margin-left: 2.1rem;
+    }
+  }
+
+  &__empty {
+    font-size: 0.85rem;
+    color: #777;
+    flex: 1 1 auto;
+    min-height: 0;
+  }
+
+  /* Listen als eigene Scrollbereiche */
+  &__list,
+  &__requests-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    flex: 1 1 auto;
+    min-height: 0;
+    overflow-y: auto;
+  }
+
+  &__item,
+  &__request-item {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start; // 👈 nicht mittig, nicht zentriert
+    gap: 0.25rem;
+    margin-bottom: 0.5rem;
+    padding-right: 0.25rem;
+  }
+
+  /* Requests-spezifischer Text + Buttons */
+  &__request-text {
+    font-size: 0.8rem;
+    color: #555;
+    margin-left: 2.1rem;
+  }
+
+  &__request-actions {
+    display: flex;
+    gap: 0.5rem;
+    margin-left: 2.1rem;
+    margin-top: 0.25rem;
+  }
+}

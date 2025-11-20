@@ -124,41 +124,25 @@
       </section>
     </main>
 
-    <aside class="chat-connections d-none" data-chat-switcher-target="connections">
-      <h2 class="chat-connections__title">Connections</h2>
-      <% if @friends.present? %>
-        <ul class="chat-connections__list">
-          <% @friends.each do |friend| %>
-            <li class="chat-connections__item">
-              <div class="chat-connections__avatar">
-                <% if friend.avatar.attached? %>
-                  <%= image_tag friend.avatar.variant(resize_to_fill: [28, 28]), alt: friend.username %>
-                <% else %>
-                  <span><%= friend.username.first.upcase %></span>
-                <% end %>
-              </div>
 
-              <div class="chat-connections__info">
-                <%= link_to friend.username,
-                            user_path(friend),
-                            class: "chat-connections__name",
-                            data: { turbo_frame: "user_profile_panel" } %>
 
-                <% if friend.sobriety_start_date.present? %>
-                  <span class="chat-connections__meta">
-                    <%= pluralize(friend.sobriety_days, "day") %> sober
-                  </span>
-                <% end %>
-              </div>
-            </li>
-          <% end %>
-        </ul>
-      <% else %>
-        <p class="chat-connections__empty">
-          no connections yet.
-        </p>
-      <% end %>
-    </aside>
+
+
+<turbo-frame
+  id="connections_panel"
+  class="chat-connections d-none"
+  data-chat-switcher-target="connections">
+
+  <%= render "pages/connections_panel",
+             friends: @friends,
+             incoming_requests: @incoming_requests %>
+</turbo-frame>
+
+
+
+
+
+
   </div>
 
 </div>
