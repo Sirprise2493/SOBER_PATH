@@ -199,23 +199,44 @@
                         ✓ Encouragement sent
                       </div>
                     <% else %>
-                      <div class="connection-updates__encouragement-form mt-2">
-                        <%= form_with model: Encouragement.new,
-                                      url: encouragements_path,
-                                      local: true do |f| %>
-                          <%= f.hidden_field :receiver_id, value: friend.id %>
-                          <%= f.hidden_field :reason,      value: reason %>
+<div class="connection-updates__encouragement-form mt-2">
+  <%= form_with model: Encouragement.new,
+                url: encouragements_path,
+                local: true do |f| %>
 
-                          <div class="mb-1">
-                            <%= f.text_area :body,
-                                            rows: 2,
-                                            class: "form-control form-control-sm",
-                                            placeholder: "Send a short encouragement" %>
-                          </div>
-                          <%= f.submit "Send encouragement",
-                                       class: "btn btn-sm btn-primary" %>
-                        <% end %>
-                      </div>
+    <%= f.hidden_field :receiver_id, value: friend.id %>
+    <%= f.hidden_field :reason,      value: reason %>
+
+    <!-- Emoji-Picker-Controller um Textarea + Buttons -->
+    <div data-controller="emoji-picker">
+      <div class="mb-1">
+        <%= f.text_area :body,
+                        rows: 2,
+                        class: "form-control form-control-sm",
+                        placeholder: "Send a short encouragement",
+                        data: { "emoji-picker-target": "input" } %>
+      </div>
+
+      <!-- Zeile mit Emoji-Button + Submit nebeneinander -->
+      <div class="d-flex align-items-center gap-2">
+        <button
+          type="button"
+          class="btn btn-sm btn-outline-secondary me-2"
+          data-action="click->emoji-picker#toggle"
+        >
+          😊
+        </button>
+
+        <%= f.submit "Send encouragement",
+                     class: "btn btn-sm btn-primary" %>
+      </div>
+
+      <!-- Emoji-Panel (gleiches Partial wie überall sonst) -->
+      <%= render "user_chat_messages/emoji_panel" %>
+    </div>
+  <% end %>
+</div>
+
                     <% end %>
                   </div>
                 </li>
@@ -249,4 +270,3 @@
   </div>
 
 </div>
-
