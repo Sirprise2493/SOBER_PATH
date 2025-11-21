@@ -70,6 +70,7 @@ class PagesController < ApplicationController
 
     @friends = current_user.friends
     @incoming_requests = current_user.friendships_received.merge(Friendship.pending)
+    @connection_updates = ConnectionUpdates.for(current_user)
   end
 
   def journal
@@ -115,7 +116,14 @@ class PagesController < ApplicationController
 
     @username = current_user.username
 
-  start_date = 4.weeks.ago.beginning_of_day
+    @encouragements_sent_count     = current_user.encouragements_sent.count
+    @encouragements_received_count = current_user.encouragements_received.count
+    @recent_encouragements = current_user.encouragements_received
+                                         .where(read_at: nil)
+                                         .includes(:sender)
+                                         .order(created_at: :desc)
+                                         .limit(10)
+    start_date = 4.weeks.ago.beginning_of_day
     end_date   = Time.current.end_of_day
 
     @weekly_activity = [

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2025_11_15_000244) do
+ActiveRecord::Schema[7.1].define(version: 2025_11_21_132449) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -78,6 +78,18 @@ ActiveRecord::Schema[7.1].define(version: 2025_11_15_000244) do
     t.datetime "updated_at", null: false
     t.text "ai_answer"
     t.index ["user_id"], name: "index_ai_chat_messages_on_user_id"
+  end
+
+  create_table "encouragements", force: :cascade do |t|
+    t.bigint "sender_id", null: false
+    t.bigint "receiver_id", null: false
+    t.text "body", null: false
+    t.datetime "read_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "reason"
+    t.index ["receiver_id"], name: "index_encouragements_on_receiver_id"
+    t.index ["sender_id"], name: "index_encouragements_on_sender_id"
   end
 
   create_table "friendships", force: :cascade do |t|
@@ -286,6 +298,8 @@ ActiveRecord::Schema[7.1].define(version: 2025_11_15_000244) do
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "ai_chat_messages", "users"
+  add_foreign_key "encouragements", "users", column: "receiver_id"
+  add_foreign_key "encouragements", "users", column: "sender_id"
   add_foreign_key "friendships", "users", column: "asker_id"
   add_foreign_key "friendships", "users", column: "receiver_id"
   add_foreign_key "journal_contents", "users"

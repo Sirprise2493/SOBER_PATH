@@ -1,8 +1,16 @@
 import { Controller } from "@hotwired/stimulus"
 
-// handles switching between AI chat and Chats on the left sidebar
+// handles switching between AI chat, Chats, and Updates on the left sidebar
 export default class extends Controller {
-  static targets = ["aiSection", "communitySection", "tab", "communityList", "sidebar", "connections"]
+  static targets = [
+    "aiSection",
+    "communitySection",
+    "updatesSection",
+    "tab",
+    "communityList",
+    "sidebar",
+    "connections"
+  ]
 
   showAi(event) {
     event.preventDefault()
@@ -10,6 +18,9 @@ export default class extends Controller {
 
     this.aiSectionTarget.classList.remove("d-none")
     this.communitySectionTarget.classList.add("d-none")
+    if (this.hasUpdatesSectionTarget) {
+      this.updatesSectionTarget.classList.add("d-none")
+    }
 
     if (this.hasCommunityListTarget) {
       this.communityListTarget.classList.add("d-none")
@@ -28,6 +39,9 @@ export default class extends Controller {
 
     this.communitySectionTarget.classList.remove("d-none")
     this.aiSectionTarget.classList.add("d-none")
+    if (this.hasUpdatesSectionTarget) {
+      this.updatesSectionTarget.classList.add("d-none")
+    }
 
     if (this.hasCommunityListTarget) {
       this.communityListTarget.classList.remove("d-none")
@@ -43,6 +57,29 @@ export default class extends Controller {
     const feed = document.getElementById("user_chat_messages")
     if (feed) {
       feed.scrollTop = feed.scrollHeight
+    }
+  }
+
+  showUpdates(event) {
+    event.preventDefault()
+    this._activateTab(event.currentTarget)
+
+    // hide others
+    this.aiSectionTarget.classList.add("d-none")
+    this.communitySectionTarget.classList.add("d-none")
+    if (this.hasUpdatesSectionTarget) {
+      this.updatesSectionTarget.classList.remove("d-none")
+    }
+
+    // sidebar: compact, no community list / connections for now
+    if (this.hasCommunityListTarget) {
+      this.communityListTarget.classList.add("d-none")
+    }
+    if (this.hasSidebarTarget) {
+      this.sidebarTarget.classList.add("chat-sidebar--compact")
+    }
+    if (this.hasConnectionsTarget) {
+      this.connectionsTarget.classList.add("d-none")
     }
   }
 

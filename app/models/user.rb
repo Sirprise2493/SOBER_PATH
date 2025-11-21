@@ -35,6 +35,17 @@ class User < ApplicationRecord
            -> { merge(Friendship.accepted) },
            through: :friendships_received,
            source: :asker
+  
+  #encouragements
+  has_many :encouragements_sent,
+           class_name: "Encouragement",
+           foreign_key: :sender_id,
+           dependent: :destroy
+
+  has_many :encouragements_received,
+           class_name: "Encouragement",
+           foreign_key: :receiver_id,
+           dependent: :destroy
 
   # files
   has_one_attached :avatar

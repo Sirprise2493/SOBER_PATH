@@ -4,11 +4,10 @@
 <p>Group Chat messages: <%= @all_user_chat_messages %> </p>
 <p>Group Chat responses: <%= @all_user_chat_messages_responses  %> </p>
 <p>Number of friends: <%= @friends_count %> </p>
-<p>Number of encouragments sent </p>
-<p>Number of encouragments received </p>
+<p>Number of encouragments sent: <%= @encouragements_sent_count %></p>
+<p>Number of encouragments received: <%= @encouragements_received_count %></p>
 
-
-
+<%= render "milestones_encouragements", recent_encouragements: @recent_encouragements %>
 <%= render "milestones_content", user: current_user %>
 <%= render "milestones_pie_chart", pie_data: @pie_data %>
 <%= render "milestones_bar_chart" %>
