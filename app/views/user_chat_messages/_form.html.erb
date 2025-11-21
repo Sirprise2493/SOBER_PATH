@@ -8,11 +8,33 @@
         }
       }
     ) do |f| %>
-  <div class="input-group mb-3 w-100">
-    <div class="form-floating">
-      <%= f.input :message_content, label: false, wrapper: false %>
-      <%= f.label :message_content, "Share something with the community" %>
+
+  <!-- Wrapper, auf dem der Stimulus-Controller hängt -->
+  <div data-controller="emoji-picker">
+    <div class="input-group mb-3 w-100">
+      <div class="form-floating flex-grow-1">
+        <%= f.input :message_content,
+                    label: false,
+                    wrapper: false,
+                    input_html: {
+                      "data-emoji-picker-target": "input"
+                    } %>
+        <%= f.label :message_content, "Share something with the community" %>
+      </div>
+
+      <!-- Emoji toggle button -->
+      <button
+        type="button"
+        class="btn btn-outline-secondary"
+        data-action="click->emoji-picker#toggle"
+      >
+        😊
+      </button>
+
+      <%= f.submit "Send", class: "btn btn-primary" %>
     </div>
-    <%= f.submit "Send", class: "btn btn-primary" %>
+
+    <!-- WICHTIG: Jetzt innerhalb des div data-controller="emoji-picker" -->
+    <%= render "user_chat_messages/emoji_panel" %>
   </div>
 <% end %>
