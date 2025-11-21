@@ -49,7 +49,7 @@ class PagesController < ApplicationController
         lat: venue.latitude,
         lng: venue.longitude,
         info_window_html: render_to_string(
-          partial: "pages/info_window",
+          partial: "pages/meetings/info_window",
           formats: [:html],
           locals: { venue: venue }
         )

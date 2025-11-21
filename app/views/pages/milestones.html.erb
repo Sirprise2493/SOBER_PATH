@@ -7,9 +7,19 @@
 <p>Number of encouragments sent: <%= @encouragements_sent_count %></p>
 <p>Number of encouragments received: <%= @encouragements_received_count %></p>
 
-<%= render "milestones_encouragements", recent_encouragements: @recent_encouragements %>
-<%= render "milestones_content", user: current_user %>
-<%= render "milestones_pie_chart", pie_data: @pie_data %>
-<%= render "milestones_bar_chart" %>
-<%= render "milestones_description", user: current_user  %>
-<%= render "next_milestone_countdown", user: current_user %>
+<%= render "pages/milestones/milestones_encouragements",
+           recent_encouragements: @recent_encouragements %>
+
+<%= render "pages/milestones/milestones_content",
+           user: current_user %>
+
+<%= render "pages/milestones/milestones_pie_chart",
+           pie_data: @pie_data %>
+
+<%= render "pages/milestones/milestones_bar_chart" %>
+
+<%= render "pages/milestones/milestones_description",
+           user: current_user %>
+
+<%= render "pages/milestones/next_milestone_countdown",
+           user: current_user %>

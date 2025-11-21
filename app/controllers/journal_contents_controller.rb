@@ -18,7 +18,7 @@ def create
     else
       @date = Date.current
 
-      format.html { render "pages/journal", status: :unprocessable_entity }
+      format.html { render "pages/journal/journal", status: :unprocessable_entity }
       format.turbo_stream
     end
   end
