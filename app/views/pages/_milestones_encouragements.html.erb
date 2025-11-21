@@ -1,0 +1,26 @@
+<% if recent_encouragements.any? %>
+  <div class="milestones-encouragements-card">
+    <h2>Encouragements from your connections</h2>
+
+    <ul class="milestones-encouragements-card__list">
+      <% recent_encouragements.each do |encouragement| %>
+        <li class="milestones-encouragements-card__item">
+          <div class="milestones-encouragements-card__meta">
+            <strong><%= encouragement.sender.username %></strong>
+            <span> · <%= l(encouragement.created_at, format: :short) %></span>
+          </div>
+
+          <div class="milestones-encouragements-card__body">
+            <%= simple_format(encouragement.body) %>
+          </div>
+
+          <div class="milestones-encouragements-card__actions">
+            <%= link_to "Dismiss",
+                        encouragement_path(encouragement),
+                        class: "text-muted small" %>
+          </div>
+        </li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>

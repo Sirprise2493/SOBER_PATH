@@ -313,4 +313,17 @@ MILESTONES = [
       .select { |_m, time| time.present? && time > now }
       .min_by { |_m, time| time }
   end
+  
+    def self.reached_on(user, date = Date.current)
+      return [] if user.sobriety_start_date.blank?
+
+      zone      = user.time_zone.presence || Time.zone.name
+      day_start = date.in_time_zone(zone).beginning_of_day
+      day_end   = date.in_time_zone(zone).end_of_day
+
+      MILESTONES.select do |milestone|
+      time = reached_at(user, milestone)
+      time.present? && time.between?(day_start, day_end)
+    end
+  end
 end

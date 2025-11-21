@@ -37,6 +37,7 @@ class FriendshipsController < ApplicationController
     # Daten für die Connections-Sidebar neu laden
     @friends           = current_user.friends
     @incoming_requests = current_user.friendships_received.merge(Friendship.pending)
+    @connection_updates = ConnectionUpdates.for(current_user)
 
     respond_to do |format|
       format.turbo_stream
