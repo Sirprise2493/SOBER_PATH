@@ -3,10 +3,18 @@
     <span class="navbar-logo">SoberPath</span>
   </div>
   <div class="navbar-right">
-    <a href="#">Home</a>
+    <a href="root_path">Home</a>
     <a href="#">About</a>
     <a href="#">Stories</a>
-    <%= link_to "Log in", new_user_session_path, class: "navbar-btn login-btn" %>
-    <%= link_to "Sign up", new_user_registration_path, class: "navbar-btn signup-btn" %>
+
+    <% if user_signed_in? %>
+      <%= button_to "Log out",
+                    destroy_user_session_path,
+                    method: :delete,
+                    class: "navbar-btn logout-btn" %>
+    <% else %>
+      <%= link_to "Log in", new_user_session_path, class: "navbar-btn login-btn" %>
+      <%= link_to "Sign up", new_user_registration_path, class: "navbar-btn signup-btn" %>
+    <% end %>
   </div>
 </nav>
