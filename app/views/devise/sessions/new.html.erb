@@ -2,7 +2,12 @@
 
   <h2 class="login-title">Log in</h2>
 
-  <%= simple_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+  <div class="form-inputs">
+    <%# If using username OR email login: %>
+    <%= f.input :login, label: "Email or username", autofocus: true, input_html: { autocomplete: "username" } %>
+    <%# Otherwise, use this instead:
+    <%#= f.input :email, autofocus: true, input_html: { autocomplete: "email" } %>
+
 
     <%= f.error_notification %>
 
