@@ -1,12 +1,30 @@
-.navbar-lewagon {
+.navbar {
+  width: 100vw;
+  background: #225a30;
+  color: #fff;
+  padding: 0.92rem 2.2rem;
+  display: flex;
+  align-items: center;
   justify-content: space-between;
-  background: white;
 }
-
-.navbar-lewagon .navbar-collapse {
-  flex-grow: 0;
+.navbar-logo {
+  font-weight: 700;
+  font-size: 1.52rem;
 }
-
-.navbar-lewagon .navbar-brand img {
-  width: 40px;
+.navbar-right {
+  display: flex;
+  align-items: center;
+  gap: 1.32rem;
 }
+.navbar-btn {
+  color: #fff; text-decoration: none;
+  font-weight: 500;
+  background: none;
+  border: none;
+  padding: .44rem 1.18rem;
+  font-size: 1.08rem;
+  border-radius: 5px;
+}
+.navbar-btn.login-btn { background: #338f4e;}
+.navbar-btn.signup-btn { background: #ccebdd; color: #225a30; }
+.navbar-btn:hover { opacity: 0.83;}

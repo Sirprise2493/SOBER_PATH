@@ -1,12 +1,12 @@
-<% if user_signed_in? %>
-  <span>Hallo, <%= current_user.email %></span>
-
-  <%# Logout immer als DELETE: schützt gegen CSRF und entspricht REST %>
-  <%= link_to "Logout",
-              destroy_user_session_path,
-              data: { turbo_method: :delete },
-              class: "btn btn-outline-secondary" %>
-<% else %>
-  <%= link_to "Login", new_user_session_path, class: "btn btn-primary" %>
-  <%= link_to "Sign up", new_user_registration_path, class: "btn btn-outline-primary" %>
-<% end %>
+<nav class="navbar">
+  <div class="navbar-left">
+    <span class="navbar-logo">SoberPath</span>
+  </div>
+  <div class="navbar-right">
+    <a href="#">Home</a>
+    <a href="#">About</a>
+    <a href="#">Stories</a>
+    <%= link_to "Log in", new_user_session_path, class: "navbar-btn login-btn" %>
+    <%= link_to "Sign up", new_user_registration_path, class: "navbar-btn signup-btn" %>
+  </div>
+</nav>
