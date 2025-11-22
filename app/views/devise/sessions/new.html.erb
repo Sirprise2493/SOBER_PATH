@@ -2,35 +2,45 @@
 
   <h2 class="login-title">Log in</h2>
 
-  <div class="form-inputs">
-    <%# If using username OR email login: %>
-    <%= f.input :login, label: "Email or username", autofocus: true, input_html: { autocomplete: "username" } %>
-    <%# Otherwise, use this instead:
-    <%#= f.input :email, autofocus: true, input_html: { autocomplete: "email" } %>
+  <%= simple_form_for(resource,
+                      as: resource_name,
+                      url: session_path(resource_name)) do |f| %>
 
+    <div class="form-inputs">
+      <%= f.error_notification %>
 
-    <%= f.error_notification %>
+      <%# Wenn du Username ODER Email als Login verwendest: %>
+      <%#   Attribut :login muss im User-Modell existieren (z.B. via attr_accessor :login) %>
 
-    <!-- Username / Email -->
-    <div class="input-wrapper">
-      <img src="<%= asset_path('icons/username.png') %>" class="input-icon">
-      <%= f.input :login,
-                  label: false,
-                  placeholder: "Email or Username",
-                  input_html: { class: "input-username" } %>
+      <!-- Username / Email -->
+      <div class="input-wrapper">
+        <img src="<%= asset_path('icons/username.png') %>" class="input-icon">
+        <%= f.input :login,
+                    label: false,
+                    placeholder: "Email or Username",
+                    input_html: {
+                      class: "input-username",
+                      autocomplete: "username"
+                    } %>
+      </div>
+
+      <!-- Password -->
+      <div class="input-wrapper">
+        <img src="<%= asset_path('icons/password.png') %>" class="input-icon">
+        <%= f.input :password,
+                    label: false,
+                    placeholder: "Password",
+                    input_html: {
+                      class: "input-password",
+                      autocomplete: "current-password"
+                    } %>
+      </div>
+
+      <!-- Button -->
+      <div class="form-actions">
+        <%= f.button :submit, "Log in", class: "button-login" %>
+      </div>
     </div>
-
-    <!-- Password -->
-    <div class="input-wrapper">
-      <img src="<%= asset_path('icons/password.png') %>" class="input-icon">
-      <%= f.input :password,
-                  label: false,
-                  placeholder: "Password",
-                  input_html: { class: "input-password" } %>
-    </div>
-
-    <!-- Button -->
-    <%= f.button :submit, "Log in", class: "button-login" %>
 
   <% end %>
 
