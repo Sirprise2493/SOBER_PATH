@@ -1,0 +1,44 @@
+.emoji-panel {
+  max-height: 120px;          // Höhe des Panels
+  overflow-y: auto;
+
+  // sanfteres Scroll-Verhalten für programmatic scrolls
+  scroll-behavior: smooth;
+
+  // bessere Trägheit beim Scrollen auf iOS / Safari
+  -webkit-overflow-scrolling: touch;
+
+  // Firefox: dünnere Scrollbar
+  scrollbar-width: thin;
+  scrollbar-color: rgba(0, 0, 0, 0.25) transparent;
+}
+
+/* Standard-Buttons im Panel (falls du irgendwo andere .btns hast) */
+.emoji-panel .btn {
+  padding: 0.15rem 0.35rem;
+  font-size: 0.8rem; // Grundgröße, wird von .emoji-button überschrieben
+}
+
+/* Emojis im aufklappenden Emoji-Panel */
+.emoji-panel .emoji-button {
+  font-size: 1.2rem;      // hier wird das Emoji größer
+  line-height: 1;         // verhindert zu hohe Buttons
+  padding: 0.15rem 0.35rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Schmale, dezente Scrollbar (Chrome, Edge, Safari) */
+.emoji-panel::-webkit-scrollbar {
+  width: 6px;
+}
+
+.emoji-panel::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.emoji-panel::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.25);
+  border-radius: 4px;
+}

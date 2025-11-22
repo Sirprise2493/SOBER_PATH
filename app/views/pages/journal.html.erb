@@ -1,0 +1,29 @@
+<%= turbo_stream_from [current_user, :journal_contents] %>
+
+<h1>In app/views/pages/journal.html.erb</h1>
+
+<h2>Here we need to make the design of links better buttons</h2>
+<h2>The l @date in the code also can be shown better looking in the design</h2>
+<h2>Cursive letters in left journal page like writen from a feather in old times</h2>
+
+<div class="journal-nav">
+  <%= link_to "⟵ Previous day", journal_path(date: (@date - 1.day)), class: "btn" %>
+
+  <% if @date < @today %>
+    <%= link_to "Next day ⟶", journal_path(date: (@date + 1.day)), class: "btn" %>
+  <% else %>
+    <span class="btn disabled">Next day ⟶</span>
+  <% end %>
+
+  <span><%= l @date %></span>
+
+  <%= form_with url: journal_path, method: :get, local: true do |f| %>
+    <%= f.date_field :date, value: @date %>
+    <%= f.submit "Go" %>
+  <% end %>
+</div>
+
+<%= render "pages/journal/journal_book",
+           journal_content: @journal_content,
+           date: @date,
+           today: @today %>

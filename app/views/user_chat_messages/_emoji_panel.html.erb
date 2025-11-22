@@ -1,0 +1,41 @@
+<!-- Emoji picker panel -->
+<div
+  class="emoji-panel mt-2 border rounded p-2 d-none"
+  data-emoji-picker-target="panel"
+>
+  <% emoji_groups = {
+    "Smileys" => %w(
+      😀 😃 😄 😁 😆 😅 😂 🤣 😊 😇 🙂 🙃 😉 😌 😍 🥰 😘 😗 😙 😚
+      😋 😛 😝 😜 🤪 🤨 🤔 🤭 🤫 🤗 😏 😶 😐 😑 🙄 😤 😮‍💨 😮 😯 😲
+      😳 🥺 😢 😭 😡 😠 🤬 🤯 😱 😰 😥 😓 🤤 🤢 🤮 🤧 😷 🥵 🥶 🥴
+    ),
+    "Gestures" => %w(
+      👍 👎 👊 ✊ 🤛 🤜 👋 🤚 ✋ 🖐 🖖 👌 🤌 🤏 ✌ 🤞 🤟 🤘 🤙
+      👈 👉 👆 👇 ☝️ 👐 🙌 🤲 🙏
+    ),
+    "Hearts & Love" => %w(
+      ❤️ 🧡 💛 💚 💙 💜 🖤 🤍 🤎 💔 ❣️ 💕 💞 💓 💗 💖 💘 💝 💟
+    ),
+    "Misc" => %w(
+      🎉 🎊 🥳 🤝 💪 👀 💡 🔥 ✨ ⭐ 🌟 💫 ⚡ 💯 ✅ ❌ ❗ ❓
+      🚀 🧠 😇 👑 🎁 📌 📎 📣 📢
+    )
+  } %>
+
+  <% emoji_groups.each do |title, emojis| %>
+    <div class="mb-2">
+      <small class="text-muted d-block mb-1"><%= title %></small>
+      <% emojis.each do |emoji| %>
+        <button
+          type="button"
+          class="btn btn-light me-1 mb-1 emoji-button"
+          data-action="click->emoji-picker#add"
+          data-emoji="<%= emoji %>"
+        >
+          <%= emoji %>
+        </button>
+        </button>
+      <% end %>
+    </div>
+  <% end %>
+</div>

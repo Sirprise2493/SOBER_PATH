@@ -1,0 +1,24 @@
+<% current_milestone = user.current_coin_milestone %>
+
+<% if current_milestone.present? %>
+  <section class="page-milestones__badge">
+    <h2>Current AA coin</h2>
+
+    <div class="sobriety-badge">
+      <%# Background image (congratulations) %>
+      <%= image_tag "aa_backgrounds/gratulationsbild.png",
+                    class: "sobriety-badge__bg-img" %>
+
+      <%# Coin centered on top %>
+      <div class="sobriety-badge__coin">
+        <%= image_tag "aa_coins/#{current_milestone[:file]}",
+                      alt:  current_milestone[:name],
+                      class: "sobriety-badge__coin-img" %>
+      </div>
+    </div>
+
+    <p class="page-milestones__badge-label">
+      <strong><%= current_milestone[:name] %></strong>
+    </p>
+  </section>
+<% end %>

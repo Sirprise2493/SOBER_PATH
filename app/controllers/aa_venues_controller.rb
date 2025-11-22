@@ -57,7 +57,7 @@ class AaVenuesController < ApplicationController
         lat: v.latitude,
         lng: v.longitude,
         info_window_html: ApplicationController.renderer.render(
-          partial: "pages/info_window",
+          partial: "pages/meetings/info_window",
           formats: [:html],
           locals: { venue: v }
         )

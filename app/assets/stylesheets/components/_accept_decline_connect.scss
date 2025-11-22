@@ -1,0 +1,126 @@
+.public-profile-card {
+  // optional, falls du die Karte ein bisschen hervorheben willst
+  // padding: 1rem;
+  // border-radius: 0.75rem;
+  // border: 1px solid #e0e0e0;
+  // background: #fff;
+
+  .public-profile-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    margin-bottom: 1rem;
+
+    &__avatar {
+      // Platzhalter, falls du später was brauchst
+    }
+
+    &__avatar-image {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      object-fit: cover;
+      display: block;
+    }
+
+    &__avatar-fallback {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: #0d6efd; // blau wie im Chat
+      color: #ffffff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 600;
+      text-transform: uppercase;
+
+      span {
+        line-height: 1;
+      }
+    }
+
+    &__info {
+      // optionaler Wrapper
+    }
+
+    &__username {
+      margin: 0;
+    }
+
+    &__meta {
+      margin: 0.25rem 0;
+      font-size: 0.9rem;
+    }
+
+    &__headline {
+      margin: 0;
+      font-size: 0.9rem;
+      color: #555;
+    }
+  }
+
+  .connection-request {
+    margin-top: 0.75rem;
+    padding: 0.75rem 1rem;
+    border-radius: 0.75rem;
+    border: 1px solid #e0e0e0;
+    background: #f8f9fa;
+
+    &__user {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-bottom: 0.5rem;
+    }
+
+    &__avatar {
+      // Platzhalter
+    }
+
+    &__avatar-image {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      object-fit: cover;
+      display: block;
+    }
+
+    &__avatar-fallback {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: #0d6efd;
+      color: #ffffff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 600;
+      text-transform: uppercase;
+
+      span {
+        line-height: 1;
+      }
+    }
+
+    &__info {
+      // optional
+    }
+
+    &__username {
+      margin: 0;
+      font-weight: 600;
+    }
+
+    &__text {
+      margin: 0;
+      font-size: 0.9rem;
+      color: #555;
+    }
+
+    &__actions {
+      display: flex;
+      gap: 0.5rem;
+    }
+  }
+}

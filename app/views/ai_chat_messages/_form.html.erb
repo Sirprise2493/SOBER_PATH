@@ -1,9 +1,39 @@
-<%= simple_form_for ai_chat_message, html: { data: { controller: "reset-form", action: "turbo:submit-end->reset-form#reset" } } do |f| %>
-  <div class="input-group mb-3 w-100">
-    <div class="form-floating">
-      <%= f.input :message_content, label: false, wrapper: false %>
-      <%= f.label :message_content, "Your question" %>
+<%= simple_form_for ai_chat_message,
+      html: {
+        data: {
+          controller: "reset-form",
+          action: "turbo:submit-end->reset-form#reset"
+        }
+      } do |f| %>
+
+  <!-- Wrapper für den Emoji-Picker-Controller -->
+  <div data-controller="emoji-picker">
+    <div class="input-group mb-3 w-100">
+      <div class="form-floating flex-grow-1">
+        <%= f.input :message_content,
+                    label: false,
+                    wrapper: false,
+                    input_html: {
+                      "data-emoji-picker-target": "input"
+                    } %>
+        <%= f.label :message_content, "Your question" %>
+      </div>
+
+      <!-- Emoji-Toggle-Button -->
+      <button
+        type="button"
+        class="btn btn-outline-secondary"
+        data-action="click->emoji-picker#toggle"
+      >
+        😊
+      </button>
+
+      <%= f.submit "Ask",
+                   id: "new-question-button",
+                   class: "btn btn-primary" %>
     </div>
-    <%= f.submit "Ask", id: "new-question-button", class: "btn btn-primary" %>
+
+    <!-- Emoji-Panel (gleiches Partial wie bei den anderen Formularen) -->
+    <%= render "user_chat_messages/emoji_panel" %>
   </div>
 <% end %>

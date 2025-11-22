@@ -1,0 +1,173 @@
+<turbo-frame id="message_thread">
+  <div class="message-thread" data-controller="message-thread">
+    <button
+      type="button"
+      class="message-thread__close"
+      data-action="click->message-thread#close"
+      aria-label="Close conversation">
+      &times;
+    </button>
+
+    <!-- scrolling content -->
+    <div class="message-thread__content">
+      <% author = @user_chat_message.user %>
+
+      <!-- ROOT HEADER: Avatar + Username + Datum in einer Zeile -->
+      <div class="message-thread__header">
+        <div class="message-thread__header-line">
+          <div class="message-thread__author-avatar">
+            <% if author&.avatar&.attached? %>
+              <%= image_tag author.avatar
+                                   .variant(resize_to_fill: [40, 40])
+                                   .processed,
+                            alt: author.username,
+                            class: "message-thread__avatar-image" %>
+            <% else %>
+              <div class="message-thread__avatar-fallback" aria-hidden="true">
+                <span><%= author.username.to_s.first.to_s.upcase.presence || "?" %></span>
+              </div>
+            <% end %>
+          </div>
+
+          <p class="message-thread__author-name">
+            <%= author.username %>
+          </p>
+
+          <p class="message-thread__timestamp">
+            <%= l @user_chat_message.created_at, format: :short %>
+          </p>
+        </div>
+      </div>
+
+      <!-- ROOT BODY: Text + Delete darunter -->
+      <div class="message-thread__body">
+        <%= simple_format(@user_chat_message.message_content) %>
+
+        <% if author == current_user %>
+          <div class="message-thread__body-actions mt-2">
+            <%= button_to "Delete message",
+                          user_chat_message_path(@user_chat_message),
+                          method: :delete,
+                          data: { turbo_confirm: "Delete this message?" },
+                          class: "btn btn-link btn-sm text-danger p-0" %>
+          </div>
+        <% end %>
+      </div>
+
+      <!-- COMMENTS-BEREICH -->
+      <div class="message-thread__comments">
+        <div class="message-thread__comments-inner">
+          <div class="message-thread__comments-header-row">
+            <h3 class="message-thread__comments-title">Comments</h3>
+            <span class="message-thread__comments-count">
+              <%= @user_chat_message.user_chat_messages_responses.count %>
+            </span>
+          </div>
+
+          <% if @user_chat_message.user_chat_messages_responses.any? %>
+            <ul class="message-thread__comments-list">
+              <% @user_chat_message.user_chat_messages_responses.includes(:user).order(:created_at).each do |response| %>
+                <% response_user = response.user %>
+
+                <li id="<%= dom_id(response) %>" class="message-thread__comment">
+                  <!-- COMMENT HEADER: Avatar + Username + Datum in einer Zeile -->
+                  <div class="message-thread__comment-header">
+                    <div class="message-thread__comment-avatar">
+                      <% if response_user&.avatar&.attached? %>
+                        <%= image_tag response_user.avatar
+                                             .variant(resize_to_fill: [28, 28])
+                                             .processed,
+                                      alt: response_user.username,
+                                      class: "message-thread__avatar-image" %>
+                      <% else %>
+                        <div class="message-thread__avatar-fallback" aria-hidden="true">
+                          <span><%= response_user.username.to_s.first.to_s.upcase.presence || "?" %></span>
+                        </div>
+                      <% end %>
+                    </div>
+
+                    <p class="message-thread__comment-author">
+                      <%= response_user.username %>
+                    </p>
+
+                    <p class="message-thread__comment-timestamp">
+                      <%= l response.created_at, format: :short %>
+                    </p>
+                  </div>
+
+                  <!-- COMMENT BODY -->
+                  <p class="message-thread__comment-body">
+                    <%= simple_format(response.message_content) %>
+                  </p>
+
+                  <% if response_user == current_user %>
+                    <div class="message-thread__comment-actions">
+                      <%= button_to "Delete",
+                                    user_chat_messages_response_path(response),
+                                    method: :delete,
+                                    data: { turbo_confirm: "Delete this comment?" },
+                                    class: "btn btn-link btn-sm text-danger p-0" %>
+                    </div>
+                  <% end %>
+                </li>
+              <% end %>
+            </ul>
+          <% else %>
+            <p class="message-thread__no-comments">
+              No comments yet. Be the first to respond.
+            </p>
+          <% end %>
+        </div>
+      </div>
+    </div>
+
+
+
+
+    <!-- fixed at bottom of panel -->
+    <div class="message-thread__form">
+      <%= simple_form_for UserChatMessagesResponse.new, url: user_chat_messages_responses_path do |f| %>
+        <%= f.hidden_field :user_chat_message_id, value: @user_chat_message.id %>
+
+        <!-- Alles, was den Emoji-Picker betrifft, kommt in diesen Wrapper -->
+        <div data-controller="emoji-picker">
+          <div class="d-flex align-items-start mb-2">
+            <div class="form-floating flex-grow-1">
+              <%= f.input :message_content,
+                          as: :text,
+                          label: false,
+                          wrapper: false,
+                          input_html: {
+                            rows: 3,
+                            placeholder: "Add a comment...",
+                            "data-emoji-picker-target": "input"
+                          } %>
+              <%= f.label :message_content, "Add a comment" %>
+            </div>
+
+            <!-- Emoji-Toggle-Button neben das Textfeld -->
+            <button
+              type="button"
+              class="btn btn-outline-secondary ms-2 mt-1"
+              data-action="click->emoji-picker#toggle"
+            >
+              😊
+            </button>
+          </div>
+
+          <!-- Emoji-Panel: gleiche Partial wie beim Hauptformular -->
+          <%= render "user_chat_messages/emoji_panel" %>
+
+          <!-- Submit-Button bleibt im gleichen Controller-Wrapper, aber unabhängig vom Panel -->
+          <%= f.submit "Post comment", class: "btn btn-sm btn-primary mt-2" %>
+        </div>
+      <% end %>
+    </div>
+
+
+
+
+
+
+  </div>
+</turbo-frame>

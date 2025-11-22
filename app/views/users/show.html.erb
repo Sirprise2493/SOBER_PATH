@@ -1,0 +1,30 @@
+<% if @user == current_user %>
+
+  <%= render "full_profile", user: @user %>
+
+<% else %>
+
+  <% if turbo_frame_request? %>
+
+    <turbo-frame id="user_profile_panel">
+      <div class="user-profile-panel" data-controller="user-profile-panel">
+
+        <button
+          type="button"
+          class="user-profile-panel__close"
+          data-action="click->user-profile-panel#close"
+          aria-label="Close panel">
+          ×
+        </button>
+
+        <%= render "public_profile", user: @user %>
+      </div>
+    </turbo-frame>
+
+  <% else %>
+
+    <%= render "public_profile", user: @user %>
+
+  <% end %>
+
+<% end %>

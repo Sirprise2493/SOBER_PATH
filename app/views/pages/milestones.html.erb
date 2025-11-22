@@ -1,0 +1,25 @@
+<h1>Hi <%= @username %></h1>
+<p>AI Chat Messages: <%= @all_ai_messages %></p>
+<p>Journal Entries: <%= @all_journal_entries %></p>
+<p>Group Chat messages: <%= @all_user_chat_messages %> </p>
+<p>Group Chat responses: <%= @all_user_chat_messages_responses  %> </p>
+<p>Number of friends: <%= @friends_count %> </p>
+<p>Number of encouragments sent: <%= @encouragements_sent_count %></p>
+<p>Number of encouragments received: <%= @encouragements_received_count %></p>
+
+<%= render "pages/milestones/milestones_encouragements",
+           recent_encouragements: @recent_encouragements %>
+
+<%= render "pages/milestones/milestones_content",
+           user: current_user %>
+
+<%= render "pages/milestones/milestones_pie_chart",
+           pie_data: @pie_data %>
+
+<%= render "pages/milestones/milestones_bar_chart" %>
+
+<%= render "pages/milestones/milestones_description",
+           user: current_user %>
+
+<%= render "pages/milestones/next_milestone_countdown",
+           user: current_user %>

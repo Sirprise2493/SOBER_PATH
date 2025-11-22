@@ -92,3 +92,17 @@ gem "country_select", "~> 11.0"
 gem "ruby-openai"
 gem "solid_cable", "~> 1.0.3"
 gem "solid_queue"
+
+
+#Timezone
+gem "timezone"
+
+# Piechart
+gem "chartkick"
+
+# Goup by date
+gem "groupdate"
+
+# Process pictures
+gem "image_processing", "~> 1.2"
+gem "mini_magick"

@@ -49,7 +49,7 @@ class PagesController < ApplicationController
         lat: venue.latitude,
         lng: venue.longitude,
         info_window_html: render_to_string(
-          partial: "pages/info_window",
+          partial: "pages/meetings/info_window",
           formats: [:html],
           locals: { venue: venue }
         )
@@ -62,7 +62,99 @@ class PagesController < ApplicationController
   end
 
   def chatroom
-    @ai_chat_messages = current_user.ai_chat_messages.order(created_at: :desc).limit(30).to_a.reverse
-    @ai_chat_message = AiChatMessage.new
+    @ai_chat_messages   = current_user.ai_chat_messages.order(created_at: :desc).limit(30).to_a.reverse
+    @ai_chat_message    = AiChatMessage.new
+    @user_chat_messages = UserChatMessage.order(created_at: :desc).limit(50).to_a.reverse
+    @user_chat_partners = User.joins(:user_chat_messages).where.not(id: current_user.id).distinct
+    @all_chat_users     = User.where.not(id: current_user.id).order(:username)
+
+    @friends = current_user.friends
+    @incoming_requests = current_user.friendships_received.merge(Friendship.pending)
+    @connection_updates = ConnectionUpdates.for(current_user)
+  end
+
+  def journal
+    @today = Time.zone.today
+
+    @date =
+      if params[:date].present?
+        begin
+          Date.parse(params[:date])
+        rescue ArgumentError
+          @today
+        end
+      else
+        @today
+      end
+
+    range = @date.beginning_of_day..@date.end_of_day
+
+    # Eintrag für dieses Datum (falls vorhanden)
+    @journal_content = current_user.journal_contents.where(created_at: range).first
+
+    # Nur für HEUTE: neuen Eintrag vorbereiten, wenn noch keiner existiert
+    if @journal_content.nil? && @date == @today
+      @journal_content = current_user.journal_contents.build
+    end
+  end
+
+  def milestones
+    @all_ai_messages = current_user.ai_chat_messages.count
+    @all_journal_entries = current_user.journal_contents.count
+    @all_user_chat_messages = current_user.user_chat_messages.count
+    @all_user_chat_messages_responses = current_user.user_chat_messages_responses.count
+
+    @pie_data = {
+      "AI Messages"         => @all_ai_messages,
+      "User Chat Messages"  => @all_user_chat_messages,
+      "Journal Entries"     => @all_journal_entries,
+      "User Chat Responses" => @all_user_chat_messages_responses
+    }
+
+    @friends_count = Friendship.where(status_of_friendship_request: 1)
+    .where("asker_id = :user_id OR receiver_id = :user_id", user_id: current_user.id).count
+
+    @username = current_user.username
+
+    @encouragements_sent_count     = current_user.encouragements_sent.count
+    @encouragements_received_count = current_user.encouragements_received.count
+    @recent_encouragements = current_user.encouragements_received
+                                         .where(read_at: nil)
+                                         .includes(:sender)
+                                         .order(created_at: :desc)
+                                         .limit(10)
+    start_date = 4.weeks.ago.beginning_of_day
+    end_date   = Time.current.end_of_day
+
+    @weekly_activity = [
+      {
+        name: "AI messages",
+        data: current_user.ai_chat_messages
+                        .where(created_at: start_date..end_date)
+                        .group_by_week(:created_at, format: "%d %b")
+                        .count
+      },
+      {
+        name: "Journal entries",
+        data: current_user.journal_contents
+                        .where(created_at: start_date..end_date)
+                        .group_by_week(:created_at, format: "%d %b")
+                        .count
+      },
+      {
+        name: "Chat messages",
+        data: current_user.user_chat_messages
+                        .where(created_at: start_date..end_date)
+                        .group_by_week(:created_at, format: "%d %b")
+                        .count
+      },
+      {
+        name: "Chat responses",
+        data: current_user.user_chat_messages_responses
+                        .where(created_at: start_date..end_date)
+                        .group_by_week(:created_at, format: "%d %b")
+                        .count
+      }
+    ]
   end
 end
