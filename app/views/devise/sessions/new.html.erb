@@ -1,9 +1,6 @@
-<h2>Sign in</h2>
+<div class="login-modal">
 
-<%= simple_form_for(resource, as: resource_name, url: session_path(resource_name)
-                    # , html: { data: { turbo: false } } # uncomment for Rails 7 Turbo issues
-                    ) do |f| %>
-  <%= f.error_notification %>
+  <h2 class="login-title">Log in</h2>
 
   <div class="form-inputs">
     <%# If using username OR email login: %>
@@ -12,16 +9,35 @@
     <%#= f.input :email, autofocus: true, input_html: { autocomplete: "email" } %>
 
 
-    <%= f.input :password, required: true, input_html: { autocomplete: "current-password" } %>
+    <%= f.error_notification %>
 
-    <% if devise_mapping.rememberable? %>
-      <%= f.input :remember_me, as: :boolean %>
-    <% end %>
-  </div>
+    <!-- Username / Email -->
+    <div class="input-wrapper">
+      <img src="<%= asset_path('icons/username.png') %>" class="input-icon">
+      <%= f.input :login,
+                  label: false,
+                  placeholder: "Email or Username",
+                  input_html: { class: "input-username" } %>
+    </div>
 
-  <div class="form-actions">
-    <%= f.button :submit, "Sign in" %>
-  </div>
-<% end %>
+    <!-- Password -->
+    <div class="input-wrapper">
+      <img src="<%= asset_path('icons/password.png') %>" class="input-icon">
+      <%= f.input :password,
+                  label: false,
+                  placeholder: "Password",
+                  input_html: { class: "input-password" } %>
+    </div>
 
-<%= render "devise/shared/links" %>
+    <!-- Button -->
+    <%= f.button :submit, "Log in", class: "button-login" %>
+
+  <% end %>
+
+  <!-- Forgot -->
+  <%= link_to "Forgot your password?", new_user_password_path, class: "forgot-password" %>
+
+  <!-- Create account -->
+  <%= link_to "Create account", new_user_registration_path, class: "create-account" %>
+
+</div>
