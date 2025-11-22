@@ -7,19 +7,37 @@
 <p>Number of encouragments sent: <%= @encouragements_sent_count %></p>
 <p>Number of encouragments received: <%= @encouragements_received_count %></p>
 
-<%= render "pages/milestones/milestones_encouragements",
-           recent_encouragements: @recent_encouragements %>
 
-<%= render "pages/milestones/milestones_content",
-           user: current_user %>
+<section class="hero-milestones">
+  <div class="hero-milestones-coins">
+    <div class="badge">
+      <%= render "pages/milestones/content/sobriety_badge", user: current_user %>
+    </div>
+    <div class="tray">
+      <%= render "pages/milestones/content/sobriety_tray",  user: current_user %>
+    </div>
+  </div>
 
-<%= render "pages/milestones/milestones_pie_chart",
-           pie_data: @pie_data %>
+  <div class="hero-milestones-times">
+    <div class="time">
+      <%= render "pages/milestones/milestones_countdown_next", user: current_user %>
+    </div>
+    <div class="celebrations">
+      <%= render "pages/milestones/milestones_description", user: current_user %>
+    </div>
+  </div>
 
-<%= render "pages/milestones/milestones_bar_chart" %>
 
-<%= render "pages/milestones/milestones_description",
-           user: current_user %>
+  <div class="hero-milestones-statistics">
+    <div class="pie">
+      <%= render "pages/milestones/milestones_pie_chart", pie_data: @pie_data %>
+    </div>
+    <div class="bar">
+      <%= render "pages/milestones/milestones_bar_chart" %>
+    </div>
+  </div>
 
-<%= render "pages/milestones/next_milestone_countdown",
-           user: current_user %>
+  <div class="hero-milestones-encouragements">
+    <%= render "pages/milestones/milestones_encouragements", recent_encouragements: @recent_encouragements %>
+  </div>
+</section>

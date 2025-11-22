@@ -1,0 +1,47 @@
+// Badge: congratulations background + current coin
+.sobriety-badge {
+  position: relative;
+  display: inline-block;
+  max-width: 600px;
+  width: 100%;
+
+  &__bg-img {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
+  &__coin {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -45%);
+
+    &-img {
+      width: 100%; // clearly visible
+      height: auto;
+    }
+  }
+}
+
+/* ==========
+   Responsive
+   ========== */
+
+// Mobile
+@media (max-width: 600px) {
+  .sobriety-badge {
+    max-width: 100%;
+  }
+
+  .page-milestones__badge-label {
+    font-size: 0.95rem;
+  }
+}
+
+// Tablet
+@media (min-width: 601px) and (max-width: 900px) {
+  .sobriety-badge {
+    max-width: 500px;
+  }
+}
