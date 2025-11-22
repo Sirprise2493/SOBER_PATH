@@ -1,43 +1,121 @@
-<h2>Sign up</h2>
+<div class="signup-modal">
 
-<%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name),
-                    html: { multipart: true, autocomplete: "on" }) do |f| %>
-  <%= f.error_notification %>
+<!-- TITLE -->
+<h2 class="signup-title">Create Account</h2>
 
-  <div class="form-inputs">
-    <%# -- Auth fields -- %>
-    <%# If you enabled username OR email login (authentication_keys = [:login]), keep :email visible here anyway %>
-    <%= f.input :email, required: true, autofocus: true %>
-    <%= f.input :username, required: true, hint: "3–32 chars, letters/digits/underscore" %>
+  <!-- AVATAR PREVIEW -->
+  <div class="avatar-preview-wrapper">
+    <img id="avatarPreview"
+         src="<%= asset_path('profile-change.png') %>"
+         class="avatar-preview">
+  </div>
 
-    <%# -- Passwords -- %>
-    <%= f.input :password, required: true, hint: ("#{@minimum_password_length} characters minimum" if @minimum_password_length) %>
-    <%= f.input :password_confirmation, required: true %>
 
-    <%# -- Profile fields -- %>
-    <div class="row">
-      <div class="col">
-        <%= f.input :first_name %>
+  <!-- Upload -->
+    <div class="avatar-upload-wrapper">
+      <label class="upload-btn" for="user_avatar">Upload</label>
+      <input id="user_avatar"
+             type="file"
+             class="avatar-file-input"
+             name="user[avatar]"
+             accept="image/*">
+      <span id="avatarFilename" class="file-name"></span>
+    </div>
+
+  <%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name),
+                      html: { multipart: true, autocomplete: "on" }) do |f| %>
+
+    <%= f.error_notification %>
+
+    <div class="signup-grid">
+
+      <!-- username + email -->
+      <div>
+        <div class="field-label">Username</div>
+        <%= f.input :username, label: false, input_html: { class: "input-field" } %>
       </div>
-      <div class="col">
-        <%= f.input :last_name %>
+
+      <div>
+        <div class="field-label">E-mail</div>
+        <%= f.input :email, label: false, input_html: { class: "input-field" } %>
+      </div>
+
+      <!-- password + repeat -->
+      <div>
+        <div class="field-label">Password</div>
+        <%= f.input :password, label: false, input_html: { class: "input-field" } %>
+      </div>
+
+      <div>
+        <div class="field-label">Repeat password</div>
+        <%= f.input :password_confirmation, label: false, input_html: { class: "input-field" } %>
+      </div>
+
+      <!-- names -->
+      <div>
+        <div class="field-label">First name</div>
+        <%= f.input :first_name, label: false, input_html: { class: "input-field" } %>
+      </div>
+
+      <div>
+        <div class="field-label">Last name</div>
+        <%= f.input :last_name, label: false, input_html: { class: "input-field" } %>
+      </div>
+
+      <!-- dates -->
+      <div>
+        <div class="field-label">Date of birth</div>
+        <%= f.input :date_of_birth, as: :date, html5: true, label: false, input_html: { class: "input-field" } %>
+      </div>
+
+      <div>
+        <div class="field-label">Sobriety start date</div>
+        <%= f.input :sobriety_start_date, as: :date, html5: true, label: false, input_html: { class: "input-field" } %>
+      </div>
+
+      <!-- address -->
+      <div class="field-full">
+        <div class="field-label">Address</div>
+        <%= f.input :address, label: false, input_html: { class: "input-field" } %>
+      </div>
+
+      <!-- headline -->
+      <div class="field-full">
+        <div class="field-label">Headline</div>
+        <%= f.input :headline, label: false, input_html: { class: "input-field" } %>
+      </div>
+
+      <!-- bio -->
+      <div class="field-full">
+        <div class="field-label">Bio</div>
+        <%= f.input :bio, as: :text, label: false, input_html: { class: "input-field", rows: 4 } %>
       </div>
     </div>
 
-    <%= f.input :date_of_birth, as: :date, html5: true, required: true %>
-    <%= f.input :address %>
-    <%= f.input :headline %>
-    <%= f.input :bio, as: :text, input_html: { rows: 4 } %>
+    <!-- checkbox -->
+    <div class="field-full checkbox-field"> Counsolle
+      <%= f.input :counsellor, as: :boolean, inline_label: "I’m a counsellor", label: false %>
+    </div>
 
-    <%= f.input :sobriety_start_date, as: :date, html5: true, label: "Sobriety start date" %>
-    <%= f.input :counsellor, as: :boolean, inline_label: "I’m a counsellor" %>
+    <!-- button -->
+    <div class="signup-actions">
+      <%= f.button :submit, "Create account", class: "button-signup" %>
+    </div>
 
-    <%= f.input :avatar, as: :file, input_html: { accept: "image/*" } %>
+  <% end %>
+
+  <div class="login-link">
+    <%= link_to "Log in", new_user_session_path, class: "go-login" %>
   </div>
 
-  <div class="form-actions">
-    <%= f.button :submit, "Create account" %>
-  </div>
-<% end %>
+</div>
 
-<%= render "devise/shared/links" %>
+<script>
+document.getElementById("user_avatar").addEventListener("change", function() {
+  const fileName = this.files[0]?.name || "No file chosen";
+  document.getElementById("avatarFilename").textContent = fileName;
+
+  const img = document.getElementById("avatarPreview");
+  if (this.files[0]) { img.src = URL.createObjectURL(this.files[0]); }
+});
+</script>
