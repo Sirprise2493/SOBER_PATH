@@ -1,1 +1,129 @@
-// Specific CSS for your home-page
+body {
+  margin: 0;
+  font-family: 'Inter', sans-serif;
+  background: #fff;
+}
+.hero {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 3rem;
+  padding: 60px 6vw;
+  background-color: #ffffff;
+  overflow: hidden;
+  height: 70vh;
+
+  .hero-visual {
+    position: relative;
+    flex: 0 0 40%;
+    min-height: 280px;
+  }
+
+  .hero-shape {
+    position: absolute;
+    width: 60vw;
+    height: 50vh;
+    inset: 0;
+    border-radius: 32px;
+    z-index: 1;
+    background: linear-gradient(to bottom, #2184e0, #175ea0);
+    transform: translate(-20%, -50%) rotate(18deg);
+  }
+  .hero-visual-img {
+    background-image: url("image.png");
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+    position: absolute;
+    z-index: 2;
+    width: 50vw;
+    height: 75vh;
+    left: 10%;
+    top: 0%;
+    transform: translate(-20%,-22%);
+  }
+  .btn-primary {
+    background-color: linear-gradient(to bottom, #2184e0, #175ea0);
+    color: #ffffff;
+    display: inline-flex;
+    align-items: center;
+    padding: 0.85rem 1.6rem;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 1rem;
+  }
+  p {
+    color: #175ea0;
+    font-size: 1.125rem;
+    line-height: 1.5;
+  }
+}
+
+
+
+
+
+
+
+
+
+.hero-subtitle {color: #225a30; font-size: 1.14rem; margin-bottom: 1.39rem;}
+.hero-buttons { display: flex; gap: 1.21rem; }
+
+.main-feature-green {
+  width: 100vw;
+  background: #225a30;
+  color: #fff;
+  padding: 2.8rem 0 2.9rem 0;
+  text-align: center;
+  margin-bottom: 0;
+}
+.main-feature-green h2 { font-size: 1.41rem; font-weight: 700; margin-bottom: 1.09rem;}
+.main-feature-green p { font-size: 1.16rem; margin-bottom: 2.08rem; font-weight: 400; }
+
+.main-feature-buttons {
+  display: flex;
+  gap: 1.22rem;
+  justify-content: center;
+  margin-bottom: 2.03rem;
+}
+.feature-btn {
+  background: none;
+  color: #fff;
+  font-weight: 700;
+  border: 2px solid #fff;
+  border-radius: 7px;
+  padding: 1.12rem 2.52rem;
+  font-size: 1.18rem;
+  cursor: pointer;
+  transition: background .19s, color .19s;
+  box-shadow: none;
+}
+.feature-btn.active, .feature-btn:focus {
+  background: #fff; color: #225a30;
+}
+
+.main-feature-box {
+  margin: 0 auto;
+  text-align: center;
+  min-height: 68px;
+  box-shadow: 0 2px 12px rgba(35,90,48,0.07);
+  background: #fff;
+  color: #225a30;
+  border-radius: 11px;
+  padding: 1.5rem 1.4rem;
+  font-size: 1.19rem;
+  opacity: 0;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.41s cubic-bezier(.41,0,.13,1), opacity .21s;
+}
+.main-feature-box.show {
+  opacity: 1;
+  max-height: 173px;
+}
+
+.main-feature-desc {
+  font-size: 1.21rem;
+  font-family: 'Inter', Arial, sans-serif;
+}

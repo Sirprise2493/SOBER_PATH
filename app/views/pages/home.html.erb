@@ -1,2 +1,29 @@
-<h1>Pages#home</h1>
-<p>Find me in app/views/pages/home.html.erb</p>
+<section class="hero">
+  <div class="hero-visual">
+    <div class="hero-shape"></div>
+    <div class="hero-visual-img"></div>
+  </div>
+  <div class="hero-main-content">
+    <h1>Welcome to Your Journey</h1>
+    <p class="hero-subtitle">
+      A safe space for support, guidance and community.
+    </p>
+    <div class="hero-buttons">
+      <%= link_to "Get started", new_user_registration_path, class: "btn btn-primary" %>
+    </div>
+  </div>
+</section>
+
+<section class="main-feature-green" data-controller="feature-dropdown">
+  <h2>How SoberPath Work</h2>
+  <p>
+    SoberPath helps people stay strong in their recovery journey.<br>
+    The program has three easy steps:
+  </p>
+  <div class="main-feature-buttons">
+    <button class="feature-btn" data-feature-dropdown-target="button" data-action="click->feature-dropdown#show" data-feature="concept">Our concept</button>
+    <button class="feature-btn" data-feature-dropdown-target="button" data-action="click->feature-dropdown#show" data-feature="studies">Alcoholism studies</button>
+    <button class="feature-btn" data-feature-dropdown-target="button" data-action="click->feature-dropdown#show" data-feature="statistics">Statistics</button>
+  </div>
+  <div class="main-feature-box" data-feature-dropdown-target="box"></div>
+</section>
