@@ -1,0 +1,54 @@
+<% next_milestone, target_time = user.next_coin_milestone_with_time || [] %>
+
+<% if next_milestone && target_time %>
+  <div class="milestones-next-card"
+       data-controller="countdown"
+       data-countdown-target-time-value="<%= target_time.iso8601 %>">
+    <div class="card border-0">
+      <div class="card-body">
+        <h6 class="text-muted mb-1">
+          Next milestone
+        </h6>
+
+        <!-- Name des nächsten Milestones (z.B. "1 year", "18 months" etc.) -->
+        <h5 class="card-title mb-2">
+          <%= next_milestone[:name] %>
+        </h5>
+
+        <!-- Beschreibung des nächsten Milestones -->
+        <% if next_milestone[:description].present? %>
+          <p class="milestones-next-card__description small text-muted mb-3">
+            <%= next_milestone[:description] %>
+          </p>
+        <% end %>
+
+        <!-- Aktuelle Sober-Dauer -->
+        <% if user.sobriety_start_date.present? && user.sobriety_days.present? %>
+          <% sober_days  = user.sobriety_days.to_i %>
+          <% sober_years = (sober_days / 365.0).floor %>
+
+          <p class="milestones-next-card__sober-summary mb-2">
+            You have been sober for
+            <strong>
+              <% if sober_years >= 1 %>
+                <%= pluralize(sober_years, "year") %>
+                (<%= pluralize(sober_days, "day") %>)
+              <% else %>
+                <%= pluralize(sober_days, "day") %>
+              <% end %>
+            </strong>.
+          </p>
+        <% end %>
+
+        <!-- Countdown bis zum nächsten Milestone -->
+        <p class="mb-1 fw-semibold">
+          Only:
+        </p>
+        <p class="milestones-next-card__countdown countdown-text mb-0"
+           data-countdown-target="output">
+          <!-- will be filled by Stimulus -->
+        </p>
+      </div>
+    </div>
+  </div>
+<% end %>
