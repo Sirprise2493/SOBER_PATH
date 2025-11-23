@@ -13,25 +13,24 @@
   <!-- Wrapper, auf dem der Stimulus-Controller hängt -->
   <div data-controller="emoji-picker">
     <div class="input-group mb-3 w-100">
-      <div class="form-floating flex-grow-1">
+      <div class="input-wrapper flex-grow-1">
         <%= f.input :message_content,
                     label: false,
                     wrapper: false,
+                    placeholder: "Share something with the community",
                     input_html: {
-                      "data-emoji-picker-target": "input"
+                      "data-emoji-picker-target": "input",
+                      class: "chat-input"
                     } %>
-        <%= f.label :message_content, "Share something with the community" %>
       </div>
-
       <!-- Emoji toggle button -->
       <button
         type="button"
-        class="btn btn-outline-secondary"
+        class="emoji-toggle"
         data-action="click->emoji-picker#toggle"
       >
         😊
       </button>
-
       <%= f.submit "Send", class: "btn btn-primary" %>
     </div>
 
