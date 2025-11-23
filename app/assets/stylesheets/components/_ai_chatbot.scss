@@ -437,15 +437,15 @@ turbo-frame#user_profile_panel:empty {
 }
 
 .message-thread__author-avatar {
-  width: 32px;
-  height: 32px;
+  width: 40px;
+  height: 40px;
   border-radius: 999px;
-  background: #064e3b;
-  color: #f0fdf4;
+  background: $primary;   // brand blue, consistent with chat
+  color: #ffffff;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 0.85rem;
+  font-size: 0.9rem;
   margin-right: 0.5rem;
 }
 
@@ -468,6 +468,18 @@ turbo-frame#user_profile_panel:empty {
 .message-thread__body {
   font-size: 0.9rem;
   margin: 0.5rem 0 0.75rem;
+}
+
+.message-thread__body-text {
+  p:last-child {
+    margin-bottom: 0;     // no big gap before actions
+  }
+}
+
+.message-thread__body-actions {
+  margin-top: 0.35rem;
+  text-align: right;
+  font-size: 0.75rem;     // smaller, very secondary
 }
 
 .message-thread__comments-title {
@@ -513,15 +525,23 @@ turbo-frame#user_profile_panel:empty {
   background: $white;
 
   .form-floating > .form-control {
-    border-radius: 0.75rem;
+    border-radius: 999px;          // pill shape
     background-color: $background;
     border: 1px solid $border;
     font-size: 0.9rem;
+    min-height: 44px;
+    max-height: 72px;
+    resize: none;                  // no ugly drag handle
+    padding-top: 0.8rem;
+  }
 
-    &:focus {
-      background-color: $white;
-      border-color: $primary;
-      box-shadow: 0 0 0 1px rgba($primary, 0.3);
+    .message-thread__emoji-button {
+    border-radius: 0.75rem;
+    border-color: $border;
+    background: $white;
+
+    &:hover {
+      background: $background;
     }
   }
 
@@ -791,16 +811,18 @@ turbo-frame#user_profile_panel:empty {
 
 /* Text-Styles */
 .message-thread__author-name,
-.message-thread__timestamp,
-.message-thread__comment-author,
-.message-thread__comment-timestamp {
+.message-thread__comment-author {
   margin: 0;
   font-size: 0.9rem;
+  font-weight: 600;      // bold like main feed author
+  color: $text-main;
 }
 
 .message-thread__timestamp,
 .message-thread__comment-timestamp {
-  opacity: 0.7;
+  margin: 0;
+  font-size: 0.8rem;
+  color: $text-muted;    // softer, secondary
 }
 
 /* Abstand der Comments zur Hauptmessage */
@@ -862,10 +884,6 @@ turbo-frame#user_profile_panel:empty {
   margin: 0;
   font-size: 0.9rem;
   color: #777;
-}
-
-.message-thread__body-actions {
-  margin-top: 0.5rem;
 }
 
 /* connection updates feed */

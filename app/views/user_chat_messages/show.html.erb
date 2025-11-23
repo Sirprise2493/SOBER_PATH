@@ -39,17 +39,19 @@
         </div>
       </div>
 
-      <!-- ROOT BODY: Text + Delete darunter -->
+      <!-- ROOT BODY: Text + small, right-aligned delete link -->
       <div class="message-thread__body">
-        <%= simple_format(@user_chat_message.message_content) %>
+        <div class="message-thread__body-text">
+          <%= simple_format(@user_chat_message.message_content) %>
+        </div>
 
         <% if author == current_user %>
-          <div class="message-thread__body-actions mt-2">
+          <div class="message-thread__body-actions">
             <%= button_to "Delete message",
                           user_chat_message_path(@user_chat_message),
                           method: :delete,
                           data: { turbo_confirm: "Delete this message?" },
-                          class: "btn btn-link btn-sm text-danger p-0" %>
+                          class: "btn btn-link btn-sm p-0" %>
           </div>
         <% end %>
       </div>
@@ -106,7 +108,7 @@
                                     user_chat_messages_response_path(response),
                                     method: :delete,
                                     data: { turbo_confirm: "Delete this comment?" },
-                                    class: "btn btn-link btn-sm text-danger p-0" %>
+                                    class: "btn btn-link btn-sm p-0" %>
                     </div>
                   <% end %>
                 </li>
@@ -128,10 +130,9 @@
     <div class="message-thread__form">
       <%= simple_form_for UserChatMessagesResponse.new, url: user_chat_messages_responses_path do |f| %>
         <%= f.hidden_field :user_chat_message_id, value: @user_chat_message.id %>
-
-        <!-- Alles, was den Emoji-Picker betrifft, kommt in diesen Wrapper -->
         <div data-controller="emoji-picker">
-          <div class="d-flex align-items-start mb-2">
+          <!-- textarea + emoji + submit all in one row -->
+          <div class="d-flex align-items-center gap-2 mb-2">
             <div class="form-floating flex-grow-1">
               <%= f.input :message_content,
                           as: :text,
@@ -145,29 +146,20 @@
               <%= f.label :message_content, "Add a comment" %>
             </div>
 
-            <!-- Emoji-Toggle-Button neben das Textfeld -->
             <button
               type="button"
-              class="btn btn-outline-secondary ms-2 mt-1"
+              class="btn btn-outline-secondary btn-sm message-thread__emoji-button"
               data-action="click->emoji-picker#toggle"
             >
               😊
             </button>
+
+            <%= f.submit "Post comment", class: "btn btn-sm btn-primary" %>
           </div>
-
-          <!-- Emoji-Panel: gleiche Partial wie beim Hauptformular -->
+          <!-- Emoji panel below the row -->
           <%= render "user_chat_messages/emoji_panel" %>
-
-          <!-- Submit-Button bleibt im gleichen Controller-Wrapper, aber unabhängig vom Panel -->
-          <%= f.submit "Post comment", class: "btn btn-sm btn-primary mt-2" %>
         </div>
       <% end %>
     </div>
-
-
-
-
-
-
   </div>
 </turbo-frame>
