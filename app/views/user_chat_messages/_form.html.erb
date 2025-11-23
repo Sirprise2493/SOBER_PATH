@@ -2,7 +2,7 @@
       UserChatMessage.new,
       url: user_chat_messages_path,
       html: {
-        id: "user-chat-main-form",
+        id: "new_user_chat_message",
         data: {
           controller: "reset-form",
           action: "turbo:submit-end->reset-form#reset"
@@ -10,31 +10,30 @@
       }
     ) do |f| %>
 
-  <!-- Wrapper, auf dem der Stimulus-Controller hängt -->
   <div data-controller="emoji-picker">
     <div class="input-group mb-3 w-100">
       <div class="input-wrapper flex-grow-1">
         <%= f.input :message_content,
-                    label: false,
-                    wrapper: false,
-                    placeholder: "Share something with the community",
-                    input_html: {
-                      "data-emoji-picker-target": "input",
-                      class: "chat-input"
-                    } %>
+            label: false,
+            wrapper: false,
+            placeholder: "Share something with the community",
+            input_html: {
+              "data-emoji-picker-target": "input",
+              class: "form-control"
+            } %>
       </div>
-      <!-- Emoji toggle button -->
+
       <button
         type="button"
         class="emoji-toggle"
-        data-action="click->emoji-picker#toggle"
-      >
+        data-action="click->emoji-picker#toggle">
         😊
       </button>
+
       <%= f.submit "Send", class: "btn btn-primary" %>
     </div>
 
-    <!-- WICHTIG: Jetzt innerhalb des div data-controller="emoji-picker" -->
     <%= render "user_chat_messages/emoji_panel" %>
   </div>
 <% end %>
+
