@@ -51,7 +51,8 @@
                       user_chat_message_path(user_chat_message),
                       method: :delete,
                       data: { turbo_confirm: "Delete this message?" },
-                      class: "btn btn-link btn-sm text-danger p-0 align-baseline" %>
+                      class: "user-chat-message__delete",
+                      form: { class: "d-inline" } %>
       <% end %>
     </div>
   </div>
