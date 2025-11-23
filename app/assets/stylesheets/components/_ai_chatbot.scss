@@ -71,8 +71,8 @@
   align-items: center;
   gap: 0.35rem;
   text-align: center;
-  border: 1px solid rgba(255, 255, 255, 0.25);   // CHANGED (was: none)
-  background: rgba(255, 255, 255, 0.08);         // CHANGED (was: transparent)
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  background: rgba(255, 255, 255, 0.08);
   color: #e5edff;
   padding: 0.5rem 0.75rem;
   border-radius: 999px;
@@ -83,11 +83,11 @@
   transition:
     background 0.15s ease,
     color 0.15s ease,
-    border-color 0.15s ease;                     // NEW
+    border-color 0.15s ease;
 
   &:hover {
-    background: rgba(255, 255, 255, 0.16);       // slightly stronger than before
-    border-color: rgba(255, 255, 255, 0.4);      // NEW
+    background: rgba(255, 255, 255, 0.16);
+    border-color: rgba(255, 255, 255, 0.4);
     color: #ffffff;
   }
 }
@@ -95,7 +95,7 @@
 .chat-sidebar__item--active {
   background: #ffffff;
   color: $primary-dark;
-  border-color: #ffffff;                          // NEW – crisp edge
+  border-color: #ffffff;
 }
 
 /* member list column */
@@ -206,13 +206,11 @@
   flex-direction: column;
   background: $white;
   min-height: 0;
-
-  padding-top: 0.75rem;                     
+  padding-top: 0.75rem;
   border-top: 1px solid rgba(0, 0, 0, 0.07);
   border-radius: 0 0 16px 16px;
   overflow: hidden;
 }
-
 
 .chat-main__section {
   flex: 1;
@@ -369,15 +367,17 @@ turbo-frame#user_profile_panel:empty {
     margin-bottom: 0;
   }
 
-  /* make input, emoji, button align nicely */
+  /* keep input, emoji, button on one row */
   .input-group {
+    display: flex;
     align-items: center;
     gap: 0.5rem;
     margin-bottom: 0;
   }
 
   .input-wrapper {
-    flex: 1;
+    flex: 1 1 auto;
+    min-width: 0;
   }
 
   /* main text input (AI + community) */
@@ -389,11 +389,17 @@ turbo-frame#user_profile_panel:empty {
     border: 1px solid $border;
     font-size: 0.95rem;
 
-    /* 🚫 stop manual resize + keep height sane */
-    resize: none;
+    /* behaviour */
+    resize: none;          /* no manual resize handle */
     min-height: 44px;
-    max-height: 90px;
-    overflow-y: auto;
+    max-height: 96px;      /* a few lines max */
+    overflow-y: auto;      /* scroll if longer */
+    overflow-x: hidden;    /* never grow sideways */
+
+    /* prevent super long words from blowing layout */
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
 
     &:focus {
       background-color: $white;
@@ -408,7 +414,7 @@ turbo-frame#user_profile_panel:empty {
     width: 40px;
     height: 40px;
     border-radius: 999px;
-    border: 1px solid $border;   // soft grey, not black
+    border: 1px solid $border;
     background: #ffffff;
     display: flex;
     align-items: center;
@@ -416,6 +422,7 @@ turbo-frame#user_profile_panel:empty {
     padding: 0;
     font-size: 1.2rem;
     cursor: pointer;
+    flex: 0 0 auto;
     transition: background 0.15s ease, box-shadow 0.15s ease;
 
     &:hover {
@@ -424,13 +431,14 @@ turbo-frame#user_profile_panel:empty {
     }
   }
 
-    .btn-primary {
+  .btn-primary {
     border-radius: 999px;
     padding-inline: 1.4rem;
     min-height: 40px;
     display: inline-flex;
     align-items: center;
     justify-content: center;
+    flex: 0 0 auto;
 
     background: $primary;
     border-color: $primary;
@@ -438,7 +446,9 @@ turbo-frame#user_profile_panel:empty {
     font-weight: 600;
     font-size: 0.95rem;
     box-shadow: 0 4px 10px rgba($primary, 0.25);
-    transition: background 0.15s ease, box-shadow 0.15s ease, transform 0.05s ease;
+    transition: background 0.15s ease,
+                box-shadow 0.15s ease,
+                transform 0.05s ease;
 
     &:hover {
       background: darken($primary, 3%);
@@ -471,6 +481,8 @@ turbo-frame#user_profile_panel:empty {
   max-width: 70%;
   width: fit-content;
   word-wrap: break-word;
+  overflow-wrap: break-word;
+  word-break: break-word;
 }
 
 .user-ai_chat_message {
@@ -549,8 +561,10 @@ turbo-frame#user_profile_panel:empty {
   padding: 0.5rem 0;
   background: transparent;
   max-width: 70%;
-  word-wrap: break-word;
   font-size: 0.9rem;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  word-break: break-word;
 }
 
 .user-chat-message__actions {
@@ -843,11 +857,11 @@ turbo-frame#user_profile_panel:empty {
   color: $text-muted;
 }
 
-/* COMMENT BODY – aligned and spaced like main post, slightly smaller */
+/* COMMENT BODY – aligned like main post */
 
 .message-thread__comment-body {
-  margin-left: 52px;   // same horizontal alignment as main body
-  margin-top: 0.5rem;  // vertical space under name row
+  margin-left: 52px;
+  margin-top: 0.5rem;
   font-size: 0.85rem;
   line-height: 1.4;
 }
@@ -906,6 +920,11 @@ turbo-frame#user_profile_panel:empty {
     resize: none;
     padding: 0.75rem 1rem;
     color: $text-main;
+    overflow-y: auto;
+    overflow-x: hidden;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
   }
 
   .message-thread__emoji-button {
