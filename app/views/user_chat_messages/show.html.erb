@@ -51,7 +51,7 @@
                           user_chat_message_path(@user_chat_message),
                           method: :delete,
                           data: { turbo_confirm: "Delete this message?" },
-                          class: "btn btn-link btn-sm p-0" %>
+                          class: "message-thread__delete" %>
           </div>
         <% end %>
       </div>
@@ -98,9 +98,9 @@
                   </div>
 
                   <!-- COMMENT BODY -->
-                  <p class="message-thread__comment-body">
+                  <div class="message-thread__comment-body">
                     <%= simple_format(response.message_content) %>
-                  </p>
+                  </div>
 
                   <% if response_user == current_user %>
                     <div class="message-thread__comment-actions">
@@ -108,7 +108,7 @@
                                     user_chat_messages_response_path(response),
                                     method: :delete,
                                     data: { turbo_confirm: "Delete this comment?" },
-                                    class: "btn btn-link btn-sm p-0" %>
+                                    class: "message-thread__comment-delete" %>
                     </div>
                   <% end %>
                 </li>
@@ -127,13 +127,14 @@
 
 
     <!-- fixed at bottom of panel -->
-    <div class="message-thread__form">
+     <div class="message-thread__form">
       <%= simple_form_for UserChatMessagesResponse.new, url: user_chat_messages_responses_path do |f| %>
         <%= f.hidden_field :user_chat_message_id, value: @user_chat_message.id %>
+
         <div data-controller="emoji-picker">
-          <!-- textarea + emoji + submit all in one row -->
+          <!-- textarea + emoji + submit aligned in one row -->
           <div class="d-flex align-items-center gap-2 mb-2">
-            <div class="form-floating flex-grow-1">
+            <div class="flex-grow-1">
               <%= f.input :message_content,
                           as: :text,
                           label: false,
@@ -141,9 +142,9 @@
                           input_html: {
                             rows: 3,
                             placeholder: "Add a comment...",
-                            "data-emoji-picker-target": "input"
+                            "data-emoji-picker-target": "input",
+                            class: "message-thread__input"
                           } %>
-              <%= f.label :message_content, "Add a comment" %>
             </div>
 
             <button
@@ -156,7 +157,7 @@
 
             <%= f.submit "Post comment", class: "btn btn-sm btn-primary" %>
           </div>
-          <!-- Emoji panel below the row -->
+
           <%= render "user_chat_messages/emoji_panel" %>
         </div>
       <% end %>

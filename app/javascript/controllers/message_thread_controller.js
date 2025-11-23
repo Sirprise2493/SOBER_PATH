@@ -7,6 +7,12 @@ export default class extends Controller {
       feed.classList.add("d-none")
     }
 
+    // hide main community input bar while thread is open
+    const mainForm = document.getElementById("user-chat-main-form")
+    if (mainForm) {
+      mainForm.classList.add("d-none")
+    }
+
     const content = this.element.querySelector(".message-thread__content")
     if (content) {
       requestAnimationFrame(() => {
@@ -19,6 +25,12 @@ export default class extends Controller {
     const feed = document.getElementById("user_chat_messages")
     if (feed) {
       feed.classList.remove("d-none")
+    }
+
+    // show main community input bar again
+    const mainForm = document.getElementById("user-chat-main-form")
+    if (mainForm) {
+      mainForm.classList.remove("d-none")
     }
 
     const frame = this.element.closest("turbo-frame")
