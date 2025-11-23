@@ -15,9 +15,13 @@ class EncouragementsController < ApplicationController
     end
 
     def show
-        @encouragement = current_user.encouragements_received.find(params[:id])
-        @encouragement.update(read_at: Time.current)
-        redirect_back fallback_location: milestones_path
+      @encouragement = current_user.encouragements_received.find(params[:id])
+      @encouragement.update(read_at: Time.current)
+
+      redirect_to milestones_path(
+        sender_id: params[:sender_id].presence,
+        enc_page:  (params[:enc_page].presence || 1)
+      )
     end
 
   private

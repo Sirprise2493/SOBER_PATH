@@ -99,9 +99,9 @@ class PagesController < ApplicationController
   end
 
   def milestones
-    @all_ai_messages = current_user.ai_chat_messages.count
-    @all_journal_entries = current_user.journal_contents.count
-    @all_user_chat_messages = current_user.user_chat_messages.count
+    @all_ai_messages                = current_user.ai_chat_messages.count
+    @all_journal_entries            = current_user.journal_contents.count
+    @all_user_chat_messages         = current_user.user_chat_messages.count
     @all_user_chat_messages_responses = current_user.user_chat_messages_responses.count
 
     @pie_data = {
@@ -112,17 +112,46 @@ class PagesController < ApplicationController
     }
 
     @friends_count = Friendship.where(status_of_friendship_request: 1)
-    .where("asker_id = :user_id OR receiver_id = :user_id", user_id: current_user.id).count
+                              .where("asker_id = :user_id OR receiver_id = :user_id", user_id: current_user.id)
+                              .count
 
     @username = current_user.username
 
     @encouragements_sent_count     = current_user.encouragements_sent.count
     @encouragements_received_count = current_user.encouragements_received.count
-    @recent_encouragements = current_user.encouragements_received
-                                         .where(read_at: nil)
-                                         .includes(:sender)
-                                         .order(created_at: :desc)
-                                         .limit(10)
+
+    # === Base query for all encouragements with "most relevant" sorting ===
+    # Unread first (read_at IS NULL), then newest first within each group
+    base_scope = current_user.encouragements_received
+                            .includes(:sender)
+                            .order(
+                              Arel.sql("CASE WHEN read_at IS NULL THEN 0 ELSE 1 END"),
+                              created_at: :desc
+                            )
+
+    # For the sidebar: all relevant encouragements (e.g. last 200)
+    @encouragements_all = base_scope.limit(200)
+
+    # Optional filter by a single connection (sender)
+    if params[:sender_id].present?
+      @selected_sender    = User.find_by(id: params[:sender_id])
+      @encouragements_scope = base_scope.where(sender_id: @selected_sender.id)
+    else
+      @encouragements_scope = base_scope
+    end
+
+    # Pagination (max. 5 per page)
+    per_page     = 7
+    @page        = params[:enc_page].presence&.to_i
+    @page        = 1 if @page.nil? || @page < 1
+    @total_count = @encouragements_scope.count
+    @total_pages = (@total_count / per_page.to_f).ceil
+    @total_pages = 1 if @total_pages.zero?
+    offset       = (@page - 1) * per_page
+
+    @encouragements = @encouragements_scope.offset(offset).limit(per_page)
+
+    # === Weekly activity chart data (unchanged) ===
     start_date = 4.weeks.ago.beginning_of_day
     end_date   = Time.current.end_of_day
 
@@ -130,30 +159,30 @@ class PagesController < ApplicationController
       {
         name: "AI messages",
         data: current_user.ai_chat_messages
-                        .where(created_at: start_date..end_date)
-                        .group_by_week(:created_at, format: "%d %b")
-                        .count
+                          .where(created_at: start_date..end_date)
+                          .group_by_week(:created_at, format: "%d %b")
+                          .count
       },
       {
         name: "Journal entries",
         data: current_user.journal_contents
-                        .where(created_at: start_date..end_date)
-                        .group_by_week(:created_at, format: "%d %b")
-                        .count
+                          .where(created_at: start_date..end_date)
+                          .group_by_week(:created_at, format: "%d %b")
+                          .count
       },
       {
         name: "Chat messages",
         data: current_user.user_chat_messages
-                        .where(created_at: start_date..end_date)
-                        .group_by_week(:created_at, format: "%d %b")
-                        .count
+                          .where(created_at: start_date..end_date)
+                          .group_by_week(:created_at, format: "%d %b")
+                          .count
       },
       {
         name: "Chat responses",
         data: current_user.user_chat_messages_responses
-                        .where(created_at: start_date..end_date)
-                        .group_by_week(:created_at, format: "%d %b")
-                        .count
+                          .where(created_at: start_date..end_date)
+                          .group_by_week(:created_at, format: "%d %b")
+                          .count
       }
     ]
   end

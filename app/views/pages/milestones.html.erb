@@ -38,6 +38,16 @@
   </div>
 
   <div class="hero-milestones-encouragements">
-    <%= render "pages/milestones/milestones_encouragements", recent_encouragements: @recent_encouragements %>
+    <%= turbo_stream_from [current_user, :encouragements] %>
+
+    <%= turbo_frame_tag "encouragement_chat" do %>
+      <%= render "pages/milestones/milestones_encouragements",
+                encouragements_all: @encouragements_all,
+                encouragements: @encouragements,
+                page: @page,
+                total_pages: @total_pages,
+                selected_sender: @selected_sender %>
+    <% end %>
   </div>
+
 </section>

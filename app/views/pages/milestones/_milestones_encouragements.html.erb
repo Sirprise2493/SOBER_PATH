@@ -1,26 +1,221 @@
-<% if recent_encouragements.any? %>
-  <div class="milestones-encouragements-card">
-    <h2>Encouragements from your connections</h2>
+<% if encouragements_all.any? %>
+  <% grouped_by_sender = encouragements_all.group_by(&:sender) %>
 
-    <ul class="milestones-encouragements-card__list">
-      <% recent_encouragements.each do |encouragement| %>
-        <li class="milestones-encouragements-card__item">
-          <div class="milestones-encouragements-card__meta">
-            <strong><%= encouragement.sender.username %></strong>
-            <span> · <%= l(encouragement.created_at, format: :short) %></span>
-          </div>
+  <section class="encouragement-chat">
+    <!-- SIDEBAR -->
+    <aside class="encouragement-chat__sidebar" data-controller="encouragements-sidebar">
+      <div class="encouragement-chat__sidebar-header">
+        <h3>Connections</h3>
 
-          <div class="milestones-encouragements-card__body">
-            <%= simple_format(encouragement.body) %>
-          </div>
+        <input type="search"
+               class="encouragement-chat__search"
+               placeholder="Search members..."
+               data-encouragements-sidebar-target="search"
+               data-action="input->encouragements-sidebar#filterMembers">
+      </div>
 
-          <div class="milestones-encouragements-card__actions">
-            <%= link_to "Dismiss",
-                        encouragement_path(encouragement),
-                        class: "text-muted small" %>
-          </div>
-        </li>
+      <!-- "Show all" leads back to the full overview (no sender_id) -->
+      <%= link_to milestones_path(enc_page: 1),
+                  data: { turbo_frame: "encouragement_chat" },
+                  class: "encouragement-chat__all-button" do %>
+        Show all
       <% end %>
-    </ul>
-  </div>
+
+      <ul class="encouragement-chat__member-list">
+        <% grouped_by_sender.each do |sender, sender_encs| %>
+          <% has_unread = sender_encs.any? { |e| e.read_at.nil? } %>
+          <% last_msg  = sender_encs.first %> <!-- most relevant message in our sort order -->
+
+          <li class="encouragement-chat__member <%= 'is-active' if selected_sender&.id == sender.id %>"
+              data-encouragements-sidebar-target="member"
+              data-name="<%= sender.username %>"
+              data-preview="<%= last_msg.body %>">
+
+            <%= link_to milestones_path(sender_id: sender.id, enc_page: 1),
+                        data: { turbo_frame: "encouragement_chat" },
+                        class: "encouragement-chat__member-link" do %>
+
+              <div class="encouragement-chat__member-avatar">
+                <% if sender.avatar.attached? %>
+                  <%= image_tag(
+                        sender.avatar.variant(resize_to_fill: [32, 32]),
+                        alt: sender.username,
+                        class: "encouragement-chat__member-avatar-image"
+                      ) %>
+                <% else %>
+                  <span><%= sender.username.first.upcase %></span>
+                <% end %>
+              </div>
+
+              <span class="encouragement-chat__member-name">
+                <%= sender.username %>
+              </span>
+
+              <% if has_unread %>
+                <span class="encouragement-chat__member-new-badge">
+                  New
+                </span>
+              <% end %>
+
+            <% end %>
+          </li>
+        <% end %>
+      </ul>
+    </aside>
+
+    <!-- CHAT RIGHT -->
+    <section class="encouragement-chat__main">
+      <header class="encouragement-chat__header">
+        <h2>
+          <% if selected_sender %>
+            Chat with <%= selected_sender.username %>
+          <% else %>
+            Chat with your connections
+          <% end %>
+        </h2>
+        <p class="encouragement-chat__subtitle">
+          Small messages from people who support you on your journey.
+        </p>
+      </header>
+
+      <ul class="encouragement-chat__messages">
+        <% encouragements.each do |encouragement| %>
+          <li class="encouragement-chat__message <%= 'encouragement-chat__message--unread' if encouragement.read_at.nil? %>">
+            <div class="encouragement-chat__message-avatar">
+              <span><%= encouragement.sender.username.first.upcase %></span>
+            </div>
+
+            <div class="encouragement-chat__message-body"
+                 data-controller="encouragement-message"
+                 data-encouragement-message-full-text-value="<%= j(encouragement.body) %>">
+
+              <div class="encouragement-chat__message-meta">
+                <div>
+                  <strong class="encouragement-chat__message-sender">
+                    <%= encouragement.sender.username %>
+                  </strong>
+                  <% if encouragement.reason.present? %>
+                    <span class="encouragement-chat__message-reason">
+                      · <%= encouragement.reason %>
+                    </span>
+                  <% end %>
+                </div>
+
+                <div class="encouragement-chat__message-meta-right">
+                  <% if encouragement.read_at.nil? %>
+                    <span class="encouragement-chat__badge">New</span>
+                  <% end %>
+                  <time class="encouragement-chat__message-time">
+                    <%= l(encouragement.created_at, format: :short) %>
+                  </time>
+                </div>
+              </div>
+
+              <!-- Text: max 60 characters -->
+              <div class="encouragement-chat__bubble"
+                   data-encouragement-message-target="text">
+                <%= truncate(encouragement.body, length: 60) %>
+              </div>
+
+              <div class="encouragement-chat__message-actions">
+                <% if encouragement.read_at.nil? %>
+                  <%= link_to encouragement_path(
+                                encouragement,
+                                sender_id: selected_sender&.id,
+                                enc_page:  page
+                              ),
+                              data: { turbo_frame: "encouragement_chat" },
+                              class: "encouragement-chat__mark-read-link" do %>
+                    Mark as read
+                  <% end %>
+                <% end %>
+
+                <% if encouragement.body.length > 60 %>
+                  <button type="button"
+                          class="encouragement-chat__expand-btn"
+                          data-action="click->encouragement-message#toggle">
+                    Show more
+                  </button>
+                <% end %>
+              </div>
+            </div>
+          </li>
+        <% end %>
+      </ul>
+
+      <!-- PAGINATION AT THE BOTTOM OF THE CHAT -->
+      <% if total_pages > 1 %>
+        <% window_size = 2 %>
+        <% start_page  = [page - window_size, 1].max %>
+        <% end_page    = [page + window_size, total_pages].min %>
+
+        <nav class="encouragement-chat__pagination">
+          <div class="encouragement-chat__pagination-links">
+            <%# Previous button %>
+            <% if page > 1 %>
+              <%= link_to "«",
+                          milestones_path(enc_page: page - 1, sender_id: selected_sender&.id),
+                          data: { turbo_frame: "encouragement_chat" },
+                          class: "encouragement-chat__pagination-link encouragement-chat__pagination-link--arrow" %>
+            <% else %>
+              <span class="encouragement-chat__pagination-link encouragement-chat__pagination-link--arrow encouragement-chat__pagination-link--disabled">
+                «
+              </span>
+            <% end %>
+
+            <%# First page + ellipsis if needed %>
+            <% if start_page > 1 %>
+              <%= link_to 1,
+                          milestones_path(enc_page: 1, sender_id: selected_sender&.id),
+                          data: { turbo_frame: "encouragement_chat" },
+                          class: "encouragement-chat__pagination-link" %>
+
+              <% if start_page > 2 %>
+                <span class="encouragement-chat__pagination-ellipsis">…</span>
+              <% end %>
+            <% end %>
+
+            <%# Pages in window %>
+            <% (start_page..end_page).each do |page_number| %>
+              <% if page_number == page %>
+                <span class="encouragement-chat__pagination-link encouragement-chat__pagination-link--active">
+                  <%= page_number %>
+                </span>
+              <% else %>
+                <%= link_to page_number,
+                            milestones_path(enc_page: page_number, sender_id: selected_sender&.id),
+                            data: { turbo_frame: "encouragement_chat" },
+                            class: "encouragement-chat__pagination-link" %>
+              <% end %>
+            <% end %>
+
+            <%# Last page + ellipsis if needed %>
+            <% if end_page < total_pages %>
+              <% if end_page < total_pages - 1 %>
+                <span class="encouragement-chat__pagination-ellipsis">…</span>
+              <% end %>
+
+              <%= link_to total_pages,
+                          milestones_path(enc_page: total_pages, sender_id: selected_sender&.id),
+                          data: { turbo_frame: "encouragement_chat" },
+                          class: "encouragement-chat__pagination-link" %>
+            <% end %>
+
+            <%# Next button %>
+            <% if page < total_pages %>
+              <%= link_to "»",
+                          milestones_path(enc_page: page + 1, sender_id: selected_sender&.id),
+                          data: { turbo_frame: "encouragement_chat" },
+                          class: "encouragement-chat__pagination-link encouragement-chat__pagination-link--arrow" %>
+            <% else %>
+              <span class="encouragement-chat__pagination-link encouragement-chat__pagination-link--arrow encouragement-chat__pagination-link--disabled">
+                »
+              </span>
+            <% end %>
+          </div>
+        </nav>
+      <% end %>
+
+    </section>
+  </section>
 <% end %>
