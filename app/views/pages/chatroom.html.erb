@@ -96,14 +96,18 @@
   <!-- main chat area + connections panel -->
   <div class="chat-main-wrapper">
     <main class="chat-main">
-    
+
       <!-- AI chat section -->
       <section
         id="ai-chat-section"
         class="chat-main__section <%= 'd-none' unless active_tab == 'ai' %>"
         data-chat-switcher-target="aiSection">
 
-        <div id="ai_chat_messages">
+        <div class="chat-section-header">
+          <h2>AI Chat</h2>
+        </div>
+
+        <div id="ai_chat_messages" data-controller="auto-scroll">
           <%= render @ai_chat_messages %>
         </div>
 
@@ -115,6 +119,10 @@
         id="user-chat-section"
         class="chat-main__section <%= 'd-none' unless active_tab == 'community' %>"
         data-chat-switcher-target="communitySection">
+
+        <div class="chat-section-header">
+          <h2>Chats</h2>
+        </div>
 
         <% if @user_chat_messages&.any? %>
           <div id="user_chat_messages" data-controller="auto-scroll">
@@ -141,6 +149,9 @@
         class="chat-main__section <%= 'd-none' unless active_tab == 'updates' %>"
         data-chat-switcher-target="updatesSection">
 
+        <div class="chat-section-header">
+          <h2>Updates</h2>
+        </div>
         <div id="updates-section-body">
           <% if @connection_updates.present? %>
             <ul class="connection-updates">
