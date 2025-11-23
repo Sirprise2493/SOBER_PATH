@@ -214,6 +214,7 @@
 
 .chat-main__section {
   flex: 1;
+  position: relative;
   display: flex;
   flex-direction: column;
   min-height: 0;
@@ -261,20 +262,21 @@
 ========================================= */
 
 turbo-frame#message_thread {
-  flex: 1;
-  min-height: 0;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+
   display: flex;
-  padding: 1rem;
+  padding: 0;
   overflow: hidden;
+  z-index: 30;
 }
 
 turbo-frame#message_thread:empty {
   display: none;
   padding: 0;
-}
-
-turbo-frame#user_profile_panel:empty {
-  display: none;
 }
 
 /* connections panel */
@@ -671,12 +673,13 @@ turbo-frame#user_profile_panel:empty {
 .message-thread {
   flex: 1;
   min-height: 0;
-  border-radius: 0.75rem;
-  border: 1px solid #e5e7eb;
-  background: #f9fafb;
-  position: relative;
   display: flex;
   flex-direction: column;
+
+  /* make it look like a full panel */
+  border-radius: 0;
+  border: 1px solid #e5e7eb;
+  background: #f9fafb;
 }
 
 .message-thread__close {
@@ -1115,4 +1118,9 @@ turbo-frame#user_profile_panel:empty {
   .chat-connections {
     display: none;
   }
+}
+
+.chat-main:has(turbo-frame#message_thread:not(:empty)) {
+  padding-top: 0;
+  border-top: none;
 }
