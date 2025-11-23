@@ -20,35 +20,36 @@
 // sidebar
 .chat-sidebar {
   width: 360px;
-  background: $white;                 // neutral background
+  background: $white;
   color: $text-main;
   display: flex;
   flex-direction: row;
-  padding: 1.25rem 1rem;
+  padding: 0;                         // ❗ no white frame in wide view
   border-right: 1px solid $border;
 }
 
 .chat-sidebar--compact {
-  width: 360px;
+  width: 140px;
+  background: linear-gradient(135deg, $primary-dark, $primary);
+  padding: 1.25rem 0; // ✨ no left/right padding → no white strip
 }
 
 .chat-sidebar__nav {
-  width: 96px;
-  margin-right: 1rem;
+  width: 140px;
   height: 100%;
+  margin-right: 0;      // 👈 no white gutter between nav + member list
   display: flex;
   flex-direction: column;
-  justify-content: center;          // vertical centering
-  align-items: stretch;
+  justify-content: center;
+  align-items: center;
+
   background: linear-gradient(135deg, $primary-dark, $primary);
-  border-radius: 1rem;
-  padding: 0.75rem 0.5rem;
-  color: #ffffff;
+  border-radius: 0;
+  padding: 1rem 0;
 }
 
 .chat-sidebar--compact .chat-sidebar__nav {
-  width: 96px;
-  margin-right: 1rem;
+  margin-right: 0;
 }
 
 .chat-sidebar__title {
@@ -93,7 +94,7 @@
   color: $text-muted;
   overflow-y: auto;
   border-left: 1px solid $border;
-  padding-left: 0.75rem;
+  padding: 1.25rem 0.75rem 0.75rem; // top, right/left, bottom
   background: $white;
 }
 
