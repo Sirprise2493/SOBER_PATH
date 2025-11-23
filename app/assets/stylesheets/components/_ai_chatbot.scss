@@ -593,7 +593,7 @@ turbo-frame#user_profile_panel:empty {
   font-size: 0.78rem;
   color: $text-muted;
   display: inline-block;
-  border: none;        // ensure buttons look like pills
+  border: none; 
   cursor: pointer;
 }
 
@@ -604,8 +604,22 @@ turbo-frame#user_profile_panel:empty {
   text-decoration: none;
 }
 
-.user-chat-message__comment-count {
+.user-chat-message__actions a.user-chat-message__comment-count {
+  background: #f8fafc !important;
+  color: #94a3b8 !important;
   font-weight: 500;
+  border: 1px solid #e2e8f0;
+}
+
+/* Make Delete pill slightly red */
+.user-chat-message__actions button {
+  background: #fdecea;
+  color: #b91c1c;
+}
+
+.user-chat-message__actions button:hover {
+  background: #fbd5d0;
+  color: #7f1d1d;
 }
 
 /* small delete link under posts */
