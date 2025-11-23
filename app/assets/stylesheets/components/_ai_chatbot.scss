@@ -59,13 +59,20 @@
   list-style: none;
   padding-left: 0;
   margin: 0 0 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
 }
 
 .chat-sidebar__item {
   width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.35rem;
   text-align: center;
-  border: none;
-  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.25);   // CHANGED (was: none)
+  background: rgba(255, 255, 255, 0.08);         // CHANGED (was: transparent)
   color: #e5edff;
   padding: 0.5rem 0.75rem;
   border-radius: 999px;
@@ -73,10 +80,14 @@
   font-size: 0.9rem;
   font-weight: 500;
   letter-spacing: 0.01em;
-  transition: background 0.15s ease, color 0.15s ease;
+  transition:
+    background 0.15s ease,
+    color 0.15s ease,
+    border-color 0.15s ease;                     // NEW
 
   &:hover {
-    background: rgba(255, 255, 255, 0.12);
+    background: rgba(255, 255, 255, 0.16);       // slightly stronger than before
+    border-color: rgba(255, 255, 255, 0.4);      // NEW
     color: #ffffff;
   }
 }
@@ -84,6 +95,7 @@
 .chat-sidebar__item--active {
   background: #ffffff;
   color: $primary-dark;
+  border-color: #ffffff;                          // NEW – crisp edge
 }
 
 /* member list column */
@@ -192,19 +204,15 @@
   flex: 1;
   display: flex;
   flex-direction: column;
-  background: $background;
+  background: $white;
   min-height: 0;
+
+  padding-top: 0.75rem;                     
+  border-top: 1px solid rgba(0, 0, 0, 0.07);
+  border-radius: 0 0 16px 16px;
+  overflow: hidden;
 }
 
-.chat-main h1 {
-  margin: 0;
-  padding: 1rem 1.5rem;
-  font-size: 1.4rem;
-  font-weight: 600;
-  color: $text-main;
-  border-bottom: 1px solid $border;
-  background: $white;
-}
 
 .chat-main__section {
   flex: 1;

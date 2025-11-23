@@ -15,7 +15,7 @@
             class="chat-sidebar__item <%= 'chat-sidebar__item--active' if active_tab == 'ai' %>"
             data-chat-switcher-target="tab"
             data-action="click->chat-switcher#showAi">
-            AI Chat
+            AI Chat 🤖 
           </button>
         </li>
         <li>
@@ -23,7 +23,7 @@
             class="chat-sidebar__item <%= 'chat-sidebar__item--active' if active_tab == 'community' %>"
             data-chat-switcher-target="tab"
             data-action="click->chat-switcher#showCommunity">
-            Chats
+            Chats 💬
           </button>
         </li>
         <li>
@@ -31,7 +31,7 @@
             class="chat-sidebar__item <%= 'chat-sidebar__item--active' if active_tab == 'updates' %>"
             data-chat-switcher-target="tab"
             data-action="click->chat-switcher#showUpdates">
-            Updates
+            Updates ⭐️
           </button>
         </li>
       </ul>
@@ -96,8 +96,7 @@
   <!-- main chat area + connections panel -->
   <div class="chat-main-wrapper">
     <main class="chat-main">
-      <h1>Chat with us</h1>
-
+    
       <!-- AI chat section -->
       <section
         id="ai-chat-section"
