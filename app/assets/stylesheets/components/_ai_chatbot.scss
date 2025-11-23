@@ -1,12 +1,12 @@
 // chat layout
 .chat-layout {
   display: flex;
-  max-width: 1100px;
-  height: calc(100vh - 140px);
-  margin: 40px auto;
+  max-width: 1240px;               // was 1100px → overall chat wider
+  height: calc(100vh - 110px);     // a bit taller on the screen
+  margin: 32px auto;               // slightly tighter margin around
   background: #fff;
-  border-radius: 12px;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+  border-radius: 16px;             // a bit softer, more “app” like
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.10);
   overflow: hidden;
 }
 
@@ -32,8 +32,8 @@
 }
 
 .chat-sidebar__nav {
-  width: 140px;
-  margin-right: 0.75rem;
+  width: 96px;          // was 140px → slimmer tab column
+  margin-right: 1rem;   // a bit more breathing room before member list
 }
 
 .chat-sidebar--compact .chat-sidebar__nav {
