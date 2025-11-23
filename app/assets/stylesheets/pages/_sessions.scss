@@ -2,7 +2,7 @@
   width: 420px;
   margin: 40px auto;
   padding: 30px;
-  background: linear-gradient(180deg, #06A0FF 0%, #005299 100%);
+  background: $blue-gradient;
   border-radius: 25px;
   text-align: center;
   color: white;
@@ -52,7 +52,7 @@
   width: 180px;
   height: 48px;
   background: white;
-  color: #005299;
+  color: $blue-primary;
   border-radius: 25px;
   border: none;
   font-size: 16px;
@@ -85,7 +85,7 @@
   max-width: 900px;
   margin: 40px auto;
   padding: 40px;
-  background: linear-gradient(180deg, #06A0FF 0%, #005299 100%);
+  background: $blue-gradient;
   border-radius: 25px;
   text-align: center;
   color: white;
@@ -187,7 +187,7 @@ textarea.input-field {
   width: 200px;
   height: 48px;
   background: white;
-  color: #005299;
+  color: $blue-primary;
   border-radius: 25px;
   border: none;
   font-size: 16px;
