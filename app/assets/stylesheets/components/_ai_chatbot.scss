@@ -975,8 +975,32 @@ turbo-frame#message_thread:empty {
     }
   }
 
-  .btn-primary {
+    .btn-primary {
     border-radius: 999px;
+    padding-inline: 1.4rem;
+    min-height: 40px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    background: $primary;
+    border-color: $primary;
+    color: #ffffff;
+    font-weight: 600;
+    font-size: 0.95rem;
+    box-shadow: 0 4px 10px rgba($primary, 0.25);
+    transition: background 0.15s ease, box-shadow 0.15s ease, transform 0.05s ease;
+
+    &:hover {
+      background: darken($primary, 3%);
+      border-color: darken($primary, 3%);
+      box-shadow: 0 6px 14px rgba($primary, 0.3);
+    }
+
+    &:active {
+      transform: translateY(1px);
+      box-shadow: 0 3px 7px rgba($primary, 0.25);
+    }
   }
 }
 
