@@ -20,25 +20,35 @@
 // sidebar
 .chat-sidebar {
   width: 360px;
-  background: #064e3b;
-  color: #f0fdf4;
+  background: $white;                 // neutral background
+  color: $text-main;
   display: flex;
   flex-direction: row;
-  padding: 1rem;
+  padding: 1.25rem 1rem;
+  border-right: 1px solid $border;
 }
 
 .chat-sidebar--compact {
-  width: 190px;
+  width: 360px;
 }
 
 .chat-sidebar__nav {
-  width: 96px;          // was 140px → slimmer tab column
-  margin-right: 1rem;   // a bit more breathing room before member list
+  width: 96px;
+  margin-right: 1rem;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;          // vertical centering
+  align-items: stretch;
+  background: linear-gradient(135deg, $primary-dark, $primary);
+  border-radius: 1rem;
+  padding: 0.75rem 0.5rem;
+  color: #ffffff;
 }
 
 .chat-sidebar--compact .chat-sidebar__nav {
-  width: 100%;
-  margin-right: 0;
+  width: 96px;
+  margin-right: 1rem;
 }
 
 .chat-sidebar__title {
@@ -54,32 +64,37 @@
 
 .chat-sidebar__item {
   width: 100%;
-  text-align: left;
+  text-align: center;
   border: none;
   background: transparent;
-  color: inherit;
+  color: #e5edff;
   padding: 0.5rem 0.75rem;
-  border-radius: 0.4rem;
+  border-radius: 999px;
   cursor: pointer;
-  font-size: 0.95rem;
-  transition: background 0.15s;
+  font-size: 0.9rem;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  transition: background 0.15s ease, color 0.15s ease;
 
   &:hover {
-    background: rgba(255, 255, 255, 0.1);
+    background: rgba(255, 255, 255, 0.12);
+    color: #ffffff;
   }
 }
 
 .chat-sidebar__item--active {
-  background: rgba(255, 255, 255, 0.2);
+  background: #ffffff;
+  color: $primary-dark;
 }
 
 .chat-sidebar__list {
   flex: 1;
   font-size: 0.85rem;
-  color: #d1fae5;
+  color: $text-muted;
   overflow-y: auto;
-  border-left: 1px solid rgba(255, 255, 255, 0.15);
+  border-left: 1px solid $border;
   padding-left: 0.75rem;
+  background: $white;
 }
 
 .chat-sidebar__list-header {
@@ -88,23 +103,23 @@
 
 .chat-sidebar__search {
   width: 100%;
-  padding: 0.35rem 0.5rem;
-  border-radius: 0.4rem;
-  border: 1px solid rgba(209, 213, 219, 0.9);
+  padding: 0.45rem 0.75rem;
+  border-radius: 0.75rem;
+  border: 1px solid $border;
   font-size: 0.8rem;
-  background: rgba(255, 255, 255, 0.06);
-  color: #f0fdf4;
+  background: $background;
+  color: $text-main;
 
   &::placeholder {
-    color: #d1fae5;
-    opacity: 0.8;
+    color: $text-muted;   // soft grey, not green
+    opacity: 1;           // needed for Safari
   }
 
   &:focus {
     outline: none;
-    border-color: #bbf7d0;
-    box-shadow: 0 0 0 1px rgba(187, 247, 208, 0.6);
-    background: rgba(255, 255, 255, 0.12);
+    border-color: $primary;
+    box-shadow: 0 0 0 1px rgba($primary, 0.25);
+    background: $white;
   }
 }
 
@@ -140,12 +155,13 @@
   width: 32px;
   height: 32px;
   border-radius: 999px;
-  background: rgba(255, 255, 255, 0.15);
-  color: #f0fdf4;
+  background: $primary;      // solid brand blue on white background
+  color: #ffffff;
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 0.85rem;
+  font-weight: 600;
 }
 
 .chat-sidebar__conversation-text {
@@ -161,7 +177,7 @@
 
 .chat-sidebar__conversation-snippet {
   font-size: 0.8rem;
-  color: #bbf7d0;
+  color: $text-muted;   // neutral grey from your palette
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -172,15 +188,18 @@
   flex: 1;
   display: flex;
   flex-direction: column;
-  background: #fff;
+  background: $background;
   min-height: 0;
 }
 
 .chat-main h1 {
   margin: 0;
-  padding: 1rem;
-  font-size: 1.35rem;
-  border-bottom: 1px solid #e5e7eb;
+  padding: 1rem 1.5rem;
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: $text-main;
+  border-bottom: 1px solid $border;
+  background: $white;
 }
 
 .chat-main__section {
@@ -188,6 +207,7 @@
   display: flex;
   flex-direction: column;
   min-height: 0;
+  background: $white;
 }
 
 // ai feed
@@ -229,14 +249,33 @@ turbo-frame#user_profile_panel:empty {
   display: none;
 }
 
-// message forms
 #new_ai_chat_message,
 #new_user_chat_message {
-  border-top: 1px solid #e5e7eb;
-  padding: 1rem;
+  border-top: 1px solid $border;
+  padding: 0.75rem 1.25rem;
+  background: $white;
 
   .form-group {
     margin-bottom: 0;
+  }
+
+  .form-floating > .form-control {
+    border-radius: 999px;
+    padding-left: 1.1rem;
+    padding-right: 1.1rem;
+    background-color: $background;
+    border: 1px solid $border;
+    font-size: 0.95rem;
+
+    &:focus {
+      background-color: $white;
+      border-color: $primary;
+      box-shadow: 0 0 0 1px rgba($primary, 0.35);
+    }
+  }
+
+  .btn-primary {
+    border-radius: 999px;
   }
 }
 
@@ -299,6 +338,18 @@ turbo-frame#user_profile_panel:empty {
 
 .user-chat-message__actions {
   margin-top: 0.25rem;
+  font-size: 0.8rem;
+  color: $text-muted;
+
+  a {
+    color: $text-muted;
+    text-decoration: none;
+
+    &:hover {
+      text-decoration: underline;
+      color: $primary-dark;
+    }
+  }
 }
 
 .user-chat-message__comment-count {
@@ -441,8 +492,51 @@ turbo-frame#user_profile_panel:empty {
 }
 
 .message-thread__form {
-  border-top: 1px solid #e5e7eb;
-  padding: 0.5rem 1rem 0.75rem;
+  border-top: 1px solid $border;
+  padding: 0.75rem 1rem;
+  background: $white;
+
+  .form-floating > .form-control {
+    border-radius: 0.75rem;
+    background-color: $background;
+    border: 1px solid $border;
+    font-size: 0.9rem;
+
+    &:focus {
+      background-color: $white;
+      border-color: $primary;
+      box-shadow: 0 0 0 1px rgba($primary, 0.3);
+    }
+  }
+
+  .btn-primary {
+    border-radius: 999px;
+  }
+}
+
+.message-thread__body-actions .btn-link {
+  padding-left: 0;
+  color: $text-muted;
+
+  &:hover {
+    color: $primary-dark;
+    text-decoration: underline;
+  }
+}
+
+.message-thread__comment-actions {
+  margin-top: 0.25rem;
+  font-size: 0.8rem;
+
+  .btn-link {
+    padding-left: 0;
+    color: $text-muted;
+
+    &:hover {
+      color: $primary-dark;
+      text-decoration: underline;
+    }
+  }
 }
 
 // user profile panel

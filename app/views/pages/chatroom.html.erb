@@ -9,14 +9,13 @@
 
     <!-- left column navigation -->
     <div class="chat-sidebar__nav">
-      <h2 class="chat-sidebar__title">Chats</h2>
       <ul class="chat-sidebar__menu">
         <li>
           <button
             class="chat-sidebar__item <%= 'chat-sidebar__item--active' if active_tab == 'ai' %>"
             data-chat-switcher-target="tab"
             data-action="click->chat-switcher#showAi">
-            AI chat
+            AI Chat
           </button>
         </li>
         <li>
