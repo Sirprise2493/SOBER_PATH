@@ -141,7 +141,7 @@ class PagesController < ApplicationController
     end
 
     # Pagination (max. 5 per page)
-    per_page     = 5
+    per_page     = 7
     @page        = params[:enc_page].presence&.to_i
     @page        = 1 if @page.nil? || @page < 1
     @total_count = @encouragements_scope.count
