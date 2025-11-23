@@ -1,6 +1,6 @@
 <div class="meetings">
   <aside class="meetings__sidebar">
-    <h2 class="meetings__title">Meetings near you</h2>
+    <h2 class="meetings__title blue">Meetings near you</h2>
 
     <%= simple_form_for :search, url: meetings_path, method: :get, html: { class: "meetings__form" } do |f| %>
       <%= f.input :address,
