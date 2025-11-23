@@ -583,6 +583,27 @@ turbo-frame#user_profile_panel:empty {
   }
 }
 
+.user-chat-message__actions a,
+.user-chat-message__actions button,
+.user-chat-message__comment-count {
+  background: #f1f3f5;
+  padding: 3px 10px;
+  border-radius: 999px;
+  margin-right: 0.35rem;
+  font-size: 0.78rem;
+  color: $text-muted;
+  display: inline-block;
+  border: none;        // ensure buttons look like pills
+  cursor: pointer;
+}
+
+.user-chat-message__actions a:hover,
+.user-chat-message__actions button:hover {
+  background: #e5e7eb;
+  color: $primary-dark;
+  text-decoration: none;
+}
+
 .user-chat-message__comment-count {
   font-weight: 500;
 }
