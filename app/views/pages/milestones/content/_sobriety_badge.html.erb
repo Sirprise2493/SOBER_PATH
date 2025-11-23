@@ -1,9 +1,8 @@
 <% current_milestone = user.current_coin_milestone %>
+<% next_milestone, target_time = user.next_coin_milestone_with_time || [] %>
 
 <% if current_milestone.present? %>
   <section class="page-milestones__badge">
-    <h2>Current AA coin</h2>
-
     <div class="sobriety-badge">
       <%# Background image (congratulations) %>
       <%= image_tag "aa_backgrounds/gratulationsbild.png",
@@ -15,10 +14,24 @@
                       alt:  current_milestone[:name],
                       class: "sobriety-badge__coin-img" %>
       </div>
-    </div>
 
-    <p class="page-milestones__badge-label">
-      <strong><%= current_milestone[:name] %></strong>
-    </p>
+      <%# Text-Overlay (Label + Countdown) %>
+      <div class="sobriety-badge__text">
+        <p class="sobriety-badge__label">
+          <strong><%= current_milestone[:name].upcase %></strong>
+        </p>
+
+        <% if next_milestone && target_time %>
+          <p class="sobriety-badge__countdown"
+             data-controller="countdown"
+             data-countdown-target-time-value="<%= target_time.iso8601 %>">
+            <span class="sobriety-badge__countdown-prefix">Next:</span>
+            <span class="sobriety-badge__countdown-name"><%= next_milestone[:name] %></span>
+            <span>in</span>
+            <span data-countdown-target="output"></span>
+          </p>
+        <% end %>
+      </div>
+    </div>
   </section>
 <% end %>
