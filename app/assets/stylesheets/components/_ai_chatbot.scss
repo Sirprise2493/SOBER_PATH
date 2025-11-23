@@ -353,6 +353,21 @@ turbo-frame#user_profile_panel:empty {
   }
 }
 
+.user-chat-message__delete {
+  padding: 0;
+  border: none;
+  background: transparent;
+  color: $text-muted;
+  font-size: 0.8rem;
+  text-decoration: none;
+  cursor: pointer;
+
+  &:hover {
+    color: $primary-dark;
+    text-decoration: underline;
+  }
+}
+
 .user-chat-message__comment-count {
   font-weight: 500;
 }
@@ -680,7 +695,11 @@ turbo-frame#user_profile_panel:empty {
 .user-chat-message {
   display: flex;
   gap: 0.75rem;
-  margin-bottom: 0.75rem;
+  margin-bottom: 1rem;
+  padding: 0.75rem 1rem;
+  border-radius: 0.75rem;
+  background: $background;      // soft light background
+  border: 1px solid $border;    // subtle delineation between posts;
 }
 
 .user-chat-message__avatar {
