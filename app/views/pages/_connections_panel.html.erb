@@ -8,13 +8,12 @@
     <ul class="chat-connections__list">
       <% friends.each do |friend| %>
         <li class="chat-connections__item">
-          <!-- REIHE: Avatar + Username -->
           <div class="chat-connections__row">
             <div class="chat-connections__avatar">
               <% if friend.avatar.attached? %>
                 <%= image_tag friend.avatar
-                                   .variant(resize_to_fill: [28, 28])
-                                   .processed,
+                                      .variant(resize_to_fill: [28, 28])
+                                      .processed,
                               alt: friend.username,
                               class: "chat-connections__avatar-image" %>
               <% else %>
@@ -24,17 +23,20 @@
               <% end %>
             </div>
 
-            <%= link_to friend.username,
-                        user_path(friend),
-                        class: "chat-connections__name mb-0",
-                        data: { turbo_frame: "user_profile_panel" } %>
-          </div>
+            <!-- NEW: wrap name + days in one column -->
+            <div class="chat-connections__info">
+              <%= link_to friend.username,
+                          user_path(friend),
+                          class: "chat-connections__name",
+                          data: { turbo_frame: "user_profile_panel" } %>
 
-          <% if friend.sobriety_start_date.present? %>
-            <p class="chat-connections__meta chat-connections__meta--indented mb-0">
-              <%= pluralize(friend.sobriety_days, "day") %> sober
-            </p>
-          <% end %>
+              <% if friend.sobriety_start_date.present? %>
+                <p class="chat-connections__meta">
+                  <%= pluralize(friend.sobriety_days, "day") %> sober
+                </p>
+              <% end %>
+            </div>
+          </div>
         </li>
       <% end %>
     </ul>
@@ -98,7 +100,7 @@
     </ul>
   <% else %>
     <p class="chat-connections__empty">
-      no incoming connection requests.
+      No new requests right now.
     </p>
   <% end %>
 </div>
