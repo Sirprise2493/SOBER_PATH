@@ -279,50 +279,101 @@ turbo-frame#message_thread:empty {
   padding: 0;
 }
 
-/* connections panel */
+/* =========================================
+   CONNECTIONS PANEL (RIGHT SIDE)
+========================================= */
 
 .chat-connections {
-  width: 230px;
+  width: 240px;
   border-left: 1px solid #e5e7eb;
-  padding: 0.75rem;
+  padding: 0.75rem 1rem;
   background: #fafafa;
   font-size: 0.85rem;
   display: flex;
   flex-direction: column;
-  overflow-y: auto;
 }
 
+/* top label: "Connections" */
 .chat-connections__title {
-  font-size: 0.95rem;
+  font-size: 0.75rem;
   font-weight: 600;
-  margin-bottom: 0.5rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #9ca3af;
+  margin: 0 0 0.35rem;
 }
 
-.chat-connections__list {
-  list-style: none;
-  padding-left: 0;
+/* sections: "Your connections", "Connection requests" */
+.chat-connections__section {
+  padding: 0.25rem 0 0.5rem;
   margin: 0;
 }
 
-.chat-connections__item {
+.chat-connections__section--requests {
+  border-top: 1px solid #e5e7eb;
+  margin-top: 0.75rem;
+  padding-top: 0.75rem;
+}
+
+/* section titles */
+.chat-connections__subtitle {
+  margin: 0 0 0.35rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+  text-transform: none;
+  letter-spacing: 0;
+  color: #111827;
+}
+
+/* lists */
+.chat-connections__list,
+.chat-connections__requests-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+/* each friend / request row */
+.chat-connections__item,
+.chat-connections__request-item {
+  padding: 0.25rem 0;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.chat-connections__item:last-child,
+.chat-connections__request-item:last-child {
+  border-bottom: none;
+}
+
+/* row: avatar + text block */
+.chat-connections__row {
   display: flex;
   align-items: center;
-  padding: 0.35rem 0;
+  gap: 0.5rem;
 }
+
+/* stack name + "X days sober" tight together */
+.chat-connections__info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.05rem;
+}
+
+/* avatar */
 
 .chat-connections__avatar {
   width: 28px;
   height: 28px;
   border-radius: 999px;
-  background: #064e3b;
-  color: #f0fdf4;
+  background: #0d6efd;
+  color: #ffffff;
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 0.8rem;
-  margin-right: 0.5rem;
+  flex: 0 0 auto;
 
-  img {
+  img.chat-connections__avatar-image {
     width: 100%;
     height: 100%;
     object-fit: cover;
@@ -330,13 +381,28 @@ turbo-frame#message_thread:empty {
   }
 }
 
-.chat-connections__info {
+.chat-connections__avatar-fallback {
+  width: 28px;
+  height: 28px;
+  border-radius: 999px;
+  background: #0d6efd;
+  color: #ffffff;
   display: flex;
-  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  font-size: 0.8rem;
+
+  span {
+    line-height: 1;
+  }
 }
+
+/* name + meta */
 
 .chat-connections__name {
   font-weight: 600;
+  font-size: 0.86rem;
   color: #111827;
   text-decoration: none;
 
@@ -346,13 +412,65 @@ turbo-frame#message_thread:empty {
 }
 
 .chat-connections__meta {
-  font-size: 0.75rem;
+  margin: 0;             // no extra gap
+  font-size: 0.78rem;
   color: #6b7280;
+  line-height: 1.2;
 }
+
+/* “no connections / no requests” text */
 
 .chat-connections__empty {
   font-size: 0.8rem;
   color: #6b7280;
+  margin: 0.25rem 0 0;
+}
+
+/* requests: text + actions */
+
+.chat-connections__request-text {
+  font-size: 0.78rem;
+  color: #6b7280;
+  margin: 0.25rem 0 0.4rem;
+  margin-left: 2rem;
+}
+
+.chat-connections__request-actions {
+  display: flex;
+  gap: 0.4rem;
+  margin-left: 2rem;
+}
+
+/* make the small buttons feel like pills and match your theme */
+
+.chat-connections__request-actions .btn {
+  padding: 0.25rem 0.7rem;
+  border-radius: 999px;
+  font-size: 0.78rem;
+  line-height: 1.2;
+}
+
+.chat-connections__request-actions .btn-primary {
+  background: $primary;
+  border-color: $primary;
+  box-shadow: 0 3px 8px rgba($primary, 0.25);
+
+  &:hover {
+    background: darken($primary, 4%);
+    border-color: darken($primary, 4%);
+  }
+}
+
+.chat-connections__request-actions .btn-outline-secondary {
+  border-radius: 999px;
+  border-color: #d1d5db;
+  color: #4b5563;
+  background: #ffffff;
+
+  &:hover {
+    background: #f3f4f6;
+    color: #111827;
+  }
 }
 
 /* =========================================
