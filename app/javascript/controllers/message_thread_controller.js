@@ -27,7 +27,6 @@ export default class extends Controller {
       feed.classList.remove("d-none")
     }
 
-    // show main community input bar again
     const mainForm = document.getElementById("user-chat-main-form")
     if (mainForm) {
       mainForm.classList.remove("d-none")

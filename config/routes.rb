@@ -29,7 +29,8 @@ Rails.application.routes.draw do
   # Milestones
   get "/milestones", to: "pages#milestones", as: :milestones
 
-  resources :user_chat_messages,           only: [:create, :show, :destroy]
+  resources :user_chat_messages, only: [:create, :show, :destroy]
+
   resources :user_chat_messages_responses, only: [:create, :destroy]
 
   resources :encouragements, only: [:create, :show]

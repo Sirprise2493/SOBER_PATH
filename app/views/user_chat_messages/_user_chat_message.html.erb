@@ -1,5 +1,4 @@
-<% comments_count = user_chat_message.user_chat_messages_responses.count %>
-<% message_user   = user_chat_message.user %>
+<% message_user = user_chat_message.user %>
 
 <div id="<%= dom_id(user_chat_message) %>" class="user-chat-message">
   <!-- Avatar -->
@@ -34,12 +33,11 @@
     </p>
 
     <div class="user-chat-message__actions small text-muted">
-      <% if comments_count.positive? %>
-        <%= link_to "#{comments_count} #{'comment'.pluralize(comments_count)}",
-                    user_chat_message_path(user_chat_message),
-                    data: { turbo_frame: "message_thread" },
-                    class: "me-2 user-chat-message__comment-count" %>
-      <% end %>
+      <!-- 🔁 comment count turbo-frame -->
+      <turbo-frame id="<%= dom_id(user_chat_message, :comment_count) %>">
+        <%= render "user_chat_messages/comment_count",
+                   user_chat_message: user_chat_message %>
+      </turbo-frame>
 
       <%= link_to "Comment",
                   user_chat_message_path(user_chat_message),

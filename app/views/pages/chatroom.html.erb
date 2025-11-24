@@ -124,7 +124,7 @@
           <h2>Chats</h2>
         </div>
 
-        <% if @user_chat_messages&.any? %>
+        <% if @user_chat_messages.present? %>
           <div id="user_chat_messages" data-controller="auto-scroll">
             <%= render @user_chat_messages %>
           </div>
@@ -132,7 +132,9 @@
           <div class="chat-empty-state">
             <div class="chat-empty-state__content">
               <p class="chat-empty-state__title">No messages yet</p>
-              <p class="chat-empty-state__text">Be the first to say hello to the community.</p>
+              <p class="chat-empty-state__text">
+                Be the first to say hello to the community.
+              </p>
             </div>
           </div>
         <% end %>
@@ -142,7 +144,7 @@
 
         <%= render "user_chat_messages/form" %>
       </section>
-
+      
       <!-- Updates section -->
       <section
         id="updates-section"
