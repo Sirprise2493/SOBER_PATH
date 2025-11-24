@@ -27,9 +27,7 @@
       <% end %>
 
       <% if user.bio.present? %>
-        <p class="public-profile-header__bio">
-          <%= simple_format(user.bio) %>
-        </p>
+        <%= simple_format(user.bio, class: "public-profile-header__bio") %>
       <% end %>
 
       <% if user.counsellor? %>

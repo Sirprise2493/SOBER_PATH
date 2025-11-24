@@ -1123,7 +1123,7 @@ turbo-frame#message_thread:empty {
 }
 
 /* =========================================
-   USER PROFILE PANEL
+   USER PROFILE PANEL (chat right-hand card)
 ========================================= */
 
 .user-profile-panel {
@@ -1135,7 +1135,6 @@ turbo-frame#message_thread:empty {
   display: flex;
 }
 
-/* Inner card */
 .user-profile-panel .public-profile-card {
   margin: 0;
   padding: 1.25rem 1.5rem 1.4rem;
@@ -1171,7 +1170,6 @@ turbo-frame#message_thread:empty {
   display: flex;
   align-items: center;
   justify-content: center;
-
   flex: 0 0 52px;
   min-width: 52px;
   max-width: 52px;
@@ -1208,17 +1206,20 @@ turbo-frame#message_thread:empty {
   color: #6b7280;
 }
 
-.user-profile-panel .public-profile-header__headline {
-  margin-top: 0.25rem;
-  font-size: 0.85rem;
-  color: #4b5563;
+/* Headline vs bio hierarchy */
+
+.public-profile-header__headline {
+  margin-top: 0.45rem;
+  font-size: 1rem;    
+  font-weight: 600;       
+  color: #1f2937;         
 }
 
-.user-profile-panel .public-profile-header__bio {
-  margin-top: 0.25rem;
+.public-profile-header__bio {
+  margin-top: 0.6rem;
   font-size: 0.85rem;
   color: #4b5563;
-  line-height: 1.35;
+  line-height: 1.45;
 }
 
 /* Connection section */
@@ -1272,7 +1273,7 @@ turbo-frame#message_thread:empty {
   }
 }
 
-/* Close button*/
+/* Close button (×) */
 .user-profile-panel__close {
   position: absolute;
   top: 0.6rem;
