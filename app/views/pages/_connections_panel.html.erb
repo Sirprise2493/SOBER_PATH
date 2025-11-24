@@ -1,6 +1,6 @@
 <h2 class="chat-connections__title">Connections</h2>
 
-<!-- OBERE SEKTION: bestehende Freunde -->
+<!-- TOP SECTION: existing friends -->
 <div class="chat-connections__section chat-connections__section--friends">
   <h3 class="chat-connections__subtitle">Your connections</h3>
 
@@ -23,7 +23,6 @@
               <% end %>
             </div>
 
-            <!-- NEW: wrap name + days in one column -->
             <div class="chat-connections__info">
               <%= link_to friend.username,
                           user_path(friend),
@@ -47,7 +46,7 @@
   <% end %>
 </div>
 
-<!-- UNTERE SEKTION: eingehende Requests -->
+<!-- BOTTOM SECTION: incoming requests -->
 <div class="chat-connections__section chat-connections__section--requests">
   <h3 class="chat-connections__subtitle">Connection requests</h3>
 
@@ -57,43 +56,44 @@
         <% requester = fr.asker %>
 
         <li class="chat-connections__request-item">
-          <!-- REIHE: Avatar + Username -->
           <div class="chat-connections__row">
             <div class="chat-connections__avatar">
               <% if requester.avatar.attached? %>
                 <%= image_tag requester.avatar
-                                       .variant(resize_to_fill: [28, 28])
-                                       .processed,
-                                  alt: requester.username,
-                                  class: "chat-connections__avatar-image" %>
+                              .variant(resize_to_fill: [28, 28])
+                              .processed,
+                              alt: requester.username,
+                              class: "chat-connections__avatar-image" %>
               <% else %>
                 <div class="chat-connections__avatar-fallback">
-                  <span><%= requester.username.to_s.first.to_s.upcase.presence || "?" %></span>
+                  <span><%= requester.username.first.upcase %></span>
                 </div>
               <% end %>
             </div>
 
-            <p class="chat-connections__name mb-0">
-              <%= requester.username %>
-            </p>
-          </div>
+            <!-- EVERYTHING GOES IN HERE -->
+            <div class="chat-connections__info">
+              <p class="chat-connections__name mb-0">
+                <%= requester.username %>
+              </p>
 
-          <!-- Text unter der Reihe -->
-          <p class="chat-connections__request-text mb-1">
-            wants to connect with you.
-          </p>
+              <p class="chat-connections__request-text mb-1">
+                wants to connect with you.
+              </p>
 
-          <div class="chat-connections__request-actions">
-            <%= button_to "Accept",
-                          friendship_path(fr, status: "accepted"),
-                          method: :patch,
-                          class: "btn btn-sm btn-primary" %>
+              <div class="chat-connections__request-actions">
+                <%= button_to "Accept",
+                              friendship_path(fr, status: "accepted"),
+                              method: :patch,
+                              class: "btn btn-sm btn-primary" %>
 
-            <%= button_to "Decline",
-                          friendship_path(fr, status: "declined"),
-                          method: :patch,
-                          data: { turbo_confirm: "Decline this request?" },
-                          class: "btn btn-sm btn-outline-secondary" %>
+                <%= button_to "Decline",
+                              friendship_path(fr, status: "declined"),
+                              method: :patch,
+                              data: { turbo_confirm: "Decline this request?" },
+                              class: "btn btn-sm btn-outline-secondary" %>
+              </div>
+            </div>
           </div>
         </li>
       <% end %>
