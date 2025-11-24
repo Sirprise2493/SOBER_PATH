@@ -154,6 +154,7 @@
         <div class="chat-section-header">
           <h2>Updates</h2>
         </div>
+
         <div id="updates-section-body">
           <% if @connection_updates.present? %>
             <ul class="connection-updates">
@@ -162,11 +163,11 @@
                 <% milestone = (update.kind == :sobriety_milestone ? update.meta[:milestone] : nil) %>
 
                 <% reason =
-                     if update.kind == :birthday
-                       "birthday"
-                     elsif update.kind == :sobriety_milestone && milestone.present?
-                       "milestone:#{milestone[:name]}"
-                     end %>
+                    if update.kind == :birthday
+                      "birthday"
+                    elsif update.kind == :sobriety_milestone && milestone.present?
+                      "milestone:#{milestone[:name]}"
+                    end %>
 
                 <% already_sent_for_update = Encouragement.where(
                   sender:   current_user,
@@ -175,6 +176,7 @@
                 ).exists? %>
 
                 <li class="connection-updates__item">
+                  <!-- avatar -->
                   <div class="connection-updates__avatar">
                     <% if friend.avatar.attached? %>
                       <%= image_tag friend.avatar.variant(resize_to_fill: [32, 32]),
@@ -187,6 +189,7 @@
                     <% end %>
                   </div>
 
+                  <!-- content -->
                   <div class="connection-updates__content">
                     <div class="connection-updates__title">
                       <% if update.kind == :birthday %>
@@ -206,48 +209,43 @@
                     </div>
 
                     <% if already_sent_for_update %>
-                      <div class="text-success small mt-2">
+                      <div class="connection-updates__status">
                         ✓ Encouragement sent
                       </div>
                     <% else %>
-<div class="connection-updates__encouragement-form mt-2">
-  <%= form_with model: Encouragement.new,
-                url: encouragements_path,
-                local: true do |f| %>
+                      <div
+                        class="connection-updates__encouragement-form"
+                        data-controller="emoji-picker">
 
-    <%= f.hidden_field :receiver_id, value: friend.id %>
-    <%= f.hidden_field :reason,      value: reason %>
+                        <%= form_with model: Encouragement.new,
+                                      url: encouragements_path,
+                                      local: true do |f| %>
 
-    <!-- Emoji-Picker-Controller um Textarea + Buttons -->
-    <div data-controller="emoji-picker">
-      <div class="mb-1">
-        <%= f.text_area :body,
-                        rows: 2,
-                        class: "form-control form-control-sm",
-                        placeholder: "Send a short encouragement",
-                        data: { "emoji-picker-target": "input" } %>
-      </div>
+                          <%= f.hidden_field :receiver_id, value: friend.id %>
+                          <%= f.hidden_field :reason,      value: reason %>
 
-      <!-- Zeile mit Emoji-Button + Submit nebeneinander -->
-      <div class="d-flex align-items-center gap-2">
-        <button
-          type="button"
-          class="btn btn-sm btn-outline-secondary me-2"
-          data-action="click->emoji-picker#toggle"
-        >
-          😊
-        </button>
+                          <div class="connection-updates__input-row">
+                            <%= f.text_area :body,
+                                            rows: 1,
+                                            class: "form-control connection-updates__input",
+                                            placeholder: "Send a short encouragement…",
+                                            data: { "emoji-picker-target": "input" } %>
 
-        <%= f.submit "Send encouragement",
-                     class: "btn btn-sm btn-primary" %>
-      </div>
+                            <button
+                              type="button"
+                              class="connection-updates__emoji-btn"
+                              data-action="click->emoji-picker#toggle">
+                              😊
+                            </button>
 
-      <!-- Emoji-Panel (gleiches Partial wie überall sonst) -->
-      <%= render "user_chat_messages/emoji_panel" %>
-    </div>
-  <% end %>
-</div>
+                            <%= f.submit "Send",
+                                        class: "btn btn-primary connection-updates__submit-btn" %>
+                          </div>
 
+                          <!-- This partial must define data-emoji-picker-target="panel" inside -->
+                          <%= render "user_chat_messages/emoji_panel" %>
+                        <% end %>
+                      </div>
                     <% end %>
                   </div>
                 </li>
