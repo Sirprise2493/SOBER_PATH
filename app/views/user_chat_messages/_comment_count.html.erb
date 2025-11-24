@@ -1,0 +1,10 @@
+<% comments_count = user_chat_message.user_chat_messages_responses.count %>
+
+<% if comments_count.positive? %>
+  <%= link_to "#{comments_count} #{'comment'.pluralize(comments_count)}",
+              user_chat_message_path(user_chat_message),
+              data: { turbo_frame: "message_thread" },
+              class: "me-2 user-chat-message__comment-count" %>
+<% else %>
+  <!-- no comments yet: leave empty -->
+<% end %>
