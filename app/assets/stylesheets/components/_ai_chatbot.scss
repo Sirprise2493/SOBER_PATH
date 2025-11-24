@@ -1131,13 +1131,11 @@ turbo-frame#message_thread:empty {
   margin: 0.75rem 1rem;
   padding: 0;
   font-size: 0.9rem;
-
-  // limit how tall the panel can grow
   max-height: 450px;
   display: flex;
 }
 
-/* Inner card (public_profile partial) */
+/* Inner card */
 .user-profile-panel .public-profile-card {
   margin: 0;
   padding: 1.25rem 1.5rem 1.4rem;
@@ -1150,7 +1148,14 @@ turbo-frame#message_thread:empty {
   overflow-y: auto;
 }
 
+.user-profile-panel__divider {
+  margin: 1rem 0;
+  height: 1px;
+  background-color: #e5e7eb;
+}
+
 /* Header: avatar + name + meta */
+
 .user-profile-panel .public-profile-header {
   display: flex;
   align-items: flex-start;
@@ -1166,6 +1171,7 @@ turbo-frame#message_thread:empty {
   display: flex;
   align-items: center;
   justify-content: center;
+
   flex: 0 0 52px;
   min-width: 52px;
   max-width: 52px;
@@ -1186,7 +1192,7 @@ turbo-frame#message_thread:empty {
 
 .user-profile-panel .public-profile-header__info {
   flex: 1 1 auto;
-  min-width: 0;              // allow text to wrap instead of pushing avatar
+  min-width: 0;
 }
 
 .user-profile-panel .public-profile-header__username {
@@ -1221,8 +1227,17 @@ turbo-frame#message_thread:empty {
   margin-top: 1.25rem;
 }
 
-.user-profile-panel__connection h3 {
-  margin: 0 0 0.5rem;
+/* Title + optional button on one row */
+.user-profile-panel__connection-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  margin-bottom: 0.35rem;
+}
+
+.user-profile-panel__connection-header h3 {
+  margin: 0;
   font-size: 0.95rem;
   font-weight: 600;
   color: #111827;
@@ -1234,21 +1249,30 @@ turbo-frame#message_thread:empty {
   color: #4b5563;
 }
 
-.user-profile-panel__actions {
-  margin-top: 0.5rem;
-}
+/* Small, compact primary button on the right */
+.user-profile-panel__connect-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 
-/* Buttons in the panel: left-aligned pill */
-.user-profile-panel .btn-primary {
-  border-radius: 999px;
-  font-size: 0.85rem;
-  padding: 0.35rem 1.15rem;
+  border-radius: 0.5rem;
+  font-size: 0.82rem;
+  font-weight: 600;
+  padding: 0.28rem 0.9rem;
+
   background: #0d6efd;
-  border-color: #0d6efd;
-  box-shadow: 0 3px 8px rgba(13, 110, 253, 0.25);
+  border: 1px solid #0d6efd;
+  color: #ffffff;
+  box-shadow: 0 2px 6px rgba(13, 110, 253, 0.25);
+
+  &:hover {
+    background: darken(#0d6efd, 3%);
+    border-color: darken(#0d6efd, 3%);
+    text-decoration: none;
+  }
 }
 
-/* Close button (×) */
+/* Close button*/
 .user-profile-panel__close {
   position: absolute;
   top: 0.6rem;

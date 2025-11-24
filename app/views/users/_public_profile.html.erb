@@ -1,5 +1,5 @@
 <div class="public-profile-card">
-  <!-- Header: Avatar + Username in einer Reihe -->
+  <!-- Header: Avatar + Username in a row -->
   <div class="public-profile-header">
     <div class="public-profile-header__avatar">
       <% if user.avatar.attached? %>
@@ -27,7 +27,9 @@
       <% end %>
 
       <% if user.bio.present? %>
-        <p class="public-profile-header__bio"><%= simple_format(user.bio) %></p>
+        <p class="public-profile-header__bio">
+          <%= simple_format(user.bio) %>
+        </p>
       <% end %>
 
       <% if user.counsellor? %>
@@ -36,10 +38,22 @@
     </div>
   </div>
 
-  <hr>
+  <!-- Single custom divider -->
+  <div class="user-profile-panel__divider"></div>
 
+  <!-- Connection section -->
   <div class="user-profile-panel__connection">
-    <h3>Connection</h3>
+    <div class="user-profile-panel__connection-header">
+      <h3>Connection</h3>
+
+      <% if !current_user.connected_with?(user) &&
+            !current_user.pending_friend_request_for?(user) %>
+        <%= button_to "Connect",
+                      friendships_path(receiver_id: user.id),
+                      method: :post,
+                      class: "btn btn-primary user-profile-panel__connect-button" %>
+      <% end %>
+    </div>
 
     <% if current_user.connected_with?(user) %>
 
@@ -56,7 +70,7 @@
         </p>
 
       <% else %>
-        <!-- Hübscher Block für eingehende Anfrage -->
+        <!-- Incoming request block -->
         <div class="connection-request">
           <div class="connection-request__user">
             <div class="connection-request__avatar">
@@ -95,15 +109,6 @@
           </div>
         </div>
       <% end %>
-
-    <% else %>
-
-      <div class="user-profile-panel__actions">
-        <%= button_to "Connect",
-                      friendships_path(receiver_id: user.id),
-                      method: :post,
-                      class: "btn btn-primary" %>
-      </div>
 
     <% end %>
   </div>
