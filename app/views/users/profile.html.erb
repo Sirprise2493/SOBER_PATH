@@ -194,5 +194,6 @@
 
 <div class="profile-footer">
   <%= link_to "Change Password", edit_user_registration_path, class: "profile-footer-link" %>
-  <%= link_to "Log out", destroy_user_session_path, method: :delete, class: "profile-footer-link" %>
+  <%= button_to "Log out", destroy_user_session_path, method: :delete, class: "profile-footer-link", data: { turbo: false } %>
 </div>
+
