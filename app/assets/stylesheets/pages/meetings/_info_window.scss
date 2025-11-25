@@ -1,0 +1,24 @@
+// app/assets/stylesheets/pages/meetings/_info_window.scss
+
+.info-window {
+  font-size: 0.9rem;
+  max-width: 260px;
+
+  strong {
+    font-weight: 600;
+  }
+
+  small {
+    color: $blue-primary;
+  }
+
+  &__meetings {
+    padding-left: 1.1rem;
+    margin: 0;
+    list-style: disc;
+  }
+
+  .btn {
+    font-size: 0.8rem;
+  }
+}
