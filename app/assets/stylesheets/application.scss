@@ -10,7 +10,7 @@
 // Your CSS partials
 @import "components/index";
 @import "pages/index";
-@import "pages/meetings";
+//@import "pages/meetings";
 @import "pages/journal";
 
 @import "pages/milestones/milestones";
@@ -38,3 +38,8 @@
 
 // Devise pages (login, signup, reset password)
 @import "pages/sessions";
+
+
+@import "pages/meetings/meetings";
+@import "pages/meetings/venue_form";
+@import "pages/meetings/info_window";

@@ -1,7 +1,10 @@
 .meetings {
   display: flex;
+  justify-content: center;
+  align-items: center;
   gap: 16px;
   align-items: stretch;
+  margin-top: 4vh;
 
   .meetings__sidebar{
     flex: 0 0 380px;    // statt width: 800px;
@@ -105,13 +108,26 @@
     }
   }
 
+  &__map-frame {
+    padding: 0.8cm;
+    background: linear-gradient(135deg, $primary-dark, $primary);
+    display: inline-block;
+    border-radius: 18px; // optional, sieht oft edler aus
+
+    // "hoher" Elevation-Shadow
+    box-shadow:
+      0 35px 55px rgba(0, 0, 0, 0.35),  // großer, weicher Hauptschatten
+      0 12px 20px rgba(0, 0, 0, 0.25),  // mittlerer Schatten
+      0 4px 8px rgba(0, 0, 0, 0.15);    // kleiner Nah-Schatten
+  }
+
   &__map {
-    flex: 1 1 400px;   // Map bekommt eine sinnvolle Basisbreite
-    min-width: 380px;  // 👈 minimale Breite
+    flex: 1 1 400px;
+    min-width: 60vw;
     min-height: 600px;
     height: 70vh;
-
-    .mapboxgl-canvas { border-radius: 12px; }
+    background: #fff;
+    border-radius: 12px; // optional, damit es zum Frame passt
   }
 
   /* Create Venue block under the map */
@@ -244,16 +260,19 @@
 
 
 /*--------------------VENUE-------*/
-#new-venue .form-label-sm { font-size: .8rem; }
+#new-venue .form-label-sm {
+  width: 90vw;
+  font-size: .8rem;
+}
   .meetings-rows { max-height: 340px; overflow: auto; }
 
   /* 🔵 FUNDO GRADIENTE — igual signup */
   #new-venue {
-    background: $blue-gradient;
+    background: linear-gradient(135deg, $primary-dark, $primary);
     padding: 25px;
-    border-radius: 25px;
     box-shadow: 0px 10px 40px rgba(0,0,0,0.25);
     color: white;
+    margin-top: 5vh;
   }
 
   /* 🔵 Remover cards brancos do Bootstrap */
@@ -289,7 +308,65 @@
   #new-venue .form-label {
     color: white !important;
     font-weight: 600;
+
+
+    .venue-toggle-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.4rem;
+
+      padding: 0.35rem 1.3rem;
+      border-radius: 999px; // pill
+
+      border: 1px solid rgba(255, 255, 255, 0.7);
+      background: rgba(255, 255, 255, 0.08); // quite transparent
+      color: #ffffff;
+
+      font-size: 0.85rem;
+      font-weight: 500;
+      white-space: nowrap;
+      cursor: pointer;
+
+      backdrop-filter: blur(4px); // subtle glass effect (optional)
+
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+
+      transition:
+        background 0.2s ease,
+        color 0.2s ease,
+        border-color 0.2s ease,
+        box-shadow 0.2s ease,
+        transform 0.15s ease;
+
+      i {
+        font-size: 0.9rem;
+        line-height: 1;
+      }
+
+      &:hover {
+        // solid / gradient background on hover
+        background: linear-gradient(135deg, $primary-dark, $primary);
+        border-color: transparent;
+        color: #ffffff;
+
+        box-shadow: 0 8px 22px rgba(0, 0, 0, 0.28);
+        transform: translateY(-1px);
+        text-decoration: none;
+      }
+
+      &:active {
+        transform: translateY(0);
+        box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+      }
+
+      &:focus-visible {
+        outline: 2px solid #ffffff;
+        outline-offset: 2px;
+      }
+    }
   }
+
 
   /* Botão Add meeting */
   #new-venue .btn-outline-secondary {
@@ -320,4 +397,64 @@
 
   .blue-text{
     color: $blue-text;
+  }
+
+
+
+
+#new-venue .form-label-sm { font-size: .8rem; }
+  .meetings-rows { max-height: 340px; overflow: auto; }
+
+  /* pill-style toggle button */
+  #new-venue .venue-toggle-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.4rem;
+
+    padding: 0.35rem 1.3rem;
+    border-radius: 999px; /* pill */
+
+    border: 1px solid rgba(255, 255, 255, 0.8);
+    background: rgba(255, 255, 255, 0.12); /* transparent look */
+    color: #ffffff;
+
+    font-size: 0.85rem;
+    font-weight: 500;
+    white-space: nowrap;
+    cursor: pointer;
+
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.18);
+
+    transition:
+      background 0.2s ease,
+      color 0.2s ease,
+      border-color 0.2s ease,
+      box-shadow 0.2s ease,
+      transform 0.15s ease;
+  }
+
+  #new-venue .venue-toggle-btn i {
+    font-size: 0.9rem;
+    line-height: 1;
+  }
+
+  #new-venue .venue-toggle-btn:hover {
+    /* use Bootstrap primary color if available */
+    background: var(--bs-primary, #1d6fe9);
+    border-color: transparent;
+    color: #ffffff;
+    box-shadow: 0 8px 22px rgba(0, 0, 0, 0.28);
+    transform: translateY(-1px);
+    text-decoration: none;
+  }
+
+  #new-venue .venue-toggle-btn:active {
+    transform: translateY(0);
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+  }
+
+  #new-venue .venue-toggle-btn:focus-visible {
+    outline: 2px solid #ffffff;
+    outline-offset: 2px;
   }
