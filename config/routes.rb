@@ -37,4 +37,3 @@ Rails.application.routes.draw do
 
   resources :aa_venues, only: [:create, :destroy, :edit, :update]
 end
-

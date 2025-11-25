@@ -1,11 +1,14 @@
 <nav class="navbar">
   <div class="navbar-left">
-    <span class="navbar-logo">SoberPath</span>
+    <%= link_to "SoberPath", root_path, class: "navbar-logo" %>
   </div>
   <div class="navbar-right">
-    <a href="root_path">Home</a>
-    <a href="#">About</a>
-    <a href="#">Stories</a>
+    <%= link_to "Home", root_path %>
+    <%= link_to "Profile", profile_path %>
+    <%= link_to "Journal", journal_path %>
+    <%= link_to "Chatroom", chatroom_path %>
+    <%= link_to "Milestones", milestones_path %>
+    <%= link_to "Meetings", meetings_path %>
 
     <% if user_signed_in? %>
       <%= button_to "Log out",
@@ -13,7 +16,7 @@
                     method: :delete,
                     class: "navbar-btn logout-btn" %>
     <% else %>
-      <%= link_to "Log in", new_user_session_path, class: "navbar-btn login-btn" %>
+      <%= link_to "Log in", profile_path, class: "navbar-btn login-btn" %>
       <%= link_to "Sign up", new_user_registration_path, class: "navbar-btn signup-btn" %>
     <% end %>
   </div>
