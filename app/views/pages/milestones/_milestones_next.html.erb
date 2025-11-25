@@ -1,0 +1,116 @@
+<% current_milestone = user.current_coin_milestone %>
+<% next_milestone, target_time = user.next_coin_milestone_with_time || [] %>
+
+<% if current_milestone.present? %>
+  <section class="page-milestones__next milestones-next">
+    <div class="milestones-next__inner">
+
+      <!-- LEFT: Hero mit Current Milestone -->
+      <div class="milestones-next__left">
+        <div class="milestones-next-hero">
+          <div class="milestones-next-hero__visual">
+            <div class="milestones-next-hero__banner"></div>
+
+            <%= image_tag "aa_people/sobriety_hero3.png",
+                          alt: "Person feeling proud",
+                          class: "milestones-next-hero__person" %>
+          </div>
+
+          <div class="milestones-next-hero__text">
+            <p class="milestones-next-hero__milestone">
+              <strong>Soon you'll reach your next milestone.</strong>
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- RIGHT: kombinierte Karte (Next milestone + Celebrations) -->
+      <div class="milestones-next__right">
+        <% has_next     = next_milestone && target_time %>
+        <% celebrations = current_milestone[:celebrations] if current_milestone.present? %>
+        <% has_ideas    = celebrations.present? %>
+
+        <% if has_next || has_ideas %>
+          <div
+            class="milestones-next-card
+                   <%= ' milestones-next-card--no-next' unless has_next %>
+                   <%= ' milestones-next-card--no-celebrations' unless has_ideas %>"
+            <% if has_next %>
+              data-controller="countdown"
+              data-countdown-target-time-value="<%= target_time.iso8601 %>"
+            <% end %>
+          >
+            <div class="milestones-next-card__body">
+              <% if has_next %>
+                <section class="milestones-next-card__section milestones-next-card__section--next">
+                  <p class="milestones-next-card__eyebrow">
+                    Next milestone
+                  </p>
+
+                  <h3 class="milestones-next-card__title">
+                    <%= next_milestone[:name] %>
+                  </h3>
+
+                  <% if next_milestone[:description].present? %>
+                    <p class="milestones-next-card__description">
+                      <%= next_milestone[:description] %>
+                    </p>
+                  <% end %>
+
+
+
+
+                  <% if user.sobriety_start_date.present? && user.sobriety_days.present? %>
+                    <% sober_days  = user.sobriety_days.to_i %>
+                    <% sober_years = (sober_days / 365.0).floor %>
+
+                    <p class="milestones-next-card__sober-summary">
+                      You have been sober for
+                      <strong>
+                        <% if sober_years >= 1 %>
+                          <%= pluralize(sober_years, "year") %>
+                          (<%= pluralize(sober_days, "day") %>)
+                        <% else %>
+                          <%= pluralize(sober_days, "day") %>
+                        <% end %>
+                      </strong>.
+                    </p>
+                  <% end %>
+
+                  <p class="milestones-next-card__only-label">
+                    Next in:
+                  </p>
+                  <p class="milestones-next-card__countdown sobriety-badge__countdown"
+                     data-countdown-target="output">
+                    <!-- filled by Stimulus -->
+                  </p>
+                </section>
+              <% end %>
+
+              <% if has_ideas %>
+                <% if has_next %>
+                  <div class="milestones-next-card__divider"></div>
+                <% end %>
+
+                <section class="milestones-next-card__section milestones-next-card__section--celebrations">
+                  <p class="milestones-next-card__celebrations-title">
+                    Ideas to celebrate this milestone:
+                  </p>
+
+                  <ul class="milestones-next-card__celebrations-list">
+                    <% celebrations.each do |idea| %>
+                      <li class="milestones-next-card__celebration-item">
+                        <span><%= idea %></span>
+                      </li>
+                    <% end %>
+                  </ul>
+                </section>
+              <% end %>
+            </div>
+          </div>
+        <% end %>
+      </div>
+
+    </div>
+  </section>
+<% end %>

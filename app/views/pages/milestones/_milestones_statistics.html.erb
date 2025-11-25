@@ -1,0 +1,98 @@
+<%# app/views/pages/milestones/_milestones_statistics.html.erb %>
+<% colors = ["#2563eb", "#f97316", "#22c55e", "#ef4444"] %>
+
+<section class="milestones-stats-card">
+  <header class="milestones-stats-card__header">
+    <div>
+      <h2>Your milestones activity</h2>
+      <p class="milestones-stats-card__subtitle">
+        See how you’ve been engaging across the app in recent weeks.
+      </p>
+    </div>
+  </header>
+
+  <div class="milestones-stats-card__body">
+    <!-- Pie chart -->
+    <div class="milestones-stats-card__chart-wrapper milestones-stats-card__chart-wrapper--pie">
+      <%= pie_chart(
+        pie_data,
+        adapter: "google",
+        height: "100%",
+        colors: colors,
+        library: {
+          backgroundColor: "transparent",
+          pieSliceText: "percentage",
+          pieSliceTextStyle: {
+            color: "#111827",
+            fontSize: 16
+          },
+          pieSliceBorderColor: "#ffffff",
+          legend: {
+            position: "none" # eigene Legend unten
+          },
+          tooltip: {
+            text: "both"
+          },
+          chartArea: {
+            left: "4%",
+            top: 10,
+            width: "92%",
+            height: "92%"
+          }
+        }
+      ) %>
+    </div>
+
+    <!-- Bar chart -->
+    <div class="milestones-stats-card__chart-wrapper milestones-stats-card__chart-wrapper--bar">
+      <%= column_chart(
+        weekly_activity,
+        adapter: "google",
+        height: "100%",
+        stacked: false,
+        library: {
+          backgroundColor: "transparent",
+          legend: {
+            position: "none" # Legend unten gemeinsam
+          },
+          hAxis: {
+            title: "Week",
+            textStyle: { fontSize: 10 },
+            slantedText: true,
+            slantedTextAngle: 30
+          },
+          vAxis: {
+            title: "Count",
+            minValue: 0,
+            viewWindow: { min: 0 },
+            textStyle: { fontSize: 10 }
+          },
+          chartArea: {
+            left: "10%",
+            top: 16,
+            width: "80%",
+            height: "72%"
+          },
+          bar: {
+            groupWidth: "60%"
+          }
+        }
+      ) %>
+    </div>
+  </div>
+
+  <footer class="milestones-stats-card__footer">
+    <ul class="milestones-stats-card__legend">
+      <% pie_data.to_h.keys.each_with_index do |label, index| %>
+        <% color = colors[index % colors.length] %>
+        <li class="milestones-stats-card__legend-item">
+          <span
+            class="milestones-stats-card__legend-dot"
+            style="background-color: <%= color %>;"
+          ></span>
+          <span class="milestones-stats-card__legend-label"><%= label %></span>
+        </li>
+      <% end %>
+    </ul>
+  </footer>
+</section>

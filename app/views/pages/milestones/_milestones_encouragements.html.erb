@@ -14,7 +14,6 @@
                data-action="input->encouragements-sidebar#filterMembers">
       </div>
 
-      <!-- "Show all" leads back to the full overview (no sender_id) -->
       <%= link_to milestones_path(enc_page: 1),
                   data: { turbo_frame: "encouragement_chat" },
                   class: "encouragement-chat__all-button" do %>
@@ -24,7 +23,7 @@
       <ul class="encouragement-chat__member-list">
         <% grouped_by_sender.each do |sender, sender_encs| %>
           <% has_unread = sender_encs.any? { |e| e.read_at.nil? } %>
-          <% last_msg  = sender_encs.first %> <!-- most relevant message in our sort order -->
+          <% last_msg  = sender_encs.first %>
 
           <li class="encouragement-chat__member <%= 'is-active' if selected_sender&.id == sender.id %>"
               data-encouragements-sidebar-target="member"
