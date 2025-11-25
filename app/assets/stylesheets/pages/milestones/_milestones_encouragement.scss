@@ -1,22 +1,32 @@
 .encouragement-chat {
   display: flex;
   background: #e5f0ff;
-  border-radius: 1rem;
   border: 1px solid #dbeafe;
   overflow: hidden;
   box-shadow: 0 16px 35px rgba(15, 23, 42, 0.12);
-  min-height: 360px;
-  max-height: 800px;
 
-  /* SIDEBAR*/
+  height: 100%;
+  min-height: 0;
+  max-height: 100%;
+  align-items: stretch;
+
+  /* Pop-in-Animation beim Einblenden */
+  animation: encouragement-chat-pop-in 0.35s ease-out;
+  transform-origin: top center;
+
+  /* SIDEBAR */
   &__sidebar {
-    width: 260px;
-    background: linear-gradient(180deg, #082f49, #0f766e);
+    width: 15vw;
+    background: linear-gradient(135deg, $primary-dark, $primary);
     color: #e5e7eb;
     padding: 1rem 0.75rem;
     display: flex;
     flex-direction: column;
     gap: 0.75rem;
+
+    max-height: 80vh;
+    overflow-y: auto;
+    align-self: center;
   }
 
   &__sidebar-header {
@@ -76,6 +86,7 @@
     flex-direction: column;
     gap: 0.25rem;
     overflow-y: auto;
+    overflow-x: hidden;
     flex: 1;
   }
 
@@ -190,6 +201,7 @@
     flex-direction: column;
     gap: 0.75rem;
     overflow-y: auto;
+    overflow-x: hidden;
   }
 
   &__message {
@@ -314,7 +326,6 @@
     }
   }
 
-  /* PAGINATION */
   &__pagination {
     display: flex;
     align-items: center;
@@ -386,7 +397,6 @@
     opacity: 0.7;
   }
 
-  /* RESPONSIVE */
   @media (max-width: 768px) {
     flex-direction: column;
 
@@ -395,11 +405,16 @@
       flex-direction: row;
       align-items: stretch;
       gap: 0.5rem;
+      max-height: none;
+      align-self: stretch;
+      overflow-y: visible;
     }
 
     &__member-list {
       flex-direction: row;
       padding-bottom: 0.5rem;
+      overflow-x: auto;
+      overflow-y: hidden;
     }
 
     &__member {
@@ -408,23 +423,19 @@
   }
 }
 
-/* Helpclass for Stimulus-Filter */
+/* Hilfsklasse */
 .is-hidden {
   display: none !important;
 }
 
-
-
-/* Shared scrollbar style for sidebar list and messages */
+/* Scrollbar-Styling */
 
 .encouragement-chat__member-list,
 .encouragement-chat__messages {
-  /* Firefox */
   scrollbar-width: thin;
   scrollbar-color: rgba(148, 163, 184, 0.7) transparent;
 }
 
-/* WebKit (Chrome, Edge, Safari) */
 .encouragement-chat__member-list::-webkit-scrollbar,
 .encouragement-chat__messages::-webkit-scrollbar {
   width: 6px;
@@ -437,11 +448,24 @@
 
 .encouragement-chat__member-list::-webkit-scrollbar-thumb,
 .encouragement-chat__messages::-webkit-scrollbar-thumb {
-  background: rgba(148, 163, 184, 0.6); /* subtle grey/blue */
+  background: rgba(148, 163, 184, 0.6);
   border-radius: 999px;
 }
 
 .encouragement-chat__member-list::-webkit-scrollbar-thumb:hover,
 .encouragement-chat__messages::-webkit-scrollbar-thumb:hover {
-  background: rgba(107, 114, 128, 0.8); /* slightly darker on hover */
+  background: rgba(107, 114, 128, 0.8);
+}
+
+/* Pop-in Keyframes */
+
+@keyframes encouragement-chat-pop-in {
+  0% {
+    opacity: 0;
+    transform: scale(0.96);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
 }

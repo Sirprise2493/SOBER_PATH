@@ -2,36 +2,43 @@
 <% next_milestone, target_time = user.next_coin_milestone_with_time || [] %>
 
 <% if current_milestone.present? %>
-  <section class="page-milestones__badge">
-    <div class="sobriety-badge">
-      <%# Background image (congratulations) %>
-      <%= image_tag "aa_backgrounds/gratulationsbild.png",
-                    class: "sobriety-badge__bg-img" %>
+  <section class="page-milestones__badge milestones-badge">
+    <div class="milestones-badge__inner">
 
-      <%# Coin centered on top %>
-      <div class="sobriety-badge__coin">
-        <%= image_tag "aa_coins/#{current_milestone[:file]}",
-                      alt:  current_milestone[:name],
-                      class: "sobriety-badge__coin-img" %>
+      <!-- LINKS: Hero mit Banner & Current Milestone -->
+      <div class="milestones-badge__left">
+        <div class="milestones-badge-hero">
+          <div class="milestones-badge-hero__visual">
+            <div class="milestones-badge-hero__banner"></div>
+
+            <%= image_tag "aa_people/sobriety_hero.png",
+                          alt: "Person feeling proud",
+                          class: "milestones-badge-hero__person" %>
+          </div>
+
+          <div class="milestones-badge-hero__text">
+            <p class="milestones-badge-hero__milestone">
+              <strong><%= current_milestone[:name].upcase %></strong>
+            </p>
+
+          </div>
+        </div>
       </div>
 
-      <%# Text-Overlay (Label + Countdown) %>
-      <div class="sobriety-badge__text">
-        <p class="sobriety-badge__label">
-          <strong><%= current_milestone[:name].upcase %></strong>
-        </p>
+      <!-- RECHTS: Badge mit Coin in der Mitte -->
+      <div class="milestones-badge__right">
+        <div class="sobriety-badge">
+          <%= image_tag "aa_backgrounds/gratulationsbild.png",
+                        class: "sobriety-badge__bg-img" %>
 
-        <% if next_milestone && target_time %>
-          <p class="sobriety-badge__countdown"
-             data-controller="countdown"
-             data-countdown-target-time-value="<%= target_time.iso8601 %>">
-            <span class="sobriety-badge__countdown-prefix">Next:</span>
-            <span class="sobriety-badge__countdown-name"><%= next_milestone[:name] %></span>
-            <span>in</span>
-            <span data-countdown-target="output"></span>
-          </p>
-        <% end %>
+          <div class="sobriety-badge__coin">
+            <%= image_tag "aa_coins/#{current_milestone[:file]}",
+                          alt:  current_milestone[:name],
+                          class: "sobriety-badge__coin-img" %>
+          </div>
+        </div>
       </div>
+
     </div>
   </section>
 <% end %>

@@ -1,173 +1,140 @@
-.hero-milestones {
+.milestones-shell {
   display: flex;
-  flex-direction: column;
-  gap: 2.5rem;
-  width: 100vw;
-  max-width: 100vw;
-  margin: 2rem auto;
-  padding: 0 1rem;
+  align-items: stretch;
+  width: 90%;
+  margin: 5vh auto 2rem;
+  gap: 0;
+  height: 80vh;
 
-
-  &-coins,
-  &-times,
-  &-statistics {
-    display: flex;
-    align-items: stretch;
-    gap: 1.5rem;
-
-    > div {
-      flex: 1 1 0;
-      min-width: 0;
-    }
-  }
-
-  &-coins {
-    .badge,
-    .tray {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
-  }
-
-  &-times {
-    .time,
-    .celebrations {
-      display: flex;
-      align-items: stretch;
-    }
-  }
-
-  &-statistics {
-    display: flex;
-    align-items: stretch;
-    gap: 1.5rem;
-    flex-wrap: wrap;
-
-    > div {
-      flex: 1 1 380px;
-      min-width: 0;
-    }
-
-    .pie,
-    .bar {
-      display: flex;
-      align-items: stretch;
-      justify-content: stretch;
-    }
-
-    .milestones-pie-chart-card,
-    .milestones-bar-chart-card {
-      margin: 0;
-      width: 100%;
-      max-width: none;
-    }
-  }
-
-  @media (max-width: 992px) {
-    &-coins,
-    &-times {
-      gap: 1.25rem;
-    }
-
-    &-statistics {
-      gap: 1.25rem;
-    }
-  }
-
-  @media (max-width: 1100px) {
-    &-statistics {
-      flex-direction: column;
-
-      > div {
-        flex: 1 1 auto;
-        width: 100%;
-      }
-    }
-  }
-
-  @media (max-width: 768px) {
-    padding: 0 0.75rem;
-    gap: 2rem;
-
-    &-coins,
-    &-times {
-      flex-direction: column;
-
-      > div {
-        width: 100%;
-      }
-    }
-
-    &-statistics {
-      flex-direction: column;
-
-      > div {
-        width: 100%;
-      }
-    }
-  }
-
-  @media (max-width: 480px) {
-    padding: 0 0.5rem;
-    margin: 1.5rem auto;
+  @media (max-width: 900px) {
+    flex-direction: column;
+    width: 90%;
+    height: auto;
+    margin-top: 1.5rem;
   }
 }
 
-.milestones-pie-chart-card,
-.milestones-bar-chart-card {
-  max-width: 720px;
-  margin: 1.5rem auto;
-  padding: 1.5rem 1.75rem;
-  background: #ffffff;
-  border-radius: 18px;
-  box-shadow: 0 18px 45px rgba(15, 23, 42, 0.08);
+.milestones-sidebar {
+  width: 230px;
+  min-width: 210px;
+  padding: 1.5rem 1rem;
+  border-radius: 0;
+  background: linear-gradient(135deg, $primary-dark, $primary);
+  box-shadow: 0 18px 50px rgba(15, 23, 42, 0.25);
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+  color: #e5f3ff;
 
-  &__header {
-    margin-bottom: 0.75rem;
-
-    h2 {
-      margin: 0;
-      font-size: 1.25rem;
-    }
+  &__title {
+    margin: 0 0 0.75rem;
+    padding: 0 0.25rem;
+    font-size: 1rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    opacity: 0.9;
   }
 
-  &__subtitle {
-    margin: 0.3rem 0 0;
-    color: #6b7280;
+  &__button {
+    border: none;
+    width: 100%;
+    padding: 0.55rem 0.8rem;
+    border-radius: 999px;
+    background: transparent;
+    color: inherit;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    cursor: pointer;
     font-size: 0.9rem;
-  }
+    font-weight: 500;
+    text-align: left;
+    transition:
+      background 0.18s ease,
+      box-shadow 0.18s ease,
+      transform 0.12s ease,
+      color 0.18s ease;
 
-  &__chart {
-    margin-top: 0.5rem;
-    height: 380px;
-  }
-
-  @media (max-width: 768px) {
-    margin: 1rem;
-    padding: 1rem;
-    max-width: 100%;
-
-    &__chart {
-      height: 300px;
+    &:hover {
+      background: rgba(15, 23, 42, 0.16);
+      transform: translateY(-1px);
     }
-  }
 
-  @media (max-width: 480px) {
-    margin: 0.75rem 0.5rem;
-    padding: 0.75rem;
-    border-radius: 14px;
+    &--active {
+      background: #f9fafb;
+      color: #0b5fff;
+      box-shadow: 0 10px 25px rgba(15, 23, 42, 0.35);
 
-    &__header {
-      margin-bottom: 0.5rem;
-
-      h2 {
-        font-size: 1.05rem;
+      .milestones-sidebar__icon-wrap {
+        background: rgba(59, 130, 246, 0.12);
       }
     }
+  }
 
-    &__chart {
-      height: 240px;
+  &__icon-wrap {
+    width: 30px;
+    height: 30px;
+    border-radius: 999px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(15, 23, 42, 0.12);
+    flex-shrink: 0;
+  }
+
+  &__icon {
+    font-size: 1.1rem;
+    line-height: 1;
+  }
+
+  &__label {
+    flex: 1;
+    white-space: nowrap;
+  }
+
+  @media (max-width: 900px) {
+    flex-direction: row;
+    align-items: center;
+    overflow-x: auto;
+    padding: 0.9rem;
+
+    &__title {
+      display: none;
     }
+
+    &__button {
+      width: auto;
+      flex: 0 0 auto;
+      padding-inline: 0.75rem;
+    }
+
+    &__label {
+      font-size: 0.85rem;
+    }
+  }
+}
+
+.milestones-content {
+  flex: 1;
+  border-radius: 0;
+  background: #ffffff;
+  box-shadow:
+    0 18px 45px rgba(15, 23, 42, 0.12),
+    0 0 0 1px rgba(226, 232, 240, 0.9);
+  padding: 0;
+  overflow: hidden;
+
+  &__panel {
+    display: none;
+
+    &--active {
+      display: block;
+    }
+  }
+
+  @media (max-width: 900px) {
+    padding: 0;
+    border-radius: 0;
   }
 }
