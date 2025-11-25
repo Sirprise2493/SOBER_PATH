@@ -29,3 +29,6 @@ $light-gray: #f5f5f5;
 $blue-primary: #005299;
 $blue-text: #06A0FF;
 $blue-gradient: linear-gradient(180deg, #06A0FF 0%, #005299 100%);
+
+$primary-light: lighten($primary, 7%);
+$danger:        #ff6b6b;
