@@ -89,10 +89,8 @@ class PagesController < ApplicationController
 
     range = @date.beginning_of_day..@date.end_of_day
 
-    # Eintrag für dieses Datum (falls vorhanden)
     @journal_content = current_user.journal_contents.where(created_at: range).first
 
-    # Nur für HEUTE: neuen Eintrag vorbereiten, wenn noch keiner existiert
     if @journal_content.nil? && @date == @today
       @journal_content = current_user.journal_contents.build
     end

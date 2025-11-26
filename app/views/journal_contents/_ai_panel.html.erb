@@ -1,9 +1,9 @@
 <% if journal_content.photo.attached? %>
   <div class="photo">
-    <%= image_tag url_for(journal_content.photo) %>
-    <!-- Optional: Cloudinary-Variante
-    <%= image_tag journal_content.photo.variant(resize_to_limit: [600, 600]) %>
-    -->
+    <%= image_tag(
+          journal_content.photo.variant(resize_to_limit: [800, 800]),
+          class: "photo-image"
+        ) %>
   </div>
 <% else %>
   <p>AI picture is being generated…</p>

@@ -11,7 +11,8 @@ class JournalContentJob < ApplicationJob
     client = OpenAI::Client.new(access_token: access_token)
 
     unless regenerate_only_photo
-      @journal_content.motivational_text = generate_motivational_text(client, @journal_content.content)
+      @journal_content.motivational_text =
+        generate_motivational_text(client, @journal_content.content)
     end
 
     begin
@@ -59,6 +60,7 @@ class JournalContentJob < ApplicationJob
       Create a friendly, calm image that fits the following journal entry:
       "#{journal_content.content}"
       Style: minimalistic illustrative artwork, positive mood.
+      And don't add in any way liquors or beverages in the picture.
     PROMPT
 
     response = client.images.generate(
@@ -73,7 +75,9 @@ class JournalContentJob < ApplicationJob
     return unless url.present?
 
     file = URI.open(url)
-    journal_content.photo.purge if journal_content.photo.attached?
+
+    # WICHTIG: kein purge, damit der alte Blob nicht verschwindet,
+    # bevor der neue Frame gerendert wurde → kein kaputtes Bild-Icon
     journal_content.photo.attach(
       io: file,
       filename: "journal-#{journal_content.id}.png",

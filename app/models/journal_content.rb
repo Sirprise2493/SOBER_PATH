@@ -22,6 +22,4 @@ class JournalContent < ApplicationRecord
   after_update_commit do
     broadcast_replace_later_to [user, :journal_contents]
   end
-
-
 end

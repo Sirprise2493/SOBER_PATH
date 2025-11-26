@@ -4,11 +4,13 @@
   <!-- Left page: input or text -->
   <div class="book-page left">
     <% if journal_content&.persisted? %>
-      <h2>Entry for <%= l(date) %></h2>
+      <h2><%= l(date) %></h2>
+      <hr>
       <p><%= simple_format(journal_content.content) %></p>
 
     <% elsif date == today %>
-      <h2>Entry for <%= l(date) %></h2>
+      <h2>Entry for today</h2>
+      <hr>
 
       <%= form_with model: journal_content, url: journal_contents_path do |f| %>
         <% if journal_content&.errors&.any? %>
@@ -24,7 +26,7 @@
 
         <div class="field">
           <%= f.label :content, "What's on your mind today?" %><br>
-          <%= f.text_area :content, rows: 15 %>
+          <%= f.text_area :content, rows: 14, maxlength: 1000  %>
         </div>
 
         <div class="actions">
@@ -38,9 +40,6 @@
     <% end %>
   </div>
 
-
-
-
   <!-- Right page: photo + motivational text -->
   <div class="book-page right">
     <% if journal_content&.persisted? %>
@@ -53,7 +52,4 @@
       <p>No picture for this day.</p>
     <% end %>
   </div>
-
-
-
 </div>
