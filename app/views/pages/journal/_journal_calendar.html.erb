@@ -1,17 +1,14 @@
-<% date          = local_assigns.fetch(:date) %>          <%# aktueller Journal-Tag %>
+<% date          = local_assigns.fetch(:date) %>
 <% today         = local_assigns.fetch(:today) %>
-<% calendar_date = local_assigns.fetch(:calendar_date) %> <%# sichtbarer Monat/Jahr im Kalender %>
+<% calendar_date = local_assigns.fetch(:calendar_date) %>
 <% entry_dates   = Array(local_assigns[:entry_dates]) %>
 
 <% month_start   = calendar_date.beginning_of_month %>
 <% month_end     = calendar_date.end_of_month %>
 <% days_in_month = month_end.day %>
-
-<% # Montag als erster Wochentag: Ruby wday 0=So,1=Mo,… -> wir wollen 0=Mo %>
-<% start_wday = (month_start.wday - 1) % 7 %>
+<% start_wday    = (month_start.wday - 1) % 7 %>
 
 <div class="journal-calendar-wrapper">
-  <!-- Linke Karte: aktueller Journal-Tag -->
   <div class="journal-calendar-summary">
     <div class="journal-calendar-summary__day-number">
       <%= date.day %>
@@ -21,10 +18,8 @@
     </div>
   </div>
 
-  <!-- Rechte Seite: Kalender -->
   <div class="journal-calendar">
     <div class="journal-calendar__topbar">
-      <!-- Monatszeile -->
       <div class="journal-calendar__months">
         <% months = %w[Jan Feb Mar Apr May Jun Jul Aug Sep Oct Nov Dec] %>
         <% months.each_with_index do |name, index| %>
@@ -34,45 +29,47 @@
           <% month_classes << "journal-calendar__month--active" if calendar_date.month == month_number %>
 
           <%= link_to name,
-                      journal_path(date: date,
-                                   calendar_date: month_date,
-                                   anchor: "journal-bottom"),
-                      class: month_classes.join(" ") %>
+                      journal_path(
+                        date: date,
+                        calendar_date: month_date
+                      ),
+                      class: month_classes.join(" "),
+                      data: { action: "click->scroll-top#go" } %>
         <% end %>
       </div>
 
-      <!-- Jahres-Navigation -->
       <div class="journal-calendar__year-nav">
         <%= link_to "‹",
-                    journal_path(date: date,
-                                 calendar_date: calendar_date.prev_year,
-                                 anchor: "journal-bottom"),
+                    journal_path(
+                      date: date,
+                      calendar_date: calendar_date.prev_year
+                    ),
                     class: "journal-calendar__year-btn",
-                    title: "Previous year" %>
+                    title: "Previous year",
+                    data: { action: "click->scroll-top#go" } %>
 
         <span class="journal-calendar__year-label">
           <%= calendar_date.year %>
         </span>
 
         <%= link_to "›",
-                    journal_path(date: date,
-                                 calendar_date: calendar_date.next_year,
-                                 anchor: "journal-bottom"),
+                    journal_path(
+                      date: date,
+                      calendar_date: calendar_date.next_year
+                    ),
                     class: "journal-calendar__year-btn",
-                    title: "Next year" %>
+                    title: "Next year",
+                    data: { action: "click->scroll-top#go" } %>
       </div>
     </div>
 
-    <!-- Wochentage -->
     <div class="journal-calendar__weekdays">
       <% %w[Mon Tue Wed Thu Fri Sat Sun].each do |wd| %>
         <div class="journal-calendar__weekday"><%= wd %></div>
       <% end %>
     </div>
 
-    <!-- Tage -->
     <div class="journal-calendar__grid">
-      <% # Leere Zellen vor dem 1. des Monats %>
       <% start_wday.times do %>
         <div class="journal-calendar__day journal-calendar__day--empty"></div>
       <% end %>
@@ -90,10 +87,12 @@
         <div class="<%= classes.join(" ") %>">
           <% if has_entry %>
             <%= link_to day_num,
-                        journal_path(date: day_date,
-                                     calendar_date: calendar_date,
-                                     anchor: "journal-bottom"),
-                        class: "journal-calendar__day-link" %>
+                        journal_path(
+                          date: day_date,
+                          calendar_date: calendar_date
+                        ),
+                        class: "journal-calendar__day-link",
+                        data: { action: "click->scroll-top#go" } %>
           <% else %>
             <span class="journal-calendar__day-label"><%= day_num %></span>
           <% end %>

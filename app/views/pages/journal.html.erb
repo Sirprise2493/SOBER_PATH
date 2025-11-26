@@ -1,6 +1,50 @@
 <%= turbo_stream_from [current_user, :journal_contents] %>
 
-<section class="journal-page">
+<section class="journal-page" data-controller="scroll-top">
+
+  <div class="journal-nav journal-nav--top">
+    <div class="journal-nav__slot journal-nav__slot--left">
+      <% if @previous_entry_date.present? %>
+        <%= link_to "← Previous entry",
+                    journal_path(
+                      date: @previous_entry_date,
+                      calendar_date: @calendar_date
+                    ),
+                    class: "journal-nav__button",
+                    data: { action: "click->scroll-top#go" } %>
+      <% else %>
+        <span class="journal-nav__button journal-nav__button--disabled">
+          ← Previous entry
+        </span>
+      <% end %>
+    </div>
+
+    <div class="journal-nav__slot journal-nav__slot--center">
+      <%= link_to "Today",
+                  journal_path(
+                    date: @today,
+                    calendar_date: @calendar_date
+                  ),
+                  class: "journal-nav__button journal-nav__button--today",
+                  data: { action: "click->scroll-top#go" } %>
+    </div>
+
+    <div class="journal-nav__slot journal-nav__slot--right">
+      <% if @next_entry_date.present? %>
+        <%= link_to "Next entry →",
+                    journal_path(
+                      date: @next_entry_date,
+                      calendar_date: @calendar_date
+                    ),
+                    class: "journal-nav__button",
+                    data: { action: "click->scroll-top#go" } %>
+      <% else %>
+        <span class="journal-nav__button journal-nav__button--disabled">
+          Next entry →
+        </span>
+      <% end %>
+    </div>
+  </div>
 
   <%= render "pages/journal/journal_book",
              journal_content: @journal_content,
@@ -8,41 +52,6 @@
              today: @today %>
 
   <div id="journal-bottom">
-
-    <!-- Navigation unter dem Journal -->
-    <div class="journal-nav journal-nav--bottom">
-      <% if @previous_entry_date.present? %>
-        <%= link_to "← Previous entry",
-                    journal_path(date: @previous_entry_date,
-                                 calendar_date: @calendar_date,
-                                 anchor: "journal-bottom"),
-                    class: "journal-nav__button" %>
-      <% else %>
-        <span class="journal-nav__button journal-nav__button--disabled">
-          ← Previous entry
-        </span>
-      <% end %>
-
-      <%= link_to "Today",
-                  journal_path(date: @today,
-                               calendar_date: @calendar_date,
-                               anchor: "journal-bottom"),
-                  class: "journal-nav__button journal-nav__button--today" %>
-
-      <% if @next_entry_date.present? %>
-        <%= link_to "Next entry →",
-                    journal_path(date: @next_entry_date,
-                                 calendar_date: @calendar_date,
-                                 anchor: "journal-bottom"),
-                    class: "journal-nav__button" %>
-      <% else %>
-        <span class="journal-nav__button journal-nav__button--disabled">
-          Next entry →
-        </span>
-      <% end %>
-    </div>
-
-    <!-- Kalender im „Dashboard“-Stil -->
     <%= render "pages/journal/journal_calendar",
                date: @date,
                today: @today,
