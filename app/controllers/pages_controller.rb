@@ -94,6 +94,19 @@ class PagesController < ApplicationController
     if @journal_content.nil? && @date == @today
       @journal_content = current_user.journal_contents.build
     end
+
+    previous_entry = current_user.journal_contents
+                                 .where("created_at < ?", @date.beginning_of_day)
+                                 .order(created_at: :desc)
+                                 .first
+
+    next_entry = current_user.journal_contents
+                             .where("created_at > ?", @date.end_of_day)
+                             .order(created_at: :asc)
+                             .first
+
+    @previous_entry_date = previous_entry&.created_at&.to_date
+    @next_entry_date     = next_entry&.created_at&.to_date
   end
 
   def milestones

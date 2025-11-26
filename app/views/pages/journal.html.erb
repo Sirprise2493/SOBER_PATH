@@ -1,28 +1,33 @@
 <%= turbo_stream_from [current_user, :journal_contents] %>
 
-
-<h2>The l @date in the code also can be shown better looking in the design</h2>
-
-<div class="journal-nav">
-  <%= link_to "⟵ Previous day", journal_path(date: (@date - 1.day)), class: "btn" %>
-
-  <% if @date < @today %>
-    <%= link_to "Next day ⟶", journal_path(date: (@date + 1.day)), class: "btn" %>
-  <% else %>
-    <span class="btn disabled">Next day ⟶</span>
-  <% end %>
-
-  <span><%= l @date %></span>
-
-  <%= form_with url: journal_path, method: :get, local: true do |f| %>
-    <%= f.date_field :date, value: @date %>
-    <%= f.submit "Go" %>
-  <% end %>
-</div>
-
-
-
 <section class="journal-page">
+
+  <div class="journal-nav">
+    <% if @previous_entry_date.present? %>
+      <%= link_to "← Previous entry",
+                  journal_path(date: @previous_entry_date),
+                  class: "journal-nav__button" %>
+    <% else %>
+      <span class="journal-nav__button journal-nav__button--disabled">
+        ← Previous entry
+      </span>
+    <% end %>
+
+    <%= link_to "Today",
+                journal_path(date: @today),
+                class: "journal-nav__button journal-nav__button--today" %>
+
+    <% if @next_entry_date.present? %>
+      <%= link_to "Next entry →",
+                  journal_path(date: @next_entry_date),
+                  class: "journal-nav__button" %>
+    <% else %>
+      <span class="journal-nav__button journal-nav__button--disabled">
+        Next entry →
+      </span>
+    <% end %>
+  </div>
+
   <%= render "pages/journal/journal_book",
              journal_content: @journal_content,
              date: @date,
