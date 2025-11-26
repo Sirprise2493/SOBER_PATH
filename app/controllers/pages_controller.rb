@@ -87,15 +87,47 @@ class PagesController < ApplicationController
         @today
       end
 
+    @calendar_date =
+      if params[:calendar_date].present?
+        begin
+          Date.parse(params[:calendar_date])
+        rescue ArgumentError
+          @date
+        end
+      else
+        @date
+      end
+
     range = @date.beginning_of_day..@date.end_of_day
 
-    # Eintrag für dieses Datum (falls vorhanden)
     @journal_content = current_user.journal_contents.where(created_at: range).first
 
-    # Nur für HEUTE: neuen Eintrag vorbereiten, wenn noch keiner existiert
+
     if @journal_content.nil? && @date == @today
       @journal_content = current_user.journal_contents.build
     end
+
+    previous_entry = current_user.journal_contents
+                                 .where("created_at < ?", @date.beginning_of_day)
+                                 .order(created_at: :desc)
+                                 .first
+
+    next_entry = current_user.journal_contents
+                             .where("created_at > ?", @date.end_of_day)
+                             .order(created_at: :asc)
+                             .first
+
+    @previous_entry_date = previous_entry&.created_at&.to_date
+    @next_entry_date     = next_entry&.created_at&.to_date
+
+    month_start = @calendar_date.beginning_of_month
+    month_end   = @calendar_date.end_of_month
+
+    entries_in_month = current_user.journal_contents.where(
+      created_at: month_start.beginning_of_day..month_end.end_of_day
+    )
+
+    @entry_dates = entries_in_month.pluck(:created_at).map(&:to_date).uniq
   end
 
   def milestones
