@@ -4,6 +4,8 @@ class JournalContentsController < ApplicationController
 
   def create
     @journal_content = current_user.journal_contents.build(journal_content_params)
+    @today = Time.zone.today
+    @date = @today
 
     respond_to do |format|
       if @journal_content.save
@@ -16,7 +18,6 @@ class JournalContentsController < ApplicationController
 
         format.turbo_stream
       else
-        @date = Date.current
 
         format.html { render "pages/journal/journal", status: :unprocessable_entity }
         format.turbo_stream

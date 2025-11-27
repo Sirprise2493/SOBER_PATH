@@ -18,7 +18,6 @@ class JournalContent < ApplicationRecord
     )
   end
 
-  # after update (when Job finished): substitute (motivational text + photo)
   after_update_commit do
     broadcast_replace_later_to [user, :journal_contents]
   end

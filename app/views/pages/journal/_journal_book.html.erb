@@ -1,6 +1,6 @@
 <% journal_content = local_assigns.fetch(:journal_content) %>
 
-<div class="book-container">
+<div class="book-container" id="journal-book-container">
   <!-- Left page: input or text -->
   <div class="book-page left">
     <% if journal_content&.persisted? %>

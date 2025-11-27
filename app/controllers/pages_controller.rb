@@ -102,7 +102,6 @@ class PagesController < ApplicationController
 
     @journal_content = current_user.journal_contents.where(created_at: range).first
 
-
     if @journal_content.nil? && @date == @today
       @journal_content = current_user.journal_contents.build
     end
