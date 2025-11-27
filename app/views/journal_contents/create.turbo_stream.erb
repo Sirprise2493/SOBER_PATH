@@ -1,0 +1,6 @@
+<%= turbo_stream.replace "journal-book-container" do %>
+  <%= render "pages/journal/journal_book",
+             journal_content: @journal_content,
+             date: @date,
+             today: @today %>
+<% end %>

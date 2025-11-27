@@ -24,6 +24,7 @@ class JournalContentJob < ApplicationJob
     end
 
     @journal_content.save!
+    @journal_content.reload
 
     broadcast_ai_panel(@journal_content)
   end
@@ -60,7 +61,7 @@ class JournalContentJob < ApplicationJob
       Create a friendly, calm image that fits the following journal entry:
       "#{journal_content.content}"
       Style: minimalistic illustrative artwork, positive mood.
-      And don't add in any way liquors or beverages in the picture.
+      And don't add liquors or beverages in the picture you create.
     PROMPT
 
     response = client.images.generate(
@@ -76,8 +77,8 @@ class JournalContentJob < ApplicationJob
 
     file = URI.open(url)
 
-    # WICHTIG: kein purge, damit der alte Blob nicht verschwindet,
-    # bevor der neue Frame gerendert wurde → kein kaputtes Bild-Icon
+    journal_content.photo.purge if journal_content.photo.attached?
+
     journal_content.photo.attach(
       io: file,
       filename: "journal-#{journal_content.id}.png",
