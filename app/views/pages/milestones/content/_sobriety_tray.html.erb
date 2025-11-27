@@ -33,8 +33,8 @@
 
           <%# Randomly scatter the coins on the tray %>
           <% milestones.each do |milestone| %>
-            <% x_percent  = rand(30..70)  # narrower horizontally %>
-            <% y_percent  = rand(35..70)  # narrower vertically %>
+            <% x_percent  = rand(25..70)  # narrower horizontally %>
+            <% y_percent  = rand(25..70)  # narrower vertically %>
             <% rotate_deg = rand(-15..15) # less extreme tilt %>
             <% reached_at = SobrietyMilestones.reached_at(user, milestone) %>
 
