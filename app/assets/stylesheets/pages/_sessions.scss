@@ -206,3 +206,22 @@
     grid-column: auto;
   }
 }
+
+.auth-error-banner {
+  margin-bottom: 1rem;
+  padding: 0.75rem 1rem;
+  border-radius: 12px;
+  background: #fee2e2;
+  border: 1px solid #fecaca;
+  color: #b91c1c;
+  font-size: 0.9rem;
+  line-height: 1.4;
+
+  p {
+    margin: 0;
+  }
+}
+
+.profile-header-note--center {
+  margin-bottom: 1.25rem;
+}
