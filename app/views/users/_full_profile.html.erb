@@ -1,112 +1,205 @@
-<div class="user-profile-page">
-
-  <h2>My Profile</h2>
-
-  <%# --- Avatar --- %>
-  <% if user.avatar.attached? %>
-    <div class="profile-avatar">
-      <%= image_tag user.avatar.variant(resize_to_fill: [150, 150]), class: "profile-avatar-img" %>
+<div class="profile-wrapper">
+  <div class="profile-header-row">
+    <div>
+      <h1 class="profile-title">My Profile</h1>
     </div>
-  <% else %>
-    <p><em>No profile photo uploaded yet.</em></p>
-  <% end %>
 
-  <div class="profile-section">
-    <h3>Personal Information</h3>
+    <div class="profile-header-pill">
+      <span class="profile-header-pill-label">Current streak</span>
+      <span class="profile-header-pill-value"><%= @user.sobriety_days %> days</span>
+    </div>
+  </div>
 
-    <p><strong>First Name:</strong> <%= user.first_name.presence || "Not set" %></p>
-    <p><strong>Last Name:</strong> <%= user.last_name.presence || "Not set" %></p>
-    <p><strong>Email:</strong> <%= user.email %></p>
+  <!-- MAIN GRID: avatar + details -->
+  <div class="profile-grid">
 
-    <p><strong>Age:</strong>
-      <% if user.date_of_birth.present? %>
-        <%= ((Date.current - user.date_of_birth).to_i / 365) %> years
+    <!-- LEFT CARD: avatar + name + edit button -->
+    <div class="profile-card profile-card--left">
+
+      <h2 class="profile-card-title">
+        <%= @user.fullname.presence || @user.username %>
+      </h2>
+
+      <div class="profile-avatar-container">
+        <% if @user.avatar.attached? %>
+          <%= image_tag @user.avatar
+                            .variant(resize_to_fill: [220, 220])
+                            .processed,
+                        alt: @user.username,
+                        class: "profile-avatar" %>
+        <% else %>
+          <div class="profile-avatar placeholder-avatar">
+            <i>No photo</i>
+          </div>
+        <% end %>
+      </div>
+
+      <div class="profile-edit-wrapper">
+        <%= link_to "Edit profile",
+                    edit_profile_path,
+                    class: "profile-edit-button" %>
+      </div>
+
+    </div>
+
+    <!-- RIGHT CARD: bio & other details -->
+    <div class="profile-card profile-card--right">
+
+      <h2 class="profile-card-title">Bio & other details</h2>
+
+      <div class="profile-details-grid">
+
+        <div class="profile-field">
+          <label>Username</label>
+          <div class="profile-field-value"><%= @user.username %></div>
+        </div>
+
+        <div class="profile-field">
+          <label>Date of Birth</label>
+          <div class="profile-field-value"><%= @user.date_of_birth || "—" %></div>
+        </div>
+
+        <div class="profile-field">
+          <label>Start Date</label>
+          <div class="profile-field-value"><%= @user.sobriety_start_date || "—" %></div>
+        </div>
+
+        <div class="profile-field">
+          <label>Current Streak</label>
+          <div class="profile-field-value"><%= @user.sobriety_days %> days</div>
+        </div>
+
+        <div class="profile-field full-width">
+          <label>Headline</label>
+          <div class="profile-field-value">
+            <%= @user.headline.presence || "—" %>
+          </div>
+        </div>
+
+        <div class="profile-field full-width">
+          <label>Address</label>
+          <div class="profile-field-value">
+            <%= @user.address.presence || "—" %>
+          </div>
+        </div>
+
+        <div class="profile-field full-width">
+          <label>Bio</label>
+          <div class="profile-field-value">
+            <%= @user.bio.present? ?
+                  simple_format(truncate(@user.bio, length: 300)) :
+                  "—" %>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- FULL-WIDTH CONNECTIONS CARD UNDER PROFILE -->
+  <div class="profile-card profile-card--connections" data-controller="connections">
+
+    <h2 class="profile-card-title">My connections</h2>
+
+    <!-- FRIENDS -->
+    <h3 class="profile-subtitle">Friends</h3>
+
+      <% if @friends&.any? %>
+        <% visible_friends = @friends.first(5) %>
+
+        <ul class="profile-list">
+          <% visible_friends.each do |friend| %>
+            <li class="profile-list-item">
+              <span>
+                <%= link_to friend.username, user_path(friend) %>
+                <% if friend.sobriety_start_date.present? %>
+                  – <%= pluralize(friend.sobriety_days, "day") %> sober
+                <% end %>
+              </span>
+            </li>
+          <% end %>
+        </ul>
+
+        <% if @friends.count > 5 %>
+          <ul class="profile-list d-none" data-connections-target="fullList">
+            <% @friends.drop(5).each do |friend| %>
+              <li class="profile-list-item">
+                <span>
+                  <%= link_to friend.username, user_path(friend) %>
+                  <% if friend.sobriety_start_date.present? %>
+                    – <%= pluralize(friend.sobriety_days, "day") %> sober
+                  <% end %>
+                </span>
+              </li>
+            <% end %>
+          </ul>
+
+          <button
+            class="profile-show-more"
+            data-action="click->connections#toggle"
+            data-connections-target="button"
+            data-total="<%= @friends.count %>">
+            Show all <%= @friends.count %> friends
+          </button>
+        <% end %>
       <% else %>
-        Not set
+        <p class="profile-empty">No connections yet.</p>
       <% end %>
-    </p>
 
-    <p><strong>Address:</strong> <%= user.address.presence || "Not set" %></p>
+    <!-- INCOMING -->
+    <h3 class="profile-subtitle">Incoming requests</h3>
+    <% if @incoming_requests.present? %>
+      <ul class="profile-list">
+        <% @incoming_requests.each do |fr| %>
+          <li class="profile-list-item">
+            <span>
+              <%= link_to fr.asker.username, user_path(fr.asker) %>
+              (<%= fr.status_of_friendship_request %>)
+            </span>
 
-    <p><strong>City:</strong>
-      <% if user.address.present? %>
-        <%= user.address.split(",").last.strip rescue user.address %>
-      <% else %>
-        Not set
-      <% end %>
-    </p>
+            <span class="profile-actions">
+              <%= button_to "Accept",
+                            friendship_path(fr, status: "accepted"),
+                            method: :patch,
+                            class: "btn btn-sm btn-success" %>
 
-    <p><strong>Counsellor:</strong> <%= user.counsellor? ? "Yes" : "No" %></p>
+              <%= button_to "Decline",
+                            friendship_path(fr, status: "declined"),
+                            method: :patch,
+                            data: { turbo_confirm: "Decline this request?" },
+                            class: "btn btn-sm btn-outline-secondary" %>
+            </span>
+          </li>
+        <% end %>
+      </ul>
+    <% else %>
+      <p class="profile-empty">No incoming requests.</p>
+    <% end %>
+
+    <!-- OUTGOING -->
+    <h3 class="profile-subtitle">Outgoing requests</h3>
+    <% if @outgoing_requests.present? %>
+      <ul class="profile-list">
+        <% @outgoing_requests.each do |fr| %>
+          <li class="profile-list-item">
+            <span>
+              <%= link_to fr.receiver.username, user_path(fr.receiver) %>
+              (<%= fr.status_of_friendship_request %>)
+            </span>
+          </li>
+        <% end %>
+      </ul>
+    <% else %>
+      <p class="profile-empty">No outgoing requests.</p>
+    <% end %>
+
   </div>
+</div>
 
-  <div class="profile-section">
-    <h3>Recovery</h3>
-
-    <p><strong>Sobriety Start Date:</strong>
-      <%= user.sobriety_start_date || "Not set" %>
-    </p>
-
-    <p><strong>Sobriety Days:</strong> <%= user.sobriety_days %></p>
-  </div>
-
-  <div class="profile-section">
-    <h3>About</h3>
-
-    <p><strong>Headline:</strong> <%= user.headline.presence || "No headline yet" %></p>
-
-    <p><strong>Bio:</strong><br>
-      <%= simple_format(user.bio.to_s) %>
-    </p>
-  </div>
-
-  <hr>
-
-  <%# ================= CONNECTION LIST ================= %>
-  <h3>My Connections</h3>
-
-  <h4>Friends</h4>
-  <% if friends.any? %>
-    <ul>
-      <% friends.each do |friend| %>
-        <li><%= link_to friend.username, user_path(friend) %></li>
-      <% end %>
-    </ul>
-  <% else %>
-    <p>No connections yet.</p>
-  <% end %>
-
-  <h4>Incoming Requests</h4>
-  <% if incoming_requests.any? %>
-    <ul>
-      <% incoming_requests.each do |fr| %>
-        <li>
-          <%= link_to fr.asker.username, user_path(fr.asker) %>
-          (<%= fr.status_of_friendship_request %>)
-
-          <%= button_to "Accept", friendship_path(fr, status: "accepted"), method: :patch %>
-          <%= button_to "Decline",
-                        friendship_path(fr, status: "declined"),
-                        method: :patch,
-                        data: { turbo_confirm: "Decline this request?" } %>
-        </li>
-      <% end %>
-    </ul>
-  <% else %>
-    <p>No incoming requests.</p>
-  <% end %>
-
-  <h4>Outgoing Requests</h4>
-  <% if outgoing_requests.any? %>
-    <ul>
-      <% outgoing_requests.each do |fr| %>
-        <li>
-          <%= link_to fr.receiver.username, user_path(fr.receiver) %>
-          (<%= fr.status_of_friendship_request %>)
-        </li>
-      <% end %>
-    </ul>
-  <% else %>
-    <p>No outgoing requests.</p>
-  <% end %>
-
+<div class="profile-footer">
+  <%= link_to "Change Password", edit_user_registration_path, class: "profile-footer-link" %>
+  <%= button_to "Log out", destroy_user_session_path, method: :delete,
+                  class: "profile-footer-link", data: { turbo: false } %>
 </div>

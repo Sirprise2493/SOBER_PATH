@@ -1,42 +1,56 @@
-<h2>Edit account</h2>
+<div class="profile-change-wrapper">
+  <h1 class="profile-title">Change password</h1>
 
-<%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name),
-                    html: { method: :put, multipart: true }) do |f| %>
-  <%= f.error_notification %>
+  <div class="profile-change-card">
 
-  <div class="form-inputs">
-    <%= f.input :email, required: true %>
-    <%= f.input :username, required: true %>
+    <%= form_for(resource,
+        as: resource_name,
+        url: registration_path(resource_name),
+        html: { method: :put }) do |f| %>
 
-    <div class="row">
-      <div class="col"><%= f.input :first_name %></div>
-      <div class="col"><%= f.input :last_name %></div>
-    </div>
+      <%= render "devise/shared/error_messages", resource: resource %>
 
-    <%= f.input :date_of_birth, as: :date, html5: true %>
-    <%= f.input :address %>
-    <%= f.input :headline %>
-    <%= f.input :bio, as: :text, input_html: { rows: 4 } %>
-    <%= f.input :sobriety_start_date, as: :date, html5: true %>
-    <%= f.input :counsellor, as: :boolean %>
-    <%= f.input :avatar, as: :file, input_html: { accept: "image/*" } %>
+      <div class="profile-details-grid">
 
-    <hr>
+        <div class="profile-field full-width">
+          <label class="profile-input-label">Current password</label>
+          <%= f.password_field :current_password,
+                               autocomplete: "current-password",
+                               class: "profile-password-input" %>
+          <p class="profile-limit-note">
+            We need your current password to confirm changes.
+          </p>
+        </div>
 
-    <p>Change password (optional)</p>
-    <%= f.input :password, hint: "Leave blank if you don’t want to change it" %>
-    <%= f.input :password_confirmation %>
-    <%= f.input :current_password, hint: "We need your current password to confirm changes" %>
+        <div class="profile-field full-width">
+          <label class="profile-input-label">New password</label>
+          <%= f.password_field :password,
+                               autocomplete: "new-password",
+                               class: "profile-password-input" %>
+        </div>
+
+        <div class="profile-field full-width">
+          <label class="profile-input-label">Confirm new password</label>
+          <%= f.password_field :password_confirmation,
+                               autocomplete: "new-password",
+                               class: "profile-password-input" %>
+        </div>
+
+      </div>
+
+      <div class="profile-form-actions">
+        <%= f.submit "Save new password", class: "profile-primary-button" %>
+      </div>
+
+    <% end %>
   </div>
+</div>
 
-  <div class="form-actions">
-    <%= f.button :submit, "Update" %>
-  </div>
-<% end %>
-
-<hr>
-
-<%= button_to "Cancel my account", registration_path(resource_name),
-              data: { confirm: "Are you sure?" }, method: :delete %>
-
-<%= render "devise/shared/links" %>
+<div class="profile-footer profile-footer--center">
+  <%= link_to "Back to Profile", profile_path, class: "profile-footer-link" %>
+  <%= button_to "Cancel my account",
+                registration_path(resource_name),
+                method: :delete,
+                data: { confirm: "Are you sure?" },
+                class: "profile-footer-link" %>
+</div>
