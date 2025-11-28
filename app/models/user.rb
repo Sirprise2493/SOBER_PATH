@@ -70,6 +70,8 @@ class User < ApplicationRecord
 
   validate :avatar_type
 
+  validates :bio, length: { maximum: 300 }, allow_blank: true
+
   # login via username or email
   attr_writer :login
 

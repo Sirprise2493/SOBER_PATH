@@ -11,7 +11,9 @@
 
       <div class="profile-avatar-container">
         <% if @user.avatar.attached? %>
-          <%= image_tag @user.avatar, class: "profile-avatar" %>
+          <%= image_tag @user.avatar,
+                        alt: @user.username,
+                        class: "profile-avatar" %>
         <% else %>
           <div class="profile-avatar placeholder-avatar">
             <i>No Photo</i>
@@ -20,15 +22,17 @@
       </div>
 
       <%= form_with model: @user,
-                url: profile_path,
-                method: :patch,
-                local: true,
-                html: { multipart: true },
-                class: "avatar-form" do |f| %>
+                    url: profile_path,
+                    method: :patch,
+                    local: true,
+                    html: { multipart: true },
+                    class: "avatar-form" do |f| %>
 
         <div class="profile-field full-width">
           <label>Upload new photo</label>
-          <%= f.file_field :avatar, accept: "image/*", class: "profile-input" %>
+          <%= f.file_field :avatar,
+                           accept: "image/*",
+                           class: "profile-input" %>
         </div>
 
         <div class="profile-form-actions">
@@ -41,7 +45,7 @@
     <!-- RIGHT CARD: FORM -->
     <div class="profile-card profile-card--right">
 
-      <h2 class="profile-card-title">Edit Details</h2>
+      <h2 class="profile-card-title">Edit details</h2>
 
       <%= form_with model: @user,
                     url: profile_path,
@@ -91,9 +95,14 @@
             <%= f.text_field :headline, class: "profile-input" %>
           </div>
 
-          <div class="profile-field full-width">
+          <div class="profile-field full-width bio-field">
             <label>Bio</label>
-            <%= f.text_area :bio, rows: 4, class: "profile-input" %>
+            <%= f.text_area :bio,
+                            rows: 4,
+                            maxlength: 300,
+                            class: "profile-input",
+                            placeholder: "Tell the community about yourself (max 300 characters)" %>
+            <span class="profile-limit-note">Max 300 characters</span>
           </div>
 
         </div>
