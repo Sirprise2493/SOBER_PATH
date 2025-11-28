@@ -2,21 +2,28 @@
   <div class="navbar-left">
     <%= link_to "SoberPath", root_path, class: "navbar-logo" %>
   </div>
-  <div class="navbar-right">
-    <%= link_to "Profile", profile_path %>
-    <%= link_to "Journal", journal_path %>
-    <%= link_to "Chatroom", chatroom_path %>
-    <%= link_to "Milestones", milestones_path %>
-    <%= link_to "Meetings", meetings_path %>
 
+  <div class="navbar-right">
     <% if user_signed_in? %>
+      <%= link_to "Profile",   profile_path %>
+      <%= link_to "Journal",   journal_path %>
+      <%= link_to "Chatroom",  chatroom_path %>
+      <%= link_to "Milestones", milestones_path %>
+      <%= link_to "Meetings",  meetings_path %>
+
       <%= button_to "Log out",
                     destroy_user_session_path,
                     method: :delete,
-                    class: "navbar-btn logout-btn" %>
+                    class: "navbar-btn logout-btn",
+                    data: { turbo: false } %>
     <% else %>
-      <%= link_to "Log in", profile_path, class: "navbar-btn login-btn" %>
-      <%= link_to "Sign up", new_user_registration_path, class: "navbar-btn signup-btn" %>
+      <%= link_to "Log in",
+                  root_path(anchor: "login"),
+                  class: "navbar-btn login-btn" %>
+
+      <%= link_to "Sign up",
+                  root_path(anchor: "signup"),
+                  class: "navbar-btn signup-btn" %>
     <% end %>
   </div>
 </nav>

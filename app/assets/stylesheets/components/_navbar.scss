@@ -22,13 +22,12 @@ $transition-fast: 0.18s ease-out;
     align-items: center;
 
     .navbar-logo {
-      // wichtig: das ist ein <a>-Tag!
-      font-size: 1.6rem;          // größer
+      font-size: 1.6rem;
       font-weight: 700;
       letter-spacing: 0.08em;
       text-transform: uppercase;
       text-decoration: none;
-      color: #fff;                // weißer Text
+      color: #fff;
       display: inline-flex;
       align-items: center;
       gap: 0.3rem;
@@ -48,14 +47,13 @@ $transition-fast: 0.18s ease-out;
     }
   }
 
-
   .navbar-right {
     display: flex;
     align-items: center;
     gap: 1.5rem;
     font-size: 0.95rem;
 
-    a {
+    a:not(.navbar-btn){
       position: relative;
       text-decoration: none;
       color: rgba(255, 255, 255, 0.85);
@@ -114,6 +112,15 @@ $transition-fast: 0.18s ease-out;
       border-color: rgba(255, 255, 255, 0.4);
       backdrop-filter: blur(6px);
 
+      outline: none;
+      -webkit-tap-highlight-color: transparent;
+
+      &:focus,
+      &:focus-visible {
+        outline: none;
+        box-shadow: none;
+      }
+
       &:hover {
         background: rgba(255, 255, 255, 0.22);
         box-shadow: 0 6px 18px rgba(0, 0, 0, 0.18);
@@ -137,13 +144,23 @@ $transition-fast: 0.18s ease-out;
       }
 
       &.signup-btn {
-        background: linear-gradient(135deg, $primary-light, $primary-dark);
+        // simpler, no glowing bubble
+        background: #ffffff;
+        color: $primary;
         border-color: transparent;
-        box-shadow: 0 6px 18px rgba(0, 0, 0, 0.25);
+        box-shadow: 0 4px 14px rgba(0, 0, 0, 0.18);
 
         &:hover {
-          box-shadow: 0 10px 26px rgba(0, 0, 0, 0.3);
+          background: #f7f9ff;
+          box-shadow: 0 7px 20px rgba(0, 0, 0, 0.22);
           transform: translateY(-2px);
+        }
+
+        &:focus,
+        &:focus-visible {
+          background: #ffffff;
+          color: $primary;
+          box-shadow: 0 4px 14px rgba(0, 0, 0, 0.18);
         }
       }
 
@@ -182,6 +199,7 @@ $transition-fast: 0.18s ease-out;
       .navbar-btn {
         padding: 0.35rem 0.9rem;
       }
+      
     }
   }
 }
