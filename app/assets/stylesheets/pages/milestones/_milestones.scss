@@ -6,12 +6,12 @@
   gap: 0;
   height: 80vh;
 
-  @media (max-width: 900px) {
-    flex-direction: column;
-    width: 90%;
-    height: auto;
-    margin-top: 1.5rem;
-  }
+//  @media (max-width: 900px) {
+//    flex-direction: column;
+//    width: 90%;
+//    height: auto;
+//    margin-top: 1.5rem;
+//  }
 }
 
 .milestones-sidebar {
@@ -93,26 +93,26 @@
     white-space: nowrap;
   }
 
-  @media (max-width: 900px) {
-    flex-direction: row;
-    align-items: center;
-    overflow-x: auto;
-    padding: 0.9rem;
+//  @media (max-width: 900px) {
+//    flex-direction: row;
+//    align-items: center;
+//    overflow-x: auto;
+//    padding: 0.9rem;
 
-    &__title {
-      display: none;
-    }
+//    &__title {
+//      display: none;
+//    }
 
-    &__button {
-      width: auto;
-      flex: 0 0 auto;
-      padding-inline: 0.75rem;
-    }
+//    &__button {
+//      width: auto;
+//      flex: 0 0 auto;
+//      padding-inline: 0.75rem;
+//    }
 
-    &__label {
-      font-size: 0.85rem;
-    }
-  }
+//    &__label {
+//      font-size: 0.85rem;
+//    }
+//  }
 }
 
 .milestones-content {
@@ -124,6 +124,7 @@
     0 0 0 1px rgba(226, 232, 240, 0.9);
   padding: 0;
   overflow: hidden;
+  height: 100%;
 
   &__panel {
     display: none;
@@ -133,8 +134,8 @@
     }
   }
 
-  @media (max-width: 900px) {
-    padding: 0;
-    border-radius: 0;
-  }
+//  @media (max-width: 900px) {
+//    padding: 0;
+//    border-radius: 0;
+//  }
 }

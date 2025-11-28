@@ -9,12 +9,16 @@
   display: flex;
   justify-content: center;
   overflow: hidden;        // Animation sauber abschneiden
+  height: 100%;
 
   &__inner {
     width: 100%;           // neu: orientiert sich an den 90% der Section
     display: flex;
-    gap: 1.75rem;
-    align-items: stretch;  // gleiche Höhe pro Zeile
+    gap: 20px;
+    align-items: center;  // gleiche Höhe pro Zeile
+    justify-content: space-between;
+    padding: 20px ;
+
   }
 
   &__left,
@@ -22,8 +26,12 @@
     flex: 1;
     display: flex;
     flex-direction: column;
-    aspect-ratio: 1 / 1;   // gleiche Außenmaße (Höhe = Funktion von Breite)
+    //aspect-ratio: 1 / 1;  //conflit // gleiche Außenmaße (Höhe = Funktion von Breite)
     border-radius: 20px;
+    min-height: 430px;
+    overflow: hidden;
+    height: 100%;
+    width: 100%;
   }
 
   &__left {
@@ -31,13 +39,18 @@
     transform: translateY(-80px);
     animation: milestones-badge-slide-in-from-top 0.7s ease-out forwards;
     animation-delay: 0.05s;
+    height: 100%;
+    width: 100%;
   }
-
+  
   &__right {
     opacity: 0;
     transform: translateY(80px);
     animation: milestones-badge-slide-in-from-bottom 0.7s ease-out forwards;
     animation-delay: 0.15s;
+    height: 100%;
+    width: 100%;
+
   }
 }
 
@@ -48,7 +61,7 @@
 .milestones-badge-hero {
   display: flex;
   flex-direction: column;
-  gap: 0.9rem;
+  gap: 0;
   height: 100%;
 
   &__visual {
@@ -71,12 +84,12 @@
 
   &__person {
     position: absolute;
-    bottom: -6%;
+    bottom: -3%;
     left: 50%;
     transform: translate(-50%, -4.6%);
-    max-height: 80%;
+    max-width: 400px;
+    width: 100%;
     height: auto;
-    width: auto;
     pointer-events: none;
   }
 
@@ -89,29 +102,44 @@
     background-color: #0077d9;
     padding: 0.8rem;
     color: #fff;
+    box-sizing: content-box;
   }
 
   &__milestone {
-    margin: 0;
-    padding: 0.35rem 1.4rem;
-    border-radius: 999px;
-    background: #e5f3ff;
-    border: 1px solid rgba(0, 118, 217, 0.3);
-    display: inline-flex;
+    //margin: 0;
+    //padding: 0.35rem 1.4rem;
+    //border-radius: 999px;
+    //background: #e5f3ff;
+    //border: 1px solid rgba(0, 118, 217, 0.3);
+    display: flex;
     align-items: center;
     justify-content: center;
     font-weight: 800;
     text-transform: uppercase;
     letter-spacing: 0.18em;
-    font-size: clamp(1.1rem, 2.3vw, 1.7rem);
-    color: #004279;
-    box-shadow:
-      0 10px 25px rgba(0, 118, 217, 0.18),
-      0 0 0 1px rgba(255, 255, 255, 0.8);
+    font-size: clamp(2rem, 3vw, 2.5rem);
+    color: white;
+    //box-shadow:
+    //  0 10px 25px rgba(0, 118, 217, 0.18),
+    //  0 0 0 1px rgba(255, 255, 255, 0.8);
+    animation: coin-strong 2.4s ease-in-out infinite;
 
     strong {
       font-weight: inherit;
     }
+  }
+}
+
+
+@keyframes coin-strong {  //coin animation
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.12);
+  }
+  100% {
+    transform: scale(1);
   }
 }
 
@@ -179,6 +207,7 @@
     top: 50%;
     left: 50%;
     transform: translate(-35%, -85%);
+    animation: coin-pulse 2.4s ease-in-out infinite;
   }
 
   &__coin-img {
@@ -211,7 +240,19 @@
   }
 }
 
-@media (prefers-reduced-motion: reduce) {
+@keyframes coin-pulse {  //coin animation
+  0% {
+    transform: translate(-35%, -85%) scale(1);
+  }
+  50% {
+    transform: translate(-35%, -85%) scale(1.12);
+  }
+  100% {
+    transform: translate(-35%, -85%) scale(1);
+  }
+}
+
+/*@media (prefers-reduced-motion: reduce) {
   .milestones-badge {
     &__left,
     &__right {
@@ -222,7 +263,7 @@
   }
 }
 
-/* Responsive */
+ Responsive 
 
 @media (max-width: 800px) {
   .milestones-badge {
@@ -249,3 +290,5 @@
     }
   }
 }
+
+*/ //another design (mobile)

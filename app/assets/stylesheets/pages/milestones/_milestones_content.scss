@@ -3,6 +3,7 @@
 .page-milestones {
   padding: 2rem 1rem;
   text-align: center;
+  height: 100%;
 
   &__header {
     margin-bottom: 2rem;
@@ -23,8 +24,9 @@
 
   &__badge,
   &__tray {
-    margin: 2rem auto;
-    max-width: 800px;
+    //margin: 2rem auto;
+    //max-width: 800px;
+    height: 100%;
 
     h2 {
       margin-bottom: 1rem;
@@ -39,7 +41,7 @@
 
 /* ==========
    Responsive
-   ========== */
+   ========== 
 
 // Mobile
 @media (max-width: 600px) {
@@ -56,3 +58,4 @@
 }
 
 // Desktop (ab 901px kannst du easy erweitern, falls nötig)
+*/
