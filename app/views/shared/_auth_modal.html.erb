@@ -1,0 +1,177 @@
+<div class="auth-modal-backdrop"
+     data-auth-modal-target="backdrop">
+
+  <div class="auth-modal">
+    <button
+      type="button"
+      class="auth-modal-close"
+      aria-label="Close">
+      ×
+    </button>
+
+    <div class="auth-modal-layout">
+      <!-- LEFT: gradient welcome panel -->
+      <div class="auth-modal-visual">
+        <div>
+          <h2 class="auth-modal-heading">Welcome to SoberPath</h2>
+          <p class="auth-modal-text">
+            A kind, judgment-free community to support your recovery journey.
+          </p>
+        </div>
+      </div>
+
+      <!-- RIGHT: forms column -->
+      <div class="auth-modal-forms">
+
+        <!-- LOGIN PANEL -->
+        <div class="auth-panel auth-panel--login"
+             data-auth-modal-target="loginPanel">
+
+          <div class="auth-modal-card">
+            <h3 class="auth-form-title">Log in</h3>
+            <p class="auth-form-subtitle">
+              Enter your details to continue where you left off.
+            </p>
+
+            <%= simple_form_for(User.new,
+                                as: :user,
+                                url: user_session_path) do |f| %>
+
+              <div class="auth-fields">
+                <div class="auth-field">
+                  <label>Email or username</label>
+                  <%= f.input :login,
+                              label: false,
+                              input_html: {
+                                class: "profile-input",
+                                autocomplete: "username"
+                              } %>
+                </div>
+
+                <div class="auth-field">
+                  <label>Password</label>
+                  <%= f.input :password,
+                              label: false,
+                              input_html: {
+                                class: "profile-input",
+                                autocomplete: "current-password"
+                              } %>
+                </div>
+              </div>
+
+              <div class="auth-form-actions">
+                <%= f.button :submit,
+                             "Log in",
+                             class: "profile-primary-button" %>
+              </div>
+            <% end %>
+
+            <div class="auth-small-links">
+              <%= link_to "Forgot your password?",
+                          new_user_password_path,
+                          class: "auth-link" %>
+            </div>
+          </div>
+        </div>
+
+        <!-- SIGNUP PANEL (slimmer: only essential fields) -->
+        <div class="auth-panel auth-panel--signup"
+             data-auth-modal-target="signupPanel">
+
+          <div class="auth-modal-card">
+            <h3 class="auth-form-title">Create account</h3>
+            <p class="auth-form-subtitle">
+              Join the community and track your progress over time.
+              You can fill in more details on your profile later.
+            </p>
+
+            <%= simple_form_for(User.new,
+                                as: :user,
+                                url: user_registration_path,
+                                html: { multipart: true, autocomplete: "on" }) do |f| %>
+
+              <div class="auth-fields auth-fields--signup">
+                <!-- Row 1: username / email -->
+                <div class="auth-field">
+                  <label>Username</label>
+                  <%= f.input :username,
+                              label: false,
+                              input_html: { class: "profile-input" } %>
+                </div>
+
+                <div class="auth-field">
+                  <label>E-mail</label>
+                  <%= f.input :email,
+                              label: false,
+                              input_html: { class: "profile-input" } %>
+                </div>
+
+                <!-- Row 2: password / repeat -->
+                <div class="auth-field">
+                  <label>Password</label>
+                  <%= f.input :password,
+                              label: false,
+                              input_html: {
+                                class: "profile-input",
+                                autocomplete: "new-password"
+                              } %>
+                </div>
+
+                <div class="auth-field">
+                  <label>Repeat password</label>
+                  <%= f.input :password_confirmation,
+                              label: false,
+                              input_html: {
+                                class: "profile-input",
+                                autocomplete: "new-password"
+                              } %>
+                </div>
+
+                <!-- Row 3: first / last name -->
+                <div class="auth-field">
+                  <label>First name</label>
+                  <%= f.input :first_name,
+                              label: false,
+                              input_html: { class: "profile-input" } %>
+                </div>
+
+                <div class="auth-field">
+                  <label>Last name</label>
+                  <%= f.input :last_name,
+                              label: false,
+                              input_html: { class: "profile-input" } %>
+                </div>
+
+                <!-- Row 4: dates -->
+                <div class="auth-field">
+                  <label>Date of birth</label>
+                  <%= f.input :date_of_birth,
+                              as: :date,
+                              html5: true,
+                              label: false,
+                              input_html: { class: "profile-input" } %>
+                </div>
+
+                <div class="auth-field">
+                  <label>Sobriety start date</label>
+                  <%= f.input :sobriety_start_date,
+                              as: :date,
+                              html5: true,
+                              label: false,
+                              input_html: { class: "profile-input" } %>
+                </div>
+              </div>
+
+              <div class="auth-form-actions">
+                <%= f.button :submit,
+                             "Create account",
+                             class: "profile-primary-button" %>
+              </div>
+            <% end %>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
