@@ -1,28 +1,51 @@
-<div class="login-modal">
+<div class="profile-change-wrapper">
+  <h1 class="profile-title">Forgot your password?</h1>
 
-  <h2 class="login-title">Forgot your password?</h2>
+  <div class="profile-change-card">
+    <% if resource.errors.full_messages.any? %>
+      <div class="auth-error-banner">
+        <% resource.errors.full_messages.each do |message| %>
+          <p><%= message %></p>
+        <% end %>
+      </div>
+    <% else %>
+      <p class="profile-header-note profile-header-note--center">
+        Enter the email you used to sign up and we’ll send you a link to reset your password.
+      </p>
+    <% end %>
 
-  <%= simple_form_for(resource,
-                      as: resource_name,
-                      url: password_path(resource_name),
-                      html: { method: :post }) do |f| %>
+    <%= simple_form_for(resource,
+                        as: resource_name,
+                        url: password_path(resource_name),
+                        html: { method: :post }) do |f| %>
 
-    <%= f.error_notification %>
+      <div class="profile-details-grid">
+        <div class="profile-field full-width">
+          <label class="profile-input-label">E-mail</label>
+          <%= f.input :email,
+                      required: true,
+                      autofocus: true,
+                      label: false,
+                      error: false,  # hide the extra default error text under the field
+                      placeholder: "Enter the email you used to sign up",
+                      input_html: {
+                        class: "profile-password-input",
+                        autocomplete: "email"
+                      } %>
 
-    <div class="input-wrapper">
-      <img src="<%= asset_path('icons/email-icon.png') %>" class="input-icon">
-      <%= f.input :email,
-                  required: true,
-                  autofocus: true,
-                  label: false,
-                  placeholder: "E-mail",
-                  input_html: { autocomplete: "email" } %>
-    </div>
+          <p class="profile-limit-note profile-limit-note--right">
+            We’ll send you a link to reset your password.
+          </p>
+        </div>
+      </div>
 
-    <%= f.button :submit, "Send reset", class: "button-login" %>
+      <div class="profile-form-actions">
+        <%= f.button :submit, "Send reset link", class: "profile-primary-button" %>
+      </div>
+    <% end %>
+  </div>
 
-  <% end %>
-
-  <%= link_to "Back to login", new_user_session_path, class: "create-account" %>
-
+  <div class="profile-footer profile-footer--center">
+    <%= link_to "Back to home", root_path, class: "profile-footer-link" %>
+  </div>
 </div>
