@@ -1,30 +1,74 @@
-<section class="hero">
-  <div class="hero-visual">
-    <div class="hero-shape"></div>
-    <div class="hero-visual-img"></div>
-  </div>
-  <div class="hero-main-content">
-    <h1>Welcome to Your Journey</h1>
-    <p class="hero-subtitle">
-      A safe space for support, guidance and community.
-    </p>
-    <div class="hero-buttons">
-      <%= link_to "Log in", profile_path, class: "btn btn-primary" %>
-      <%= link_to "Sign up", new_user_registration_path, class: "btn btn-primary" %>
+<div data-controller="auth-modal">
+  <section class="hero">
+    <div class="hero-visual">
+      <div class="hero-shape"></div>
+      <div class="hero-visual-img"></div>
     </div>
-  </div>
-</section>
 
-<section class="main-feature-green" data-controller="feature-dropdown">
-  <h2>How SoberPath Work</h2>
-  <p>
-    SoberPath helps people stay strong in their recovery journey.<br>
-    The program has three easy steps:
-  </p>
-  <div class="main-feature-buttons">
-    <button class="feature-btn" data-feature-dropdown-target="button" data-action="click->feature-dropdown#show" data-feature="concept">Our concept</button>
-    <button class="feature-btn" data-feature-dropdown-target="button" data-action="click->feature-dropdown#show" data-feature="studies">Alcoholism studies</button>
-    <button class="feature-btn" data-feature-dropdown-target="button" data-action="click->feature-dropdown#show" data-feature="statistics">Statistics</button>
-  </div>
-  <div class="main-feature-box" data-feature-dropdown-target="box"></div>
-</section>
+    <div class="hero-main-content">
+      <h1>Welcome to Your Journey</h1>
+      <p class="hero-subtitle">
+        A safe space for support, guidance and community.
+      </p>
+
+      <div class="hero-buttons">
+        <% if user_signed_in? %>
+          <!-- Logged IN: send them into the app -->
+          <%= link_to "Go to chatroom", chatroom_path, class: "btn btn-primary" %>
+          <%= link_to "View profile", profile_path, class: "btn btn-primary" %>
+        <% else %>
+          <!-- Logged OUT: open modal via Stimulus -->
+          <button
+            type="button"
+            class="btn btn-primary"
+            data-action="click->auth-modal#openLogin">
+            Log in
+          </button>
+
+          <button
+            type="button"
+            class="btn btn-primary"
+            data-action="click->auth-modal#openSignup">
+            Sign up
+          </button>
+        <% end %>
+      </div>
+    </div>
+  </section>
+
+  <section class="main-feature-green" data-controller="feature-dropdown">
+    <h2>How SoberPath Work</h2>
+    <p>
+      SoberPath helps people stay strong in their recovery journey.<br>
+      The program has three easy steps:
+    </p>
+    <div class="main-feature-buttons">
+      <button class="feature-btn"
+              data-feature-dropdown-target="button"
+              data-action="click->feature-dropdown#show"
+              data-feature="concept">
+        Our concept
+      </button>
+      <button class="feature-btn"
+              data-feature-dropdown-target="button"
+              data-action="click->feature-dropdown#show"
+              data-feature="studies">
+        Alcoholism studies
+      </button>
+      <button class="feature-btn"
+              data-feature-dropdown-target="button"
+              data-action="click->feature-dropdown#show"
+              data-feature="statistics">
+        Statistics
+      </button>
+    </div>
+    <div class="main-feature-box" data-feature-dropdown-target="box"></div>
+  </section>
+
+  <% unless user_signed_in? %>
+    <!-- Only render the template for logged-out users -->
+    <template id="auth-modal-template">
+      <%= render "shared/auth_modal" %>
+    </template>
+  <% end %>
+</div>
