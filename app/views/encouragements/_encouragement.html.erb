@@ -1,0 +1,66 @@
+<% sender = encouragement.sender %>
+
+<li id="<%= dom_id(encouragement) %>"
+    class="connection-updates__item encouragements-panel__item
+           <%= 'encouragements-panel__item--unread' if encouragement.read_at.nil? %>">
+
+  <!-- avatar -->
+  <div class="connection-updates__avatar">
+    <% if sender.avatar.attached? %>
+      <%= image_tag sender.avatar.variant(resize_to_fill: [32, 32]),
+                    alt: sender.username,
+                    class: "connection-updates__avatar-image" %>
+    <% else %>
+      <div class="connection-updates__avatar-fallback">
+        <span><%= sender.username.first.upcase %></span>
+      </div>
+    <% end %>
+  </div>
+
+  <!-- content -->
+  <div class="connection-updates__content">
+    <div class="connection-updates__title">
+      <strong><%= sender.username %></strong>
+
+      <% if encouragement.reason.present? %>
+        <time class="encouragements-panel__time">
+          <%= l(encouragement.created_at, format: :short) %>
+        </time>
+      <% end %>
+    </div>
+
+    <div class="connection-updates__text">
+      <%= encouragement.body %>
+    </div>
+
+    <div class="encouragements-panel__footer">
+      <div class="encouragements-panel__left">
+        <% if encouragement.read_at.nil? %>
+          <span class="encouragements-panel__badge">NEW</span>
+
+          <%= link_to "Mark as read",
+                      encouragement_path(encouragement),
+                      data: { turbo_frame: "encouragement_chat" },
+                      class: "encouragements-panel__mark-read" %>
+        <% else %>
+          <span class="encouragements-panel__seen">
+            ✓ Seen
+          </span>
+        <% end %>
+
+        <%= link_to "Delete",
+                    encouragement_path(encouragement),
+                    data: {
+                      turbo_method: :delete,
+                      turbo_confirm: "Delete this encouragement?",
+                      turbo_frame: "encouragement_chat"
+                    },
+                    class: "encouragements-panel__delete" %>
+      </div>
+
+      <time class="encouragements-panel__time">
+        <%= encouragement_timestamp(encouragement) %>
+      </time>
+    </div>
+  </div>
+</li>

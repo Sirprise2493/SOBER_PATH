@@ -35,7 +35,7 @@ Rails.application.routes.draw do
 
   resources :user_chat_messages_responses, only: [:create, :destroy]
 
-  resources :encouragements, only: [:create, :show]
+  resources :encouragements, only: [:create, :show, :destroy]
 
   resources :aa_venues, only: [:create, :destroy, :edit, :update]
 end
