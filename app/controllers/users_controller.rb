@@ -35,6 +35,21 @@ class UsersController < ApplicationController
     end
   end
 
+  def destroy
+    unless current_user&.counsellor?
+      redirect_back fallback_location: root_path, alert: "Not authorized." and return
+    end
+
+    @user = User.find(params[:id])
+
+    if @user == current_user
+      redirect_back fallback_location: root_path, alert: "You cannot delete yourself." and return
+    end
+
+    @user.destroy
+    redirect_to chatroom_path, notice: "User has been dismissed."
+  end
+
   private
 
   def profile_params

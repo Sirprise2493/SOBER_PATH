@@ -12,7 +12,7 @@ Rails.application.routes.draw do
   patch "profile",      to: "users#update_profile"
 
   # Mini public profiles inside chat
-  resources :users, only: [:show]
+  resources :users, only: [:show, :destroy]
 
   # Friendships
   resources :friendships, only: [:create, :update, :destroy]
