@@ -44,6 +44,15 @@
     <div class="user-profile-panel__connection-header">
       <h3>Connection</h3>
 
+      <div class="user-profile-panel__connection-actions">
+        <% if current_user.counsellor? && current_user != user %>
+          <%= button_to "Dismiss",
+                        user_path(user),
+                        method: :delete,
+                        data: { turbo_confirm: "Delete this user permanently?" },
+                        class: "btn btn-sm btn-outline-danger user-profile-panel__dismiss-button" %>
+        <% end %>
+
       <% if !current_user.connected_with?(user) &&
             !current_user.pending_friend_request_for?(user) %>
         <%= button_to "Connect",

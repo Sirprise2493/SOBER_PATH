@@ -1,10 +1,4 @@
 .public-profile-card {
-  // optional, falls du die Karte ein bisschen hervorheben willst
-  // padding: 1rem;
-  // border-radius: 0.75rem;
-  // border: 1px solid #e0e0e0;
-  // background: #fff;
-
   .public-profile-header {
     display: flex;
     align-items: flex-start;
@@ -12,7 +6,6 @@
     margin-bottom: 1rem;
 
     &__avatar {
-      // Platzhalter, falls du später was brauchst
     }
 
     &__avatar-image {
@@ -27,7 +20,7 @@
       width: 48px;
       height: 48px;
       border-radius: 50%;
-      background: #0d6efd; // blau wie im Chat
+      background: #0d6efd;
       color: #ffffff;
       display: flex;
       align-items: center;
@@ -41,7 +34,6 @@
     }
 
     &__info {
-      // optionaler Wrapper
     }
 
     &__username {
@@ -75,7 +67,6 @@
     }
 
     &__avatar {
-      // Platzhalter
     }
 
     &__avatar-image {
@@ -104,7 +95,6 @@
     }
 
     &__info {
-      // optional
     }
 
     &__username {
@@ -121,6 +111,26 @@
     &__actions {
       display: flex;
       gap: 0.5rem;
+    }
+  }
+
+  .user-profile-panel__connection {
+    .user-profile-panel__connection-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.5rem;
+      margin-top: 1rem;
+    }
+
+    .user-profile-panel__connection-actions {
+      display: flex;
+      gap: 0.5rem;
+      margin-left: auto;
+    }
+
+    .user-profile-panel__dismiss-button {
+      font-size: 0.85rem;
     }
   }
 }

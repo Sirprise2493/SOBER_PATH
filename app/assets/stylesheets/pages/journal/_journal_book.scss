@@ -1,8 +1,9 @@
 .book-container {
   display: flex;
-  gap: 2rem;
+  gap: 0.3rem;
 
-  background: #1b1202a4;
+  /* background: #1b1202a4; */
+  background: $primary;
   padding: 2rem;
   border-radius: 12px;
   box-shadow: 0 15px 30px rgba(0,0,0,0.8);
@@ -18,8 +19,10 @@
 
 
     font-family: "Great Vibes", "Segoe Script", "Lucida Handwriting", cursive;
-    background-color: #f4e4bc;
-    color: #3b2a1a;
+    /*background-color: #f4e4bc; */
+    background-color: #f7faff;
+    /* color: #3b2a1a; */
+    color: $text-main;
     letter-spacing: 0.03em;
 
     border-radius: 8px;
