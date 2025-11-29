@@ -4,6 +4,8 @@ class Encouragement < ApplicationRecord
 
   validates :body, presence: true, length: { maximum: 500 }
 
-  after_create_commit -> { broadcast_prepend_later_to [receiver, :encouragements] }
-  after_update_commit -> { broadcast_replace_later_to [receiver, :encouragements] }
+  after_create_commit -> {
+    broadcast_prepend_later_to [receiver, :encouragements],
+                               target: "encouragements_list"
+  }
 end

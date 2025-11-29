@@ -1,471 +1,154 @@
-.encouragement-chat {
+/* =========================================
+   ENCOURAGEMENTS PANEL (SIMPLE LIST)
+========================================= */
+
+.encouragements-panel {
   display: flex;
-  background: #e5f0ff;
-  border: 1px solid #dbeafe;
-  overflow: hidden;
-  box-shadow: 0 16px 35px rgba(15, 23, 42, 0.12);
-
+  flex-direction: column;
   height: 100%;
-  min-height: 0;
-  max-height: 100%;
-  align-items: stretch;
 
-  /* Pop-in-Animation beim Einblenden */
-  animation: encouragement-chat-pop-in 0.35s ease-out;
-  transform-origin: top center;
-
-  /* SIDEBAR */
-  &__sidebar {
-    width: 15vw;
-    background: linear-gradient(135deg, $primary-dark, $primary);
-    color: #e5e7eb;
-    padding: 1rem 0.75rem;
-    display: flex;
-    flex-direction: column;
-    gap: 0.75rem;
-
-    max-height: 80vh;
-    overflow-y: auto;
-    align-self: center;
-  }
-
-  &__sidebar-header {
-    padding: 0 0.25rem 0.5rem;
-
-    h3 {
-      margin: 0 0 0.4rem;
-      font-size: 0.9rem;
-      font-weight: 600;
-    }
-  }
-
-  &__search {
-    width: 100%;
-    border-radius: 999px;
-    border: 1px solid rgba(148, 163, 184, 0.6);
-    padding: 0.35rem 0.6rem;
-    font-size: 0.8rem;
-    background: rgba(15, 23, 42, 0.7);
-    color: #e5e7eb;
-
-    &::placeholder {
-      color: #9ca3af;
-    }
-  }
-
-  &__all-button {
-    display: block;
-    width: 100%;
-    margin: 0.35rem 0.1rem 0.1rem;
-    padding: 0.45rem 0.8rem;
-    font-size: 0.9rem;
-    font-weight: 500;
-    text-align: center;
-    border-radius: 999px;
-    border: 1px solid rgba(209, 213, 219, 0.9);
-    background: rgba(15, 23, 42, 0.55);
-    color: #f9fafb;
-    cursor: pointer;
-    transition:
-      background 0.15s ease,
-      transform 0.08s ease,
-      box-shadow 0.15s ease;
-
-    &:hover {
-      background: rgba(15, 23, 42, 0.8);
-      transform: translateY(-1px);
-      box-shadow: 0 8px 18px rgba(15, 23, 42, 0.35);
-    }
-  }
-
-  &__member-list {
-    list-style: none;
-    margin: 0;
-    padding: 0.25rem 0 0;
-    display: flex;
-    flex-direction: column;
-    gap: 0.25rem;
-    overflow-y: auto;
-    overflow-x: hidden;
-    flex: 1;
-  }
-
-  &__member {
-    display: flex;
-    align-items: center;
-    padding: 0;
-    border-radius: 0.75rem;
-    cursor: default;
-    transition: background 0.15s ease, transform 0.08s ease;
-
-    &:hover {
-      background: rgba(15, 23, 42, 0.7);
-      transform: translateY(-1px);
-    }
-
-    &.is-active {
-      background: rgba(15, 23, 42, 0.75);
-    }
-  }
-
-  &__member-link {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    padding: 0.45rem 0.4rem;
-    width: 100%;
-    text-decoration: none;
-    color: inherit;
-  }
-
-  &__member-avatar {
-    flex-shrink: 0;
-    width: 32px;
-    height: 32px;
-    border-radius: 999px;
-    background: #38bdf8;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 0.85rem;
-    font-weight: 600;
-    color: #0f172a;
-
-    img,
-    &-image {
-      width: 100%;
-      height: 100%;
-      border-radius: 999px;
-      object-fit: cover;
-      display: block;
-    }
-  }
-
-  &__member-name {
-    font-size: 0.85rem;
-    font-weight: 500;
-    color: #ffffff;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
-
-  &__member-new-badge {
-    margin-left: auto;
-    padding: 0.1rem 0.55rem;
-    border-radius: 999px;
-    background: #facc15;
-    color: #f9fafb;
-    font-size: 0.65rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.04em;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    box-shadow: 0 0 0 1px rgba(15, 23, 42, 0.25);
-  }
-
-  /* Chat Right */
-  &__main {
-    flex: 1;
-    background: #f9fbff;
-    padding: 1.1rem 1.25rem;
-    display: flex;
-    flex-direction: column;
-  }
-
+  /* Header */
   &__header {
+    padding: 1rem 1.25rem 0.75rem;
     border-bottom: 1px solid #e5e7eb;
-    padding-bottom: 0.6rem;
-    margin-bottom: 0.7rem;
+    background: #f9fafb;
 
     h2 {
       margin: 0;
       font-size: 1.1rem;
+      font-weight: 600;
       color: #0f172a;
     }
   }
 
   &__subtitle {
-    margin: 0.2rem 0 0;
+    margin: 0.3rem 0 0;
     font-size: 0.85rem;
     color: #6b7280;
   }
 
-  &__messages {
-    list-style: none;
-    margin: 0;
-    padding: 0;
+  /* List */
+  &__list {
+    flex: 1;
+    padding: 1rem 1.25rem;
+    overflow-y: auto;
     display: flex;
     flex-direction: column;
-    gap: 0.75rem;
-    overflow-y: auto;
-    overflow-x: hidden;
+    gap: 0.85rem;
   }
 
-  &__message {
-    display: flex;
-    align-items: flex-start;
-    gap: 0.7rem;
-    padding: 0.4rem 0.3rem;
-    border-radius: 0.85rem;
-    transition: background 0.15s ease;
+  /* Each item (card) */
+  &__item {
+    transition:
+      background-color 0.25s ease,
+      box-shadow 0.2s ease,
+      transform 0.12s ease;
+    cursor: default;
 
-    &--unread {
-      background: #e0edff;
+    &:hover {
+      box-shadow: 0 8px 18px rgba(15, 23, 42, 0.06);
+      transform: translateY(-1px);
     }
   }
 
-  &__message-avatar {
-    flex-shrink: 0;
-    width: 36px;
-    height: 36px;
-    border-radius: 999px;
-    background: #2563eb;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #eff6ff;
-    font-weight: 600;
-
-    img,
-    &-image {
-      width: 100%;
-      height: 100%;
-      border-radius: 999px;
-      object-fit: cover;
-      display: block;
-    }
+  &__item--unread {
+    background: #eff6ff !important;
+    border-color: #dbeafe !important;
   }
 
-  &__message-body {
-    flex: 1;
-    min-width: 0;
-  }
-
-  &__message-meta {
+  /* Footer row (left: status + delete, right: time) */
+  &__footer {
+    margin-top: 0.6rem;
     display: flex;
     justify-content: space-between;
-    align-items: flex-start;
-    gap: 0.4rem;
+    align-items: center;
   }
 
-  &__message-sender {
-    font-size: 0.9rem;
-    color: #111827;
-  }
-
-  &__message-reason {
-    font-size: 0.8rem;
-    color: #6b7280;
-  }
-
-  &__message-meta-right {
+  &__left {
     display: flex;
     align-items: center;
-    gap: 0.25rem;
-  }
-
-  &__badge {
-    font-size: 0.7rem;
-    padding: 0.1rem 0.4rem;
-    border-radius: 999px;
-    background: #1d4ed8;
-    color: #e5e7eb;
-    font-weight: 600;
-  }
-
-  &__message-time {
-    font-size: 0.75rem;
-    color: #9ca3af;
-  }
-
-  &__bubble {
-    margin-top: 0.15rem;
-    background: #dbeafe;
-    border-radius: 0.8rem;
-    padding: 0.45rem 0.6rem;
-    font-size: 0.9rem;
-    line-height: 1.35;
-    color: #111827;
-
-    p {
-      margin: 0;
-    }
-  }
-
-  &__message-actions {
-    margin-top: 0.25rem;
-    display: flex;
-    gap: 0.5rem;
-    align-items: center;
+    gap: 0.6rem;
     flex-wrap: wrap;
   }
 
-  &__mark-read-link {
-    font-size: 0.75rem;
-    text-decoration: none;
+  /* NEW badge */
+  &__badge {
+    padding: 0.1rem 0.55rem;
+    border-radius: 999px;
+    background: #1d4ed8;
+    color: #f9fafb;
+    font-size: 0.7rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  /* Mark as read link */
+  &__mark-read {
+    font-size: 0.78rem;
     color: #2563eb;
+    text-decoration: none;
 
     &:hover {
       text-decoration: underline;
     }
   }
 
-  &__expand-btn {
-    font-size: 0.75rem;
-    border: none;
-    background: transparent;
-    color: #1d4ed8;
-    cursor: pointer;
-    padding: 0;
-
-    &:hover {
-      text-decoration: underline;
-    }
-  }
-
-  &__pagination {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-top: 0.75rem;
-    padding-top: 0.5rem;
-    border-top: 1px solid #e5e7eb;
-    font-size: 0.8rem;
-    color: #6b7280;
-  }
-
-  &__pagination-info {
-    strong {
-      font-weight: 600;
-      color: #111827;
-    }
-  }
-
-  &__pagination-links {
-    display: flex;
+  /* Seen label with checkmark */
+  &__seen {
+    font-size: 0.78rem;
+    color: #9ca3af;
+    display: inline-flex;
     align-items: center;
     gap: 0.25rem;
   }
 
-  &__pagination-link {
-    min-width: 26px;
-    padding: 0.15rem 0.45rem;
-    border-radius: 999px;
-    border: 1px solid transparent;
-    text-align: center;
-    text-decoration: none;
+  /* Delete link */
+  &__delete {
     font-size: 0.78rem;
-    cursor: pointer;
-    color: #374151;
-    background: transparent;
-    transition: background 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+    color: #b91c1c;
+    text-decoration: none;
 
     &:hover {
-      background: #e5edff;
-      border-color: #bfdbfe;
-    }
-
-    &--active {
-      background: #2563eb;
-      color: #f9fafb;
-      border-color: #1d4ed8;
-      cursor: default;
-
-      &:hover {
-        background: #2563eb;
-        border-color: #1d4ed8;
-      }
-    }
-
-    &--arrow {
-      font-weight: 600;
-      padding: 0.15rem 0.35rem;
-    }
-
-    &--disabled {
-      opacity: 0.4;
-      cursor: default;
-      pointer-events: none;
+      text-decoration: underline;
+      color: #7f1d1d;
     }
   }
 
-  &__pagination-ellipsis {
-    padding: 0 0.15rem;
-    opacity: 0.7;
+  /* Timestamp text */
+  &__time {
+    font-size: 0.78rem;
+    color: #9ca3af;
+    white-space: nowrap;
   }
 
-  @media (max-width: 768px) {
-    flex-direction: column;
-
-    &__sidebar {
-      width: 100%;
-      flex-direction: row;
-      align-items: stretch;
-      gap: 0.5rem;
-      max-height: none;
-      align-self: stretch;
-      overflow-y: visible;
-    }
-
-    &__member-list {
-      flex-direction: row;
-      padding-bottom: 0.5rem;
-      overflow-x: auto;
-      overflow-y: hidden;
-    }
-
-    &__member {
-      min-width: 180px;
-    }
+  /* "· Birthday", "· 5 Years milestone" */
+  &__reason {
+    font-size: 0.83rem;
+    color: #6b7280;
+    margin-left: 0.15rem;
   }
 }
 
-/* Hilfsklasse */
-.is-hidden {
-  display: none !important;
+/* ===============================
+   EMPTY STATE
+================================ */
+
+.encouragements-empty-state {
+  padding: 3rem 1rem;
+  text-align: center;
 }
 
-/* Scrollbar-Styling */
-
-.encouragement-chat__member-list,
-.encouragement-chat__messages {
-  scrollbar-width: thin;
-  scrollbar-color: rgba(148, 163, 184, 0.7) transparent;
+.encouragements-empty-state__title {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #111827;
+  margin-bottom: 0.4rem;
 }
 
-.encouragement-chat__member-list::-webkit-scrollbar,
-.encouragement-chat__messages::-webkit-scrollbar {
-  width: 6px;
-}
-
-.encouragement-chat__member-list::-webkit-scrollbar-track,
-.encouragement-chat__messages::-webkit-scrollbar-track {
-  background: transparent;
-}
-
-.encouragement-chat__member-list::-webkit-scrollbar-thumb,
-.encouragement-chat__messages::-webkit-scrollbar-thumb {
-  background: rgba(148, 163, 184, 0.6);
-  border-radius: 999px;
-}
-
-.encouragement-chat__member-list::-webkit-scrollbar-thumb:hover,
-.encouragement-chat__messages::-webkit-scrollbar-thumb:hover {
-  background: rgba(107, 114, 128, 0.8);
-}
-
-/* Pop-in Keyframes */
-
-@keyframes encouragement-chat-pop-in {
-  0% {
-    opacity: 0;
-    transform: scale(0.96);
-  }
-  100% {
-    opacity: 1;
-    transform: scale(1);
-  }
+.encouragements-empty-state__text {
+  font-size: 0.9rem;
+  color: #6b7280;
+  max-width: 380px;
+  margin: 0 auto;
 }
