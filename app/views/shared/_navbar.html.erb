@@ -1,15 +1,19 @@
 <nav class="navbar">
   <div class="navbar-left">
-    <%= link_to "SoberPath", root_path, class: "navbar-logo" %>
+    <%= link_to root_path, class: "navbar-logo" do %>
+      <%= image_tag "navbar-icon2.png",
+                    alt: "SoberPath",
+                    class: "navbar-logo-icon" %>
+    <% end %>
   </div>
 
   <div class="navbar-right">
     <% if user_signed_in? %>
-      <%= link_to "Profile",   profile_path %>
-      <%= link_to "Journal",   journal_path %>
-      <%= link_to "Chatroom",  chatroom_path %>
+      <%= link_to "Profile",    profile_path %>
+      <%= link_to "Journal",    journal_path %>
+      <%= link_to "Chatroom",   chatroom_path %>
       <%= link_to "Milestones", milestones_path %>
-      <%= link_to "Meetings",  meetings_path %>
+      <%= link_to "Meetings",   meetings_path %>
 
       <%= button_to "Log out",
                     destroy_user_session_path,
