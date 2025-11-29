@@ -1,0 +1,105 @@
+.milestones-current-card {
+  max-width: 720px;
+  margin: 1.75rem auto;
+  padding: 1.6rem 1.8rem;
+  background: radial-gradient(circle at top left, #f9fafb, #ffffff);
+  border-radius: 22px;
+  box-shadow:
+    0 14px 40px rgba(15, 23, 42, 0.12),
+    0 0 0 1px rgba(226, 232, 240, 0.9);
+  position: relative;
+  overflow: hidden;
+
+  // leichter Farb-Akzentbalken oben
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 1.2rem;
+    right: 1.2rem;
+    height: 3px;
+    border-radius: 999px;
+    background: linear-gradient(90deg, #22c55e, #3b82f6, #a855f7);
+    opacity: 0.9;
+  }
+
+  &__celebrations-title {
+    margin: 0 0 0.6rem;
+    font-size: 0.95rem;
+    font-weight: 650;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: #6b7280;
+  }
+
+  &__celebrations-list {
+    list-style: none;
+    padding-left: 0;
+    margin: 0;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    row-gap: 0.3rem;
+  }
+
+  &__celebration-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.6rem;
+    font-size: 0.92rem;
+    padding: 0.35rem 0.1rem;
+    color: #374151;
+    line-height: 1.45;
+    position: relative;
+
+    // leichte Hover-Reaktion für Desktop
+    @media (hover: hover) {
+      &:hover {
+        transform: translateX(1px);
+      }
+    }
+  }
+
+  &__bullet {
+    margin-top: 0.15rem;
+    width: 20px;
+    height: 20px;
+    border-radius: 999px;
+    flex-shrink: 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.8rem;
+    background: radial-gradient(circle, #22c55e, #16a34a);
+    color: #ecfdf5;
+    box-shadow: 0 6px 12px rgba(22, 163, 74, 0.35);
+
+    // statt einfachem "•" könnte hier z.B. "✓" stehen
+  }
+
+  /* Tablet / kleines Laptop */
+  @media (max-width: 768px) {
+    margin: 1.25rem;
+    padding: 1.25rem 1.3rem;
+    max-width: 100%;
+
+    &::before {
+      left: 1rem;
+      right: 1rem;
+    }
+  }
+
+  /* Phones / sehr kleine Screens */
+  @media (max-width: 480px) {
+    margin: 0.9rem 0.5rem;
+    padding: 1rem 1rem;
+    border-radius: 18px;
+
+    &__celebrations-title {
+      font-size: 0.9rem;
+    }
+
+    &__celebration-item {
+      font-size: 0.9rem;
+    }
+  }
+}

@@ -1,0 +1,151 @@
+/* ===========================
+   Statistics – Shell im Panel
+   =========================== */
+
+.milestones-content__panel[data-panel="statistics"] {
+  height: 100%;
+}
+
+.milestones-stats-card-shell {
+  height: 100%;
+  width: 100%;
+  padding: 1.2rem 1.5rem;
+  box-sizing: border-box;
+}
+
+/* ===========================
+   Statistics – eine große Karte
+   =========================== */
+
+.milestones-stats-card {
+  height: 100%;
+  width: 100%;
+  background: #ffffff;
+  border-radius: 18px;
+  box-shadow:
+    0 18px 45px rgba(15, 23, 42, 0.08),
+    0 0 0 1px rgba(226, 232, 240, 0.7);
+  padding: 1.4rem 1.6rem 1.1rem;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+}
+
+.milestones-stats-card__header {
+  margin-bottom: 0.75rem;
+
+  h2 {
+    margin: 0;
+    font-size: 1.3rem;
+    font-weight: 650;
+  }
+}
+
+.milestones-stats-card__subtitle {
+  margin: 0.25rem 0 0;
+  font-size: 0.9rem;
+  color: #6b7280;
+}
+
+.milestones-stats-card__body {
+  flex: 1;
+  min-height: 260px;
+  display: grid;
+  grid-template-columns: minmax(0, 1.05fr) minmax(0, 1.4fr);
+  gap: 1.4rem;
+}
+
+/* Chart-Container – füllt den verfügbaren Platz */
+.milestones-stats-card__chart-wrapper {
+  height: 100%;
+}
+
+/* damit Google Charts gut im Container sitzen */
+.milestones-stats-card__chart-wrapper > div {
+  height: 100% !important;
+}
+
+/* ===========================
+   Legend unten (eine für beide)
+   =========================== */
+
+.milestones-stats-card__footer {
+  margin-top: 0.6rem;
+}
+
+.milestones-stats-card__legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem 1.4rem;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.milestones-stats-card__legend-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.85rem;
+  color: #374151;
+}
+
+.milestones-stats-card__legend-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 999px;
+  flex-shrink: 0;
+}
+
+.milestones-stats-card__legend-label {
+  white-space: nowrap;
+}
+
+/* ==========
+   Responsive
+   ========== */
+
+@media (max-width: 1100px) {
+  .milestones-stats-card__body {
+    grid-template-columns: minmax(0, 1fr);
+    grid-auto-rows: 260px;
+  }
+}
+
+@media (max-width: 900px) {
+  .milestones-stats-card-shell {
+    padding: 1rem 1rem;
+  }
+
+  .milestones-stats-card {
+    padding: 1.1rem 1.1rem 0.9rem;
+  }
+
+  .milestones-stats-card__body {
+    grid-auto-rows: 240px;
+    gap: 1rem;
+  }
+}
+
+@media (max-width: 600px) {
+  .milestones-stats-card-shell {
+    padding: 0.8rem 0.7rem;
+  }
+
+  .milestones-stats-card {
+    border-radius: 16px;
+  }
+
+  .milestones-stats-card__header h2 {
+    font-size: 1.1rem;
+  }
+
+  .milestones-stats-card__body {
+    grid-auto-rows: 220px;
+  }
+
+  .milestones-stats-card__legend {
+    gap: 0.4rem 1rem;
+    font-size: 0.8rem;
+  }
+}

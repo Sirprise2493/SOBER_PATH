@@ -1,0 +1,72 @@
+<section class="encouragements-panel">
+  <%= turbo_stream_from [current_user, :encouragements] %>
+
+  <header class="encouragements-panel__header">
+    <h2>Encouragements</h2>
+    <p class="encouragements-panel__subtitle">
+      Messages sent from your connections.
+    </p>
+  </header>
+
+  <% if encouragements_all.any? %>
+    <ul class="encouragements-panel__list connection-updates"
+        id="encouragements_list">
+      <%= render encouragements %>
+    </ul>
+
+    <% if total_pages > 1 %>
+      <nav class="encouragements-panel__pagination encouragement-chat__pagination">
+        <div class="encouragement-chat__pagination-links">
+          <%# Previous button %>
+          <% if page > 1 %>
+            <%= link_to "«",
+                        milestones_path(enc_page: page - 1),
+                        data: { turbo_frame: "encouragement_chat" },
+                        class: "encouragement-chat__pagination-link encouragement-chat__pagination-link--arrow" %>
+          <% else %>
+            <span class="encouragement-chat__pagination-link encouragement-chat__pagination-link--arrow encouragement-chat__pagination-link--disabled">
+              «
+            </span>
+          <% end %>
+
+          <%# Page numbers %>
+          <% (1..total_pages).each do |num| %>
+            <% if num == page %>
+              <span class="encouragement-chat__pagination-link encouragement-chat__pagination-link--active">
+                <%= num %>
+              </span>
+            <% else %>
+              <%= link_to num,
+                          milestones_path(enc_page: num),
+                          data: { turbo_frame: "encouragement_chat" },
+                          class: "encouragement-chat__pagination-link" %>
+            <% end %>
+          <% end %>
+
+          <%# Next button %>
+          <% if page < total_pages %>
+            <%= link_to "»",
+                        milestones_path(enc_page: page + 1),
+                        data: { turbo_frame: "encouragement_chat" },
+                        class: "encouragement-chat__pagination-link encouragement-chat__pagination-link--arrow" %>
+          <% else %>
+            <span class="encouragement-chat__pagination-link encouragement-chat__pagination-link--arrow encouragement-chat__pagination-link--disabled">
+              »
+            </span>
+          <% end %>
+        </div>
+      </nav>
+    <% end %>
+      <% else %>
+    <div class="encouragements-empty-state">
+      <p class="encouragements-empty-state__title">
+        No encouragements yet
+      </p>
+      <p class="encouragements-empty-state__text">
+        When friends send you encouragements from the chatroom, they’ll show up here.
+      </p>
+    </div>
+  <% end %>
+</section>
+
+

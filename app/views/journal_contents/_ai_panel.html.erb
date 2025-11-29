@@ -1,0 +1,21 @@
+<% if journal_content.photo.attached? %>
+  <div class="photo">
+    <div class="photo-image">
+      <% photo_url = url_for(journal_content.photo) %>
+      <%= image_tag "#{photo_url}?v=#{journal_content.updated_at.to_i}" %>
+    </div>
+  </div>
+<% else %>
+  <p>AI picture is being generated…</p>
+<% end %>
+
+<% if journal_content.motivational_text.present? %>
+  <p class="motivational"><%= journal_content.motivational_text %></p>
+<% else %>
+  <p>Motivational text is being generated…</p>
+<% end %>
+
+<%= button_to "Regenerate picture",
+              regenerate_photo_journal_content_path(journal_content),
+              method: :post,
+              class: "btn" %>

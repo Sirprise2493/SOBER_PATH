@@ -1,0 +1,251 @@
+/* ===========================
+   Milestones Badge (oben)
+   =========================== */
+
+.milestones-badge {
+  width: 100%;              // neu: 90% des Containers
+  max-width: 100%;         // nicht mehr an px-Wert kappen
+  margin: 0 auto 2rem;     // zentrieren + Abstand nach unten
+  display: flex;
+  justify-content: center;
+  overflow: hidden;        // Animation sauber abschneiden
+
+  &__inner {
+    width: 100%;           // neu: orientiert sich an den 90% der Section
+    display: flex;
+    gap: 1.75rem;
+    align-items: stretch;  // gleiche Höhe pro Zeile
+  }
+
+  &__left,
+  &__right {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    aspect-ratio: 1 / 1;   // gleiche Außenmaße (Höhe = Funktion von Breite)
+    border-radius: 20px;
+  }
+
+  &__left {
+    opacity: 0;
+    transform: translateY(-80px);
+    animation: milestones-badge-slide-in-from-top 0.7s ease-out forwards;
+    animation-delay: 0.05s;
+  }
+
+  &__right {
+    opacity: 0;
+    transform: translateY(80px);
+    animation: milestones-badge-slide-in-from-bottom 0.7s ease-out forwards;
+    animation-delay: 0.15s;
+  }
+}
+
+/* ===========================
+   Hero links (Badge-Partial)
+   =========================== */
+
+.milestones-badge-hero {
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+  height: 100%;
+
+  &__visual {
+    position: relative;
+    aspect-ratio: 16 / 9;
+    flex-grow: 1;
+  }
+
+  &__banner {
+    position: absolute;
+    top: 20%;
+    height: 50%;
+    left: -20%;
+    right: -20%;
+    background: linear-gradient(#0077d9, #004279);
+    transform: translate(-30%, -50%) rotate(22deg);
+    transform-origin: center;
+    border-radius: 1rem;
+  }
+
+  &__person {
+    position: absolute;
+    bottom: -6%;
+    left: 50%;
+    transform: translate(-50%, -4.6%);
+    max-height: 80%;
+    height: auto;
+    width: auto;
+    pointer-events: none;
+  }
+
+  &__text {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.6rem;
+    background-color: #0077d9;
+    padding: 0.8rem;
+    color: #fff;
+  }
+
+  &__milestone {
+    margin: 0;
+    padding: 0.35rem 1.4rem;
+    border-radius: 999px;
+    background: #e5f3ff;
+    border: 1px solid rgba(0, 118, 217, 0.3);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    font-size: clamp(1.1rem, 2.3vw, 1.7rem);
+    color: #004279;
+    box-shadow:
+      0 10px 25px rgba(0, 118, 217, 0.18),
+      0 0 0 1px rgba(255, 255, 255, 0.8);
+
+    strong {
+      font-weight: inherit;
+    }
+  }
+}
+
+/* Countdown-Badge (wird aus Badge-Partial genutzt) */
+.sobriety-badge__countdown {
+  margin: 0;
+  padding: clamp(0.25rem, 0.5vh, 0.5rem)
+           clamp(0.7rem, 1.3vw, 1.2rem);
+  border-radius: 999px;
+  font-size: clamp(0.8rem, 1.7vw, 1.05rem);
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  color: #fff;
+  background: rgba(0, 0, 0, 0.35);
+  backdrop-filter: blur(4px);
+  text-shadow: 0 0 6px rgba(0, 0, 0, 0.7);
+  box-shadow: 0 0 0 rgba(255, 255, 255, 0.4);
+  animation: badge-countdown-glow 2.4s ease-in-out infinite;
+
+  &::before {
+    content: "⏱";
+    margin-right: 0.25rem;
+    font-size: 1.05em;
+  }
+
+  &-prefix {
+    opacity: 0.85;
+    font-weight: 500;
+  }
+
+  &-name {
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+}
+
+@keyframes badge-countdown-glow {
+  0%, 100% {
+    box-shadow: 0 0 0 rgba(255, 255, 255, 0.4);
+  }
+  50% {
+    box-shadow: 0 0 22px rgba(255, 255, 255, 0.85);
+  }
+}
+
+/* right Badge with Coin */
+.sobriety-badge {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+
+  &__bg-img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  &__coin {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-35%, -85%);
+  }
+
+  &__coin-img {
+    width: 70%;
+    height: auto;
+  }
+}
+
+/* Animation Badge */
+
+@keyframes milestones-badge-slide-in-from-top {
+  0% {
+    opacity: 0;
+    transform: translateY(-80px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes milestones-badge-slide-in-from-bottom {
+  0% {
+    opacity: 0;
+    transform: translateY(80px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .milestones-badge {
+    &__left,
+    &__right {
+      animation: none !important;
+      transform: none !important;
+      opacity: 1 !important;
+    }
+  }
+}
+
+/* Responsive */
+
+@media (max-width: 800px) {
+  .milestones-badge {
+    &__inner {
+      flex-direction: column;
+      gap: 1.25rem;
+    }
+
+    &__left,
+    &__right {
+      flex: 0 0 100%;
+      width: 100%;
+      aspect-ratio: auto;
+    }
+  }
+
+  .milestones-badge-hero {
+    &__visual {
+      aspect-ratio: 4 / 5;
+    }
+
+    &__milestone {
+      font-size: clamp(1rem, 3.5vw, 1.5rem);
+    }
+  }
+}

@@ -1,0 +1,57 @@
+<% message_user = user_chat_message.user %>
+
+<div id="<%= dom_id(user_chat_message) %>" class="user-chat-message">
+  <!-- Avatar -->
+  <div class="user-chat-message__avatar">
+    <% if message_user&.avatar&.attached? %>
+      <%= image_tag message_user.avatar
+                               .variant(resize_to_fill: [32, 32])
+                               .processed,
+                    alt: message_user.username,
+                    class: "user-chat-message__avatar-image" %>
+    <% else %>
+      <div class="user-chat-message__avatar-fallback" aria-hidden="true">
+        <span><%= message_user.username.to_s.first.to_s.upcase.presence || "?" %></span>
+      </div>
+    <% end %>
+  </div>
+
+  <!-- Inhalt der Nachricht -->
+  <div class="user-chat-message__content">
+    <p class="mb-1">
+      <strong class="user-chat-message__author">
+        <% if message_user == current_user %>
+          <%= message_user.username %>:
+        <% else %>
+          <%= link_to message_user.username,
+                      user_path(message_user),
+                      class: "user-chat-message__author-link",
+                      data: { turbo_frame: "user_profile_panel" } %>:
+        <% end %>
+      </strong>
+      <%= simple_format(user_chat_message.message_content) %>
+    </p>
+
+    <div class="user-chat-message__actions small text-muted">
+      <!-- 🔁 comment count turbo-frame -->
+      <turbo-frame id="<%= dom_id(user_chat_message, :comment_count) %>">
+        <%= render "user_chat_messages/comment_count",
+                   user_chat_message: user_chat_message %>
+      </turbo-frame>
+
+      <%= link_to "Comment",
+                  user_chat_message_path(user_chat_message),
+                  data: { turbo_frame: "message_thread" },
+                  class: "me-2" %>
+
+      <% if message_user == current_user %>
+        <%= button_to "Delete",
+                      user_chat_message_path(user_chat_message),
+                      method: :delete,
+                      data: { turbo_confirm: "Delete this message?" },
+                      class: "user-chat-message__delete",
+                      form: { class: "d-inline" } %>
+      <% end %>
+    </div>
+  </div>
+</div>

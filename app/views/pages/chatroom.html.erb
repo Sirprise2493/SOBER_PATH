@@ -1,7 +1,281 @@
-<div class="container chatbot">
-  <h1>Chat with us</h1>
-  <div id="ai_chat_messages">
-    <%= render @ai_chat_messages %>
+<%# Decide which tab is active: "ai", "community", or "updates" %>
+<% active_tab = params[:tab].presence || "ai" %>
+
+<div class="chat-layout chatbot" data-controller="chat-switcher">
+
+  <!-- left sidebar -->
+  <aside class="chat-sidebar chat-sidebar--compact"
+         data-chat-switcher-target="sidebar">
+
+    <!-- left column navigation -->
+    <div class="chat-sidebar__nav">
+      <ul class="chat-sidebar__menu">
+        <li>
+          <button
+            class="chat-sidebar__item <%= 'chat-sidebar__item--active' if active_tab == 'ai' %>"
+            data-chat-switcher-target="tab"
+            data-action="click->chat-switcher#showAi">
+            AI Chat 🤖 
+          </button>
+        </li>
+        <li>
+          <button
+            class="chat-sidebar__item <%= 'chat-sidebar__item--active' if active_tab == 'community' %>"
+            data-chat-switcher-target="tab"
+            data-action="click->chat-switcher#showCommunity">
+            Chats 💬
+          </button>
+        </li>
+        <li>
+          <button
+            class="chat-sidebar__item <%= 'chat-sidebar__item--active' if active_tab == 'updates' %>"
+            data-chat-switcher-target="tab"
+            data-action="click->chat-switcher#showUpdates">
+            Updates ⭐️
+          </button>
+        </li>
+      </ul>
+    </div>
+
+    <!-- right column conversations list (controlled by Stimulus) -->
+    <div
+      class="chat-sidebar__list d-none"
+      data-chat-switcher-target="communityList"
+      data-controller="user-list">
+
+      <!-- search input for chat users -->
+      <div class="chat-sidebar__list-header">
+        <input
+          type="text"
+          class="chat-sidebar__search"
+          placeholder="Search members..."
+          data-user-list-target="filter"
+          data-action="input->user-list#filter">
+      </div>
+
+      <% if @user_chat_partners&.any? %>
+        <% @user_chat_partners.each do |partner| %>
+          <% last_message = partner.user_chat_messages.order(created_at: :desc).first %>
+
+          <%= link_to user_chat_message_path(last_message),
+                      class: "chat-sidebar__conversation",
+                      data: {
+                        turbo_frame: "message_thread",
+                        user_list_target: "item",
+                        username: partner.username.downcase
+                      } do %>
+            <div class="chat-sidebar__avatar">
+              <% if partner.avatar.attached? %>
+                <%= image_tag partner.avatar.variant(resize_to_fill: [32, 32]), alt: partner.username %>
+              <% else %>
+                <div class="chat-sidebar__avatar-fallback">
+                  <%= partner.username.first.upcase %>
+                </div>
+              <% end %>
+            </div>
+
+            <div class="chat-sidebar__conversation-text">
+              <div class="chat-sidebar__conversation-name">
+                <%= partner.username %>
+              </div>
+              <div class="chat-sidebar__conversation-snippet">
+                <%= truncate(last_message&.message_content.to_s, length: 35) %>
+              </div>
+            </div>
+          <% end %>
+        <% end %>
+      <% else %>
+        <p class="text-muted small">
+          Start chatting in Community chat and your conversations will appear here.
+        </p>
+      <% end %>
+    </div>
+
+  </aside>
+
+  <!-- main chat area + connections panel -->
+  <div class="chat-main-wrapper">
+    <main class="chat-main">
+
+      <!-- AI chat section -->
+      <section
+        id="ai-chat-section"
+        class="chat-main__section <%= 'd-none' unless active_tab == 'ai' %>"
+        data-chat-switcher-target="aiSection">
+
+        <div class="chat-section-header">
+          <h2>AI Chat</h2>
+        </div>
+
+        <div id="ai_chat_messages" data-controller="auto-scroll">
+          <%= render @ai_chat_messages %>
+        </div>
+
+        <%= render "ai_chat_messages/form", ai_chat_message: @ai_chat_message %>
+      </section>
+
+      <!-- Community chat section -->
+      <section
+        id="user-chat-section"
+        class="chat-main__section <%= 'd-none' unless active_tab == 'community' %>"
+        data-chat-switcher-target="communitySection">
+
+        <div class="chat-section-header">
+          <h2>Chats</h2>
+        </div>
+
+        <% if @user_chat_messages.present? %>
+          <div id="user_chat_messages" data-controller="auto-scroll">
+            <%= render @user_chat_messages %>
+          </div>
+        <% else %>
+          <div class="chat-empty-state">
+            <div class="chat-empty-state__content">
+              <p class="chat-empty-state__title">No messages yet</p>
+              <p class="chat-empty-state__text">
+                Be the first to say hello to the community.
+              </p>
+            </div>
+          </div>
+        <% end %>
+
+        <turbo-frame id="message_thread"></turbo-frame>
+        <turbo-frame id="user_profile_panel"></turbo-frame>
+
+        <%= render "user_chat_messages/form" %>
+      </section>
+      
+      <!-- Updates section -->
+      <section
+        id="updates-section"
+        class="chat-main__section <%= 'd-none' unless active_tab == 'updates' %>"
+        data-chat-switcher-target="updatesSection">
+
+        <div class="chat-section-header">
+          <h2>Updates</h2>
+        </div>
+
+        <div id="updates-section-body">
+          <% if @connection_updates.present? %>
+            <ul class="connection-updates">
+              <% @connection_updates.each do |update| %>
+                <% friend    = update.friend %>
+                <% milestone = (update.kind == :sobriety_milestone ? update.meta[:milestone] : nil) %>
+
+                <% reason =
+                    if update.kind == :birthday
+                      "birthday"
+                    elsif update.kind == :sobriety_milestone && milestone.present?
+                      "milestone:#{milestone[:name]}"
+                    end %>
+
+                <% already_sent_for_update = Encouragement.where(
+                  sender:   current_user,
+                  receiver: friend,
+                  reason:   reason
+                ).exists? %>
+
+                <li class="connection-updates__item">
+                  <!-- avatar -->
+                  <div class="connection-updates__avatar">
+                    <% if friend.avatar.attached? %>
+                      <%= image_tag friend.avatar.variant(resize_to_fill: [32, 32]),
+                                    alt: friend.username,
+                                    class: "connection-updates__avatar-image" %>
+                    <% else %>
+                      <div class="connection-updates__avatar-fallback">
+                        <span><%= friend.username.first.upcase %></span>
+                      </div>
+                    <% end %>
+                  </div>
+
+                  <!-- content -->
+                  <div class="connection-updates__content">
+                    <div class="connection-updates__title">
+                      <% if update.kind == :birthday %>
+                        🎂 It's <%= friend.username %>'s birthday today!
+                      <% elsif update.kind == :sobriety_milestone && milestone.present? %>
+                        🪙 <%= friend.username %> reached
+                        <strong><%= milestone[:name] %></strong> today!
+                      <% end %>
+                    </div>
+
+                    <div class="connection-updates__text">
+                      <% if update.kind == :birthday %>
+                        Send them a kind message or encouragement.
+                      <% elsif update.kind == :sobriety_milestone %>
+                        Let them know you're proud of them – a few words can make a big difference.
+                      <% end %>
+                    </div>
+
+                    <% if already_sent_for_update %>
+                      <div class="connection-updates__status">
+                        ✓ Encouragement sent
+                      </div>
+                    <% else %>
+                      <div
+                        class="connection-updates__encouragement-form"
+                        data-controller="emoji-picker">
+
+                        <%= form_with model: Encouragement.new,
+                                      url: encouragements_path,
+                                      local: true do |f| %>
+
+                          <%= f.hidden_field :receiver_id, value: friend.id %>
+                          <%= f.hidden_field :reason,      value: reason %>
+
+                          <div class="connection-updates__input-row">
+                            <%= f.text_area :body,
+                                            rows: 1,
+                                            class: "form-control connection-updates__input",
+                                            placeholder: "Send a short encouragement…",
+                                            data: { "emoji-picker-target": "input" } %>
+
+                            <button
+                              type="button"
+                              class="connection-updates__emoji-btn"
+                              data-action="click->emoji-picker#toggle">
+                              😊
+                            </button>
+
+                            <%= f.submit "Send",
+                                        class: "btn btn-primary connection-updates__submit-btn" %>
+                          </div>
+
+                          <!-- This partial must define data-emoji-picker-target="panel" inside -->
+                          <%= render "user_chat_messages/emoji_panel" %>
+                        <% end %>
+                      </div>
+                    <% end %>
+                  </div>
+                </li>
+              <% end %>
+            </ul>
+          <% else %>
+            <div class="chat-empty-state">
+              <div class="chat-empty-state__content">
+                <p class="chat-empty-state__title">No updates today</p>
+                <p class="chat-empty-state__text">
+                  When your friends have birthdays or hit sobriety milestones,
+                  you'll see them here so you can cheer them on.
+                </p>
+              </div>
+            </div>
+          <% end %>
+        </div>
+      </section>
+    </main>
+
+    <!-- Connections panel (initially hidden, controlled by Stimulus) -->
+    <turbo-frame
+      id="connections_panel"
+      class="chat-connections d-none"
+      data-chat-switcher-target="connections">
+
+      <%= render "pages/connections_panel",
+                 friends: @friends,
+                 incoming_requests: @incoming_requests %>
+    </turbo-frame>
   </div>
-  <%= render "ai_chat_messages/form", ai_chat_message: @ai_chat_message %>
+
 </div>

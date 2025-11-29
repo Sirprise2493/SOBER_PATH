@@ -1,0 +1,44 @@
+<% current_milestone = user.current_coin_milestone %>
+<% next_milestone, target_time = user.next_coin_milestone_with_time || [] %>
+
+<% if current_milestone.present? %>
+  <section class="page-milestones__badge milestones-badge">
+    <div class="milestones-badge__inner">
+
+      <!-- LINKS: Hero mit Banner & Current Milestone -->
+      <div class="milestones-badge__left">
+        <div class="milestones-badge-hero">
+          <div class="milestones-badge-hero__visual">
+            <div class="milestones-badge-hero__banner"></div>
+
+            <%= image_tag "aa_people/sobriety_hero.png",
+                          alt: "Person feeling proud",
+                          class: "milestones-badge-hero__person" %>
+          </div>
+
+          <div class="milestones-badge-hero__text">
+            <p class="milestones-badge-hero__milestone">
+              <strong><%= current_milestone[:name].upcase %></strong>
+            </p>
+
+          </div>
+        </div>
+      </div>
+
+      <!-- RECHTS: Badge mit Coin in der Mitte -->
+      <div class="milestones-badge__right">
+        <div class="sobriety-badge">
+          <%= image_tag "aa_backgrounds/gratulationsbild2.png",
+                        class: "sobriety-badge__bg-img" %>
+
+          <div class="sobriety-badge__coin">
+            <%= image_tag "aa_coins/#{current_milestone[:file]}",
+                          alt:  current_milestone[:name],
+                          class: "sobriety-badge__coin-img" %>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+<% end %>

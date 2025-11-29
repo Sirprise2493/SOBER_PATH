@@ -6,13 +6,18 @@
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap">
+
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+    <script src="https://www.gstatic.com/charts/loader.js"></script>
     <%= javascript_importmap_tags %>
   </head>
 
   <body>
     <%= render "shared/flashes" %>
-    <%= render "shared/navbar" %>
+    <% unless current_page?(root_path) %>
+      <%= render "shared/navbar" %>
+    <% end %>
     <%= yield %>
   </body>
 </html>

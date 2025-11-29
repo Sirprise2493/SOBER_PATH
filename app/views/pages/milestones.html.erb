@@ -1,0 +1,147 @@
+<section
+  class="milestones-shell"
+  data-controller="milestones-sidebar"
+>
+  <!-- Sidebar -->
+  <nav class="milestones-sidebar">
+    <h2 class="milestones-sidebar__title">
+      My Milestones
+    </h2>
+
+    <!-- Badge -->
+    <button
+      type="button"
+      class="milestones-sidebar__button milestones-sidebar__button--active"
+      data-milestones-sidebar-target="button"
+      data-panel="badge"
+      data-action="click->milestones-sidebar#show"
+    >
+      <span class="milestones-sidebar__icon-wrap">
+        <i class="fa-solid fa-medal milestones-sidebar__icon" aria-hidden="true"></i>
+      </span>
+      <span class="milestones-sidebar__label">Badge</span>
+    </button>
+
+    <!-- Tray -->
+    <button
+      type="button"
+      class="milestones-sidebar__button"
+      data-milestones-sidebar-target="button"
+      data-panel="tray"
+      data-action="click->milestones-sidebar#show"
+    >
+      <span class="milestones-sidebar__icon-wrap">
+        <i class="fa-solid fa-coins milestones-sidebar__icon" aria-hidden="true"></i>
+      </span>
+      <span class="milestones-sidebar__label">Tray</span>
+    </button>
+
+    <!-- Next Milestone -->
+    <button
+      type="button"
+      class="milestones-sidebar__button"
+      data-milestones-sidebar-target="button"
+      data-panel="next"
+      data-action="click->milestones-sidebar#show"
+    >
+      <span class="milestones-sidebar__icon-wrap">
+        <i class="fa-solid fa-flag-checkered milestones-sidebar__icon" aria-hidden="true"></i>
+      </span>
+      <span class="milestones-sidebar__label">Next Milestone</span>
+    </button>
+
+    <!-- Statistics -->
+    <button
+      type="button"
+      class="milestones-sidebar__button"
+      data-milestones-sidebar-target="button"
+      data-panel="statistics"
+      data-action="click->milestones-sidebar#show"
+    >
+      <span class="milestones-sidebar__icon-wrap">
+        <i class="fa-solid fa-chart-pie milestones-sidebar__icon" aria-hidden="true"></i>
+      </span>
+      <span class="milestones-sidebar__label">Statistics</span>
+    </button>
+
+
+    <!-- Encouragements -->
+    <button
+      type="button"
+      class="milestones-sidebar__button"
+      data-milestones-sidebar-target="button"
+      data-panel="encouragements"
+      data-action="click->milestones-sidebar#show"
+    >
+      <span class="milestones-sidebar__icon-wrap">
+        <i class="fa-solid fa-comments milestones-sidebar__icon" aria-hidden="true"></i>
+      </span>
+      <span class="milestones-sidebar__label">Encouragements</span>
+    </button>
+  </nav>
+
+
+  <!-- Content -->
+  <div class="milestones-content">
+    <!-- Badge -->
+    <div
+      class="milestones-content__panel milestones-content__panel--active"
+      data-milestones-sidebar-target="panel"
+      data-panel="badge"
+    >
+      <%= render "pages/milestones/content/sobriety_badge", user: current_user %>
+    </div>
+
+    <!-- Tray -->
+    <div
+      class="milestones-content__panel"
+      data-milestones-sidebar-target="panel"
+      data-panel="tray"
+      hidden
+    >
+      <%= render "pages/milestones/content/sobriety_tray", user: current_user %>
+    </div>
+
+    <!-- Next milestone -->
+    <div
+      class="milestones-content__panel"
+      data-milestones-sidebar-target="panel"
+      data-panel="next"
+      hidden
+    >
+      <%= render "pages/milestones/milestones_next", user: current_user %>
+    </div>
+
+    <!-- Statistics Panel in der Sidebar-Ansicht -->
+    <div
+      class="milestones-content__panel"
+      data-milestones-sidebar-target="panel"
+      data-panel="statistics"
+      hidden
+    >
+      <%= render "pages/milestones/milestones_statistics",
+                pie_data: @pie_data,
+                weekly_activity: @weekly_activity %>
+    </div>
+
+
+    <!-- Encouragements (mit Turbo / Websocket) -->
+    <div
+      class="milestones-content__panel"
+      data-milestones-sidebar-target="panel"
+      data-panel="encouragements"
+      hidden
+    >
+      <%= turbo_stream_from [current_user, :encouragements] %>
+
+      <%= turbo_frame_tag "encouragement_chat" do %>
+        <%= render "pages/milestones/milestones_encouragements",
+                    encouragements_all: @encouragements_all,
+                    encouragements: @encouragements,
+                    page: @page,
+                    total_pages: @total_pages,
+                    selected_sender: @selected_sender %>
+      <% end %>
+    </div>
+  </div>
+</section>

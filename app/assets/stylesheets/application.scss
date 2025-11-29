@@ -10,8 +10,39 @@
 // Your CSS partials
 @import "components/index";
 @import "pages/index";
-@import "pages/meetings";
+//@import "pages/meetings";
+@import "pages/journal/journal_book";
+@import "pages/journal/journal";
+@import "pages/journal/journal_calendar";
+
+
+@import "pages/milestones/milestones";
+@import "pages/milestones/milestones_content";
+@import "pages/milestones/content/sobriety_badge";
+@import "pages/milestones/content/sobriety_tray";
+@import "pages/milestones/milestones_next";
+//@import "pages/milestones/milestones_pie_chart";
+//@import "pages/milestones/milestones_bar_chart";
+//@import "pages/milestones/milestones_description";
+//@import "pages/milestones/milestones_countdown_next";
+@import "pages/milestones/milestones_encouragement";
+@import "pages/milestones/milestones_statistics";
+
+
+@import "pages/profile";
 
 // Geocoding
 @import url("https://api.mapbox.com/mapbox-gl-js/v3.1.2/mapbox-gl.css");
 @import "components/ai_chatbot";
+
+@import "components/accept_decline_connect";
+@import "pages/groupchat_sidbar_connections";
+@import "components/emoji_picker";
+
+// Devise pages (login, signup, reset password)
+@import "pages/sessions";
+
+
+@import "pages/meetings/meetings";
+@import "pages/meetings/venue_form";
+@import "pages/meetings/info_window";

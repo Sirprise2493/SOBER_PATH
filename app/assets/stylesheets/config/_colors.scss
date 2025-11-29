@@ -1,10 +1,34 @@
 // Define variables for your color scheme
 
-// For example:
-$red: #FD1015;
-$blue: #0D6EFD;
-$yellow: #FFC65A;
-$orange: #E67E22;
-$green: #1EDD88;
-$gray: #0E0000;
-$light-gray: #F4F4F4;
+// Main brand colours
+$primary:#75A8F6; // soft blue
+$primary-dark:#1F5FCC; // for hover/focus
+
+// Backgrounds
+$background:#F7FAFF; // page background
+$white:#FFFFFF; // cards, containers
+$light-gray: #aca9a9;
+// Text
+$text-main:#1F2933; // main text
+$text-muted:#6B7280; // secondary text
+
+// Borders
+$border:#D6E2F5; // light borders, dividers
+
+// Buttons
+$btn-primary-bg: $primary;
+$btn-primary-hover: $primary-dark;
+$btn-primary-text:#FFFFFF;
+
+// Links
+$link-color: $primary-dark;
+$link-hover-color: $primary;
+
+$light-gray: #f5f5f5;
+
+$blue-primary: #005299;
+$blue-text: #06A0FF;
+$blue-gradient: linear-gradient(180deg, #06A0FF 0%, #005299 100%);
+
+$primary-light: lighten($primary, 7%);
+$danger:        #ff6b6b;

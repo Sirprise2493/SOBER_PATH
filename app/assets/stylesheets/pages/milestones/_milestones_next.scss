@@ -1,0 +1,457 @@
+/* ===========================
+   Milestones Next (Hero + Card)
+   =========================== */
+
+.milestones-next {
+  width: 100%;
+  max-width: 100%;
+  margin: 0 auto 2rem;
+  display: flex;
+  justify-content: center;
+  overflow: hidden;
+
+  &__inner {
+    width: 100%;
+    display: flex;
+    gap: 1.75rem;
+    align-items: stretch;
+  }
+
+  &__left,
+  &__right {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    aspect-ratio: 1 / 1;
+    border-radius: 20px;
+  }
+
+  &__left {
+    opacity: 0;
+    transform: translateY(-80px);
+    animation: milestones-next-slide-in-from-top 0.7s ease-out forwards;
+    animation-delay: 0.05s;
+  }
+
+  &__right {
+    opacity: 0;
+    transform: translateY(80px);
+    animation: milestones-next-slide-in-from-bottom 0.7s ease-out forwards;
+    animation-delay: 0.15s;
+    padding: 0.75rem;
+  }
+}
+
+/* ===========================
+   Hero links
+   =========================== */
+
+.milestones-next-hero {
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+  height: 100%;
+
+  &__visual {
+    position: relative;
+    aspect-ratio: 16 / 9;
+    flex-grow: 1;
+  }
+
+  &__banner {
+    position: absolute;
+    top: 20%;
+    height: 50%;
+    left: -20%;
+    right: -20%;
+    background: linear-gradient(#0077d9, #004279);
+    transform: translate(-30%, -50%) rotate(22deg);
+    transform-origin: center;
+    border-radius: 1rem;
+  }
+
+  &__person {
+    position: absolute;
+    bottom: -6%;
+    left: 50%;
+    transform: translate(-50%, -4.2%);
+    max-height: 80%;
+    height: auto;
+    width: auto;
+    pointer-events: none;
+  }
+
+  &__text {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.6rem;
+    background-color: #0077d9;
+    padding: 0.8rem;
+    color: #fff;
+  }
+
+  &__milestone {
+    margin: 0;
+    padding: 0.35rem 1.4rem;
+    border-radius: 999px;
+    background: #e5f3ff;
+    border: 1px solid rgba(0, 118, 217, 0.3);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    font-size: clamp(1.1rem, 2.3vw, 1.7rem);
+    color: #004279;
+    box-shadow:
+      0 10px 25px rgba(0, 118, 217, 0.18),
+      0 0 0 1px rgba(255, 255, 255, 0.8);
+
+    strong {
+      font-weight: inherit;
+    }
+  }
+
+  &__subtitle {
+    margin: 0;
+    font-size: 0.95rem;
+    line-height: 1.4;
+    max-width: 22rem;
+    color: #e5f3ff;
+    opacity: 0.95;
+  }
+}
+
+/* ===========================
+   Rechte Karte (Next + Celebrations)
+   =========================== */
+
+.milestones-next-card {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  max-width: 100%;
+  border-radius: 24px;
+  background: #f9fafb;
+  border: 1px solid rgba(148, 163, 184, 0.4);
+  box-shadow:
+    0 18px 45px rgba(15, 23, 42, 0.12),
+    0 0 0 1px rgba(255, 255, 255, 0.9);
+  overflow: hidden;
+  display: flex;
+  align-items: stretch;
+
+  &__body {
+    position: relative;
+    padding: 1.9rem 2.0rem 1.9rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.4rem;
+    width: 100%;
+    z-index: 1;
+  }
+
+  /* =======================
+     TOP-Block (Next milestone)
+     ======================= */
+  &__section--next {
+    background: linear-gradient(135deg, #0077d9, #004b9a);
+    border-radius: 18px;
+    padding: 1.2rem 1.4rem 1.4rem;
+    box-shadow: 0 12px 25px rgba(15, 23, 42, 0.35);
+    color: #e5f3ff;
+  }
+
+  /* Eyebrow: größer wie eine kleine Überschrift */
+  &__section--next .milestones-next-card__eyebrow {
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    font-size: 1rem;         // vorher 0.85rem
+    font-weight: 800;
+    margin: 0 0 0.2rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.55rem;
+    color: #bfdbfe;
+
+    &::before {
+      content: "";
+      width: 10px;
+      height: 10px;
+      border-radius: 999px;
+      background: radial-gradient(circle, #22c55e, #16a34a);
+      box-shadow: 0 0 12px rgba(34, 197, 94, 0.7);
+    }
+  }
+
+  &__section--next .milestones-next-card__title {
+    margin: 0.15rem 0 0.15rem;
+    font-size: 1.7rem;
+    font-weight: 750;
+    letter-spacing: -0.02em;
+    color: #f9fafb;
+  }
+
+  /* Description größer */
+  &__section--next .milestones-next-card__description {
+    margin: 0.3rem 0 0.3rem;
+    font-size: 1.08rem;      // vorher 1rem
+    line-height: 1.8;
+    color: #e5e7eb;
+  }
+
+  &__section--next .milestones-next-card__sober-summary {
+    margin: 0.3rem 0 0.9rem;
+    font-size: 0.98rem;
+    color: #e5e7eb;
+
+    strong {
+      color: #ffffff;
+      font-weight: 650;
+    }
+  }
+
+  &__section--next .milestones-next-card__only-label {
+    margin: 0 0 0.18rem;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: #bfdbfe;
+  }
+
+  /* Countdown – weißes, leuchtendes Pill im blauen Block */
+  &__section--next .milestones-next-card__countdown {
+    font-family: "SF Mono", ui-monospace, Menlo, Monaco, Consolas,
+      "Liberation Mono", "Courier New", monospace;
+    font-size: 0.98rem;
+    letter-spacing: 0.08em;
+    color: #0f172a;
+    padding: 0.55rem 1.1rem;
+    border-radius: 999px;
+    background: linear-gradient(90deg, #f9fafb, #e5f0ff);
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+
+    box-shadow: 0 0 0 rgba(255, 255, 255, 0.7);
+    animation: badge-countdown-glow 2.4s ease-in-out infinite;
+
+    &::before {
+      content: "⏳";
+      font-size: 1.1rem;
+      opacity: 0.95;
+    }
+  }
+
+  /* Divider */
+  &__divider {
+    height: 1px;
+    width: 100%;
+    margin: 0.1rem 0 0.1rem;
+    background: linear-gradient(
+      90deg,
+      rgba(148, 163, 184, 0),
+      rgba(148, 163, 184, 0.4),
+      rgba(148, 163, 184, 0)
+    );
+  }
+
+  /* =======================
+     BOTTOM-Block (Ideas) – Pill-Layout
+     ======================= */
+  &__section--celebrations {
+    background: transparent;
+    padding: 0.6rem 0 0.2rem;
+  }
+
+  /* Sub-Überschrift größer */
+  &__celebrations-title {
+    margin: 0 0 0.5rem;
+    font-size: 1.05rem;      // vorher 0.9rem
+    font-weight: 750;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: #4b5563;
+  }
+
+  &__celebrations-list {
+    list-style: none;
+    padding-left: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.45rem;
+  }
+
+  /* Jede Idee als kleine „Pill-Card“ */
+  &__celebration-item {
+    display: flex;
+    align-items: center;
+    gap: 0.55rem;
+    font-size: 0.95rem;
+    padding: 0.45rem 0.75rem;
+    color: #1f2933;
+    line-height: 1.4;
+    position: relative;
+
+    background: linear-gradient(135deg, #ffffff, #f3f4f6);
+    border-radius: 999px;
+    border: 1px solid rgba(209, 213, 219, 0.8);
+    box-shadow: 0 6px 14px rgba(15, 23, 42, 0.06);
+
+    @media (hover: hover) {
+      &:hover {
+        transform: translateX(2px);
+        box-shadow: 0 8px 18px rgba(15, 23, 42, 0.12);
+      }
+    }
+  }
+
+  /* Bullet -> Check-Icon */
+  &__bullet {
+    margin: 0;
+    width: 22px;
+    height: 22px;
+    border-radius: 999px;
+    flex-shrink: 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    background: radial-gradient(circle, #22c55e, #16a34a);
+    box-shadow: 0 6px 14px rgba(22, 163, 74, 0.4);
+    color: #ecfdf5;
+
+    font-size: 0; // „•“ ausblenden
+
+    &::before {
+      content: "✓";
+      font-size: 0.9rem;
+      font-weight: 700;
+    }
+  }
+
+  &--no-next {
+    .milestones-next-card__body {
+      justify-content: flex-start;
+    }
+  }
+
+  &--no-celebrations {
+    .milestones-next-card__body {
+      gap: 1rem;
+    }
+  }
+
+  @media (max-width: 800px) {
+    &__body {
+      padding: 1.5rem 1.5rem 1.5rem;
+    }
+  }
+
+  @media (max-width: 480px) {
+    border-radius: 18px;
+
+    &__body {
+      padding: 1.2rem 1.1rem 1.2rem;
+    }
+
+    &__section--next .milestones-next-card__title {
+      font-size: 1.35rem;
+    }
+
+    &__section--next .milestones-next-card__countdown {
+      width: 100%;
+      justify-content: center;
+      text-align: center;
+      font-size: 0.9rem;
+    }
+
+    &__celebration-item {
+      border-radius: 14px;
+    }
+  }
+}
+
+/* ===========================
+   Glow-Animation für Countdown
+   =========================== */
+
+@keyframes badge-countdown-glow {
+  0%, 100% {
+    box-shadow: 0 0 0 rgba(191, 219, 254, 0.7);
+  }
+  50% {
+    box-shadow: 0 0 22px rgba(191, 219, 254, 1);
+  }
+}
+
+/* ===========================
+   Spalten-Animation
+   =========================== */
+
+@keyframes milestones-next-slide-in-from-top {
+  0% {
+    opacity: 0;
+    transform: translateY(-80px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes milestones-next-slide-in-from-bottom {
+  0% {
+    opacity: 0;
+    transform: translateY(80px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .milestones-next {
+    &__left,
+    &__right {
+      animation: none !important;
+      transform: none !important;
+      opacity: 1 !important;
+    }
+  }
+}
+
+/* ==========
+   Responsive
+   ========== */
+
+@media (max-width: 800px) {
+  .milestones-next {
+    &__inner {
+      flex-direction: column;
+      gap: 1.25rem;
+    }
+
+    &__left,
+    &__right {
+      flex: 0 0 100%;
+      width: 100%;
+      aspect-ratio: auto;
+    }
+  }
+
+  .milestones-next-hero {
+    &__visual {
+      aspect-ratio: 4 / 5;
+    }
+
+    &__milestone {
+      font-size: clamp(1rem, 3.5vw, 1.5rem);
+    }
+  }
+}

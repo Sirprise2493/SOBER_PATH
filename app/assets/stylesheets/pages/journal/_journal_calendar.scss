@@ -1,0 +1,218 @@
+.journal-calendar-wrapper {
+  max-width: 40rem;
+  width: 100%;
+  margin: 1.5rem auto 0;
+  display: grid;
+  grid-template-columns: minmax(0, 210px) minmax(0, 1fr);
+  gap: 1rem;
+  margin-bottom: 10vh;
+
+  .journal-calendar-summary {
+    background: linear-gradient(135deg, $primary-dark, $primary);
+    color: #ffffff;
+    border-radius: 16px;
+    padding: 1.25rem 1.1rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.12);
+
+    &__day-number {
+      font-size: 2.4rem;
+      font-weight: 700;
+      line-height: 1;
+    }
+
+    &__weekday {
+      margin-top: 0.35rem;
+      font-size: 0.95rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+  }
+
+  .journal-calendar {
+    width: 100%;
+    padding: 0.85rem 1rem 1rem;
+    background: #ffffff;
+    border-radius: 16px;
+    box-shadow: 0 8px 18px rgba(0, 0, 0, 0.08);
+
+    &__topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.5rem;
+      margin-bottom: 0.5rem;
+    }
+
+    &__months {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.25rem;
+    }
+
+    &__month {
+      font-size: 0.7rem;
+      text-decoration: none;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: #9aa3b5;
+      padding-bottom: 0.1rem;
+      border-bottom: 2px solid transparent;
+      cursor: pointer;
+      transition:
+        color 0.15s ease,
+        border-color 0.15s ease;
+
+      &:hover {
+        color: #30435d;
+      }
+
+      &--active {
+        color: #6faefb;
+        border-color: #6faefb;
+        font-weight: 600;
+      }
+    }
+
+    &__year-nav {
+      display: flex;
+      align-items: center;
+      gap: 0.35rem;
+    }
+
+    &__year-label {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: #6b7483;
+    }
+
+    &__year-btn {
+      width: 1.6rem;
+      height: 1.6rem;
+      border-radius: 9999px;
+      border: 1px solid #dde2ee;
+      background: #f7f8fc;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.7rem;
+      text-decoration: none;
+      color: #6b7483;
+      cursor: pointer;
+      transition:
+        background 0.15s ease,
+        box-shadow 0.15s ease,
+        transform 0.1s ease;
+
+      &:hover {
+        background: #edf1ff;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        transform: translateY(-1px);
+      }
+    }
+
+    &__weekdays {
+      display: grid;
+      grid-template-columns: repeat(7, minmax(0, 1fr));
+      gap: 0.15rem;
+      margin-bottom: 0.3rem;
+    }
+
+    &__weekday {
+      text-align: center;
+      font-size: 0.65rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: #b3bac8;
+    }
+
+    &__grid {
+      display: grid;
+      grid-template-columns: repeat(7, minmax(0, 1fr));
+      gap: 0.2rem;
+    }
+
+    &__day {
+      position: relative;
+      aspect-ratio: 1 / 1;
+      border-radius: 9px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.75rem;
+      background: #f4f6fb;
+      color: #5d6575;
+
+      &--empty {
+        background: transparent;
+      }
+
+      &--has-entry .journal-calendar__day-link {
+        background: rgba(111, 174, 251, 0.18);
+        font-weight: 600;
+      }
+
+      &--today .journal-calendar__day-link {
+        border: 2px solid #6faefb;
+      }
+
+      &--selected .journal-calendar__day-link {
+        background: #6faefb;
+        color: #fff;
+        box-shadow: 0 3px 8px rgba(0, 0, 0, 0.18);
+      }
+    }
+
+    &__day-link,
+    &__day-label {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 1.6rem;
+      height: 1.6rem;
+      border-radius: 9999px;
+      text-decoration: none;
+    }
+
+    &__day-link {
+      cursor: pointer;
+      transition:
+        background 0.15s ease,
+        transform 0.1s ease,
+        box-shadow 0.15s ease;
+      color: inherit;
+
+      &:hover {
+        background: rgba(111, 174, 251, 0.18);
+        transform: translateY(-1px);
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.12);
+      }
+    }
+  }
+
+  @media (max-width: 900px) {
+    grid-template-columns: minmax(0, 1fr);
+
+    .journal-calendar {
+      padding: 0.75rem 0.8rem 0.9rem;
+
+      &__day-link,
+      &__day-label {
+        width: 1.5rem;
+        height: 1.5rem;
+        font-size: 0.7rem;
+      }
+    }
+
+    .journal-calendar-summary {
+      padding: 1rem 1rem;
+
+      &__day-number {
+        font-size: 2.1rem;
+      }
+    }
+  }
+}

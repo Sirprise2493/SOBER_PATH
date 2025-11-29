@@ -1,0 +1,313 @@
+/* ===========================
+   Milestones Tray (unten)
+   =========================== */
+
+.milestones-tray {
+  width: 100%;              // neu: 90% des Containers
+  max-width: 100%;
+  margin: 0 auto 2rem;     // zentriert + Abstand
+  display: flex;
+  justify-content: center;
+  overflow: hidden;
+
+  &__inner {
+    width: 100%;           // orientiert sich an den 90% der Section
+    display: flex;
+    gap: 1.75rem;
+    align-items: stretch;
+  }
+
+  &__left,
+  &__right {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    aspect-ratio: 1 / 1;   // gleiche Außenmaße
+    border-radius: 20px;
+  }
+
+  &__left {
+    opacity: 0;
+    transform: translateY(-80px);
+    animation: milestones-tray-slide-in-from-top 0.7s ease-out forwards;
+    animation-delay: 0.05s;
+  }
+
+  &__right {
+    opacity: 0;
+    transform: translateY(80px);
+    animation: milestones-tray-slide-in-from-bottom 0.7s ease-out forwards;
+    animation-delay: 0.15s;
+    justify-content: center;
+    align-items: center;
+  }
+}
+
+/* ===========================
+   Hero links (Tray-Partial)
+   =========================== */
+
+.milestones-tray-hero {
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+  height: 100%;
+
+  &__visual {
+    position: relative;
+    aspect-ratio: 16 / 9;
+    flex-grow: 1;
+  }
+
+  &__banner {
+    position: absolute;
+    top: 20%;
+    height: 50%;
+    left: -20%;
+    right: -20%;
+    background: linear-gradient(#0077d9, #004279);
+    transform: translate(-30%, -50%) rotate(22deg);
+    transform-origin: center;
+    border-radius: 1rem;
+  }
+
+  &__person {
+    position: absolute;
+    bottom: -6%;
+    left: 50%;
+    transform: translate(-40%, -4.6%);
+    max-height: 80%;
+    height: auto;
+    width: auto;
+    pointer-events: none;
+  }
+
+  &__text {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.6rem;
+    background-color: #0077d9;
+    padding: 0.8rem;
+    color: #fff;
+  }
+
+  &__text--instruction {
+    .milestones-tray-hero__instruction-title {
+      margin: 0 0 0.25rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.13em;
+      font-size: 0.95rem;
+      opacity: 0.95;
+    }
+
+    .milestones-tray-hero__instruction-body {
+      margin: 0;
+      max-width: 30rem;
+      font-size: 0.95rem;
+      line-height: 1.5;
+      opacity: 0.9;
+    }
+  }
+}
+
+/* ===========================
+   Tray-Card rechts
+   =========================== */
+
+.milestones-tray__right {
+  .sobriety-tray {
+    position: relative;
+    display: block;
+    width: 100%;
+    height: 100%;
+    border-radius: 20px;
+    padding: 6%;
+    overflow: hidden;
+  }
+}
+
+/* Tray-Styles */
+
+.sobriety-tray {
+  position: relative;
+  display: inline-block;
+  max-width: 800px;
+  width: 100%;
+
+  &__background {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 90%;   // hier kannst du vergrößern, wenn du magst
+    height: auto;
+    object-fit: contain;
+    z-index: 0;
+  }
+
+  &__coin {
+    position: absolute;
+    width: 18%;
+    height: auto;
+    cursor: pointer;
+    pointer-events: auto;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+    z-index: 1;
+
+  }
+}
+
+.sobriety-tray-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s ease;
+  z-index: 2;
+
+  &.is-visible {
+    opacity: 1;
+    pointer-events: auto;
+  }
+}
+
+.sobriety-tray-card {
+  position: relative;
+  max-width: 420px;
+  width: 90%;
+  background: #ffffff;
+  border-radius: 1.25rem;
+  padding: 1.75rem 1.75rem 1.5rem;
+  box-shadow: 0 18px 45px rgba(0, 0, 0, 0.35);
+  transform: translateY(12px) scale(0.97);
+  opacity: 0;
+  transition: transform 0.25s ease, opacity 0.25s ease;
+  text-align: left;
+
+  .sobriety-tray-overlay.is-visible & {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
+
+  &__close {
+    position: absolute;
+    top: 0.75rem;
+    right: 0.75rem;
+    border: none;
+    background: transparent;
+    font-size: 1.35rem;
+    line-height: 1;
+    cursor: pointer;
+  }
+
+  &__title {
+    margin: 0 2rem 0.5rem 0;
+    font-size: 1.3rem;
+    font-weight: 600;
+  }
+
+  &__date {
+    margin: 0 0 0.75rem 0;
+    font-size: 0.95rem;
+    font-weight: 500;
+    opacity: 0.8;
+  }
+
+  &__description {
+    margin: 0;
+    font-size: 1rem;
+    line-height: 1.5;
+  }
+}
+
+/* Animationen Tray */
+
+@keyframes milestones-tray-slide-in-from-top {
+  0% {
+    opacity: 0;
+    transform: translateY(-80px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes milestones-tray-slide-in-from-bottom {
+  0% {
+    opacity: 0;
+    transform: translateY(80px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .milestones-tray {
+    &__left,
+    &__right {
+      animation: none !important;
+      transform: none !important;
+      opacity: 1 !important;
+    }
+  }
+}
+
+/* Responsive */
+
+@media (max-width: 800px) {
+  .milestones-tray {
+    &__inner {
+      flex-direction: column;
+      gap: 1.25rem;
+    }
+
+    &__left,
+    &__right {
+      flex: 0 0 100%;
+      width: 100%;
+      aspect-ratio: auto;
+    }
+  }
+
+  .milestones-tray-hero {
+    &__visual {
+      aspect-ratio: 4 / 5;
+    }
+  }
+
+  .sobriety-tray__coin {
+    width: 20%;
+  }
+
+  .sobriety-tray-card {
+    padding: 1.5rem 1.25rem 1.25rem;
+
+    &__title {
+      font-size: 1.15rem;
+      margin-right: 1.5rem;
+    }
+
+    &__description {
+      font-size: 0.95rem;
+    }
+  }
+}
+
+@media (min-width: 801px) and (max-width: 1100px) {
+  .sobriety-tray__coin {
+    width: 18%;
+  }
+
+  .sobriety-tray-card {
+    max-width: 460px;
+  }
+}

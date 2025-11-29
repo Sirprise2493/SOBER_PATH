@@ -1,0 +1,55 @@
+<% journal_content = local_assigns.fetch(:journal_content) %>
+
+<div class="book-container" id="journal-book-container">
+  <!-- Left page: input or text -->
+  <div class="book-page left">
+    <% if journal_content&.persisted? %>
+      <h2><%= l(date) %></h2>
+      <hr>
+      <p><%= simple_format(journal_content.content) %></p>
+
+    <% elsif date == today %>
+      <h2>Entry for today</h2>
+      <hr>
+
+      <%= form_with model: journal_content, url: journal_contents_path do |f| %>
+        <% if journal_content&.errors&.any? %>
+          <div class="errors">
+            <h3><%= pluralize(journal_content.errors.count, "error") %>:</h3>
+            <ul>
+              <% journal_content.errors.full_messages.each do |msg| %>
+                <li><%= msg %></li>
+              <% end %>
+            </ul>
+          </div>
+        <% end %>
+
+        <div class="field">
+          <%= f.label :content, "What's on your mind today?" %><br>
+          <%= f.text_area :content, rows: 14, maxlength: 1000  %>
+        </div>
+
+        <div class="actions">
+          <%= f.submit "Save" %>
+        </div>
+      <% end %>
+
+    <% else %>
+      <h2>Entry for <%= l(date) %></h2>
+      <p>No journal entry for this day.</p>
+    <% end %>
+  </div>
+
+  <!-- Right page: photo + motivational text -->
+  <div class="book-page right">
+    <% if journal_content&.persisted? %>
+      <turbo-frame id="<%= dom_id(journal_content, :ai_panel) %>">
+        <%= render "journal_contents/ai_panel", journal_content: journal_content %>
+      </turbo-frame>
+    <% elsif date == today %>
+      <p>After saving today's entry, an AI-generated picture and motivational text will appear here.</p>
+    <% else %>
+      <p>No picture for this day.</p>
+    <% end %>
+  </div>
+</div>

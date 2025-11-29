@@ -1,0 +1,79 @@
+<% milestones = user.earned_coin_milestones %>
+
+<% if milestones.any? %>
+  <section class="page-milestones__tray milestones-tray"
+           data-controller="sobriety-tray">
+    <div class="milestones-tray__inner">
+
+      <!-- LINKS: Hero mit Instruktionstext -->
+      <div class="milestones-tray__left">
+        <div class="milestones-tray-hero">
+          <div class="milestones-tray-hero__visual">
+            <div class="milestones-tray-hero__banner"></div>
+
+            <%= image_tag "aa_people/sobriety_hero2.png",
+                          alt: "Person feeling proud",
+                          class: "milestones-tray-hero__person" %>
+          </div>
+
+          <div class="milestones-tray-hero__text milestones-tray-hero__text--instruction">
+            <p class="milestones-tray-hero__instruction-title">
+              <strong>Click on any coin in the bowl to see when you earned it and learn more about that milestone.</strong>
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- RECHTS: ursprünglicher Sobriety-Tray-Inhalt -->
+      <div class="milestones-tray__right">
+        <div class="sobriety-tray" data-sobriety-tray-target="tray">
+          <%# Tray background %>
+          <%= image_tag "aa_backgrounds/schale2.png",
+                        class: "sobriety-tray__background" %>
+
+          <%# Randomly scatter the coins on the tray %>
+          <% milestones.each do |milestone| %>
+            <% x_percent  = rand(25..70)  # narrower horizontally %>
+            <% y_percent  = rand(25..70)  # narrower vertically %>
+            <% rotate_deg = rand(-15..15) # less extreme tilt %>
+            <% reached_at = SobrietyMilestones.reached_at(user, milestone) %>
+
+            <%= image_tag "aa_coins/#{milestone[:file]}",
+                          alt:   milestone[:name],
+                          class: "sobriety-tray__coin",
+                          style: "left: #{x_percent}%; top: #{y_percent}%; transform: translate(-50%, -50%) rotate(#{rotate_deg}deg);",
+                          loading: "lazy",
+                          role: "button",
+                          tabindex: "0",
+                          data: {
+                            action: "click->sobriety-tray#showCard keydown.enter->sobriety-tray#showCard",
+                            sobriety_tray_name: milestone[:name],
+                            sobriety_tray_description: milestone[:description],
+                            sobriety_tray_reached_at: (reached_at ? reached_at.strftime('%B %e, %Y') : nil)
+                          } %>
+          <% end %>
+
+          <%# Overlay card that appears above the tray %>
+          <div class="sobriety-tray-overlay"
+               data-sobriety-tray-target="overlay"
+               data-action="click->sobriety-tray#backgroundClick">
+
+            <div class="sobriety-tray-card">
+              <button type="button"
+                      class="sobriety-tray-card__close"
+                      aria-label="Close"
+                      data-action="click->sobriety-tray#hideCard">
+                &times;
+              </button>
+
+              <h3 class="sobriety-tray-card__title" data-sobriety-tray-target="title"></h3>
+              <p class="sobriety-tray-card__date" data-sobriety-tray-target="date"></p>
+              <p class="sobriety-tray-card__description" data-sobriety-tray-target="description"></p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+<% end %>

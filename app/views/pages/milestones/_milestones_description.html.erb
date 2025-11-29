@@ -1,0 +1,18 @@
+<% current_milestone = user.current_coin_milestone %>
+
+<% if current_milestone.present? && current_milestone[:celebrations].present? %>
+  <div class="milestones-current-card">
+    <p class="milestones-current-card__celebrations-title">
+      Ideas to celebrate this milestone:
+    </p>
+
+    <ul class="milestones-current-card__celebrations-list">
+      <% current_milestone[:celebrations].each do |idea| %>
+        <li class="milestones-current-card__celebration-item">
+          <span class="milestones-current-card__bullet">•</span>
+          <span><%= idea %></span>
+        </li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>

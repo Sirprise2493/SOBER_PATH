@@ -1,0 +1,106 @@
+<h2 class="chat-connections__title">Connections</h2>
+
+<!-- TOP SECTION: existing friends -->
+<div class="chat-connections__section chat-connections__section--friends">
+  <h3 class="chat-connections__subtitle">Your connections</h3>
+
+  <% if friends.present? %>
+    <ul class="chat-connections__list">
+      <% friends.each do |friend| %>
+        <li class="chat-connections__item">
+          <div class="chat-connections__row">
+            <div class="chat-connections__avatar">
+              <% if friend.avatar.attached? %>
+                <%= image_tag friend.avatar
+                                      .variant(resize_to_fill: [28, 28])
+                                      .processed,
+                              alt: friend.username,
+                              class: "chat-connections__avatar-image" %>
+              <% else %>
+                <div class="chat-connections__avatar-fallback">
+                  <span><%= friend.username.to_s.first.to_s.upcase.presence || "?" %></span>
+                </div>
+              <% end %>
+            </div>
+
+            <div class="chat-connections__info">
+              <%= link_to friend.username,
+                          user_path(friend),
+                          class: "chat-connections__name",
+                          data: { turbo_frame: "user_profile_panel" } %>
+
+              <% if friend.sobriety_start_date.present? %>
+                <p class="chat-connections__meta">
+                  <%= pluralize(friend.sobriety_days, "day") %> sober
+                </p>
+              <% end %>
+            </div>
+          </div>
+        </li>
+      <% end %>
+    </ul>
+  <% else %>
+    <p class="chat-connections__empty">
+      no connections yet.
+    </p>
+  <% end %>
+</div>
+
+<!-- BOTTOM SECTION: incoming requests -->
+<div class="chat-connections__section chat-connections__section--requests">
+  <h3 class="chat-connections__subtitle">Connection requests</h3>
+
+  <% if incoming_requests.present? %>
+    <ul class="chat-connections__requests-list">
+      <% incoming_requests.each do |fr| %>
+        <% requester = fr.asker %>
+
+        <li class="chat-connections__request-item">
+          <div class="chat-connections__row">
+            <div class="chat-connections__avatar">
+              <% if requester.avatar.attached? %>
+                <%= image_tag requester.avatar
+                              .variant(resize_to_fill: [28, 28])
+                              .processed,
+                              alt: requester.username,
+                              class: "chat-connections__avatar-image" %>
+              <% else %>
+                <div class="chat-connections__avatar-fallback">
+                  <span><%= requester.username.first.upcase %></span>
+                </div>
+              <% end %>
+            </div>
+
+            <!-- EVERYTHING GOES IN HERE -->
+            <div class="chat-connections__info">
+              <p class="chat-connections__name mb-0">
+                <%= requester.username %>
+              </p>
+
+              <p class="chat-connections__request-text mb-1">
+                wants to connect with you.
+              </p>
+
+              <div class="chat-connections__request-actions">
+                <%= button_to "Accept",
+                              friendship_path(fr, status: "accepted"),
+                              method: :patch,
+                              class: "btn btn-sm btn-primary" %>
+
+                <%= button_to "Decline",
+                              friendship_path(fr, status: "declined"),
+                              method: :patch,
+                              data: { turbo_confirm: "Decline this request?" },
+                              class: "btn btn-sm btn-outline-secondary" %>
+              </div>
+            </div>
+          </div>
+        </li>
+      <% end %>
+    </ul>
+  <% else %>
+    <p class="chat-connections__empty">
+      No new requests right now.
+    </p>
+  <% end %>
+</div>

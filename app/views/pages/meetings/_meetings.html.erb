@@ -1,6 +1,6 @@
 <div class="meetings">
   <aside class="meetings__sidebar">
-    <h2 class="meetings__title">Meetings near you</h2>
+    <h2 class="meetings__title blue">Meetings near</h2>
 
     <%= simple_form_for :search, url: meetings_path, method: :get, html: { class: "meetings__form" } do |f| %>
       <%= f.input :address,
@@ -61,16 +61,18 @@
     </ul>
   </aside>
 
-  <div class="meetings__map"
-       data-controller="map"
-       data-map-markers-value='<%= raw markers.to_json %>'
-       data-map-api-key-value='<%= ENV["MAPBOX_API_KEY"] %>'
-       data-map-center-value='<%= raw(center.to_json) %>'
-       data-map-radius-km-value='<%= radius_km %>'>
+  <div class="meetings__map-frame">
+    <div class="meetings__map"
+        data-controller="map"
+        data-map-markers-value='<%= raw markers.to_json %>'
+        data-map-api-key-value='<%= ENV["MAPBOX_API_KEY"] %>'
+        data-map-center-value='<%= raw(center.to_json) %>'
+        data-map-radius-km-value='<%= radius_km %>'>
+    </div>
   </div>
 </div>
 
 
 <%= turbo_frame_tag "venue_form" do %>
-  <%= render "pages/venue_form", venue: @venue %>
+  <%= render "pages/meetings/venue_form", venue: @venue %>
 <% end %>

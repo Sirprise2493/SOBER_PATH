@@ -1,0 +1,21 @@
+<div class="page-milestones">
+  <div class="page-milestones__header">
+    <h1>Your sobriety milestones</h1>
+
+    <% if user.sobriety_start_date.present? %>
+      <p>
+        You have been sober for
+        <strong><%= user.sobriety_days %> days</strong>.
+        🙌
+      </p>
+    <% else %>
+      <p>
+        Add your sobriety start date in your profile
+        to see your coins.
+      </p>
+    <% end %>
+  </div>
+
+  <%= render "pages/milestones/content/sobriety_badge", user: user %>
+  <%= render "pages/milestones/content/sobriety_tray",  user: user %>
+</div>

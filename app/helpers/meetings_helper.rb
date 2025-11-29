@@ -1,7 +1,7 @@
 # app/helpers/meetings_helper.rb
 module MeetingsHelper
   def times_15min_collection
-    (0...24*60).step(15).map do |m|
+    (0...(24*60)).step(15).map do |m|
       t = Time.zone.parse("00:00") + m.minutes
       [t.strftime("%H:%M"), t.strftime("%H:%M")]
     end

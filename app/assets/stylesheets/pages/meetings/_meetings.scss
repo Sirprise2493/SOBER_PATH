@@ -1,0 +1,251 @@
+// app/assets/stylesheets/pages/meetings/_meetings.scss
+
+.meetings {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  align-items: stretch;
+  gap: 16px;
+  margin-top: 4vh;
+
+  &__sidebar {
+    flex: 0 0 380px;
+    max-width: 100%;
+    box-shadow: 0px 4px 7.2px 4px rgba(#000000, 0.25);
+    padding: 0 30px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    // aus dem alten Block
+    width: 800px;
+  }
+
+  &__title {
+    margin: 0 0 4px;
+    font-size: $preset2l-size; // falls du lieber 1.25rem willst, hier ändern
+    font-weight: 600;
+    color: $blue-text;
+  }
+
+  &__form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+    .input { margin-bottom: 10px; }
+    .btn   { width: 100%; }
+  }
+
+  &__radius {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+
+    &-label {
+      font-size: 0.95rem;
+      color: $blue-primary;
+    }
+
+    &-value {
+      font-variant-numeric: tabular-nums;
+      font-weight: 600;
+      margin: 0 4px;
+      display: inline-block;
+      min-width: 2.5ch;
+      text-align: right;
+    }
+
+    input[type="range"] {
+      width: 100%;
+    }
+  }
+
+  &__submit {
+    margin-top: 4px;
+    color: white;
+    border-radius: 20px;
+  }
+
+  &__summary {
+    font-size: 0.85rem;
+    color: $blue-primary;
+  }
+
+  &__list {
+    list-style: none;
+    padding: 0;
+    margin: 8px 0 0;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+
+    max-height: 260px;
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(0, 0, 0, 0.25) transparent;
+
+    &::-webkit-scrollbar {
+      width: 6px;
+    }
+
+    &::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background: rgba(0, 0, 0, 0.2);
+      border-radius: 999px;
+    }
+  }
+
+  &__item {
+    border: 1px solid $border;
+    border-radius: 10px;
+    padding: 10px;
+    cursor: pointer;
+    transition: background 120ms ease;
+
+    &:hover {
+      background: $light-gray;
+    }
+
+    &-title {
+      font-weight: 600;
+      margin-bottom: 2px;
+    }
+
+    &-address,
+    &-distance,
+    &-link {
+      font-size: 0.9rem;
+      color: $blue-primary;
+
+      a {
+        text-decoration: underline;
+      }
+    }
+  }
+
+  &__map-frame {
+    padding: 0.8cm;
+    background: linear-gradient(135deg, $primary-dark, $primary);
+    display: inline-block;
+    border-radius: 18px;
+
+    box-shadow:
+      0 35px 55px rgba(0, 0, 0, 0.35),
+      0 12px 20px rgba(0, 0, 0, 0.25),
+      0 4px 8px rgba(0, 0, 0, 0.15);
+  }
+
+  &__map {
+    flex: 1 1 400px;
+    min-width: 60vw;
+    min-height: 600px;
+    height: 70vh;
+    background: #fff;
+    border-radius: 12px;
+  }
+
+  &__create {
+    margin-top: 16px;
+    padding-top: 16px;
+    border-top: 1px solid $border;
+
+    &-title {
+      margin: 0 0 8px;
+      font-size: 1.1rem;
+      font-weight: 600;
+    }
+
+    &-form {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+
+      .error {
+        color: #b91c1c;
+      }
+    }
+  }
+
+  &__grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+
+    .input { margin-bottom: 0; }
+
+    @media (max-width: 700px) {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  &__meetings {
+    border: 1px solid $border;
+    border-radius: 10px;
+    padding: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+    &-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 4px;
+    }
+
+    &-rows {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+  }
+
+  &__meeting-row {
+    border: 1px dashed $border;
+    border-radius: 8px;
+    padding: 10px;
+    background: $light-gray;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  &__meeting-grid {
+    display: grid;
+    grid-template-columns: 1.1fr 1.1fr 1.1fr auto 1.6fr;
+    gap: 8px;
+    align-items: center;
+  }
+
+  &__actions {
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  .form-control-plaintext {
+    padding: 0.375rem 0;
+    min-height: 2.4rem;
+  }
+
+  @media (max-width: 900px) {
+    flex-direction: column;
+
+    &__sidebar {
+      width: 100%;
+    }
+
+    &__map {
+      height: 60vh;
+      min-width: 100%;
+    }
+
+    &__meeting-grid {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+}

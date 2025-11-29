@@ -1,0 +1,154 @@
+/* =========================================
+   ENCOURAGEMENTS PANEL (SIMPLE LIST)
+========================================= */
+
+.encouragements-panel {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+
+  /* Header */
+  &__header {
+    padding: 1rem 1.25rem 0.75rem;
+    border-bottom: 1px solid #e5e7eb;
+    background: #f9fafb;
+
+    h2 {
+      margin: 0;
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: #0f172a;
+    }
+  }
+
+  &__subtitle {
+    margin: 0.3rem 0 0;
+    font-size: 0.85rem;
+    color: #6b7280;
+  }
+
+  /* List */
+  &__list {
+    flex: 1;
+    padding: 1rem 1.25rem;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 0.85rem;
+  }
+
+  /* Each item (card) */
+  &__item {
+    transition:
+      background-color 0.25s ease,
+      box-shadow 0.2s ease,
+      transform 0.12s ease;
+    cursor: default;
+
+    &:hover {
+      box-shadow: 0 8px 18px rgba(15, 23, 42, 0.06);
+      transform: translateY(-1px);
+    }
+  }
+
+  &__item--unread {
+    background: #eff6ff !important;
+    border-color: #dbeafe !important;
+  }
+
+  /* Footer row (left: status + delete, right: time) */
+  &__footer {
+    margin-top: 0.6rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  &__left {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    flex-wrap: wrap;
+  }
+
+  /* NEW badge */
+  &__badge {
+    padding: 0.1rem 0.55rem;
+    border-radius: 999px;
+    background: #1d4ed8;
+    color: #f9fafb;
+    font-size: 0.7rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  /* Mark as read link */
+  &__mark-read {
+    font-size: 0.78rem;
+    color: #2563eb;
+    text-decoration: none;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
+  /* Seen label with checkmark */
+  &__seen {
+    font-size: 0.78rem;
+    color: #9ca3af;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+  }
+
+  /* Delete link */
+  &__delete {
+    font-size: 0.78rem;
+    color: #b91c1c;
+    text-decoration: none;
+
+    &:hover {
+      text-decoration: underline;
+      color: #7f1d1d;
+    }
+  }
+
+  /* Timestamp text */
+  &__time {
+    font-size: 0.78rem;
+    color: #9ca3af;
+    white-space: nowrap;
+  }
+
+  /* "· Birthday", "· 5 Years milestone" */
+  &__reason {
+    font-size: 0.83rem;
+    color: #6b7280;
+    margin-left: 0.15rem;
+  }
+}
+
+/* ===============================
+   EMPTY STATE
+================================ */
+
+.encouragements-empty-state {
+  padding: 3rem 1rem;
+  text-align: center;
+}
+
+.encouragements-empty-state__title {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #111827;
+  margin-bottom: 0.4rem;
+}
+
+.encouragements-empty-state__text {
+  font-size: 0.9rem;
+  color: #6b7280;
+  max-width: 380px;
+  margin: 0 auto;
+}

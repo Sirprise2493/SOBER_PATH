@@ -1,14 +1,20 @@
 .meetings {
   display: flex;
+  justify-content: center;
+  align-items: center;
   gap: 16px;
   align-items: stretch;
+  margin-top: 4vh;
 
-  &__sidebar {
-    width: 380px;
+  .meetings__sidebar{
+    flex: 0 0 380px;    // statt width: 800px;
     max-width: 100%;
+    box-shadow: 0px 4px 7.2px 4px rgba(#000000, 0.25);
+    padding: 0 30px;
+    justify-content: center;
+    align-items: center;
     display: flex;
     flex-direction: column;
-    gap: 12px;
   }
 
   &__title {
@@ -34,7 +40,7 @@
 
     &-label {
       font-size: 0.95rem;
-      color: #374151; // gray-700
+      color: $blue-primary
     }
 
     &-value {
@@ -53,7 +59,7 @@
 
   &__summary {
     font-size: 0.85rem;
-    color: #6b7280; // gray-500
+    color: $blue-primary;
   }
 
   &__list {
@@ -63,40 +69,72 @@
     display: flex;
     flex-direction: column;
     gap: 8px;
+
+    // 👇 neu:
+    max-height: 260px;   // so ungefähr 3 Einträge – bei Bedarf anpassen
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(0,0,0,0.25) transparent;
+
+    &::-webkit-scrollbar {
+      width: 6px;
+    }
+
+    &::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background: rgba(0,0,0,0.2);
+      border-radius: 999px;
+    }
   }
 
   &__item {
-    border: 1px solid #e5e7eb; // gray-200
+    border: 1px solid $border; // gray-200
     border-radius: 10px;
     padding: 10px;
     cursor: pointer;
     transition: background 120ms ease;
 
-    &:hover { background: #f9fafb; } // gray-50
+    &:hover { background: $light-gray; } // gray-50
 
     &-title   { font-weight: 600; margin-bottom: 2px; }
-    &-address { font-size: 0.9rem; color: #4b5563; } // gray-600
-    &-distance{ font-size: 0.9rem; color: #4b5563; }
-    &-link    { font-size: 0.9rem; color: #4b5563;
+    &-address { font-size: 0.9rem; color: $blue-primary } // gray-600
+    &-distance{ font-size: 0.9rem; color: $blue-primary }
+    &-link    { font-size: 0.9rem; color: $blue-primary
 
       a { text-decoration: underline; }
     }
   }
 
+  &__map-frame {
+    padding: 0.8cm;
+    background: linear-gradient(135deg, $primary-dark, $primary);
+    display: inline-block;
+    border-radius: 18px; // optional, sieht oft edler aus
+
+    // "hoher" Elevation-Shadow
+    box-shadow:
+      0 35px 55px rgba(0, 0, 0, 0.35),  // großer, weicher Hauptschatten
+      0 12px 20px rgba(0, 0, 0, 0.25),  // mittlerer Schatten
+      0 4px 8px rgba(0, 0, 0, 0.15);    // kleiner Nah-Schatten
+  }
+
   &__map {
-    flex: 1;
+    flex: 1 1 400px;
+    min-width: 60vw;
     min-height: 600px;
     height: 70vh;
-
-    // Make Mapbox canvas look nice
-    .mapboxgl-canvas { border-radius: 12px; }
+    background: #fff;
+    border-radius: 12px; // optional, damit es zum Frame passt
   }
 
   /* Create Venue block under the map */
   &__create {
     margin-top: 16px;
     padding-top: 16px;
-    border-top: 1px solid #e5e7eb;
+    border-top: 1px solid $border;
 
     &-title {
       margin: 0 0 8px;
@@ -126,7 +164,7 @@
   }
 
   &__meetings {
-    border: 1px solid #e5e7eb;
+    border: 1px solid $border;
     border-radius: 10px;
     padding: 12px;
     display: flex;
@@ -148,10 +186,10 @@
   }
 
   &__meeting-row {
-    border: 1px dashed #d1d5db;
+    border: 1px dashed $border;
     border-radius: 8px;
     padding: 10px;
-    background: #fafafa;
+    background: $light-gray;
     display: flex;
     flex-direction: column;
     gap: 8px;
@@ -174,12 +212,14 @@
     justify-content: flex-end;
   }
 
-  /* Responsive */
   @media (max-width: 900px) {
     flex-direction: column;
 
     &__sidebar { width: 100%; }
-    &__map     { height: 60vh; }
+    &__map {
+      height: 60vh;
+      min-width: 100%;   // 👈 keine feste Mindestbreite im Mobile-Layout
+    }
   }
 
   &__meeting-grid {
@@ -194,3 +234,227 @@
   }
 
 }
+
+
+.meetings__title{
+  color: $blue-text;
+  font-size: $preset2l-size;
+}
+
+.meetings__sidebar{
+  width: 800px;
+  box-shadow: 0px 4px 7.2px 4px rgba($color: #000000, $alpha: 0.25);
+  padding: 0 30px;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+}
+
+.meetings__submit{
+  color: white;
+  border-radius: 20px;
+}
+
+
+
+
+/*--------------------VENUE-------*/
+#new-venue .form-label-sm {
+  width: 90vw;
+  font-size: .8rem;
+}
+  .meetings-rows { max-height: 340px; overflow: auto; }
+
+  /* 🔵 FUNDO GRADIENTE — igual signup */
+  #new-venue {
+    background: linear-gradient(135deg, $primary-dark, $primary);
+    padding: 25px;
+    box-shadow: 0px 10px 40px rgba(0,0,0,0.25);
+    color: white;
+    margin-top: 5vh;
+  }
+
+  /* 🔵 Remover cards brancos do Bootstrap */
+  #new-venue .card-header,
+  #new-venue .card-body,
+  #new-venue .border.rounded-3,
+  #new-venue .border-bottom,
+  #new-venue .bg-white {
+    background: transparent !important;
+    border-color: rgba(255,255,255,0.15) !important;
+  }
+
+  /* 🔵 Caixa "Ends preview" estilo signup */
+  #new-venue .bg-light {
+    background: white !important;
+    color: white !important;
+    border: 1px solid rgba(255,255,255,0.3);
+  }
+
+  /* Inputs mais limpos */
+  #new-venue .form-control,
+  #new-venue .form-select {
+    background: white !important;
+    color: $blue-text !important;
+    border: 1px solid rgba(255,255,255,0.3);
+  }
+
+  #new-venue .form-control::placeholder {
+    color: rgba(255,255,255,0.6);
+  }
+
+  /* Labels */
+  #new-venue .form-label {
+    color: white !important;
+    font-weight: 600;
+
+
+    .venue-toggle-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.4rem;
+
+      padding: 0.35rem 1.3rem;
+      border-radius: 999px; // pill
+
+      border: 1px solid rgba(255, 255, 255, 0.7);
+      background: rgba(255, 255, 255, 0.08); // quite transparent
+      color: #ffffff;
+
+      font-size: 0.85rem;
+      font-weight: 500;
+      white-space: nowrap;
+      cursor: pointer;
+
+      backdrop-filter: blur(4px); // subtle glass effect (optional)
+
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+
+      transition:
+        background 0.2s ease,
+        color 0.2s ease,
+        border-color 0.2s ease,
+        box-shadow 0.2s ease,
+        transform 0.15s ease;
+
+      i {
+        font-size: 0.9rem;
+        line-height: 1;
+      }
+
+      &:hover {
+        // solid / gradient background on hover
+        background: linear-gradient(135deg, $primary-dark, $primary);
+        border-color: transparent;
+        color: #ffffff;
+
+        box-shadow: 0 8px 22px rgba(0, 0, 0, 0.28);
+        transform: translateY(-1px);
+        text-decoration: none;
+      }
+
+      &:active {
+        transform: translateY(0);
+        box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+      }
+
+      &:focus-visible {
+        outline: 2px solid #ffffff;
+        outline-offset: 2px;
+      }
+    }
+  }
+
+
+  /* Botão Add meeting */
+  #new-venue .btn-outline-secondary {
+    color: $blue-text;
+    border-color: rgba(255,255,255,0.5);
+  }
+
+  #new-venue .btn-outline-secondary:hover {
+    background: rgba(255,255,255,0.2);
+  }
+
+  /* Botão REMOVE */
+  #new-venue .btn-outline-danger {
+    border-color: #ffcece;
+    color: #ffcece;
+  }
+
+  /* Botão verde */
+  #new-venue .btn-success {
+    background: white;
+    color: $primary-dark;
+    font-weight: 700;
+  }
+
+  #new-venue .btn-success:hover {
+    opacity: 0.9;
+  }
+
+  .blue-text{
+    color: $blue-text;
+  }
+
+
+
+
+#new-venue .form-label-sm { font-size: .8rem; }
+  .meetings-rows { max-height: 340px; overflow: auto; }
+
+  /* pill-style toggle button */
+  #new-venue .venue-toggle-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.4rem;
+
+    padding: 0.35rem 1.3rem;
+    border-radius: 999px; /* pill */
+
+    border: 1px solid rgba(255, 255, 255, 0.8);
+    background: rgba(255, 255, 255, 0.12); /* transparent look */
+    color: #ffffff;
+
+    font-size: 0.85rem;
+    font-weight: 500;
+    white-space: nowrap;
+    cursor: pointer;
+
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.18);
+
+    transition:
+      background 0.2s ease,
+      color 0.2s ease,
+      border-color 0.2s ease,
+      box-shadow 0.2s ease,
+      transform 0.15s ease;
+  }
+
+  #new-venue .venue-toggle-btn i {
+    font-size: 0.9rem;
+    line-height: 1;
+  }
+
+  #new-venue .venue-toggle-btn:hover {
+    /* use Bootstrap primary color if available */
+    background: var(--bs-primary, #1d6fe9);
+    border-color: transparent;
+    color: #ffffff;
+    box-shadow: 0 8px 22px rgba(0, 0, 0, 0.28);
+    transform: translateY(-1px);
+    text-decoration: none;
+  }
+
+  #new-venue .venue-toggle-btn:active {
+    transform: translateY(0);
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+  }
+
+  #new-venue .venue-toggle-btn:focus-visible {
+    outline: 2px solid #ffffff;
+    outline-offset: 2px;
+  }

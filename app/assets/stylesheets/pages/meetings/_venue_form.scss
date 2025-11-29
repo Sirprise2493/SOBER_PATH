@@ -1,0 +1,201 @@
+// app/assets/stylesheets/pages/meetings/_venue_form.scss
+
+#new-venue {
+  background: linear-gradient(135deg, $primary-dark, $primary);
+  padding: 25px;
+  box-shadow: 0px 10px 40px rgba(0, 0, 0, 0.25);
+  color: white;
+  margin-top: 5vh;
+
+  /* 👇 Breite der Venue-Form */
+  width: 84vw;
+  max-width: 84vw;
+  margin-left: auto;
+  margin-right: auto;
+
+  border-radius: 24px;
+
+  /* 💡 nicer elevated shadow */
+  box-shadow:
+    0 24px 55px rgba(0, 0, 0, 0.45),   // großer weicher Hauptschatten
+    0 10px 25px rgba(0, 0, 0, 0.35),   // mittlerer Shadow
+    0 0 0 1px rgba(255, 255, 255, 0.12); // feiner „outline“-Glow
+
+
+  .form-label-sm {
+    width: 100%;
+    font-size: 0.8rem;
+  }
+
+  .meetings-rows {
+    max-height: 340px;
+    overflow: auto;
+  }
+
+  // remove white cards / borders
+  .card-header,
+  .card-body,
+  .border.rounded-3,
+  .border-bottom,
+  .bg-white {
+    background: transparent !important;
+    border-color: rgba(255, 255, 255, 0.15) !important;
+  }
+
+  .bg-light {
+    background: white !important;
+    color: white !important;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+  }
+
+  .form-control,
+  .form-select {
+    background: white !important;
+    color: $blue-text !important;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+  }
+
+  .form-control::placeholder {
+    color: rgba(255, 255, 255, 0.6);
+  }
+
+  .form-label {
+    color: white !important;
+    font-weight: 600;
+  }
+
+  /* pill-style button */
+  .venue-toggle-btn,
+  .btn-success,
+  .btn-outline-danger {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.4rem;
+
+    padding: 0.35rem 1.3rem;
+    border-radius: 999px; // pill
+
+    border: 1px solid rgba(255, 255, 255, 0.8);
+    background: rgba(255, 255, 255, 0.12); // transparent look
+    color: #ffffff;
+
+    font-size: 0.85rem;
+    font-weight: 500;
+    white-space: nowrap;
+    cursor: pointer;
+
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.18);
+
+    transition:
+      background 0.2s ease,
+      color 0.2s ease,
+      border-color 0.2s ease,
+      box-shadow 0.2s ease,
+      transform 0.15s ease;
+
+    i {
+      font-size: 0.9rem;
+      line-height: 1;
+    }
+
+    &:hover {
+      background: var(--bs-primary, #1d6fe9);
+      border-color: transparent;
+      color: #ffffff;
+      box-shadow: 0 8px 22px rgba(0, 0, 0, 0.28);
+      transform: translateY(-1px);
+      text-decoration: none;
+    }
+
+    &:active {
+      transform: translateY(0);
+      box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+    }
+
+    &:focus-visible {
+      outline: 2px solid #ffffff;
+      outline-offset: 2px;
+    }
+  }
+
+
+  /* 🟢 Create / Save – grüner Pill-Button */
+  .btn-success {
+    border: 1px solid rgba(46, 204, 113, 0.9);
+    background: linear-gradient(135deg, #2ecc71, #27ae60);
+    color: #ffffff;
+
+    &:hover {
+      background: linear-gradient(135deg, #27ae60, #1e8f4e);
+      border-color: rgba(46, 204, 113, 1);
+      box-shadow: 0 8px 22px rgba(0, 0, 0, 0.35);
+      transform: translateY(-1px);
+    }
+
+    &:active {
+      transform: translateY(0);
+      box-shadow: 0 3px 10px rgba(0, 0, 0, 0.25);
+    }
+  }
+
+  /* 🔴 Cancel – roter Pill-Button (outline, füllt sich auf Hover) */
+  .btn-outline-danger {
+    border: 1px solid rgba(231, 76, 60, 0.9);
+    background: transparent;
+    color: #ffb6b0;
+
+    &:hover {
+      background: linear-gradient(135deg, #e74c3c, #c0392b);
+      color: #ffffff;
+      box-shadow: 0 8px 22px rgba(0, 0, 0, 0.35);
+      transform: translateY(-1px);
+    }
+
+    &:active {
+      transform: translateY(0);
+      box-shadow: 0 3px 10px rgba(0, 0, 0, 0.25);
+    }
+  }
+
+  // Add meeting button
+  .btn-outline-secondary {
+    color: $blue-text;
+    border-color: rgba(255, 255, 255, 0.5);
+  }
+
+  .btn-outline-secondary:hover {
+    background: rgba(255, 255, 255, 0.2);
+  }
+
+  // Remove button
+  .btn-outline-danger {
+    border-color: #ffcece;
+    color: #ffcece;
+  }
+
+  .remove {
+    transform: translate(55%, 35%);
+    &:hover {
+      transform: translate(45%, 30%);
+    }
+  }
+
+
+
+  // Green submit
+  .btn-success {
+    background: white;
+    color: $primary-dark;
+    font-weight: 700;
+
+    &:hover {
+      opacity: 0.9;
+    }
+  }
+}
+
+// helper used inside venue form
+.blue-text {
+  color: $blue-text;
+}

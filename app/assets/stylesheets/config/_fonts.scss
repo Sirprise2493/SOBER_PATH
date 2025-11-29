@@ -14,3 +14,33 @@ $headers-font: "Nunito", "Helvetica", "sans-serif";
 //        font-url('FontFile.ttf') format('truetype')
 // }
 // $my-font: "Font Name";
+
+// === Text Preset 1 (Bold) ===
+$preset1b-size: 56px;
+$preset1b-line: 65%;
+$preset1b-space: 0px;
+$preset1b-weight: 700;
+
+// === Text Preset 2 (Medium) ===
+$preset2m-size: 40px;
+$preset2m-line: 85%;
+$preset2m-space: 0px;
+$preset2m-weight: 500;
+
+// === Text Preset 2 (Light) ===
+$preset2l-size: 40px;
+$preset2l-line: 85%;
+$preset2l-space: 0px;
+$preset2l-weight: 300;
+
+// === Text Preset 3 (SemiBold) ===
+$preset3s-size: 19px;
+$preset3s-line: 135%;
+$preset3s-space: 0px;
+$preset3s-weight: 600;
+
+// === Text Preset 4 (Regular) ===
+$preset4r-size: 17px;
+$preset4r-line: 130%;
+$preset4r-space: 0px;
+$preset4r-weight: 400;
