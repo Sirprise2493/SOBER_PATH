@@ -1,0 +1,105 @@
+<% if connection_updates.present? %>
+  <ul class="connection-updates">
+    <% connection_updates.each do |update| %>
+      <% friend    = update.friend %>
+      <% milestone = (update.kind == :sobriety_milestone ? update.meta[:milestone] : nil) %>
+
+      <% reason =
+          if update.kind == :birthday
+            "birthday"
+          elsif update.kind == :sobriety_milestone && milestone.present?
+            "milestone:#{milestone[:name]}"
+          end %>
+
+      <% already_sent_for_update = Encouragement.where(
+        sender:   current_user,
+        receiver: friend,
+        reason:   reason
+      ).exists? %>
+
+      <li class="connection-updates__item">
+        <!-- avatar -->
+        <div class="connection-updates__avatar">
+          <% if friend.avatar.attached? %>
+            <%= image_tag friend.avatar.variant(resize_to_fill: [32, 32]),
+                          alt: friend.username,
+                          class: "connection-updates__avatar-image" %>
+          <% else %>
+            <div class="connection-updates__avatar-fallback">
+              <span><%= friend.username.first.upcase %></span>
+            </div>
+          <% end %>
+        </div>
+
+        <!-- content -->
+        <div class="connection-updates__content">
+          <div class="connection-updates__title">
+            <% if update.kind == :birthday %>
+              🎂 It's <%= friend.username %>'s birthday today!
+            <% elsif update.kind == :sobriety_milestone && milestone.present? %>
+              🪙 <%= friend.username %> reached
+              <strong><%= milestone[:name] %></strong> today!
+            <% end %>
+          </div>
+
+          <div class="connection-updates__text">
+            <% if update.kind == :birthday %>
+              Send them a kind message or encouragement.
+            <% elsif update.kind == :sobriety_milestone %>
+              Let them know you're proud of them – a few words can make a big difference.
+            <% end %>
+          </div>
+
+          <% if already_sent_for_update %>
+            <div class="connection-updates__status">
+              ✓ Encouragement sent
+            </div>
+          <% else %>
+            <div
+              class="connection-updates__encouragement-form"
+              data-controller="emoji-picker">
+
+              <%= form_with model: Encouragement.new,
+                            url: encouragements_path,
+                            local: true do |f| %>
+
+                <%= f.hidden_field :receiver_id, value: friend.id %>
+                <%= f.hidden_field :reason,      value: reason %>
+
+                <div class="connection-updates__input-row">
+                  <%= f.text_area :body,
+                                  rows: 1,
+                                  class: "form-control connection-updates__input",
+                                  placeholder: "Send a short encouragement…",
+                                  data: { "emoji-picker-target": "input" } %>
+
+                  <button
+                    type="button"
+                    class="connection-updates__emoji-btn"
+                    data-action="click->emoji-picker#toggle">
+                    😊
+                  </button>
+
+                  <%= f.submit "Send",
+                              class: "btn btn-primary connection-updates__submit-btn" %>
+                </div>
+
+                <%= render "user_chat_messages/emoji_panel" %>
+              <% end %>
+            </div>
+          <% end %>
+        </div>
+      </li>
+    <% end %>
+  </ul>
+<% else %>
+  <div class="chat-empty-state">
+    <div class="chat-empty-state__content">
+      <p class="chat-empty-state__title">No updates today</p>
+      <p class="chat-empty-state__text">
+        When your friends have birthdays or hit sobriety milestones,
+        you'll see them here so you can cheer them on.
+      </p>
+    </div>
+  </div>
+<% end %>
