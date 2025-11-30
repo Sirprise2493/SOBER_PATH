@@ -1,7 +1,6 @@
 <%= turbo_stream_from [current_user, :journal_contents] %>
 
 <section class="journal-page" data-controller="scroll-top">
-
   <div class="journal-nav journal-nav--top">
     <div class="journal-nav__slot journal-nav__slot--left">
       <% if @previous_entry_date.present? %>
@@ -20,13 +19,24 @@
     </div>
 
     <div class="journal-nav__slot journal-nav__slot--center">
-      <%= link_to "Today",
-                  journal_path(
-                    date: @today,
-                    calendar_date: @calendar_date
-                  ),
-                  class: "journal-nav__button journal-nav__button--today",
-                  data: { action: "click->scroll-top#go" } %>
+      <% if @date == @today %>
+        <button
+          type="button"
+          class="journal-nav__button journal-nav__button--calendar"
+          data-action="click->scroll-top#toggleCalendar"
+          data-scroll-top-target="calendarButton"
+          aria-expanded="false">
+          Calendar
+        </button>
+      <% else %>
+        <%= link_to "Today",
+                    journal_path(
+                      date: @today,
+                      calendar_date: @calendar_date
+                    ),
+                    class: "journal-nav__button journal-nav__button--today",
+                    data: { action: "click->scroll-top#go" } %>
+      <% end %>
     </div>
 
     <div class="journal-nav__slot journal-nav__slot--right">
@@ -46,16 +56,21 @@
     </div>
   </div>
 
+  <% if @date == @today %>
+    <div
+      data-scroll-top-target="calendarPanel"
+      class="journal-calendar-panel">
+      <%= render "pages/journal/journal_calendar",
+                 date: @date,
+                 today: @today,
+                 calendar_date: @calendar_date,
+                 entry_dates: @entry_dates %>
+    </div>
+  <% end %>
+
   <%= render "pages/journal/journal_book",
              journal_content: @journal_content,
              date: @date,
              today: @today %>
 
-  <div id="journal-bottom">
-    <%= render "pages/journal/journal_calendar",
-               date: @date,
-               today: @today,
-               calendar_date: @calendar_date,
-               entry_dates: @entry_dates %>
-  </div>
 </section>
