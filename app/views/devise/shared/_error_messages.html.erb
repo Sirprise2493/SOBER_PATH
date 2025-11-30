@@ -1,12 +1,15 @@
 <% if resource.errors.any? %>
-  <div id="error_explanation" data-turbo-cache="false">
-    <h2>
-      <%= I18n.t("errors.messages.not_saved",
-                 count: resource.errors.count,
-                 resource: resource.class.model_name.human.downcase)
-       %>
-    </h2>
-    <ul>
+  <div class="sp-form-error" data-turbo-cache="false">
+    <div class="sp-form-error-header">
+      <span class="sp-form-error-title">
+        We couldn’t create your account
+      </span>
+      <span class="sp-form-error-subtitle">
+        Please fix the issue below and try again.
+      </span>
+    </div>
+
+    <ul class="sp-form-error-list">
       <% resource.errors.full_messages.each do |message| %>
         <li><%= message %></li>
       <% end %>
