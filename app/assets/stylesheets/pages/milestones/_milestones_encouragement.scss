@@ -103,15 +103,15 @@
     gap: 0.25rem;
   }
 
-  /* Delete link */
-  &__delete {
+  /* Dismiss link */
+  &__dismiss {
     font-size: 0.78rem;
-    color: #b91c1c;
+    color: #6b7280;
     text-decoration: none;
 
     &:hover {
       text-decoration: underline;
-      color: #7f1d1d;
+      color: #374151;
     }
   }
 
