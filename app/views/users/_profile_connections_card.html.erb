@@ -1,0 +1,95 @@
+<div class="profile-card profile-card--connections">
+  <div class="profile-connections-header">
+    <h2 class="profile-card-title">My connections</h2>
+
+    <% if friends.present? %>
+      <span class="profile-connections-count">
+        <%= pluralize(friends.count, "friend") %>
+      </span>
+    <% end %>
+  </div>
+
+  <div class="profile-connections-grid">
+    <!-- LEFT COLUMN: FRIENDS -->
+    <div class="profile-connections-section">
+      <h3 class="profile-subtitle">Friends</h3>
+
+      <% if friends&.any? %>
+        <div class="profile-friends-list-wrapper">
+          <ul class="profile-list">
+            <% friends.each do |friend| %>
+              <li class="profile-list-item">
+                <span>
+                  <%= link_to friend.username, user_path(friend) %>
+                  <% if friend.sobriety_start_date.present? %>
+                    – <%= pluralize(friend.sobriety_days, "day") %> sober
+                  <% end %>
+                </span>
+              </li>
+            <% end %>
+          </ul>
+        </div>
+      <% else %>
+        <p class="profile-empty">No connections yet.</p>
+      <% end %>
+    </div>
+    <!-- RIGHT COLUMN: REQUESTS -->
+    <div class="profile-connections-section">
+      <div class="profile-requests-wrapper">
+        <!-- INCOMING -->
+        <section class="profile-requests-section">
+          <h3 class="profile-subtitle">Incoming requests</h3>
+          <% if incoming_requests.present? %>
+            <ul class="profile-list">
+              <% incoming_requests.each do |fr| %>
+                <li class="profile-list-item">
+                  <span>
+                    <%= link_to fr.asker.username, user_path(fr.asker) %>
+                    (<%= fr.status_of_friendship_request %>)
+                  </span>
+
+                  <span class="profile-actions">
+                    <%= button_to "Accept",
+                                  friendship_path(fr, status: "accepted"),
+                                  method: :patch,
+                                  class: "btn btn-sm btn-success" %>
+
+                    <%= button_to "Decline",
+                                  friendship_path(fr, status: "declined"),
+                                  method: :patch,
+                                  data: { turbo_confirm: "Decline this request?" },
+                                  class: "btn btn-sm btn-outline-secondary" %>
+                  </span>
+                </li>
+              <% end %>
+            </ul>
+          <% else %>
+            <p class="profile-empty">No incoming requests.</p>
+          <% end %>
+        </section>
+
+        <!-- DIVIDER -->
+        <hr class="profile-requests-divider" />
+
+        <!-- OUTGOING -->
+        <section class="profile-requests-section">
+          <h3 class="profile-subtitle">Outgoing requests</h3>
+          <% if outgoing_requests.present? %>
+            <ul class="profile-list">
+              <% outgoing_requests.each do |fr| %>
+                <li class="profile-list-item">
+                  <span>
+                    <%= link_to fr.receiver.username, user_path(fr.receiver) %>
+                    (<%= fr.status_of_friendship_request %>)
+                  </span>
+                </li>
+              <% end %>
+            </ul>
+          <% else %>
+            <p class="profile-empty">No outgoing requests.</p>
+          <% end %>
+        </section>
+      </div>
+    </div>
+  </div>
+</div>

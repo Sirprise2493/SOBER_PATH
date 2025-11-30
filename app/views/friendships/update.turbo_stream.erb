@@ -1,3 +1,10 @@
+<%= turbo_stream.update "profile_connections_card" do %>
+  <%= render "users/profile_connections_card",
+             friends:           @friends,
+             incoming_requests: @incoming_requests,
+             outgoing_requests: @outgoing_requests %>
+<% end %>
+
 <%= turbo_stream.update "connections_panel" do %>
   <%= render "pages/connections_panel",
              friends: @friends,

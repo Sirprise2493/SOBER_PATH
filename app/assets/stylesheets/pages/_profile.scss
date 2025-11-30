@@ -1,3 +1,7 @@
+/* =========================================================
+   PROFILE PAGE — CLEAN REWRITE
+   ========================================================= */
+
 /* ---------- MAIN PROFILE WRAPPER ---------- */
 
 .profile-wrapper {
@@ -9,7 +13,7 @@
   box-shadow: 0 18px 45px rgba(15, 23, 42, 0.08);
 }
 
-/* ---------- HEADER ROW (TITLE + STREAK PILL) ---------- */
+/* ---------- HEADER ---------- */
 
 .profile-header-row {
   display: flex;
@@ -24,12 +28,6 @@
   font-weight: 700;
   margin: 0;
   color: $blue-primary;
-}
-
-.profile-header-note {
-  margin: 0.3rem 0 0;
-  font-size: 0.9rem;
-  color: $text-muted;
 }
 
 .profile-header-pill {
@@ -67,7 +65,7 @@
   }
 }
 
-/* ---------- GRID LAYOUT FOR SHOW/EDIT PROFILE ---------- */
+/* ---------- GRID LAYOUT ---------- */
 
 .profile-grid {
   display: grid;
@@ -80,7 +78,7 @@
   }
 }
 
-/* ---------- CARDS ---------- */
+/* ---------- CARD BASE ---------- */
 
 .profile-card {
   background: $white;
@@ -101,7 +99,7 @@
   margin-top: 8px;
 }
 
-/* ---------- AVATAR ---------- */
+/* ---------- AVATAR BLOCK ---------- */
 
 .profile-avatar-container {
   display: flex;
@@ -109,7 +107,8 @@
   margin-bottom: 1.5rem;
 }
 
-.profile-avatar {
+.profile-avatar,
+.placeholder-avatar {
   width: 220px;
   height: 220px;
   border-radius: 50%;
@@ -118,9 +117,6 @@
 }
 
 .placeholder-avatar {
-  width: 220px;
-  height: 220px;
-  border-radius: 50%;
   background: #e5e7eb;
   color: #6b7280;
   display: flex;
@@ -143,16 +139,14 @@
   color: $btn-primary-text;
   padding: 10px 20px;
   border-radius: 999px;
-  border: none;
   font-size: 0.95rem;
-  text-decoration: none;
   font-weight: 600;
+  border: none;
   cursor: pointer;
   transition: background 0.15s ease, transform 0.05s ease;
 
   &:hover {
     background: $btn-primary-hover;
-    text-decoration: none;
     color: $btn-primary-text;
     transform: translateY(-1px);
   }
@@ -163,7 +157,7 @@
   margin-top: 1.5rem;
 }
 
-/* ---------- DETAILS GRID (SHOW + EDIT) ---------- */
+/* ---------- DETAILS GRID ---------- */
 
 .profile-details-grid {
   display: grid;
@@ -175,7 +169,7 @@
   }
 }
 
-/* ---------- FIELD BLOCKS ---------- */
+/* ---------- FIELDS ---------- */
 
 .profile-field {
   display: flex;
@@ -199,30 +193,12 @@
   }
 }
 
-/* ---------- INPUTS IN EDIT FORM ---------- */
-
-.profile-input {
-  width: 100%;
-  padding: 0.6rem 0.75rem;
-  border-radius: 8px;
-  border: 1px solid #e5e7eb;
-  font-size: 0.95rem;
-  background: #ffffff;
-
-  &:focus {
-    outline: none;
-    border-color: $primary-light;
-    box-shadow: 0 0 0 1px rgba(117, 168, 246, 0.4);
-  }
-}
-
-/* ---------- BIO CHAR LIMIT NOTE (EDIT PROFILE) ---------- */
+/* ---------- BIO NOTE ---------- */
 
 .bio-field {
   position: relative;
 }
 
-/* Only position the note absolutely for the bio field */
 .bio-field .profile-limit-note {
   position: absolute;
   bottom: -18px;
@@ -230,10 +206,11 @@
   font-size: 0.75rem;
   color: #9ca3af;
   font-style: italic;
-  pointer-events: none;
 }
 
-/* ---------- CONNECTIONS CARD (2-COLUMN LAYOUT) ---------- */
+/* =========================================================
+   CONNECTIONS CARD
+   ========================================================= */
 
 .profile-subtitle {
   font-size: 1.05rem;
@@ -250,8 +227,8 @@
 
 .profile-connections-header {
   display: flex;
-  align-items: center;
   justify-content: space-between;
+  align-items: center;
   gap: 0.75rem;
   margin-bottom: 0.8rem;
 
@@ -265,41 +242,84 @@
   color: $text-muted;
 }
 
+/* ---------- Layout: 2 columns ---------- */
+
 .profile-connections-grid {
   display: grid;
   grid-template-columns: 2fr 1.4fr;
   gap: 24px;
-}
 
-.profile-connections-section .profile-subtitle {
-  margin-top: 0;
-}
-
-@media (max-width: 900px) {
-  .profile-connections-grid {
+  @media (max-width: 900px) {
     grid-template-columns: 1fr;
   }
 }
 
-/* List of connections */
+/* ---------- FRIENDS LIST (LEFT) ---------- */
+
+.profile-friends-list-wrapper {
+  max-height: 260px;
+  overflow-y: auto;
+  padding-right: 4px;
+}
+
+.profile-friends-list-wrapper::-webkit-scrollbar,
+.profile-requests-wrapper::-webkit-scrollbar {
+  width: 6px;
+}
+
+.profile-friends-list-wrapper::-webkit-scrollbar-thumb,
+.profile-requests-wrapper::-webkit-scrollbar-thumb {
+  background: rgba(148, 163, 184, 0.7);
+  border-radius: 999px;
+}
+
+/* ---------- REQUESTS COLUMN (RIGHT) ---------- */
+
+.profile-requests-wrapper {
+  display: grid;
+  grid-template-rows: 1fr auto 1fr;   /* balanced vertically */
+  gap: 1.2rem;
+
+  max-height: 260px;
+  overflow-y: auto;
+  padding-right: 4px;
+}
+
+.profile-requests-section {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  justify-content: flex-start;
+}
+
+/* Divider between incoming and outgoing */
+.profile-requests-divider {
+  border: 0;
+  height: 1px;
+  background: #e5e7eb;
+  margin: 0;
+}
+
+/* ---------- LIST ITEMS ---------- */
 
 .profile-list {
   list-style: none;
-  padding-left: 0;
   margin: 0;
+  padding: 0;
 }
 
 .profile-list-item {
   padding: 0.5rem 0;
   border-bottom: 1px solid #e5e7eb;
+
   display: flex;
   justify-content: space-between;
   align-items: center;
 
   a {
     font-weight: 500;
-    text-decoration: none;
     color: $blue-primary;
+    text-decoration: none;
 
     &:hover {
       text-decoration: underline;
@@ -317,23 +337,7 @@
   }
 }
 
-.profile-show-more {
-  background: #e5e7eb;
-  border: none;
-  padding: 8px 16px;
-  border-radius: 8px;
-  margin-top: 0.5rem;
-  font-size: 0.9rem;
-  font-weight: 500;
-  cursor: pointer;
-  color: $blue-primary;
-
-  &:hover {
-    background: #d1d5db;
-  }
-}
-
-/* ---------- PROFILE FOOTER BUTTONS ---------- */
+/* ---------- FOOTER ---------- */
 
 .profile-footer {
   margin-top: 2rem;
@@ -345,7 +349,6 @@
 }
 
 .profile-footer-link {
-  display: inline-block;
   padding: 0.55rem 1.1rem;
   border-radius: 999px;
   border: 1px solid $border;
@@ -354,23 +357,24 @@
   font-weight: 500;
   font-size: 0.9rem;
   text-decoration: none;
-  transition: background 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+
+  transition: background 0.15s ease,
+              border-color 0.15s ease,
+              color 0.15s ease;
 
   &:hover {
     background: $background;
     border-color: $primary-light;
     color: $blue-primary;
-    text-decoration: none;
   }
 }
 
-/* ---------- CHANGE PASSWORD PAGE ---------- */
+/* ---------- CHANGE PASSWORD ---------- */
 
 .profile-change-wrapper {
   max-width: 900px;
   margin: 40px auto 0;
-  padding: 24px 32px 32px;
-  padding-top: 48px;
+  padding: 48px 32px 32px;
   background: $background;
   border-radius: 28px;
   box-shadow: 0 18px 45px rgba(15, 23, 42, 0.08);
@@ -382,15 +386,6 @@
   border-radius: 24px;
   border: 1px solid $border;
   box-shadow: 0 8px 22px rgba(15, 23, 42, 0.04);
-}
-
-.profile-input-label {
-  font-size: 0.85rem;
-  font-weight: 600;
-  color: $text-muted;
-  margin-bottom: 6px;
-  text-transform: uppercase;
-  letter-spacing: 0.04em;
 }
 
 .profile-password-input {
@@ -409,14 +404,8 @@
 }
 
 .profile-change-card .profile-limit-note {
-  position: static;
-  margin-top: 4px;
   font-size: 0.75rem;
   color: #9ca3af;
   font-style: italic;
   text-align: right;
-}
-
-.profile-change-wrapper .profile-title {
-  margin-bottom: 24px;
 }
