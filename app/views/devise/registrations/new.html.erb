@@ -1,0 +1,28 @@
+<div class="sp-underage-wrapper">
+  <div class="sp-underage-card">
+    <h1 class="sp-underage-title">We couldn’t create your account</h1>
+
+    <p class="sp-underage-text">
+      SoberPath is only available to people who are 18 years or older.
+    </p>
+
+    <p class="sp-underage-text">
+      If you entered your date of birth incorrectly, you can go back and try again.
+      Otherwise, we’d love to welcome you when you turn 18.
+    </p>
+
+    <% if resource.errors.any? %>
+      <ul class="sp-underage-errors">
+        <% resource.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    <% end %>
+
+    <div class="sp-underage-actions">
+      <%= link_to "Back to SoberPath",
+                  root_path,
+                  class: "btn-primary-rounded" %>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,113 @@
+.sp-form-error {
+  margin-bottom: 20px;
+  padding: 14px 18px;
+  border-radius: 16px;
+  background: #ffecec;
+  border: 1px solid rgba(220, 0, 0, 0.25);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+}
+
+.sp-form-error-header {
+  margin-bottom: 6px;
+}
+
+.sp-form-error-title {
+  font-weight: 600;
+  font-size: 14px;
+  color: #c01616;
+}
+
+.sp-form-error-subtitle {
+  font-size: 12px;
+  color: #b24a4a;
+}
+
+.sp-form-error-list {
+  margin: 0;
+  padding-left: 18px;
+  font-size: 13px;
+  color: #7b1d1d;
+
+  li + li {
+    margin-top: 2px;
+  }
+}
+
+/* ─────────────── Underage Page Background ─────────────── */
+.sp-underage-wrapper {
+  min-height: calc(100vh - 80px); 
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 20px;
+  background: linear-gradient(180deg, #f5f7ff 0%, #eef2ff 100%);
+}
+
+/* ─────────────── Card Styling ─────────────── */
+.sp-underage-card {
+  max-width: 520px;
+  width: 100%;
+  background: #ffffff;
+  border-radius: 28px;
+  padding: 36px 40px;
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.12);
+  text-align: left;
+  animation: fadeIn 0.4s ease;
+}
+
+/* ─────────────── Typography ─────────────── */
+.sp-underage-title {
+  margin: 0 0 16px;
+  font-size: 26px;
+  font-weight: 700;
+  color: #222;
+}
+
+.sp-underage-text {
+  margin: 0 0 14px;
+  font-size: 15px;
+  line-height: 1.5;
+  color: #444;
+}
+
+/* ─────────────── Error List ─────────────── */
+.sp-underage-errors {
+  margin: 4px 0 20px;
+  padding-left: 22px;
+  font-size: 14px;
+  color: #d33030;
+  list-style: disc;
+}
+
+/* ─────────────── Button Area ─────────────── */
+.sp-underage-actions {
+  margin-top: 25px;
+  display: flex;
+  justify-content: center;
+}
+
+/* ─────────────── Button (Matches Login Modal) ─────────────── */
+.btn-primary-rounded {
+  display: inline-block;
+  background: #3f82ff;
+  color: white;
+  padding: 11px 26px;
+  font-size: 15px;
+  font-weight: 600;
+  border-radius: 999px;
+  text-decoration: none;
+  transition: background 0.2s ease, box-shadow 0.2s ease;
+}
+
+.btn-primary-rounded:hover {
+  background: #2d6be3;
+  box-shadow: 0px 6px 14px rgba(63, 130, 255, 0.35);
+}
+
+/* ─────────────── Animation ─────────────── */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+
