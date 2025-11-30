@@ -48,14 +48,14 @@
           </span>
         <% end %>
 
-        <%= link_to "Delete",
+        <%= link_to "Dismiss",
                     encouragement_path(encouragement),
                     data: {
                       turbo_method: :delete,
-                      turbo_confirm: "Delete this encouragement?",
+                      turbo_confirm: "Dismiss this encouragement?",
                       turbo_frame: "encouragement_chat"
                     },
-                    class: "encouragements-panel__delete" %>
+                    class: "encouragements-panel__dismiss" %>
       </div>
 
       <time class="encouragements-panel__time">
