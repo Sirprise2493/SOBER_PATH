@@ -491,32 +491,28 @@ turbo-frame#message_thread:empty {
   gap: 0.1rem;
 }
 
-/* Name (you're using <p> here) */
 .chat-connections__request-item .chat-connections__name {
-  margin: 0;                 /* override mb-0 just to be sure */
+  margin: 0;
   font-weight: 600;
   font-size: 0.86rem;
   color: #111827;
 }
 
-/* “wants to connect with you.” –
-   same left edge as the name */
 .chat-connections__request-item .chat-connections__request-text {
   font-size: 0.78rem;
   color: #6b7280;
-  margin: 0;                 /* kill bootstrap p margins */
+  margin: 0;
   padding: 0;
   text-align: left;
 }
 
-/* Accept / Decline –
-   same left edge as the text/name */
+/* Accept / Decline */
 .chat-connections__request-item .chat-connections__request-actions {
   display: flex;
   gap: 0.4rem;
-  margin: 0.25rem 0 0;       /* small space above, no horizontal offset */
+  margin: 0.25rem 0 0;
   padding: 0;
-  align-self: flex-start;     /* stay aligned with text, not stretched */
+  align-self: flex-start;
 }
 
 /* optional: make buttons look nice and tight */
@@ -525,7 +521,6 @@ turbo-frame#message_thread:empty {
   font-size: 0.78rem;
   border-radius: 999px;
 }
-
 
 /* =========================================
    MESSAGE FORMS (AI + COMMUNITY)
