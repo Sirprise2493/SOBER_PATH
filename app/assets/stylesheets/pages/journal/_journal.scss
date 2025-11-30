@@ -1,9 +1,11 @@
 .journal-page {
+  margin-bottom: 5vh;
+
   .journal-nav {
     display: flex;
     align-items: center;
     gap: 1rem;
-    margin-bottom: 1vh;
+    margin-bottom: 2vh;
 
     &--top {
       margin-top: 5vh;
@@ -64,6 +66,17 @@
         }
       }
 
+      &--calendar {
+        font-weight: 600;
+        background: #fff;
+        border-color: #6faefb;
+
+        &:hover {
+          background: #f0f6ff;
+          box-shadow: 0 2px 6px rgba(0,0,0,0.12);
+        }
+      }
+
       &--disabled {
         opacity: 0.4;
         cursor: default;
@@ -71,5 +84,24 @@
         pointer-events: none;
       }
     }
+  }
+
+  .journal-calendar-panel {
+    max-width: 70vw;
+    margin: 0 auto 0 auto;
+    overflow: hidden;
+    max-height: 0;
+    opacity: 0;
+    transform: translateY(-4px);
+    transition:
+      max-height 0.3s ease,
+      opacity 0.3s ease,
+      transform 0.3s ease;
+  }
+
+  .journal-calendar-panel--open {
+    opacity: 1;
+    transform: translateY(0);
+    margin-bottom: 2vh;
   }
 }

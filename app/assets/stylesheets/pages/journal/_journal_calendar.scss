@@ -5,7 +5,6 @@
   display: grid;
   grid-template-columns: minmax(0, 210px) minmax(0, 1fr);
   gap: 1rem;
-  margin-bottom: 10vh;
 
   .journal-calendar-summary {
     background: linear-gradient(135deg, $primary-dark, $primary);
