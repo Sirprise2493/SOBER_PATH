@@ -356,7 +356,7 @@ turbo-frame#message_thread:empty {
 .chat-connections__info {
   display: flex;
   flex-direction: column;
-  gap: 0.05rem;
+  gap: 0.1rem;
 }
 
 /* avatar */
@@ -431,12 +431,13 @@ turbo-frame#message_thread:empty {
 .chat-connections__request-text {
   font-size: 0.78rem;
   color: #6b7280;
-  margin: 0.25rem 0 0.3rem;
+  margin: 0;
 }
 
 .chat-connections__request-actions {
   display: flex;
   gap: 0.4rem;
+  margin: 0.25rem 0 0;
 }
 
 /* make the small buttons feel like pills and match your theme */
@@ -470,6 +471,61 @@ turbo-frame#message_thread:empty {
     color: #111827;
   }
 }
+
+/* ============================
+   CONNECTION REQUEST ALIGNMENT
+   ============================ */
+
+/* Avatar + info next to each other */
+.chat-connections__request-item .chat-connections__row {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+}
+
+/* Column that holds name + text + buttons */
+.chat-connections__request-item .chat-connections__info {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.1rem;
+}
+
+/* Name (you're using <p> here) */
+.chat-connections__request-item .chat-connections__name {
+  margin: 0;                 /* override mb-0 just to be sure */
+  font-weight: 600;
+  font-size: 0.86rem;
+  color: #111827;
+}
+
+/* “wants to connect with you.” –
+   same left edge as the name */
+.chat-connections__request-item .chat-connections__request-text {
+  font-size: 0.78rem;
+  color: #6b7280;
+  margin: 0;                 /* kill bootstrap p margins */
+  padding: 0;
+  text-align: left;
+}
+
+/* Accept / Decline –
+   same left edge as the text/name */
+.chat-connections__request-item .chat-connections__request-actions {
+  display: flex;
+  gap: 0.4rem;
+  margin: 0.25rem 0 0;       /* small space above, no horizontal offset */
+  padding: 0;
+  align-self: flex-start;     /* stay aligned with text, not stretched */
+}
+
+/* optional: make buttons look nice and tight */
+.chat-connections__request-item .chat-connections__request-actions .btn {
+  padding: 0.25rem 0.7rem;
+  font-size: 0.78rem;
+  border-radius: 999px;
+}
+
 
 /* =========================================
    MESSAGE FORMS (AI + COMMUNITY)
