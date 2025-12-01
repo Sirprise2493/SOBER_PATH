@@ -34,7 +34,7 @@
                         calendar_date: month_date
                       ),
                       class: month_classes.join(" "),
-                      data: { action: "click->scroll-top#go" } %>
+                      data: { turbo_frame: "journal_calendar" } %>
         <% end %>
       </div>
 
@@ -46,7 +46,7 @@
                     ),
                     class: "journal-calendar__year-btn",
                     title: "Previous year",
-                    data: { action: "click->scroll-top#go" } %>
+                    data: { turbo_frame: "journal_calendar" } %>
 
         <span class="journal-calendar__year-label">
           <%= calendar_date.year %>
@@ -59,7 +59,7 @@
                     ),
                     class: "journal-calendar__year-btn",
                     title: "Next year",
-                    data: { action: "click->scroll-top#go" } %>
+                    data: { turbo_frame: "journal_calendar" } %>
       </div>
     </div>
 

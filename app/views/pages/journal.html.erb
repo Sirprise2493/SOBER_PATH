@@ -60,11 +60,13 @@
     <div
       data-scroll-top-target="calendarPanel"
       class="journal-calendar-panel">
-      <%= render "pages/journal/journal_calendar",
-                 date: @date,
-                 today: @today,
-                 calendar_date: @calendar_date,
-                 entry_dates: @entry_dates %>
+      <%= turbo_frame_tag "journal_calendar" do %>
+        <%= render "pages/journal/journal_calendar",
+                   date: @date,
+                   today: @today,
+                   calendar_date: @calendar_date,
+                   entry_dates: @entry_dates %>
+      <% end %>
     </div>
   <% end %>
 
