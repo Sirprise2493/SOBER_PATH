@@ -36,94 +36,91 @@
     </div>
   </header>
 
-  <div class="milestones-stats-card__body">
-    <!-- Pie chart -->
+
+<!-- Bar chart -->
+ <div class="milestones-stats-card__body">
+
+  <!-- LEFT SIDE -->
+  <div class="stats-left">
+    <h3 class="stats-section-title">All Statistics (Whole Time)</h3>
+
     <div class="milestones-stats-card__chart-wrapper milestones-stats-card__chart-wrapper--circle">
+      <div class="stats-circles-grid">
 
-  <% total = @pie_data.values.sum.nonzero? || 1 %>
+        <% total = @pie_data.values.sum.nonzero? || 1 %>
 
-  <div class="stats-circles-grid">
+        <% @pie_data.each_with_index do |(label, count), index| %>
+          <% color   = colors[index] %>
+          <% percent = ((count.to_f / total) * 100).round %>
 
-  <% @pie_data.each_with_index do |(label, count), index| %>
-    <% color   = colors[index] %>
-    <% percent = ((count.to_f / total) * 100).round %>
+          <div class="stats-circle-item">
 
-    <div class="stats-circle-item">
+            <div class="progress-circle"
+                 data-progress="<%= percent %>"
+                 data-color="<%= color %>">
 
-      <div class="progress-circle"
-           data-progress="<%= percent %>"
-           data-color="<%= color %>">
+              <div class="layer layer-1"></div>
+              <div class="layer layer-2"></div>
+              <div class="layer layer-3"></div>
 
-        <div class="layer layer-1"></div>
-        <div class="layer layer-2"></div>
-        <div class="layer layer-3"></div>
+              <div class="center">
+                <span><%= percent %>%</span>
+              </div>
 
-        <div class="center">
-          <span><%= percent %>%</span>
-        </div>
+            </div>
+
+            <div class="circle-label">
+              <%= label %>
+            </div>
+
+          </div>
+        <% end %>
 
       </div>
-
-      <div class="circle-label">
-        <%= label %>
-      </div>
-
     </div>
-  <% end %>
-
-</div>
-</div>
+  </div>
 
 
-    <!-- Bar chart -->
-<div class="milestones-stats-card__chart-wrapper milestones-stats-card__chart-wrapper--bar">
 
-  <%= column_chart weekly_activity,
-    height: "360px",
-    adapter: "google",
-    stacked: false,
-    colors: ["#2563eb", "#f97316", "#22c55e", "#ef4444"],
+  <!-- RIGHT SIDE -->
+  <div class="stats-right">
+    <h3 class="stats-section-title">Last 4 Weeks Statistics</h3>
 
-    library: {
-
-      backgroundColor: "transparent",
-
-      animation: {
-        startup: true,
-        duration: 900,
-        easing: "out"
-      },
-
-      bar: { groupWidth: "40%" },
-
-      legend: { position: "none" },
-
-      hAxis: {
-        title: "Week",
-        titleTextStyle: { color: "#4b5563", fontSize: 12, italic: false },
-        textStyle: { color: "#6b7280", fontSize: 12 },
-        showTextEvery: 1,
-        slantedText: false,
-        gridlines: { color: "transparent" }
-      },
-
-      vAxis: {
-        title: "Count",
-        titleTextStyle: { color: "#4b5563", fontSize: 12, italic: false },
-        minValue: 0,
-        viewWindow: { min: 0 },
-        textStyle: { color: "#9ca3af", fontSize: 12 },
-        gridlines: { color: "#e5e7eb" }
-      },
-
-      chartArea: {
-        left: "10%",
-        width: "85%",
-        top: "5%",
-        height: "80%"
-      }
-    }
-  %>
+    <div class="milestones-stats-card__chart-wrapper milestones-stats-card__chart-wrapper--bar">
+      <%= column_chart weekly_activity,
+        height: "260px",
+        adapter: "google",
+        stacked: false,
+        colors: ["#2563eb", "#f97316", "#22c55e", "#ef4444"],
+        library: {
+          backgroundColor: "transparent",
+          animation: { startup: true, duration: 900, easing: "out" },
+          bar: { groupWidth: "40%" },
+          legend: { position: "none" },
+          hAxis: {
+            title: "Week",
+            titleTextStyle: { color: "#4b5563", fontSize: 12, italic: false },
+            textStyle: { color: "#6b7280", fontSize: 12 },
+            gridlines: { color: "transparent" }
+          },
+          vAxis: {
+            title: "Count",
+            titleTextStyle: { color: "#4b5563", fontSize: 12, italic: false },
+            minValue: 0,
+            viewWindow: { min: 0 },
+            textStyle: { color: "#9ca3af", fontSize: 12 },
+            gridlines: { color: "#e5e7eb" }
+          },
+          chartArea: {
+            left: "10%",
+            width: "85%",
+            top: "5%",
+            height: "80%"
+          }
+        }
+      %>
+    </div>
+  </div>
 
 </div>
 

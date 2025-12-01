@@ -29,12 +29,12 @@
 }
 
 .milestones-stats-card__header {
-  margin-bottom: 0.75rem;
+  margin-bottom: 2.5rem;
 
   h2 {
     margin: 0;
     color: #1F5FCC;
-    font-size: 1.45rem;
+    font-size: 1.60rem;
     font-weight: 700;
   }
 }
@@ -46,22 +46,24 @@
 }
 
 .milestones-stats-card__body {
-  flex: 1;
-  min-height: 260px;
   display: grid;
-  grid-template-columns: minmax(0, 1.05fr) minmax(0, 1.4fr);
-  gap: 1.4rem;
-  align-items: center;   
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  align-items: flex-start;
 }
 
 /* Chart-Container – füllt den verfügbaren Platz */
 .milestones-stats-card__chart-wrapper {
-  height: 100%;
+  width: 100%;
+  height: auto;
+  overflow: visible;
 }
 
 /* damit Google Charts gut im Container sitzen */
 .milestones-stats-card__chart-wrapper > div {
   height: 100% !important;
+  position: relative !important;
+  width: 100% !important;
 }
 
 /* ===========================
@@ -161,15 +163,18 @@
 /*--------------- Graphic of pie ---------------*/
 
 .stats-circles-grid {
-  height: 100%;
   display: flex;
-  align-items: center;
-  justify-content: space-around;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  align-items: flex-start;
+  justify-content: space-between;
+  max-width: 688px;
+  margin-top: 16px;
 }
 
 .progress-circle {
-  width: 150px;
-  height: 150px;
+  width: 130px;
+  height: 130px;
   position: relative;
   transform: rotate(-90deg);
 
@@ -192,7 +197,7 @@
 
 .layer-2 {
   position: absolute;
-  inset: 20px;    /* antes era 12px (muito grande) */
+  inset: 20px;    
   background: #f3f3f3;
   border-radius: 50%;
   filter: drop-shadow(0 5px 8px rgba(0,0,0,0.10));
@@ -200,7 +205,7 @@
 
 .layer-3 {
   position: absolute;
-  inset: 35px;    /* antes era 24px */
+  inset: 35px;    
   background: #e1e1e1;
   border-radius: 50%;
   filter: drop-shadow(0 5px 8px rgba(0,0,0,0.10));
@@ -260,3 +265,28 @@ rect {
 rect:hover {
   opacity: 0.9 !important;
 }
+
+.stats-left,
+.stats-right {
+  display: flex;
+  flex-direction: column;
+  min-height: 340px;
+}
+
+.stats-left {
+  padding-top: 4px;
+}
+
+.stats-right {
+  justify-content: flex-start;
+  align-items: flex-start;
+  overflow: hidden;
+}
+
+.stats-section-title {
+  margin-bottom: 1rem;
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #1F5FCC;
+}
+
