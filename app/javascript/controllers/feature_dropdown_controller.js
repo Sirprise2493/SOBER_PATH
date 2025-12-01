@@ -1,52 +1,68 @@
+// app/javascript/controllers/feature_dropdown_controller.js
 import { Controller } from "@hotwired/stimulus"
 
 export default class extends Controller {
   static targets = ["button", "box"]
-
-  connect() {
-    this.descriptions = {
-      concept: "Our mission is combining peer support, evidence-based tools, and expert guidance to empower lasting recovery.",
-      studies: "Access data, clinical studies, and scientific findings about addiction, healing strategies, and recovery best-practice.",
-      statistics: "Real progress, positive outcomes, and inspiring numbers from the SoberPath community."
-    }
-    this.currentFeature = null
-    this.handleClickOutside = this.handleClickOutside.bind(this)
-    document.addEventListener('click', this.handleClickOutside)
-  }
-
-  disconnect() {
-    document.removeEventListener('click', this.handleClickOutside)
-  }
+  currentPanel = null
 
   show(event) {
-    const feature = event.currentTarget.dataset.feature
+    const panelName = event.currentTarget.dataset.panel
+    this.activate(panelName)
+  }
 
-    if (this.currentFeature === feature) {
+  activate(panelName) {
+    const isSamePanel = this.currentPanel === panelName
+    const isOpen = this.boxTarget.classList.contains("show")
+
+    // Same button & box open -> close
+    if (isSamePanel && isOpen) {
       this.closeBox()
       return
     }
 
-    this.buttonTargets.forEach(btn => btn.classList.remove("active"))
-    event.currentTarget.classList.add("active")
+    // Otherwise open with new content
+    this.openBox(panelName)
+  }
 
-    this.boxTarget.innerHTML = `<div class="main-feature-desc">${this.descriptions[feature]}</div>`
-    this.boxTarget.classList.add("show")
-    this.currentFeature = feature
+  openBox(panelName) {
+    this.currentPanel = panelName
+
+    // Update buttons
+    this.buttonTargets.forEach((button) => {
+      const active = button.dataset.panel === panelName
+      button.classList.toggle("feature-btn--active", active)
+      button.setAttribute("aria-pressed", active ? "true" : "false")
+    })
+
+    // Load content from hidden panel
+    const source = this.element.querySelector(
+      `[data-panel='${panelName}-content']`
+    )
+
+    if (source) {
+      this.boxTarget.innerHTML = source.innerHTML
+      this.boxTarget.classList.add("show")
+
+      // Manually scroll page so the box is clearly visible
+      const rect = this.boxTarget.getBoundingClientRect()
+      const absoluteTop = rect.top + window.scrollY
+
+      window.scrollTo({
+        top: absoluteTop - 120, // adjust 120 to where you want the box to sit
+        behavior: "smooth"
+      })
+    }
   }
 
   closeBox() {
-    this.boxTarget.innerHTML = ""
-    this.boxTarget.classList.remove("show")
-    this.buttonTargets.forEach(btn => btn.classList.remove("active"))
-    this.currentFeature = null
-  }
+    this.currentPanel = null
 
-  handleClickOutside(event) {
-    if (
-      !this.element.contains(event.target) &&
-      this.boxTarget.classList.contains('show')
-    ) {
-      this.closeBox()
-    }
+    this.buttonTargets.forEach((button) => {
+      button.classList.remove("feature-btn--active")
+      button.setAttribute("aria-pressed", "false")
+    })
+
+    this.boxTarget.classList.remove("show")
+    this.boxTarget.innerHTML = ""
   }
 }

@@ -1,6 +1,5 @@
 body {
   margin: 0;
-  font-family: 'Inter', sans-serif;
   background: #fff;
 }
 .hero {
@@ -26,7 +25,7 @@ body {
     inset: 0;
     border-radius: 32px;
     z-index: 1;
-    background: linear-gradient(to bottom, #2184e0, #175ea0);
+    background: linear-gradient(180deg, #06A0FF 0%, #005299 100%);
     transform: translate(-20%, -50%) rotate(18deg);
   }
   .hero-visual-img {
@@ -43,7 +42,7 @@ body {
     transform: translate(-20%,-22%);
   }
   .btn-primary {
-    background-color: linear-gradient(to bottom, #2184e0, #175ea0);
+    background-color: $primary;
     color: #ffffff;
     display: inline-flex;
     align-items: center;
@@ -51,41 +50,50 @@ body {
     border-radius: 8px;
     font-weight: 600;
     font-size: 1rem;
+    transition: background-color 0.2s ease, transform 0.1 ease;
+  }
+  .btn-primary:hover,
+  .btn-primary:focus {
+    background-color: $primary-dark;
+    transform: translateY(-1px);
   }
   p {
-    color: #175ea0;
-    font-size: 1.125rem;
+    color: $primary-dark;
+    font-size: 1.5rem;
     line-height: 1.5;
+  }
+  h1 {
+    color: $primary-dark;
+    font-size: 3.0rem;
+    font-weight: 600;
+    line-height: 1.1;
+  }
+  .hero h1.text-gradient {
+    font-size: 3.0rem;
+    font-weight: 600;
   }
 }
 
-
-
-
-
-
-
-
-
-.hero-subtitle {color: #225a30; font-size: 1.14rem; margin-bottom: 1.39rem;}
+.hero-subtitle {color: $primary; font-size: 1.14rem; margin-bottom: 1.39rem;}
 .hero-buttons { display: flex; gap: 1.21rem; }
 
 .main-feature-green {
   width: 100vw;
-  background: linear-gradient(135deg, $primary-dark, $primary);
+  background: linear-gradient(180deg, #06A0FF 0%, #005299 100%);
   color: #fff;
-  padding: 2.8rem 0 2.9rem 0;
+  padding: 1.6rem 0 1.8rem 0;
   text-align: center;
   margin-bottom: 0;
 }
 .main-feature-green h2 { font-size: 1.41rem; font-weight: 700; margin-bottom: 1.09rem;}
-.main-feature-green p { font-size: 1.16rem; margin-bottom: 2.08rem; font-weight: 400; }
+.main-feature-green p { font-size: 1.4rem; margin-bottom: 1.4rem; font-weight: 400; }
 
-.main-feature-buttons {
+.main-feature-buttons,
+.feature-buttons {
   display: flex;
   gap: 1.22rem;
   justify-content: center;
-  margin-bottom: 2.03rem;
+  margin: 0.8rem 0 0;
 }
 .feature-btn {
   background: none;
@@ -96,34 +104,85 @@ body {
   padding: 1.12rem 2.52rem;
   font-size: 1.18rem;
   cursor: pointer;
-  transition: background .19s, color .19s;
+  transition: background-color 0.2s ease, color 0.2s, transform 0.1s ease;
   box-shadow: none;
 }
-.feature-btn.active, .feature-btn:focus {
-  background: #fff; color: #225a30;
+.feature-btn:hover {
+  background-color: $primary-dark;
+  transform: translate(-1px);
+}
+.feature-btn--active,
+.feature-btn:focus {
+  background-color: #ffffff;
+  color: $primary;
+  border-color: #ffffff;
 }
 
 .main-feature-box {
-  margin: 0 auto;
-  text-align: center;
-  min-height: 68px;
+  margin: 0.6rem auto 0;
+  text-align: left;
+  min-height: 100px;
   box-shadow: 0 2px 12px rgba(35,90,48,0.07);
   background: #fff;
-  color: #225a30;
+  color: $primary-dark;
   border-radius: 11px;
   padding: 1.5rem 1.4rem;
   font-size: 1.19rem;
+
   opacity: 0;
   max-height: 0;
   overflow: hidden;
-  transition: max-height 0.41s cubic-bezier(.41,0,.13,1), opacity .21s;
+  transform: translateY(8px);
+  transition:
+    max-height 0.45s cubic-bezier(.25,.1,.25,1),
+    opacity 0.25s ease-out,
+    transform 0.45s cubic-bezier(.25,.1,.25,1);
 }
 .main-feature-box.show {
   opacity: 1;
-  max-height: 173px;
+  max-height: 240px;
+  transform: translateY(0);
 }
-
 .main-feature-desc {
   font-size: 1.21rem;
-  font-family: 'Inter', Arial, sans-serif;
+}
+.feature-panel {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1.5rem;
+}
+.feature-panel__text {
+  flex: 1 1 60%;
+  text-align: justify;
+  margin: 0 1.5rem 0 2rem;
+  .feature-panel__text p {
+    text-align: justify;
+  }
+}
+.feature-panel__image {
+  flex: 0 0 25%;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  margin-right: 1.5rem;
+}
+.feature-panel-image {
+  max-width: 160px;
+  height: auto;
+  display: block;
+}
+.hero-person {
+  max-width: 220px;
+  height: auto;
+}
+.alcohol-studies__link {
+  text-decoration: none;
+  color: $primary-dark;
+  font-weight: 600;
+}
+.alcohol-studies__link:hover,
+.alcohol-studies__link:focus {
+  text-decoration: none;
+  color: $primary;
 }
