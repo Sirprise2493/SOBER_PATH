@@ -25,8 +25,8 @@
         <% end %>
 
         <div class="field">
-          <%= f.label :content, "What's on your mind today?" %><br>
-          <%= f.text_area :content, rows: 14, maxlength: 1000  %>
+          <%= f.label :content, "What's on your mind today?", class: "label" %><br>
+          <%= f.text_area :content, rows: 12, maxlength: 700  %>
         </div>
 
         <div class="actions">
@@ -47,7 +47,7 @@
         <%= render "journal_contents/ai_panel", journal_content: journal_content %>
       </turbo-frame>
     <% elsif date == today %>
-      <p>After saving today's entry, an AI-generated picture and motivational text will appear here.</p>
+      <p class="to-generate">After saving today's entry, an AI-generated picture and motivational text will appear here.</p>
     <% else %>
       <p>No picture for this day.</p>
     <% end %>

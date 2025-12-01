@@ -17,8 +17,6 @@
     flex: 1;
     padding: 1.5rem;
 
-
-    font-family: "Great Vibes", "Segoe Script", "Lucida Handwriting", cursive;
     /*background-color: #f4e4bc; */
     background-color: #f7faff;
     /* color: #3b2a1a; */
@@ -29,7 +27,6 @@
     display: flex;
     flex-direction: column;
     overflow: auto;
-    font-size: 1.2rem;
 
     /* Typo / Grundstil */
     h2 {
@@ -45,6 +42,15 @@
     &.left {
       border-right: 1px solid #eee;
       box-shadow: -10px 15px 30px rgba(0,0,0,0.8);
+      font-family: "Caveat", "Segoe Script", "Lucida Handwriting", cursive;
+
+      h2 {
+        font-size: 2.8rem;
+      }
+
+      p {
+        font-size: 1.8rem;
+      }
 
       form {
         display: flex;
@@ -53,12 +59,17 @@
       }
 
       .field {
+        font-size: 1.8rem;
+
+        .label {
+          margin-bottom: 0.5rem;
+        }
+
         textarea {
           width: 100%;
           resize: vertical;
           font-family: inherit;
-          font-size: 1.2rem;
-          line-height: 1.5;
+          line-height: 1.2;
           /* background-color: #f4e4bc; */
           background-color: #f7faff;
         }
@@ -73,6 +84,10 @@
       display: flex;
       flex-direction: column;
       box-shadow: 10px 15px 30px rgba(0,0,0,0.8);
+
+      .to-generate {
+        text-align: center;
+      }
 
       .photo {
         flex: 1 1 auto;
@@ -98,44 +113,50 @@
     }
 
 
-    .btn,
-    .actions input[type="submit"] {
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
-                   sans-serif;
-      font-size: 0.95rem;
-      font-weight: 500;
-      letter-spacing: 0.03em;
+  .btn,
+  .actions input[type="submit"] {
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    font-size: 0.95rem;
+    font-weight: 500;
+    letter-spacing: 0.03em;
 
-      padding: 0.55rem 2.2rem;
-      border-radius: 9999px;
-      background: #6faefb;
-      color: #ffffff;
-      cursor: pointer;
-      align-self: flex-start;
+    padding: 0.55rem 2.2rem;
+    border-radius: 9999px;
 
-      box-shadow: 0 2px 6px rgba(129, 128, 128, 0.15);
+    // Rand dünner oder unsichtbar
+    border: 1px solid transparent; // oder: border: none;
 
-      transition:
-        background 0.15s ease,
-        transform 0.1s ease,
-        box-shadow 0.15s ease;
+    background: $primary;
+    color: #ffffff;
+    cursor: pointer;
+    align-self: flex-start;
 
-      &:hover {
-        background: #5a9af1;
-        box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
-        transform: translateY(-1px);
-      }
+    box-shadow: 0 2px 6px rgba(129, 128, 128, 0.15);
 
-      &:active {
-        background: #4b89dd;
-        box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
-        transform: translateY(0);
-      }
+    transition:
+      background 0.15s ease,
+      transform 0.1s ease,
+      box-shadow 0.15s ease,
+      border-color 0.15s ease;
 
-      &:focus-visible {
-        outline: 2px solid #2f73d9;
-        outline-offset: 2px;
-      }
+    &:hover {
+      background: $primary-dark;
+      border-color: $primary-dark;
+      box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
+      transform: translateY(-1px);
     }
+
+    &:active {
+      background: $primary-dark;
+      box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
+      transform: translateY(0);
+    }
+
+    &:focus-visible {
+      outline: 1px solid $primary-dark;
+      outline-offset: 2px;
+    }
+  }
+
   }
 }

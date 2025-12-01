@@ -47,6 +47,7 @@
         background 0.15s ease,
         box-shadow 0.15s ease,
         transform 0.1s ease;
+      white-space: nowrap;
 
       &:hover {
         background: #eaeaea;
@@ -75,6 +76,29 @@
           background: #f0f6ff;
           box-shadow: 0 2px 6px rgba(0,0,0,0.12);
         }
+      }
+
+      &--prev::before,
+      &--next::after {
+        content: "";
+        display: inline-block;
+        width: 0.45rem;
+        height: 0.45rem;
+        border: 2px solid currentColor;
+      }
+
+      &--prev::before {
+        border-top: 0;
+        border-right: 0;
+        transform: translateY(1px) rotate(45deg);
+        margin-right: 0.6rem;
+      }
+
+      &--next::after {
+        border-bottom: 0;
+        border-left: 0;
+        transform: translateY(1px) rotate(45deg);
+        margin-left: 0.6rem;
       }
 
       &--disabled {

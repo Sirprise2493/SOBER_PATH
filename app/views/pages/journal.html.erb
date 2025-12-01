@@ -4,16 +4,16 @@
   <div class="journal-nav journal-nav--top">
     <div class="journal-nav__slot journal-nav__slot--left">
       <% if @previous_entry_date.present? %>
-        <%= link_to "← Previous",
+        <%= link_to "Previous",
                     journal_path(
                       date: @previous_entry_date,
                       calendar_date: @calendar_date
                     ),
-                    class: "journal-nav__button",
+                    class: "journal-nav__button journal-nav__button--prev",
                     data: { action: "click->scroll-top#go" } %>
       <% else %>
-        <span class="journal-nav__button journal-nav__button--disabled">
-          ← Previous
+        <span class="journal-nav__button journal-nav__button--disabled journal-nav__button--prev">
+          Previous
         </span>
       <% end %>
     </div>
@@ -41,16 +41,16 @@
 
     <div class="journal-nav__slot journal-nav__slot--right">
       <% if @next_entry_date.present? %>
-        <%= link_to "Next →",
+        <%= link_to "Next",
                     journal_path(
                       date: @next_entry_date,
                       calendar_date: @calendar_date
                     ),
-                    class: "journal-nav__button",
+                    class: "journal-nav__button journal-nav__button--next",
                     data: { action: "click->scroll-top#go" } %>
       <% else %>
-        <span class="journal-nav__button journal-nav__button--disabled">
-          Next →
+        <span class="journal-nav__button journal-nav__button--disabled journal-nav__button--next">
+          Next
         </span>
       <% end %>
     </div>
