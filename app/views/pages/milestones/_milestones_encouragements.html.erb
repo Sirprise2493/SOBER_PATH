@@ -17,7 +17,6 @@
     <% if total_pages > 1 %>
       <nav class="encouragements-panel__pagination encouragement-chat__pagination">
         <div class="encouragement-chat__pagination-links">
-          <%# Previous button %>
           <% if page > 1 %>
             <%= link_to "«",
                         milestones_path(enc_page: page - 1),
@@ -29,8 +28,22 @@
             </span>
           <% end %>
 
-          <%# Page numbers %>
-          <% (1..total_pages).each do |num| %>
+          <% visible_pages = [] %>
+          <% visible_pages << 1 %>
+          <% ((page - 1)..(page + 1)).each do |num| %>
+            <% visible_pages << num if num > 1 && num < total_pages %>
+          <% end %>
+          <% visible_pages << total_pages if total_pages > 1 %>
+          <% visible_pages = visible_pages.uniq.sort %>
+
+          <% last_page = nil %>
+          <% visible_pages.each do |num| %>
+            <% if last_page && num > last_page + 1 %>
+              <span class="encouragement-chat__pagination-link encouragement-chat__pagination-link--ellipsis">
+                …
+              </span>
+            <% end %>
+
             <% if num == page %>
               <span class="encouragement-chat__pagination-link encouragement-chat__pagination-link--active">
                 <%= num %>
@@ -41,9 +54,10 @@
                           data: { turbo_frame: "encouragement_chat" },
                           class: "encouragement-chat__pagination-link" %>
             <% end %>
+
+            <% last_page = num %>
           <% end %>
 
-          <%# Next button %>
           <% if page < total_pages %>
             <%= link_to "»",
                         milestones_path(enc_page: page + 1),
@@ -57,7 +71,7 @@
         </div>
       </nav>
     <% end %>
-      <% else %>
+  <% else %>
     <div class="encouragements-empty-state">
       <p class="encouragements-empty-state__title">
         No encouragements yet
@@ -68,5 +82,3 @@
     </div>
   <% end %>
 </section>
-
-

@@ -3,10 +3,9 @@
 
 <% if current_milestone.present? %>
   <section class="page-milestones__badge milestones-badge">
-    <div class="milestones-badge__inner">
+    <div class="milestones-badge__inner row g-4 align-items-stretch">
 
-      <!-- LINKS: Hero mit Banner & Current Milestone -->
-      <div class="milestones-badge__left">
+      <div class="milestones-badge__left col-12 col-md-6">
         <div class="milestones-badge-hero">
           <div class="milestones-badge-hero__visual">
             <div class="milestones-badge-hero__banner"></div>
@@ -20,13 +19,11 @@
             <p class="milestones-badge-hero__milestone">
               <strong><%= current_milestone[:name].upcase %></strong>
             </p>
-
           </div>
         </div>
       </div>
 
-      <!-- RECHTS: Badge mit Coin in der Mitte -->
-      <div class="milestones-badge__right">
+      <div class="milestones-badge__right col-12 col-md-6">
         <div class="sobriety-badge">
           <%= image_tag "aa_backgrounds/7.png",
                         class: "sobriety-badge__bg-img" %>

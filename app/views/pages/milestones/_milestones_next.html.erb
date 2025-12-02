@@ -3,10 +3,9 @@
 
 <% if current_milestone.present? %>
   <section class="page-milestones__next milestones-next">
-    <div class="milestones-next__inner">
+    <div class="milestones-next__inner row g-4 align-items-stretch">
 
-      <!-- LEFT: Hero mit Current Milestone -->
-      <div class="milestones-next__left">
+      <div class="milestones-next__left col-12 col-md-6">
         <div class="milestones-next-hero">
           <div class="milestones-next-hero__visual">
             <div class="milestones-next-hero__banner"></div>
@@ -24,8 +23,8 @@
         </div>
       </div>
 
-      <!-- RIGHT: kombinierte Karte (Next milestone + Celebrations) -->
-      <div class="milestones-next__right">
+      <div class="milestones-next__right col-12 col-md-6">
+        <% next_milestone, target_time = user.next_coin_milestone_with_time || [] %>
         <% has_next     = next_milestone && target_time %>
         <% celebrations = current_milestone[:celebrations] if current_milestone.present? %>
         <% has_ideas    = celebrations.present? %>
@@ -57,9 +56,6 @@
                     </p>
                   <% end %>
 
-
-
-
                   <% if user.sobriety_start_date.present? && user.sobriety_days.present? %>
                     <% sober_days  = user.sobriety_days.to_i %>
                     <% sober_years = (sober_days / 365.0).floor %>
@@ -82,7 +78,6 @@
                   </p>
                   <p class="milestones-next-card__countdown sobriety-badge__countdown"
                      data-countdown-target="output">
-                    <!-- filled by Stimulus -->
                   </p>
                 </section>
               <% end %>

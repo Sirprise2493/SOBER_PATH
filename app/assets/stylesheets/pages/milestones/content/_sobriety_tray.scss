@@ -1,29 +1,22 @@
-/* ===========================
-   Milestones Tray (unten)
-   =========================== */
-
 .milestones-tray {
-  width: 100%;              // neu: 90% des Containers
+  width: 100%;
   max-width: 100%;
-  margin: 0 auto 2rem;     // zentriert + Abstand
-  display: flex;
-  justify-content: center;
+  margin: 0;
   overflow: hidden;
+  height: 100%;
 
   &__inner {
-    width: 100%;           // orientiert sich an den 90% der Section
-    display: flex;
-    gap: 1.75rem;
+    width: 100%;
     align-items: stretch;
+    height: 100%;
   }
 
   &__left,
   &__right {
-    flex: 1;
     display: flex;
     flex-direction: column;
-    aspect-ratio: 1 / 1;   // gleiche Außenmaße
     border-radius: 20px;
+    height: 100%;
   }
 
   &__left {
@@ -42,10 +35,6 @@
     align-items: center;
   }
 }
-
-/* ===========================
-   Hero links (Tray-Partial)
-   =========================== */
 
 .milestones-tray-hero {
   display: flex;
@@ -75,8 +64,8 @@
     position: absolute;
     bottom: -6%;
     left: 50%;
-    transform: translate(-40%, -4.6%);
-    max-height: 80%;
+    transform: translate(-43%, -4.6%);
+    max-height: 75%;
     height: auto;
     width: auto;
     pointer-events: none;
@@ -113,10 +102,6 @@
   }
 }
 
-/* ===========================
-   Tray-Card rechts
-   =========================== */
-
 .milestones-tray__right {
   .sobriety-tray {
     position: relative;
@@ -129,8 +114,6 @@
   }
 }
 
-/* Tray-Styles */
-
 .sobriety-tray {
   position: relative;
   display: inline-block;
@@ -142,7 +125,7 @@
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
-    width: 90%;   // hier kannst du vergrößern, wenn du magst
+    width: 90%;
     height: auto;
     object-fit: contain;
     z-index: 0;
@@ -156,7 +139,6 @@
     pointer-events: auto;
     transition: transform 0.15s ease, box-shadow 0.15s ease;
     z-index: 1;
-
   }
 }
 
@@ -226,8 +208,6 @@
   }
 }
 
-/* Animationen Tray */
-
 @keyframes milestones-tray-slide-in-from-top {
   0% {
     opacity: 0;
@@ -261,27 +241,30 @@
   }
 }
 
-/* Responsive */
-
 @media (max-width: 800px) {
   .milestones-tray {
+    height: auto;
+
     &__inner {
-      flex-direction: column;
-      gap: 1.25rem;
+      height: auto;
     }
 
     &__left,
     &__right {
-      flex: 0 0 100%;
-      width: 100%;
-      aspect-ratio: auto;
+      height: auto;
     }
   }
 
   .milestones-tray-hero {
+    height: auto;
+
     &__visual {
       aspect-ratio: 4 / 5;
     }
+  }
+
+  .milestones-tray__right .sobriety-tray {
+    height: 340px;
   }
 
   .sobriety-tray__coin {

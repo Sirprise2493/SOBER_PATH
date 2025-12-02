@@ -1,14 +1,9 @@
-/* =========================================
-   ENCOURAGEMENTS PANEL (SIMPLE LIST)
-========================================= */
-
 .encouragements-panel {
   display: flex;
   flex-direction: column;
-  height: 100%;              // ⭐ fill the milestones-content panel
-  padding-bottom: 0.75rem;   // lift pagination off the bottom edge
+  height: 100%;
+  padding-bottom: 0.75rem;
 
-  /* Header */
   &__header {
     padding: 1rem 1.25rem 0.75rem;
     border-bottom: 1px solid #e5e7eb;
@@ -28,17 +23,15 @@
     color: #6b7280;
   }
 
-  /* List */
   &__list {
-    flex: 1;                       // ⭐ take remaining space
+    flex: 1;
     padding: 1rem 1.25rem;
-    overflow-y: auto;              // ⭐ only the list scrolls
+    overflow-y: auto;
     display: flex;
     flex-direction: column;
     gap: 0.85rem;
   }
 
-  /* Each item (card) */
   &__item {
     transition:
       background-color 0.25s ease,
@@ -57,7 +50,6 @@
     border-color: #dbeafe !important;
   }
 
-  /* Footer row (left: status + delete, right: time) */
   &__footer {
     margin-top: 0.6rem;
     display: flex;
@@ -72,7 +64,6 @@
     flex-wrap: wrap;
   }
 
-  /* NEW badge */
   &__badge {
     padding: 0.1rem 0.55rem;
     border-radius: 999px;
@@ -84,7 +75,6 @@
     letter-spacing: 0.05em;
   }
 
-  /* Mark as read link */
   &__mark-read {
     font-size: 0.78rem;
     color: #2563eb;
@@ -95,7 +85,6 @@
     }
   }
 
-  /* Seen label with checkmark */
   &__seen {
     font-size: 0.78rem;
     color: #9ca3af;
@@ -104,7 +93,6 @@
     gap: 0.25rem;
   }
 
-  /* Dismiss link */
   &__dismiss {
     font-size: 0.78rem;
     color: #6b7280;
@@ -116,24 +104,18 @@
     }
   }
 
-  /* Timestamp text */
   &__time {
     font-size: 0.78rem;
     color: #9ca3af;
     white-space: nowrap;
   }
 
-  /* "· Birthday", "· 5 Years milestone" */
   &__reason {
     font-size: 0.83rem;
     color: #6b7280;
     margin-left: 0.15rem;
   }
 }
-
-/* ===============================
-   EMPTY STATE
-================================ */
 
 .encouragements-empty-state {
   padding: 3rem 1rem;
@@ -153,10 +135,6 @@
   max-width: 380px;
   margin: 0 auto;
 }
-
-/* ===============================
-   PAGINATION
-================================ */
 
 .encouragements-panel__pagination {
   padding: 0.75rem 1.25rem 0.9rem;
@@ -184,7 +162,6 @@
   text-align: center;
   text-decoration: none;
   cursor: pointer;
-
   background: #e5e7eb;
   color: #374151;
 
@@ -213,5 +190,11 @@
     &:hover {
       background: transparent;
     }
+  }
+
+  &--ellipsis {
+    background: transparent;
+    border-color: transparent;
+    cursor: default;
   }
 }
