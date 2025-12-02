@@ -1,25 +1,16 @@
-/* ===========================
-   Milestones Next (Hero + Card)
-   =========================== */
-
 .milestones-next {
   width: 100%;
   max-width: 100%;
-  margin: 0 auto 2rem;
-  display: flex;
-  justify-content: center;
+  margin: 0;
   overflow: hidden;
 
   &__inner {
     width: 100%;
-    display: flex;
-    gap: 1.75rem;
     align-items: stretch;
   }
 
   &__left,
   &__right {
-    flex: 1;
     display: flex;
     flex-direction: column;
     aspect-ratio: 1 / 1;
@@ -39,12 +30,10 @@
     animation: milestones-next-slide-in-from-bottom 0.7s ease-out forwards;
     animation-delay: 0.15s;
     padding: 0.75rem;
+    height: 100%;
+    min-height: 0;
   }
 }
-
-/* ===========================
-   Hero links
-   =========================== */
 
 .milestones-next-hero {
   display: flex;
@@ -125,10 +114,6 @@
   }
 }
 
-/* ===========================
-   Rechte Karte (Next + Celebrations)
-   =========================== */
-
 .milestones-next-card {
   position: relative;
   width: 100%;
@@ -142,21 +127,22 @@
     0 0 0 1px rgba(255, 255, 255, 0.9);
   overflow: hidden;
   display: flex;
+  flex-direction: column;
   align-items: stretch;
 
   &__body {
     position: relative;
-    padding: 1.9rem 2.0rem 1.9rem;
+    padding: 1.9rem 2rem 1.9rem;
     display: flex;
     flex-direction: column;
     gap: 1.4rem;
     width: 100%;
     z-index: 1;
+    flex: 1 1 auto;
+    min-height: 0;
+    overflow-y: auto;
   }
 
-  /* =======================
-     TOP-Block (Next milestone)
-     ======================= */
   &__section--next {
     background: linear-gradient(135deg, #0077d9, #004b9a);
     border-radius: 18px;
@@ -165,11 +151,10 @@
     color: #e5f3ff;
   }
 
-  /* Eyebrow: größer wie eine kleine Überschrift */
   &__section--next .milestones-next-card__eyebrow {
     text-transform: uppercase;
     letter-spacing: 0.18em;
-    font-size: 1rem;         // vorher 0.85rem
+    font-size: 1rem;
     font-weight: 800;
     margin: 0 0 0.2rem;
     display: inline-flex;
@@ -195,10 +180,9 @@
     color: #f9fafb;
   }
 
-  /* Description größer */
   &__section--next .milestones-next-card__description {
     margin: 0.3rem 0 0.3rem;
-    font-size: 1.08rem;      // vorher 1rem
+    font-size: 1.08rem;
     line-height: 1.8;
     color: #e5e7eb;
   }
@@ -222,7 +206,6 @@
     color: #bfdbfe;
   }
 
-  /* Countdown – weißes, leuchtendes Pill im blauen Block */
   &__section--next .milestones-next-card__countdown {
     font-family: "SF Mono", ui-monospace, Menlo, Monaco, Consolas,
       "Liberation Mono", "Courier New", monospace;
@@ -235,7 +218,6 @@
     display: inline-flex;
     align-items: center;
     gap: 0.5rem;
-
     box-shadow: 0 0 0 rgba(255, 255, 255, 0.7);
     animation: badge-countdown-glow 2.4s ease-in-out infinite;
 
@@ -246,7 +228,6 @@
     }
   }
 
-  /* Divider */
   &__divider {
     height: 1px;
     width: 100%;
@@ -259,18 +240,14 @@
     );
   }
 
-  /* =======================
-     BOTTOM-Block (Ideas) – Pill-Layout
-     ======================= */
   &__section--celebrations {
     background: transparent;
     padding: 0.6rem 0 0.2rem;
   }
 
-  /* Sub-Überschrift größer */
   &__celebrations-title {
     margin: 0 0 0.5rem;
-    font-size: 1.05rem;      // vorher 0.9rem
+    font-size: 1.05rem;
     font-weight: 750;
     letter-spacing: 0.14em;
     text-transform: uppercase;
@@ -286,7 +263,6 @@
     gap: 0.45rem;
   }
 
-  /* Jede Idee als kleine „Pill-Card“ */
   &__celebration-item {
     display: flex;
     align-items: center;
@@ -296,7 +272,6 @@
     color: #1f2933;
     line-height: 1.4;
     position: relative;
-
     background: linear-gradient(135deg, #ffffff, #f3f4f6);
     border-radius: 999px;
     border: 1px solid rgba(209, 213, 219, 0.8);
@@ -310,7 +285,6 @@
     }
   }
 
-  /* Bullet -> Check-Icon */
   &__bullet {
     margin: 0;
     width: 22px;
@@ -320,12 +294,10 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
-
     background: radial-gradient(circle, #22c55e, #16a34a);
     box-shadow: 0 6px 14px rgba(22, 163, 74, 0.4);
     color: #ecfdf5;
-
-    font-size: 0; // „•“ ausblenden
+    font-size: 0;
 
     &::before {
       content: "✓";
@@ -347,8 +319,11 @@
   }
 
   @media (max-width: 800px) {
+    height: auto;
+
     &__body {
       padding: 1.5rem 1.5rem 1.5rem;
+      overflow-y: visible;
     }
   }
 
@@ -376,10 +351,6 @@
   }
 }
 
-/* ===========================
-   Glow-Animation für Countdown
-   =========================== */
-
 @keyframes badge-countdown-glow {
   0%, 100% {
     box-shadow: 0 0 0 rgba(191, 219, 254, 0.7);
@@ -388,10 +359,6 @@
     box-shadow: 0 0 22px rgba(191, 219, 254, 1);
   }
 }
-
-/* ===========================
-   Spalten-Animation
-   =========================== */
 
 @keyframes milestones-next-slide-in-from-top {
   0% {
@@ -426,22 +393,12 @@
   }
 }
 
-/* ==========
-   Responsive
-   ========== */
-
 @media (max-width: 800px) {
   .milestones-next {
-    &__inner {
-      flex-direction: column;
-      gap: 1.25rem;
-    }
-
     &__left,
     &__right {
-      flex: 0 0 100%;
-      width: 100%;
       aspect-ratio: auto;
+      height: auto;
     }
   }
 

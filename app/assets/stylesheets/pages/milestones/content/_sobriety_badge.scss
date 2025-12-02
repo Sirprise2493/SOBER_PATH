@@ -1,28 +1,19 @@
-/* ===========================
-   Milestones Badge (oben)
-   =========================== */
-
 .milestones-badge {
-  width: 100%;              // neu: 90% des Containers
-  max-width: 100%;         // nicht mehr an px-Wert kappen
-  margin: 0 auto 2rem;     // zentrieren + Abstand nach unten
-  display: flex;
-  justify-content: center;
-  overflow: hidden;        // Animation sauber abschneiden
+  width: 100%;
+  max-width: 100%;
+  margin: 0;
+  overflow: hidden;
 
   &__inner {
-    width: 100%;           // neu: orientiert sich an den 90% der Section
-    display: flex;
-    gap: 1.75rem;
-    align-items: stretch;  // gleiche Höhe pro Zeile
+    width: 100%;
+    align-items: stretch;
   }
 
   &__left,
   &__right {
-    flex: 1;
     display: flex;
     flex-direction: column;
-    aspect-ratio: 1 / 1;   // gleiche Außenmaße (Höhe = Funktion von Breite)
+    aspect-ratio: 1 / 1;
     border-radius: 20px;
   }
 
@@ -40,10 +31,6 @@
     animation-delay: 0.15s;
   }
 }
-
-/* ===========================
-   Hero links (Badge-Partial)
-   =========================== */
 
 .milestones-badge-hero {
   display: flex;
@@ -115,7 +102,6 @@
   }
 }
 
-/* Countdown-Badge (wird aus Badge-Partial genutzt) */
 .sobriety-badge__countdown {
   margin: 0;
   padding: clamp(0.25rem, 0.5vh, 0.5rem)
@@ -160,7 +146,6 @@
   }
 }
 
-/* right Badge with Coin */
 .sobriety-badge {
   position: relative;
   width: 100%;
@@ -186,8 +171,6 @@
     height: auto;
   }
 }
-
-/* Animation Badge */
 
 @keyframes milestones-badge-slide-in-from-top {
   0% {
@@ -222,19 +205,10 @@
   }
 }
 
-/* Responsive */
-
 @media (max-width: 800px) {
   .milestones-badge {
-    &__inner {
-      flex-direction: column;
-      gap: 1.25rem;
-    }
-
     &__left,
     &__right {
-      flex: 0 0 100%;
-      width: 100%;
       aspect-ratio: auto;
     }
   }
