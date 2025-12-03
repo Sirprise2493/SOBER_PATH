@@ -2,6 +2,7 @@ body {
   margin: 0;
   background: #fff;
 }
+
 .hero {
   display: flex;
   align-items: center;
@@ -25,7 +26,7 @@ body {
     inset: 0;
     border-radius: 32px;
     z-index: 1;
-    background: linear-gradient(135deg, #06A0FF 0%, #005299 100%);
+    background: linear-gradient(135deg, $primary 0%, $primary-dark 100%);
     transform: translate(-20%, -50%) rotate(18deg);
   }
 
@@ -40,7 +41,7 @@ body {
     height: 75vh;
     left: 10%;
     top: 0%;
-    transform: translate(-20%,-22%);
+    transform: translate(-20%, -27.5%);
   }
 
   .btn-primary {
@@ -52,13 +53,13 @@ body {
     border-radius: 8px;
     font-weight: 600;
     font-size: 1rem;
-    transition: background-color 0.2s ease, transform 0.1 ease;
-  }
+    transition: background-color 0.2s ease, transform 0.1s ease;
 
-  .btn-primary:hover,
-  .btn-primary:focus {
-    background-color: $primary-dark;
-    transform: translateY(-1px);
+    &:hover,
+    &:focus {
+      background-color: $primary-dark;
+      transform: translateY(-1px);
+    }
   }
 
   p {
@@ -69,226 +70,109 @@ body {
 
   h1 {
     color: $primary-dark;
-    font-size: 3.0rem;
+    font-size: 3rem;
     font-weight: 600;
     line-height: 1.1;
+
+    &.text-gradient {
+      font-size: 3rem;
+      font-weight: 600;
+    }
   }
 
-  .hero h1.text-gradient {
-    font-size: 3.0rem;
-    font-weight: 600;
+  &-subtitle {
+    color: $primary;
+    font-size: 1.14rem;
+    margin-bottom: 1.39rem;
+  }
+
+  &-buttons {
+    display: flex;
+    gap: 1.21rem;
   }
 }
-
-.hero-subtitle {
-  color: $primary;
-  font-size: 1.14rem;
-  margin-bottom: 1.39rem;
-}
-
-.hero-buttons {
-  display: flex;
-  gap: 1.21rem;
-}
-
-/* HOW SOBERPATH WORKS SECTION */
 
 .main-feature-green {
   width: 100vw;
-  background: linear-gradient(135deg, #06A0FF 0%, #005299 100%);
+  background: linear-gradient(135deg, $primary 0%, $primary-dark 100%);
   color: #fff;
   padding: 1.6rem 0 1.8rem 0;
   text-align: center;
   margin-bottom: 0;
-}
 
-.main-feature-green h2 {
-  font-size: 1.41rem;
-  font-weight: 700;
-  margin-bottom: 1.09rem;
-}
+  h2 {
+    font-size: 1.41rem;
+    font-weight: 700;
+    margin-bottom: 1.09rem;
+  }
 
-.main-feature-green p {
-  font-size: 1.4rem;
-  margin-bottom: 1.4rem;
-  font-weight: 400;
-}
+  p {
+    font-size: 1.4rem;
+    margin-bottom: 1.4rem;
+    font-weight: 400;
+  }
 
-.main-feature-buttons,
-.feature-buttons {
-  display: flex;
-  gap: 1.22rem;
-  justify-content: center;
-  margin: 0.8rem 0 0;
-}
+  .main-feature-buttons,
+  .feature-buttons {
+    display: flex;
+    gap: 1.22rem;
+    justify-content: center;
+    margin: 0.8rem 0 0;
+  }
 
-.feature-btn {
-  background: none;
-  color: #fff;
-  font-weight: 700;
-  border: 2px solid #fff;
-  border-radius: 7px;
-  padding: 1.12rem 2.52rem;
-  font-size: 1.18rem;
-  cursor: pointer;
-  transition: background-color 0.2s ease, color 0.2s, transform 0.1s ease;
-  box-shadow: none;
-}
+  .feature-btn {
+    background: none;
+    color: #fff;
+    font-weight: 700;
+    border: 2px solid #fff;
+    border-radius: 7px;
+    padding: 1.12rem 2.52rem;
+    font-size: 1.18rem;
+    cursor: pointer;
+    transition: background-color 0.2s ease, color 0.2s, transform 0.1s ease;
+    box-shadow: none;
 
-.feature-btn:hover {
-  background-color: $primary-dark;
-  transform: translate(-1px);
-}
+    &:hover {
+      background-color: $primary-dark;
+      transform: translate(-1px);
+    }
 
-.feature-btn--active,
-.feature-btn:focus {
-  background-color: #ffffff;
-  color: $primary;
-  border-color: #ffffff;
-}
+    &--active,
+    &:focus {
+      background-color: #ffffff;
+      color: $primary;
+      border-color: #ffffff;
+    }
+  }
 
-/* expanding content box */
-.main-feature-box {
-  margin: 0.6rem auto 0;
-  text-align: left;
-  min-height: 200px;
-  box-shadow: 0 2px 12px rgba(35,90,48,0.07);
-  background: #fff;
-  color: $primary-dark;
-  border-radius: 16px;
-  padding: 0 1.4rem 1.5rem 0;
-  font-size: 1.19rem;
-  position: relative;
-  z-index: 2;
+  .main-feature-box {
+    margin: 0.6rem auto 0;
+    text-align: left;
+    min-height: 200px;
+    box-shadow: none;
+    background: transparent;
+    color: $primary-dark;
+    border-radius: 0;
+    padding: 0;
+    font-size: 1.19rem;
+    position: relative;
+    z-index: 2;
+    background-color: #ffffff;
 
-  opacity: 0;
-  overflow: visible;
-  transform: translateY(8px);
-  transition:
-    opacity 0.25s ease-out,
-    transform 0.45s cubic-bezier(.25,.1,.25,1);
-}
+    opacity: 0;
+    overflow: visible;
+    transform: translateY(8px);
+    transition:
+      opacity 0.25s ease-out,
+      transform 0.45s cubic-bezier(.25,.1,.25,1);
 
-.main-feature-box.show {
-  opacity: 1;
-  transform: translateY(0);
-}
+    &.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
 
-.main-feature-desc {
-  font-size: 1.21rem;
-}
-
-/* FEATURE PANELS + SHAPES INSIDE PARTIALS */
-
-.feature-panel {
-  display: flex;
-  gap: 1.5rem;
-  position: relative;
-  overflow: visible;
-}
-.feature-panel__title {
-  position: relative;
-  z-index: 2;
-  margin: 1.2rem 0 1.2rem;
-  padding-left: 1.3rem;
-  font-size: 1.8rem;
-  font-weight: 700;
-  text-align: left;
-}
-
-.feature-panel__inner,
-.feature-panel__image-inner {
-  position: relative;
-  flex: 1 1 50%;
-}
-
-/* wrapper for shapes behind text or image */
-.feature-panel__shapes {
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-  pointer-events: none;
-}
-
-.feature-shape {
-  position: absolute;
-  background: linear-gradient(180deg, #06A0FF 0%, #005299 100%);
-}
-
-/* PRIMARY SHAPE (square/rounded rectangle behind text) */
-.feature-shape--primary {
-  position: absolute;
-  top: 22%;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 100%;
-  height: 80%;
-  background: linear-gradient(180deg, #06A0FF 0%, #005299 100%);
-  border-radius: 0 32px 32px 0;
-}
-
-/* SECONDARY SHAPE (behind image) */
-.feature-shape--secondary {
-  position: absolute;
-  width: 40vw;
-  height: 30vh;
-  border-radius: 32px;
-  background: linear-gradient(180deg, #06A0FF 0%, #005299 100%);
-  transform: translate(-20%, -50%) rotate(18deg);
-
-  right: -8%;
-  top: 55%;
-  transform: translate(20%, -50%) rotate(-35deg);
-}
-
-/* text inside primary shape */
-.feature-panel__text {
-  position: relative;
-  z-index: 1;
-  padding: 1.6rem 2rem 1.8rem 1.6rem;
-  color: #fff;
-  text-align: left;
-}
-.feature-panel__text p{
-  text-align: justify;
-}
-
-/* image inside secondary shape */
-.feature-panel__image {
-  position: relative;
-  z-index: 1;
-  display: flex;
-  justify-content: center;
-  align-items: flex-end;
-  padding: 1.5rem;
-}
-
-.feature-panel__image-inner {
-  display: flex;
-  align-items: flex-end;
-  justify-content: center;
-}
-
-.feature-panel-image {
-  max-width: 160px;
-  height: auto;
-  display: block;
-}
-
-.hero-person {
-  max-width: 220px;
-  height: auto;
-}
-
-/* links */
-.alcohol-studies__link {
-  text-decoration: none;
-  color: $primary-dark;
-  font-weight: 600;
-}
-
-.alcohol-studies__link:hover,
-.alcohol-studies__link:focus {
-  text-decoration: none;
-  color: $primary;
+  .main-feature-desc {
+    font-size: 1.21rem;
+  }
 }
