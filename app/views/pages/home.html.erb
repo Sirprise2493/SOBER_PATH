@@ -37,51 +37,54 @@
     </section>
 
     <section class="main-feature-green" data-controller="feature-dropdown">
-      <h2>How SoberPath Works</h2>
-      <p>
-        SoberPath helps people stay strong in their recovery journey<br>
-      </p>
+        <div class="feature-visual-wrapper">
+      <!-- blue shapes controlled by feature-dropdown -->
+        <div class="hero-shape hero-shape-primary"
+            data-feature-dropdown-target="shape"></div>
+        <div class="hero-shape hero-shape-secondary"
+            data-feature-dropdown-target="shape"></div>
 
-      <div class="feature-buttons">
-        <button class="feature-btn"
-                data-feature-dropdown-target="button"
-                data-action="click->feature-dropdown#show"
-                data-panel="concept">
-          Our concept
-        </button>
+        <h2>How SoberPath Works</h2>
+        <p>
+          SoberPath helps people stay strong in their recovery journey<br>
+        </p>
 
-        <button class="feature-btn"
-                data-feature-dropdown-target="button"
-                data-action="click->feature-dropdown#show"
-                data-panel="studies">
-          Alcoholism studies
-        </button>
+        <div class="feature-buttons">
+          <button class="feature-btn"
+                  data-feature-dropdown-target="button"
+                  data-action="click->feature-dropdown#show"
+                  data-panel="concept">
+            Our concept
+          </button>
 
-        <button class="feature-btn"
-                data-feature-dropdown-target="button"
-                data-action="click->feature-dropdown#show"
-                data-panel="statistics">
-          Statistics
-        </button>
+          <button class="feature-btn"
+                  data-feature-dropdown-target="button"
+                  data-action="click->feature-dropdown#show"
+                  data-panel="studies">
+            Alcoholism studies
+          </button>
+
+          <button class="feature-btn"
+                  data-feature-dropdown-target="button"
+                  data-action="click->feature-dropdown#show"
+                  data-panel="statistics">
+            Statistics
+          </button>
+        </div>
+
+        <div class="main-feature-box" data-feature-dropdown-target="box"></div>
       </div>
 
-      <div class="main-feature-box" data-feature-dropdown-target="box"></div>
-
+      <!-- hidden content panels -->
       <div hidden data-panel="concept-content">
         <%= render "pages/landing_page/button1_partial" %>
       </div>
+
       <div hidden data-panel="studies-content">
         <%= render "pages/landing_page/button2_partial" %>
       </div>
+
       <div hidden data-panel="statistics-content">
         <%= render "pages/landing_page/button3_partial" %>
       </div>
     </section>
-
-    <% unless user_signed_in? %>
-      <!-- Only render the template for logged-out users -->
-      <template id="auth-modal-template">
-        <%= render "shared/auth_modal" %>
-      </template>
-    <% end %>
-  </div>
