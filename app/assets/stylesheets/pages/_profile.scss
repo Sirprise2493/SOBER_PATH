@@ -1,7 +1,3 @@
-/* =========================================================
-   PROFILE PAGE — CLEAN REWRITE
-   ========================================================= */
-
 /* ---------- MAIN PROFILE WRAPPER ---------- */
 
 .profile-wrapper {
@@ -26,7 +22,7 @@
 .profile-title {
   font-size: 2rem;
   font-weight: 700;
-  margin: 0;
+  margin: 0 0 1.5rem;
   color: $blue-primary;
 }
 
@@ -36,8 +32,12 @@
   align-items: flex-end;
   padding: 0.4rem 0.9rem;
   border-radius: 999px;
-  background: rgba(117, 168, 246, 0.15);
-  border: 1px solid $border;
+  background: linear-gradient(
+    135deg,
+    rgba($accent-peach, 0.20),
+    rgba($blue-primary, 0.12)
+  );
+  border: 1px solid rgba($accent-peach, 0.65);
   min-width: 130px;
 }
 
@@ -52,6 +52,7 @@
   font-size: 0.95rem;
   font-weight: 600;
   color: $blue-primary;
+  text-shadow: 0 0 8px rgba($accent-peach, 0.45);
 }
 
 @media (max-width: 700px) {
@@ -81,7 +82,7 @@
 /* ---------- CARD BASE ---------- */
 
 .profile-card {
-  background: $white;
+  background: rgba($accent-peach-soft, 0.22); // soft, uniform peach tint
   padding: 1.9rem;
   border-radius: 24px;
   border: 1px solid $border;
@@ -92,11 +93,12 @@
   font-size: 1.4rem;
   font-weight: 600;
   margin-bottom: 1.2rem;
-  color: $blue-primary;
+  color: rgba($blue-primary, 0.85);
 }
 
-.profile-card--connections {
-  margin-top: 8px;
+/* Center title only in the avatar card (first card in the grid) */
+.profile-grid > .profile-card:first-child .profile-card-title {
+  text-align: center;
 }
 
 /* ---------- AVATAR BLOCK ---------- */
@@ -104,7 +106,8 @@
 .profile-avatar-container {
   display: flex;
   justify-content: center;
-  margin-bottom: 1.5rem;
+  margin-bottom: 1.1rem;
+  text-align: center;
 }
 
 .profile-avatar,
@@ -150,6 +153,42 @@
     color: $btn-primary-text;
     transform: translateY(-1px);
   }
+}
+
+/* Peach “Edit profile” button */
+.profile-edit-button {
+  background: $accent-peach;
+  color: #3a2f2f;
+  text-decoration: none;
+  box-shadow: 0 3px 6px rgba(255, 184, 154, 0.35);
+
+  &:hover {
+    background: darken($accent-peach, 12%);
+    color: #2a2323;
+    text-decoration: none;
+  }
+}
+
+/* Peach primary buttons on Edit Profile (Update Photo + Save Changes) */
+.profile-card--left  .profile-primary-button,
+.profile-card--right .profile-primary-button {
+  background: $accent-peach;
+  color: #3a2f2f;
+  border: none;
+  border-radius: 999px;
+  padding: 10px 24px;
+  font-weight: 600;
+  text-decoration: none;
+  box-shadow: 0 3px 6px rgba(255, 184, 154, 0.35);
+  transition: background 0.15s ease, transform 0.05s ease;
+}
+
+.profile-card--left  .profile-primary-button:hover,
+.profile-card--right .profile-primary-button:hover {
+  background: darken($accent-peach, 12%);
+  color: #2a2323;
+  text-decoration: none;
+  transform: translateY(-1px);
 }
 
 .profile-form-actions {
@@ -240,6 +279,16 @@
 .profile-connections-count {
   font-size: 0.85rem;
   color: $text-muted;
+}
+
+/* Grey, label-style subtitles inside connections card */
+.profile-card--connections .profile-subtitle {
+  color: $text-muted;
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  margin-bottom: 0.4rem;
 }
 
 /* ---------- Layout: 2 columns ---------- */
@@ -337,6 +386,34 @@
   }
 }
 
+/* ---------- EDIT PROFILE FORM INPUTS ---------- */
+
+.profile-input {
+  width: 100%;
+  padding: 0.65rem 0.85rem;
+  border-radius: 12px;
+  border: 1px solid $border;
+  background: $background;
+  font-size: 0.95rem;
+}
+
+/* nicer focus state */
+.profile-input:focus {
+  outline: none;
+  border-color: $primary-light;
+  box-shadow: 0 0 0 1px rgba(117, 168, 246, 0.35);
+}
+
+/* make the bio textarea look like the other fields */
+.profile-field.bio-field .profile-input {
+  resize: vertical;
+  min-height: 7rem;
+}
+
+.avatar-form .profile-field {
+  margin-top: 0.75rem;
+}
+
 /* ---------- FOOTER ---------- */
 
 .profile-footer {
@@ -381,25 +458,26 @@
 }
 
 .profile-change-card {
-  background: $white;
+  background: rgba($accent-peach-soft, 0.22);
   padding: 2rem 2.5rem;
   border-radius: 24px;
   border: 1px solid $border;
   box-shadow: 0 8px 22px rgba(15, 23, 42, 0.04);
 }
 
+
 .profile-password-input {
   width: 100%;
-  padding: 0.7rem 0.9rem;
-  border-radius: 10px;
-  border: 1px solid #e5e7eb;
-  background: #f9fafb;
+  padding: 0.65rem 0.85rem;
+  border-radius: 12px;
+  border: 1px solid $border;
+  background: $background;
   font-size: 0.95rem;
 
   &:focus {
     outline: none;
     border-color: $primary-light;
-    box-shadow: 0 0 0 1px rgba(117, 168, 246, 0.4);
+    box-shadow: 0 0 0 1px rgba(117, 168, 246, 0.35);
   }
 }
 
@@ -408,4 +486,27 @@
   color: #9ca3af;
   font-style: italic;
   text-align: right;
+}
+
+.profile-change-card .profile-primary-button {
+  background: $accent-peach;
+  color: #3a2f2f;
+  border: none;
+  border-radius: 999px;
+  padding: 10px 24px;
+  font-weight: 600;
+  text-decoration: none;
+  box-shadow: 0 3px 6px rgba(255, 184, 154, 0.35);
+  transition: background 0.15s ease, transform 0.05s ease;
+
+  &:hover {
+    background: darken($accent-peach, 12%);
+    color: #2a2323;
+    text-decoration: none;
+    transform: translateY(-1px);
+  }
+}
+
+.profile-footer--center {
+  justify-content: center;
 }

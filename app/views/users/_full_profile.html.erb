@@ -22,9 +22,7 @@
 
       <div class="profile-avatar-container">
         <% if @user.avatar.attached? %>
-          <%= image_tag @user.avatar
-                            .variant(resize_to_fill: [220, 220])
-                            .processed,
+          <%= image_tag @user.avatar,
                         alt: @user.username,
                         class: "profile-avatar" %>
         <% else %>
@@ -56,12 +54,12 @@
 
         <div class="profile-field">
           <label>Date of Birth</label>
-          <div class="profile-field-value"><%= @user.date_of_birth || "—" %></div>
+          <div class="profile-field-value"><%= @user.date_of_birth&.strftime("%d/%m/%Y") || "—" %></div>
         </div>
 
         <div class="profile-field">
           <label>Start Date</label>
-          <div class="profile-field-value"><%= @user.sobriety_start_date || "—" %></div>
+          <div class="profile-field-value"><%= @user.sobriety_start_date&.strftime("%d/%m/%Y") || "—" %></div>
         </div>
 
         <div class="profile-field">
