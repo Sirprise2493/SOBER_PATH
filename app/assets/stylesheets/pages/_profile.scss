@@ -458,25 +458,26 @@
 }
 
 .profile-change-card {
-  background: $white;
+  background: rgba($accent-peach-soft, 0.22);
   padding: 2rem 2.5rem;
   border-radius: 24px;
   border: 1px solid $border;
   box-shadow: 0 8px 22px rgba(15, 23, 42, 0.04);
 }
 
+
 .profile-password-input {
   width: 100%;
-  padding: 0.7rem 0.9rem;
-  border-radius: 10px;
-  border: 1px solid #e5e7eb;
-  background: #f9fafb;
+  padding: 0.65rem 0.85rem;
+  border-radius: 12px;
+  border: 1px solid $border;
+  background: $background;
   font-size: 0.95rem;
 
   &:focus {
     outline: none;
     border-color: $primary-light;
-    box-shadow: 0 0 0 1px rgba(117, 168, 246, 0.4);
+    box-shadow: 0 0 0 1px rgba(117, 168, 246, 0.35);
   }
 }
 
@@ -485,4 +486,27 @@
   color: #9ca3af;
   font-style: italic;
   text-align: right;
+}
+
+.profile-change-card .profile-primary-button {
+  background: $accent-peach;
+  color: #3a2f2f;
+  border: none;
+  border-radius: 999px;
+  padding: 10px 24px;
+  font-weight: 600;
+  text-decoration: none;
+  box-shadow: 0 3px 6px rgba(255, 184, 154, 0.35);
+  transition: background 0.15s ease, transform 0.05s ease;
+
+  &:hover {
+    background: darken($accent-peach, 12%);
+    color: #2a2323;
+    text-decoration: none;
+    transform: translateY(-1px);
+  }
+}
+
+.profile-footer--center {
+  justify-content: center;
 }
