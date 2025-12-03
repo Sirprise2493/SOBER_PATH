@@ -22,7 +22,7 @@
 .profile-title {
   font-size: 2rem;
   font-weight: 700;
-  margin: 0;
+  margin: 0 0 1.5rem;
   color: $blue-primary;
 }
 
@@ -167,6 +167,28 @@
     color: #2a2323;
     text-decoration: none;
   }
+}
+
+/* Peach primary buttons on Edit Profile (Update Photo + Save Changes) */
+.profile-card--left  .profile-primary-button,
+.profile-card--right .profile-primary-button {
+  background: $accent-peach;
+  color: #3a2f2f;
+  border: none;
+  border-radius: 999px;
+  padding: 10px 24px;
+  font-weight: 600;
+  text-decoration: none;
+  box-shadow: 0 3px 6px rgba(255, 184, 154, 0.35);
+  transition: background 0.15s ease, transform 0.05s ease;
+}
+
+.profile-card--left  .profile-primary-button:hover,
+.profile-card--right .profile-primary-button:hover {
+  background: darken($accent-peach, 12%);
+  color: #2a2323;
+  text-decoration: none;
+  transform: translateY(-1px);
 }
 
 .profile-form-actions {
@@ -362,6 +384,34 @@
     padding: 4px 10px;
     font-size: 0.8rem;
   }
+}
+
+/* ---------- EDIT PROFILE FORM INPUTS ---------- */
+
+.profile-input {
+  width: 100%;
+  padding: 0.65rem 0.85rem;
+  border-radius: 12px;
+  border: 1px solid $border;
+  background: $background;
+  font-size: 0.95rem;
+}
+
+/* nicer focus state */
+.profile-input:focus {
+  outline: none;
+  border-color: $primary-light;
+  box-shadow: 0 0 0 1px rgba(117, 168, 246, 0.35);
+}
+
+/* make the bio textarea look like the other fields */
+.profile-field.bio-field .profile-input {
+  resize: vertical;
+  min-height: 7rem;
+}
+
+.avatar-form .profile-field {
+  margin-top: 0.75rem;
 }
 
 /* ---------- FOOTER ---------- */
