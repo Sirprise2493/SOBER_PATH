@@ -16,14 +16,20 @@
   align-items: flex-end;
   justify-content: space-between;
   gap: 1rem;
-  margin-bottom: 1.5rem;
+  margin-bottom: 1.5rem; // spacing below header on My Profile
 }
 
 .profile-title {
   font-size: 2rem;
   font-weight: 700;
-  margin: 0 0 1.5rem;
+  margin: 0; // no bottom margin by default so it aligns with pill
   color: $blue-primary;
+}
+
+/* On pages where the title is a direct child of .profile-wrapper
+   (Edit Profile, Change Password), add the space under the title */
+.profile-wrapper > .profile-title {
+  margin-bottom: 1.5rem;
 }
 
 .profile-header-pill {
@@ -96,10 +102,6 @@
   color: rgba($blue-primary, 0.85);
 }
 
-/* Center title only in the avatar card (first card in the grid) */
-.profile-grid > .profile-card:first-child .profile-card-title {
-  text-align: center;
-}
 
 /* ---------- AVATAR BLOCK ---------- */
 
@@ -397,14 +399,12 @@
   font-size: 0.95rem;
 }
 
-/* nicer focus state */
 .profile-input:focus {
   outline: none;
   border-color: $primary-light;
   box-shadow: 0 0 0 1px rgba(117, 168, 246, 0.35);
 }
 
-/* make the bio textarea look like the other fields */
 .profile-field.bio-field .profile-input {
   resize: vertical;
   min-height: 7rem;
@@ -412,6 +412,14 @@
 
 .avatar-form .profile-field {
   margin-top: 0.75rem;
+}
+
+.profile-wrapper--edit .profile-card--left {
+  padding-top: 1.4rem;
+}
+
+.profile-wrapper--edit .profile-card--left .profile-card-title {
+  margin-top: 0.5rem;
 }
 
 /* ---------- FOOTER ---------- */
