@@ -16,7 +16,7 @@
       <div class="hero-buttons">
         <% if user_signed_in? %>
           <!-- Logged IN: send them into the app -->
-          <%= link_to "Go to chatroom", profile_path, class: "btn btn-primary" %>
+          <%= link_to "Go to chatroom", chatroom_path, class: "btn btn-primary" %>
           <%= link_to "View profile", profile_path, class: "btn btn-primary" %>
         <% else %>
           <!-- Logged OUT: open modal via Stimulus -->
