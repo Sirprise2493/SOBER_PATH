@@ -9,7 +9,7 @@ body {
   justify-content: space-between;
   gap: 3rem;
   padding: 60px 6vw;
-  background-color: #ffffff;
+  background-color: $accent-peach-soft;
   overflow: hidden;
   height: 70vh;
 
@@ -153,11 +153,11 @@ body {
     background: transparent;
     color: $primary-dark;
     border-radius: 0;
-    padding: 0;
+    padding: 1.3rem 0 0 0;
     font-size: 1.19rem;
     position: relative;
     z-index: 2;
-    background-color: #ffffff;
+    background-color: $accent-peach-soft;
 
     opacity: 0;
     overflow: visible;
