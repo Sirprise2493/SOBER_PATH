@@ -37,8 +37,15 @@
 /* compact gradient nav column */
 .chat-sidebar--compact {
   width: 140px;
-  background: linear-gradient(135deg, $primary-dark, $primary);
   padding: 1.25rem 0;
+
+  /* 🔸 updated: blue → peach gradient */
+  background: linear-gradient(
+    180deg,
+    $primary-dark 0%,
+    $primary 55%,
+    $accent-peach 100%
+  );
 }
 
 .chat-sidebar__nav {
@@ -48,9 +55,16 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background: linear-gradient(135deg, $primary-dark, $primary);
-  border-radius: 0;
   padding: 1rem 0;
+
+  /* 🔸 match outer column */
+  background: linear-gradient(
+    180deg,
+    $primary-dark 0%,
+    $primary 55%,
+    $accent-peach 100%
+  );
+  border-radius: 0;
 }
 
 /* nav pills */
@@ -412,7 +426,7 @@ turbo-frame#message_thread:empty {
 }
 
 .chat-connections__meta {
-  margin: 0;             // no extra gap
+  margin: 0;
   font-size: 0.78rem;
   color: #6b7280;
   line-height: 1.2;
@@ -440,8 +454,7 @@ turbo-frame#message_thread:empty {
   margin: 0.25rem 0 0;
 }
 
-/* make the small buttons feel like pills and match your theme */
-
+/* small buttons feel like pills, but peach */
 .chat-connections__request-actions .btn {
   padding: 0.25rem 0.7rem;
   border-radius: 999px;
@@ -449,14 +462,16 @@ turbo-frame#message_thread:empty {
   line-height: 1.2;
 }
 
+/* 🔸 peach accept button */
 .chat-connections__request-actions .btn-primary {
-  background: $primary;
-  border-color: $primary;
-  box-shadow: 0 3px 8px rgba($primary, 0.25);
+  background: $accent-peach;
+  border-color: darken($accent-peach, 6%);
+  color: #3b2b25;
+  box-shadow: 0 3px 8px rgba($accent-peach, 0.45);
 
   &:hover {
-    background: darken($primary, 4%);
-    border-color: darken($primary, 4%);
+    background: darken($accent-peach, 4%);
+    border-color: darken($accent-peach, 8%);
   }
 }
 
@@ -476,14 +491,12 @@ turbo-frame#message_thread:empty {
    CONNECTION REQUEST ALIGNMENT
    ============================ */
 
-/* Avatar + info next to each other */
 .chat-connections__request-item .chat-connections__row {
   display: flex;
   align-items: flex-start;
   gap: 0.5rem;
 }
 
-/* Column that holds name + text + buttons */
 .chat-connections__request-item .chat-connections__info {
   display: flex;
   flex-direction: column;
@@ -506,20 +519,12 @@ turbo-frame#message_thread:empty {
   text-align: left;
 }
 
-/* Accept / Decline */
 .chat-connections__request-item .chat-connections__request-actions {
   display: flex;
   gap: 0.4rem;
   margin: 0.25rem 0 0;
   padding: 0;
   align-self: flex-start;
-}
-
-/* optional: make buttons look nice and tight */
-.chat-connections__request-item .chat-connections__request-actions .btn {
-  padding: 0.25rem 0.7rem;
-  font-size: 0.78rem;
-  border-radius: 999px;
 }
 
 /* =========================================
@@ -536,7 +541,6 @@ turbo-frame#message_thread:empty {
     margin-bottom: 0;
   }
 
-  /* keep input, emoji, button on one row */
   .input-group {
     display: flex;
     align-items: center;
@@ -549,7 +553,6 @@ turbo-frame#message_thread:empty {
     min-width: 0;
   }
 
-  /* main text input (AI + community) */
   .input-wrapper .form-control {
     width: 100%;
     border-radius: 999px;
@@ -557,15 +560,11 @@ turbo-frame#message_thread:empty {
     background-color: $background;
     border: 1px solid $border;
     font-size: 0.95rem;
-
-    /* behaviour */
-    resize: none;          /* no manual resize handle */
+    resize: none;
     min-height: 44px;
-    max-height: 96px;      /* a few lines max */
-    overflow-y: auto;      /* scroll if longer */
-    overflow-x: hidden;    /* never grow sideways */
-
-    /* prevent super long words from blowing layout */
+    max-height: 96px;
+    overflow-y: auto;
+    overflow-x: hidden;
     white-space: pre-wrap;
     word-wrap: break-word;
     overflow-wrap: break-word;
@@ -578,7 +577,6 @@ turbo-frame#message_thread:empty {
     }
   }
 
-  /* round emoji button, no black border */
   .emoji-toggle {
     width: 40px;
     height: 40px;
@@ -600,6 +598,7 @@ turbo-frame#message_thread:empty {
     }
   }
 
+  /* 🔸 peach send button */
   .btn-primary {
     border-radius: 999px;
     padding-inline: 1.4rem;
@@ -609,25 +608,25 @@ turbo-frame#message_thread:empty {
     justify-content: center;
     flex: 0 0 auto;
 
-    background: $primary;
-    border-color: $primary;
-    color: #ffffff;
+    background: $accent-peach;
+    border-color: darken($accent-peach, 8%);
+    color: #3b2b25;
     font-weight: 600;
     font-size: 0.95rem;
-    box-shadow: 0 4px 10px rgba($primary, 0.25);
+    box-shadow: 0 4px 10px rgba($accent-peach, 0.45);
     transition: background 0.15s ease,
                 box-shadow 0.15s ease,
                 transform 0.05s ease;
 
     &:hover {
-      background: darken($primary, 3%);
-      border-color: darken($primary, 3%);
-      box-shadow: 0 6px 14px rgba($primary, 0.3);
+      background: darken($accent-peach, 4%);
+      border-color: darken($accent-peach, 10%);
+      box-shadow: 0 6px 14px rgba($accent-peach, 0.5);
     }
 
     &:active {
       transform: translateY(1px);
-      box-shadow: 0 3px 7px rgba($primary, 0.25);
+      box-shadow: 0 3px 7px rgba($accent-peach, 0.4);
     }
   }
 }
@@ -842,8 +841,6 @@ turbo-frame#message_thread:empty {
   min-height: 0;
   display: flex;
   flex-direction: column;
-
-  /* make it look like a full panel */
   border-radius: 0;
   border: 1px solid #e5e7eb;
   background: #f9fafb;
@@ -1142,6 +1139,7 @@ turbo-frame#message_thread:empty {
     }
   }
 
+  /* 🔸 peach reply button */
   .btn-primary {
     border-radius: 999px;
     padding-inline: 1.4rem;
@@ -1150,23 +1148,23 @@ turbo-frame#message_thread:empty {
     align-items: center;
     justify-content: center;
 
-    background: $primary;
-    border-color: $primary;
-    color: #ffffff;
+    background: $accent-peach;
+    border-color: darken($accent-peach, 3%);
+    color: #3b2b25;
     font-weight: 600;
     font-size: 0.95rem;
-    box-shadow: 0 4px 10px rgba($primary, 0.25);
+    box-shadow: 0 4px 10px rgba($accent-peach, 0.45);
     transition: background 0.15s ease, box-shadow 0.15s ease, transform 0.05s ease;
 
     &:hover {
-      background: darken($primary, 3%);
-      border-color: darken($primary, 3%);
-      box-shadow: 0 6px 14px rgba($primary, 0.3);
+      background: darken($accent-peach, 4%);
+      border-color: darken($accent-peach, 10%);
+      box-shadow: 0 6px 14px rgba($accent-peach, 0.5);
     }
 
     &:active {
       transform: translateY(1px);
-      box-shadow: 0 3px 7px rgba($primary, 0.25);
+      box-shadow: 0 3px 7px rgba($accent-peach, 0.4);
     }
   }
 }
@@ -1191,7 +1189,6 @@ turbo-frame#message_thread:empty {
   border: 1px solid #e5e7eb;
   background: #ffffff;
   box-shadow: 0 8px 20px rgba(15, 23, 42, 0.06);
-
   flex: 1 1 auto;
   overflow-y: auto;
 }
@@ -1201,8 +1198,6 @@ turbo-frame#message_thread:empty {
   height: 1px;
   background-color: #e5e7eb;
 }
-
-/* Header: avatar + name + meta */
 
 .user-profile-panel .public-profile-header {
   display: flex;
@@ -1255,8 +1250,6 @@ turbo-frame#message_thread:empty {
   color: #6b7280;
 }
 
-/* Headline vs bio hierarchy */
-
 .public-profile-header__headline {
   margin-top: 0.45rem;
   font-size: 1rem;
@@ -1271,13 +1264,10 @@ turbo-frame#message_thread:empty {
   line-height: 1.45;
 }
 
-/* Connection section */
-
 .user-profile-panel__connection {
   margin-top: 1.25rem;
 }
 
-/* Title + optional button on one row */
 .user-profile-panel__connection-header {
   display: flex;
   align-items: center;
@@ -1299,7 +1289,7 @@ turbo-frame#message_thread:empty {
   color: #4b5563;
 }
 
-/* Small, compact primary button on the right */
+/* 🔸 peach connect button */
 .user-profile-panel__connect-button {
   display: inline-flex;
   align-items: center;
@@ -1310,14 +1300,14 @@ turbo-frame#message_thread:empty {
   font-weight: 600;
   padding: 0.28rem 0.9rem;
 
-  background: #0d6efd;
-  border: 1px solid #0d6efd;
-  color: #ffffff;
-  box-shadow: 0 2px 6px rgba(13, 110, 253, 0.25);
+  background: $accent-peach;
+  border: 1px solid darken($accent-peach, 8%);
+  color: #3b2b25;
+  box-shadow: 0 2px 6px rgba($accent-peach, 0.25);
 
   &:hover {
-    background: darken(#0d6efd, 3%);
-    border-color: darken(#0d6efd, 3%);
+    background: darken($accent-peach, 3%);
+    border-color: darken($accent-peach, 10%);
     text-decoration: none;
   }
 }
@@ -1356,8 +1346,6 @@ turbo-frame#message_thread:empty {
   background: #f9fafb;
 }
 
-/* list wrapper */
-
 .connection-updates {
   list-style: none;
   margin: 0;
@@ -1366,8 +1354,6 @@ turbo-frame#message_thread:empty {
   flex-direction: column;
   gap: 0.85rem;
 }
-
-/* each update "card" */
 
 .connection-updates__item {
   display: flex;
@@ -1378,8 +1364,6 @@ turbo-frame#message_thread:empty {
   border: 1px solid #e5e7eb;
   box-shadow: 0 4px 10px rgba(15, 23, 42, 0.04);
 }
-
-/* avatar */
 
 .connection-updates__avatar {
   flex: 0 0 32px;
@@ -1411,13 +1395,9 @@ turbo-frame#message_thread:empty {
   }
 }
 
-/* text block */
-
 .connection-updates__content {
   flex: 1 1 auto;
 }
-
-/* title line: icon text already in ERB */
 
 .connection-updates__title {
   font-size: 0.95rem;
@@ -1425,8 +1405,6 @@ turbo-frame#message_thread:empty {
   margin-bottom: 0.15rem;
   color: #111827;
 }
-
-/* small meta line if you ever want it (e.g. “Today”) */
 
 .connection-updates__meta {
   font-size: 0.75rem;
@@ -1436,15 +1414,11 @@ turbo-frame#message_thread:empty {
   margin-bottom: 0.15rem;
 }
 
-/* description text */
-
 .connection-updates__text {
   font-size: 0.85rem;
   color: #4b5563;
   margin-bottom: 0.4rem;
 }
-
-/* "✓ Encouragement sent" or similar */
 
 .connection-updates__status {
   font-size: 0.8rem;
@@ -1453,8 +1427,6 @@ turbo-frame#message_thread:empty {
   align-items: center;
   gap: 0.3rem;
 }
-
-/* modern encouragement form */
 
 .connection-updates__encouragement-form {
   margin-top: 0.5rem;
@@ -1470,7 +1442,6 @@ turbo-frame#message_thread:empty {
   gap: 0.5rem;
 }
 
-/* pill-style input, like mini chat composer */
 .connection-updates__input {
   flex: 1 1 auto;
   min-width: 0;
@@ -1496,7 +1467,6 @@ turbo-frame#message_thread:empty {
   }
 }
 
-/* round emoji button, matching chat input but smaller */
 .connection-updates__emoji-btn {
   width: 36px;
   height: 36px;
@@ -1518,7 +1488,7 @@ turbo-frame#message_thread:empty {
   }
 }
 
-/* compact pill send button */
+/* 🔸 compact peach send button */
 .connection-updates__submit-btn {
   border-radius: 999px;
   padding-inline: 1.1rem;
@@ -1528,14 +1498,17 @@ turbo-frame#message_thread:empty {
   justify-content: center;
   font-size: 0.85rem;
   font-weight: 600;
-  box-shadow: 0 3px 8px rgba($primary, 0.25);
+  background: $accent-peach;
+  border-color: darken($accent-peach, 8%);
+  color: #3b2b25;
+  box-shadow: 0 3px 8px rgba($accent-peach, 0.45);
 
   &:hover {
-    box-shadow: 0 5px 12px rgba($primary, 0.3);
+    box-shadow: 0 5px 12px rgba($accent-peach, 0.5);
+    background: darken($accent-peach, 4%);
   }
 }
 
-/* wrap nicely on very small screens */
 @media (max-width: 640px) {
   .connection-updates__input-row {
     flex-wrap: wrap;

@@ -34,11 +34,11 @@
 
 // Geocoding
 @import url("https://api.mapbox.com/mapbox-gl-js/v3.1.2/mapbox-gl.css");
-@import "components/ai_chatbot";
 
 @import "components/accept_decline_connect";
 @import "pages/groupchat_sidbar_connections";
 @import "components/emoji_picker";
+@import "components/ai_chatbot";
 
 // Devise pages (login, signup, reset password)
 @import "pages/sessions";
