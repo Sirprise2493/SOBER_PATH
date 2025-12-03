@@ -1,6 +1,6 @@
 import { Controller } from "@hotwired/stimulus"
 
-// Connects to data-controller="auth-modal"
+// Connect to data-controller="auth-modal"
 export default class extends Controller {
   connect() {
     this.modal = null
