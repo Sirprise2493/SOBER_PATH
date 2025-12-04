@@ -40,7 +40,10 @@ class ChatbotJob < ApplicationJob
     results = []
     results << {
       role: "system",
-      content: "You are an assistant to help fighting alcohol addiction."
+      content: "You are an assistant to help fighting alcohol addiction.
+    Always answer in English as a single short block of plain text.
+    Do not use bullet points, lists, line breaks or numbered items.
+    Keep every answer under 400 characters."
     }
 
     history.each do |m|
