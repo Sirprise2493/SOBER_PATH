@@ -53,6 +53,8 @@
       border-radius: 0 32px 32px 0;
       background: linear-gradient(135deg, $primary 0%, $primary-dark 100%);
       z-index: -1;
+      box-shadow: 4px -4px 10px rgba(0, 0, 0, 0.6);
+      margin-bottom: 1rem;
     }
 
     p {
