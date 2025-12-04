@@ -24,7 +24,7 @@
 
   .form-label-sm {
     width: 100%;
-    font-size: 0.8rem;
+    font-size: 1rem;
   }
 
   .meetings-rows {
@@ -38,21 +38,30 @@
   .border.rounded-3,
   .border-bottom,
   .bg-white {
-    background: transparent !important;
-    border-color: rgba(255, 255, 255, 0.15) !important;
+    background: transparent;
+    border-color: rgba(255, 255, 255, 0.15);
   }
 
   .bg-light {
-    background: white !important;
-    color: white !important;
+    background: white;
+    color: white;
     border: 1px solid rgba(255, 255, 255, 0.3);
   }
 
   .form-control,
   .form-select {
-    background: white !important;
-    color: $blue-text !important;
+    background: $accent-peach-soft;
+    color: $blue-text;
     border: 1px solid rgba(255, 255, 255, 0.3);
+    font-size: 1rem;
+    font-weight: 500;
+  }
+
+  #new-venue select.form-select.country {
+    background: $accent-peach-soft !important;
+    color: $blue-text !important;
+    font-size: 1rem !important;
+    font-weight: 500 !important;
   }
 
   .form-control::placeholder {
@@ -60,7 +69,7 @@
   }
 
   .form-label {
-    color: white !important;
+    color: white;
     font-weight: 600;
   }
 
@@ -188,9 +197,30 @@
       opacity: 0.9;
     }
   }
+
+  .meet {
+    background: $light-gray;
+  }
+
+  .meet2 {
+    background: linear-gradient(135deg, $primary-dark, $primary);
+  }
+
+  .country {
+    background: $accent-peach-soft;
+    font-size: 1rem;
+    font-weight: 500;
+  }
 }
 
 // helper used inside venue form
 .blue-text {
   color: $blue-text;
+}
+
+
+#new-venue .ends-preview {
+  background: $accent-peach-soft;
+  color: $blue-text;
+  border: 1px solid rgba(255, 255, 255, 0.3);
 }
