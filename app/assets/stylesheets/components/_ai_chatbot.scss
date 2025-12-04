@@ -1083,6 +1083,15 @@ turbo-frame#message_thread:empty {
   font-size: inherit;
 }
 
+.message-thread__body-text,
+.message-thread__body-text p,
+.message-thread__comment-body,
+.message-thread__comment-body p {
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  word-break: break-word;
+}
+
 /* delete under comment, aligned with text */
 
 .message-thread__comment-actions {
