@@ -656,12 +656,15 @@ turbo-frame#message_thread:empty {
 .user-ai_chat_message {
   align-self: flex-end;
   background: #2563eb;
+  //background: $accent-peach;
   color: #f9fafb;
 }
 
 .ai-answer {
   align-self: flex-start;
-  background: #e5e7eb;
+  //background: #2563eb;
+  background: $accent-peach;
+  //color: #f9fafb;
 }
 
 /* =========================================
