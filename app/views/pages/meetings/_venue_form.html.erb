@@ -35,7 +35,7 @@
 
       <div class="row g-3">
         <!-- LEFT: Venue -->
-        <div class="col-12 col-lg-5">
+        <div class="col-12 col-lg-5 border rounded-3">
           <div class="row g-2">
             <div class="col-12">
               <%= f.input :name, required: true, label: "Name",
@@ -63,7 +63,7 @@
                     priority_countries: %w[DE AT CH],
                     selected: (venue.country.presence || "DE"),
                     include_blank: "Select country",
-                    class: "form-select form-select-sm" %>
+                    class: "form-select form-select-sm country" %>
             </div>
             <div class="col-12">
               <%= f.input :website_url, label: "Website URL",
@@ -92,10 +92,10 @@
               <div class="d-flex flex-column gap-2 meetings-rows" data-nested-target="container">
                 <%# INLINE MEETING ROWS %>
                 <%= f.simple_fields_for :aa_meetings do |mf| %>
-                  <div class="border rounded-3 px-2 py-2 bg-white"
+                  <div class="border rounded-3 px-2 py-2 meet2"
                        data-controller="meeting-row"
                        data-nested-target="row">
-                    <div class="row g-2 align-items-center">
+                    <div class="row g-2 align-items-center meet2">
                       <div class="col-6 col-md-3">
                         <%= mf.input :weekday,
                             collection: AaMeeting.weekdays.keys.map { |k| [k.titleize, k] },
@@ -122,9 +122,9 @@
 
                       <div class="col-6 col-md-2">
                         <label class="form-label form-label-sm mb-1 d-block">Ends</label>
-                        <div class="form-control form-control-sm bg-light" data-meeting-row-target="endsPreview">—</div>
+                        <div class="form-control form-control-sm ends-preview" data-meeting-row-target="endsPreview">—</div>
                         <%= mf.input :ends_at, as: :hidden,
-                            input_html: { data: { meeting_row_target: "endsHidden" } }, label: false %>
+                            input_html: {class: "form-select", data: { meeting_row_target: "endsHidden" } }, label: false %>
                       </div>
 
                       <div class="col-12 col-md-1 d-flex align-items-center">
@@ -152,7 +152,7 @@
               <!-- Template for new rows -->
               <template data-nested-target="template">
                 <%= f.simple_fields_for :aa_meetings, AaMeeting.new, child_index: "NEW_RECORD" do |mf| %>
-                  <div class="border rounded-3 px-2 py-2 bg-white"
+                  <div class="border rounded-3 px-2 py-2 meet2"
                        data-controller="meeting-row"
                        data-nested-target="row">
                     <div class="row g-2 align-items-center">
@@ -182,7 +182,8 @@
 
                       <div class="col-6 col-md-2">
                         <label class="form-label form-label-sm mb-1 d-block">Ends</label>
-                        <div class="form-control form-control-sm bg-light" data-meeting-row-target="endsPreview">—</div>
+                        <div class="form-control form-control-sm ends-preview" data-meeting-row-target="endsPreview">—</div>
+
                         <%= mf.input :ends_at, as: :hidden,
                             input_html: { data: { meeting_row_target: "endsHidden" } }, label: false %>
                       </div>

@@ -1,6 +1,6 @@
 <div class="meetings">
-  <aside class="meetings__sidebar">
-    <h2 class="meetings__title blue">Meetings near</h2>
+    <aside class="meetings__sidebar" style="background: $accent-peach-soft; justify-content: flex-start; border-radius: 18px;">
+    <h2 class="meetings__title blue py-3">Meetings near</h2>
 
     <%= simple_form_for :search, url: meetings_path, method: :get, html: { class: "meetings__form" } do |f| %>
       <%= f.input :address,
@@ -26,18 +26,18 @@
           } %>
       </div>
 
-      <%= f.button :submit, "Search", class: "meetings__submit btn btn-primary" %>
+      <%= f.button :submit, "Search", class: "meetings__submit btn btn-primary " %>
     <% end %>
 
-    <div class="meetings__summary">
-      <small>
+    <div class="meetings__summary mt-2">
+      <small style="font-size: 0.9rem; font-width:400; justify-content: flex-center;">
         Center: <%= center_label || "-" %><br>
         Radius: <%= number_with_precision(radius_km, precision: 1) %> km ·
         Results: <%= venues.size %>
       </small>
     </div>
 
-    <ul class="meetings__list">
+    <ul class="meetings__list my-4" style="max-height: 350px;">
       <% venues.each do |v| %>
         <li class="meetings__item"
             data-controller="map-focus"
