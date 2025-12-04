@@ -678,6 +678,16 @@ turbo-frame#message_thread:empty {
   border: 1px solid $border;
 }
 
+.user-chat-message__content {
+  flex: 1 1 auto;
+  min-width: 0;
+  padding: 0.5rem 0;
+  font-size: 0.9rem;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  word-break: break-word;
+}
+
 .user-chat-message__avatar {
   flex: 0 0 32px;
 }
