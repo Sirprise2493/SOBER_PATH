@@ -4,7 +4,7 @@
 <div class="chat-layout chatbot" data-controller="chat-switcher">
 
   <!-- left sidebar -->
-  <aside class="chat-sidebar chat-sidebar--compact"
+  <aside class="chat-sidebar <%= 'chat-sidebar--compact' unless active_tab == 'community' %>"
          data-chat-switcher-target="sidebar">
 
     <!-- left column navigation -->
@@ -37,10 +37,9 @@
     </div>
 
     <!-- right column conversations list (controlled by Stimulus) -->
-    <div
-      class="chat-sidebar__list d-none"
-      data-chat-switcher-target="communityList"
-      data-controller="user-list">
+    <div class="chat-sidebar__list <%= 'd-none' unless active_tab == 'community' %>"
+        data-chat-switcher-target="communityList"
+        data-controller="user-list">
 
       <!-- search input for chat users -->
       <div class="chat-sidebar__list-header">
@@ -162,10 +161,9 @@
     </main>
 
     <!-- Connections panel (initially hidden, controlled by Stimulus) -->
-    <turbo-frame
-      id="connections_panel"
-      class="chat-connections d-none"
-      data-chat-switcher-target="connections">
+    <turbo-frame id="connections_panel"
+                  class="chat-connections <%= 'd-none' unless active_tab == 'community' %>"
+                  data-chat-switcher-target="connections">
 
       <%= render "pages/connections_panel",
                  friends: @friends,
