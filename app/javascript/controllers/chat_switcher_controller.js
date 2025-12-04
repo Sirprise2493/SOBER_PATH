@@ -31,7 +31,18 @@ export default class extends Controller {
     if (this.hasConnectionsTarget) {
       this.connectionsTarget.classList.add("d-none")
     }
+
+    // NEU: beim Wechsel in den AI-Chat nach unten scrollen
+    const aiFeed = document.getElementById("ai_chat_messages")
+    if (aiFeed) {
+      // optional mit requestAnimationFrame, falls das Layout erst
+      // nach dem Entfernen von d-none korrekt berechnet wird
+      window.requestAnimationFrame(() => {
+        aiFeed.scrollTop = aiFeed.scrollHeight
+      })
+    }
   }
+
 
   showCommunity(event) {
     event.preventDefault()
