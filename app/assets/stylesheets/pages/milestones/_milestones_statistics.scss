@@ -25,81 +25,219 @@
   display: flex;
   flex-direction: column;
   padding: 20px;
-  
-}
 
-.milestones-stats-card__header {
-  margin-bottom: 2.5rem;
+  &__header {
+    margin-bottom: 2.5rem;
 
-  h2 {
-    margin: 0;
-    color: #1F5FCC;
-    font-size: 1.60rem;
-    font-weight: 700;
+    h2 {
+      margin: 0;
+      color: #1f5fcc;
+      font-size: 1.6rem;
+      font-weight: 700;
+    }
   }
-}
 
-.milestones-stats-card__subtitle {
-  margin: 0.25rem 0 0;
-  font-size: 0.9rem;
-  color: #6b7280;
-}
+  &__subtitle {
+    margin: 0.25rem 0 0;
+    font-size: 0.92rem;
+    color: #64748b;
+  }
 
-.milestones-stats-card__body {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 2rem;
-  align-items: flex-start;
-}
+  &__body {
+    display: grid;
+    /* links etwa 1/3, rechts etwa 2/3 */
+    grid-template-columns: minmax(0, 0.7fr) minmax(0, 2fr);
+    gap: 2.5rem;
+    align-items: stretch;
+  }
 
-/* Chart-Container – füllt den verfügbaren Platz */
-.milestones-stats-card__chart-wrapper {
-  width: 100%;
-  height: auto;
-  overflow: visible;
-}
+  &__chart-wrapper {
+    width: 100%;
+    height: auto;
+    overflow: visible;
 
-/* damit Google Charts gut im Container sitzen */
-.milestones-stats-card__chart-wrapper > div {
-  height: 100% !important;
-  position: relative !important;
-  width: 100% !important;
-}
+    > div {
+      height: 100% !important;
+      position: relative !important;
+      width: 100% !important;
+    }
 
-/* ===========================
-   Legend unten (eine für beide)
-   =========================== */
+    &--bar {
+      min-height: 420px;
+      display: flex;
+      align-items: center;
+    }
+  }
 
-.milestones-stats-card__footer {
-  margin-top: 0.6rem;
-}
+  &__footer {
+    margin-top: 0.6rem;
+  }
 
-.milestones-stats-card__legend {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.6rem 1.4rem;
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
+  &__legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem 1.4rem;
+    list-style: none;
+    padding: 0;
+    margin: 0;
 
-.milestones-stats-card__legend-item {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.4rem;
-  font-size: 0.85rem;
-  color: #374151;
-}
+    &-item {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-size: 0.85rem;
+      color: #374151;
+    }
 
-.milestones-stats-card__legend-dot {
-  width: 12px;
-  height: 12px;
-  border-radius: 999px;
-  flex-shrink: 0;
-}
+    &-dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 999px;
+      flex-shrink: 0;
+    }
 
-.milestones-stats-card__legend-label {
-  white-space: nowrap;
+    &-label {
+      white-space: nowrap;
+    }
+  }
+
+  /* LEFT / RIGHT COLUMNS */
+
+  .stats-left,
+  .stats-right {
+    display: flex;
+    flex-direction: column;
+    min-height: 340px;
+  }
+
+  .stats-left {
+    padding-top: 4px;
+  }
+
+  .stats-right {
+    padding-top: 4px;
+    justify-content: flex-start;
+    align-items: stretch;
+    overflow: hidden;
+  }
+
+  .stats-section-heading {
+    margin-bottom: 1.1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+  }
+
+  .stats-section-eyebrow {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: #9ca3af;
+  }
+
+  .stats-section-title {
+    margin: 0;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #1f5fcc;
+  }
+
+  /*--------------- Graphic of pie ---------------*/
+
+  .stats-circles-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1.6rem 2.2rem;
+    align-items: stretch;
+    justify-items: center;
+    max-width: 680px;
+    margin-top: 16px;
+  }
+
+  .stats-circle-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .circle-label {
+    margin-top: 0.6rem;
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: #374151;
+    font-family: "Inter", "Segoe UI", sans-serif;
+    letter-spacing: 0.3px;
+  }
+
+  .progress-circle {
+    width: 130px;
+    height: 130px;
+    position: relative;
+    transform: rotate(-90deg);
+  }
+
+  .layer {
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+
+    &-1 {
+      background: conic-gradient(#ddd 0deg, #ddd 360deg);
+      filter: drop-shadow(0 6px 10px rgba(0, 0, 0, 0.15));
+    }
+
+    &-2 {
+      inset: 20px;
+      background: #f3f3f3;
+      filter: drop-shadow(0 5px 8px rgba(0, 0, 0, 0.1));
+    }
+
+    &-3 {
+      inset: 35px;
+      background: #e1e1e1;
+      filter: drop-shadow(0 5px 8px rgba(0, 0, 0, 0.1));
+    }
+  }
+
+  .center {
+    position: absolute;
+    inset: 42px;
+    background: #ffffff;
+    border-radius: 50%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 20px;
+    font-weight: 650;
+    color: #111827;
+
+    filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.15));
+    transform: rotate(90deg);
+
+    span {
+      font-family: "Inter", "Segoe UI", sans-serif;
+      font-weight: 700;
+      font-size: 22px;
+      transition: color 0.3s ease;
+    }
+  }
+
+  /* Google Chart Bars */
+
+  rect {
+    rx: 12px !important;
+    ry: 12px !important;
+
+    &:hover {
+      opacity: 0.9 !important;
+    }
+  }
+
+  #chart-1 svg rect {
+    filter: drop-shadow(0px 4px 10px rgba(0, 0, 0, 0.14));
+  }
 }
 
 /* ==========
@@ -107,9 +245,11 @@
    ========== */
 
 @media (max-width: 1100px) {
-  .milestones-stats-card__body {
-    grid-template-columns: minmax(0, 1fr);
-    grid-auto-rows: 260px;
+  .milestones-stats-card {
+    &__body {
+      grid-template-columns: minmax(0, 1fr);
+      grid-auto-rows: auto;
+    }
   }
 }
 
@@ -120,11 +260,11 @@
 
   .milestones-stats-card {
     padding: 1.1rem 1.1rem 0.9rem;
-  }
 
-  .milestones-stats-card__body {
-    grid-auto-rows: 240px;
-    gap: 1rem;
+    &__body {
+      grid-auto-rows: auto;
+      gap: 1rem;
+    }
   }
 }
 
@@ -135,158 +275,20 @@
 
   .milestones-stats-card {
     border-radius: 16px;
+
+    &__header {
+      h2 {
+        font-size: 1.1rem;
+      }
+    }
+
+    &__body {
+      align-items: center;
+    }
+
+    &__legend {
+      gap: 0.4rem 1rem;
+      font-size: 0.8rem;
+    }
   }
-
-  .milestones-stats-card__header h2 {
-    font-size: 1.1rem;
-  }
-
-.milestones-stats-card__body {
-  align-items: center;   
 }
-
-  .milestones-stats-card__legend {
-    gap: 0.4rem 1rem;
-    font-size: 0.8rem;
-  }
-}
-
-
-
-.milestones-stats-card__subtitle {
-  color: #64748b;        
-  font-size: 0.92rem;
-  margin-top: 0.3rem;
-}
-
-
-/*--------------- Graphic of pie ---------------*/
-
-.stats-circles-grid {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 1.5rem;
-  align-items: flex-start;
-  justify-content: space-between;
-  max-width: 688px;
-  margin-top: 16px;
-}
-
-.progress-circle {
-  width: 130px;
-  height: 130px;
-  position: relative;
-  transform: rotate(-90deg);
-
-}
-
-
-.layer {
-  position: absolute;
-  inset: 0;
-  border-radius: 50%;
-}
-
-.layer-1 {
-  position: absolute;
-  inset: 0;
-  border-radius: 50%;
-  background: conic-gradient(#ddd 0deg, #ddd 360deg);
-  filter: drop-shadow(0 6px 10px rgba(0,0,0,0.15));
-}
-
-.layer-2 {
-  position: absolute;
-  inset: 20px;    
-  background: #f3f3f3;
-  border-radius: 50%;
-  filter: drop-shadow(0 5px 8px rgba(0,0,0,0.10));
-}
-
-.layer-3 {
-  position: absolute;
-  inset: 35px;    
-  background: #e1e1e1;
-  border-radius: 50%;
-  filter: drop-shadow(0 5px 8px rgba(0,0,0,0.10));
-}
-
-
-.center {
-  position: absolute;
-  inset: 42px;
-  background: white;
-  border-radius: 50%;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  font-size: 20px;
-  font-weight: 650;
-  color: #111827;
-
-  filter: drop-shadow(0 4px 8px rgba(0,0,0,0.15));
-  transform: rotate(90deg);
-}
-
-.center span {
-  font-family: "Inter", "Segoe UI", sans-serif;
-  font-weight: 700;
-  font-size: 22px;
-  transition: color 0.3s ease;
-}
-
-.stats-circle-item {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.circle-label {
-  margin-top: 0.6rem;
-  font-size: 0.95rem;
-  font-weight: 600;
-  color: #374151;
-  font-family: "Inter", "Segoe UI", sans-serif;
-  letter-spacing: 0.3px;
-}
-
-
-
-rect {
-  rx: 12px !important;
-  ry: 12px !important;
-}
-
-#chart-1 svg rect {
-  filter: drop-shadow(0px 4px 10px rgba(0,0,0,0.14));
-}
-rect:hover {
-  opacity: 0.9 !important;
-}
-
-.stats-left,
-.stats-right {
-  display: flex;
-  flex-direction: column;
-  min-height: 340px;
-}
-
-.stats-left {
-  padding-top: 4px;
-}
-
-.stats-right {
-  justify-content: flex-start;
-  align-items: flex-start;
-  overflow: hidden;
-}
-
-.stats-section-title {
-  margin-bottom: 1rem;
-  font-size: 1.1rem;
-  font-weight: 700;
-  color: #1F5FCC;
-}
-

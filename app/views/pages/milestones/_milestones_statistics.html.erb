@@ -1,5 +1,5 @@
-<%# app/views/pages/milestones/_milestones_statistics.html.erb %>
 <% colors = ["#2563eb", "#f97316", "#22c55e", "#ef4444"] %>
+
 <svg width="0" height="0">
   <defs>
     <linearGradient id="gradBlue" x1="0" y1="1" x2="0" y2="0">
@@ -24,8 +24,6 @@
   </defs>
 </svg>
 
-
-
 <section class="milestones-stats-card">
   <header class="milestones-stats-card__header">
     <div>
@@ -36,122 +34,130 @@
     </div>
   </header>
 
+  <div class="milestones-stats-card__body">
+    <!-- LEFT SIDE -->
+    <div class="stats-left">
+      <div class="stats-section-heading">
+        <h3 class="stats-section-title">All Statistics (Whole Time)</h3>
+      </div>
 
-<!-- Bar chart -->
- <div class="milestones-stats-card__body">
+      <div class="milestones-stats-card__chart-wrapper milestones-stats-card__chart-wrapper--circle">
+        <div class="stats-circles-grid">
+          <% total = pie_data.values.sum.nonzero? || 1 %>
 
-  <!-- LEFT SIDE -->
-  <div class="stats-left">
-    <h3 class="stats-section-title">All Statistics (Whole Time)</h3>
+          <% pie_data.each_with_index do |(label, count), index| %>
+            <% color   = colors[index] %>
+            <% percent = ((count.to_f / total) * 100).round %>
 
-    <div class="milestones-stats-card__chart-wrapper milestones-stats-card__chart-wrapper--circle">
-      <div class="stats-circles-grid">
+            <div class="stats-circle-item">
+              <div class="progress-circle"
+                   data-progress="<%= percent %>"
+                   data-color="<%= color %>">
 
-        <% total = @pie_data.values.sum.nonzero? || 1 %>
+                <div class="layer layer-1"></div>
+                <div class="layer layer-2"></div>
+                <div class="layer layer-3"></div>
 
-        <% @pie_data.each_with_index do |(label, count), index| %>
-          <% color   = colors[index] %>
-          <% percent = ((count.to_f / total) * 100).round %>
-
-          <div class="stats-circle-item">
-
-            <div class="progress-circle"
-                 data-progress="<%= percent %>"
-                 data-color="<%= color %>">
-
-              <div class="layer layer-1"></div>
-              <div class="layer layer-2"></div>
-              <div class="layer layer-3"></div>
-
-              <div class="center">
-                <span><%= percent %>%</span>
+                <div class="center">
+                  <span><%= percent %>%</span>
+                </div>
               </div>
 
+              <div class="circle-label">
+                <%= label %>
+              </div>
             </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
 
-            <div class="circle-label">
-              <%= label %>
-            </div>
+    <!-- RIGHT SIDE -->
+    <div class="stats-right">
+      <div class="stats-section-heading">
+        <h3 class="stats-section-title">Recent Statistics (4 Weeks)</h3>
+      </div>
 
-          </div>
-        <% end %>
-
+      <div class="milestones-stats-card__chart-wrapper milestones-stats-card__chart-wrapper--bar">
+        <%= column_chart weekly_activity,
+          height: "420px",             # deutlich höher
+          adapter: "google",
+          stacked: false,
+          colors: ["#2563eb", "#f97316", "#22c55e", "#ef4444"],
+          library: {
+            backgroundColor: "transparent",
+            animation: { startup: true, duration: 900, easing: "out" },
+            bar: { groupWidth: "65%" },  # dickere Balken
+            legend: { position: "none" },
+            hAxis: {
+              title: "Week",
+              titleTextStyle: { color: "#4b5563", fontSize: 12, italic: false },
+              textStyle: { color: "#6b7280", fontSize: 12 },
+              gridlines: { color: "transparent" }
+            },
+            vAxis: {
+              title: "Count",
+              titleTextStyle: { color: "#4b5563", fontSize: 12, italic: false },
+              minValue: 0,
+              viewWindow: { min: 0 },
+              textStyle: { color: "#9ca3af", fontSize: 12 },
+              gridlines: { color: "#e5e7eb" }
+            },
+            chartArea: {
+              left:  "3%",
+              width: "95%",              # fast die gesamte Breite
+              top:   "3%",
+              height:"88%"              # fast die gesamte Höhe
+            }
+          }
+        %>
       </div>
     </div>
   </div>
 
+  <script>
+    (function () {
+      function initProgressCircles() {
+        document.querySelectorAll(".progress-circle").forEach(function (circle) {
+          if (circle.dataset.animated === "true") return;
+          circle.dataset.animated = "true";
 
+          var finalValue = Number(circle.dataset.progress);
+          var color      = circle.dataset.color;
+          var layer1     = circle.querySelector(".layer-1");
+          var textEl     = circle.querySelector(".center span");
 
-  <!-- RIGHT SIDE -->
-  <div class="stats-right">
-    <h3 class="stats-section-title">Last 4 Weeks Statistics</h3>
+          var current = 0;
+          var degrees = 0;
 
-    <div class="milestones-stats-card__chart-wrapper milestones-stats-card__chart-wrapper--bar">
-      <%= column_chart weekly_activity,
-        height: "260px",
-        adapter: "google",
-        stacked: false,
-        colors: ["#2563eb", "#f97316", "#22c55e", "#ef4444"],
-        library: {
-          backgroundColor: "transparent",
-          animation: { startup: true, duration: 900, easing: "out" },
-          bar: { groupWidth: "40%" },
-          legend: { position: "none" },
-          hAxis: {
-            title: "Week",
-            titleTextStyle: { color: "#4b5563", fontSize: 12, italic: false },
-            textStyle: { color: "#6b7280", fontSize: 12 },
-            gridlines: { color: "transparent" }
-          },
-          vAxis: {
-            title: "Count",
-            titleTextStyle: { color: "#4b5563", fontSize: 12, italic: false },
-            minValue: 0,
-            viewWindow: { min: 0 },
-            textStyle: { color: "#9ca3af", fontSize: 12 },
-            gridlines: { color: "#e5e7eb" }
-          },
-          chartArea: {
-            left: "10%",
-            width: "85%",
-            top: "5%",
-            height: "80%"
-          }
-        }
-      %>
-    </div>
-  </div>
+          var interval = setInterval(function () {
+            if (current > finalValue) {
+              clearInterval(interval);
+              return;
+            }
 
-</div>
+            degrees = (current / 100) * 360;
 
-<script>
-document.addEventListener("DOMContentLoaded", function () {
-  document.querySelectorAll(".progress-circle").forEach(function (circle) {
-    var finalValue = Number(circle.dataset.progress);
-    var color = circle.dataset.color;
-    var layer1 = circle.querySelector(".layer-1");
-    var textEl = circle.querySelector(".center span");
+            layer1.style.background =
+              "conic-gradient(" + color + " 0deg, " + color + " " + degrees +
+              "deg, #d1d5db " + degrees + "deg)";
 
-    var current = 0;
-    var degrees = 0;
+            textEl.textContent = current + "%";
+            textEl.style.color = color;
 
-    // animação suave
-    var interval = setInterval(function () {
-      if (current >= finalValue) {
-        clearInterval(interval);
+            current++;
+          }, 15);
+        });
       }
 
-      degrees = (current / 100) * 360;
+      document.addEventListener("turbo:load", initProgressCircles);
+      document.addEventListener("turbo:frame-load", initProgressCircles);
 
-     layer1.style.background =
-  "conic-gradient(" + color + " 0deg, " + color + " " + degrees + "deg, #d1d5db " + degrees + "deg)";
-
-      textEl.textContent = current + "%";
-      textEl.style.color = color;
-
-      current++;
-    }, 15);
-  });
-});
-</script>
+      if (document.readyState === "interactive" || document.readyState === "complete") {
+        initProgressCircles();
+      } else {
+        document.addEventListener("DOMContentLoaded", initProgressCircles);
+      }
+    })();
+  </script>
 </section>
