@@ -95,15 +95,16 @@ body {
 /* Buttons centered under the text block */
 
 .hero-buttons {
-  margin-top: 0.3rem;
-  text-align: center;
+  margin-top: 0.8rem;
+  text-align: left;
+  margin-left: -0.5rem;
 }
 
 .hero-buttons .btn {
   display: inline-block;
-  margin: 0 0.6rem;
+  margin: 0 0.85rem;
   min-width: 120px; 
-  padding: 0.75rem 1.4rem; 
+  padding: 0.75rem 2rem; 
   font-size: 1rem;    
 }
 
@@ -120,6 +121,7 @@ body {
   font-size: 1rem;
   border: none;
   transition: background-color 0.2s ease, transform 0.1s ease;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.12);
 
   &:hover,
   &:focus {
@@ -139,6 +141,7 @@ body {
   font-weight: 600;
   font-size: 1rem;
   transition: background-color 0.2s ease, transform 0.1s ease;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.12);
 
   &:hover,
   &:focus {
