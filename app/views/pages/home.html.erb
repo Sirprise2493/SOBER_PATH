@@ -7,29 +7,26 @@
     </div>
 
     <div class="hero-main-content">
-      <h1>Welcome to Your Journey</h1>
+      <h1>
+        Welcome to<br>
+        Your Journey
+      </h1>
       <p class="hero-subtitle">
-        A safe space for support, guidance and community
+        A safe space for support guidance <br>
+        and community
       </p>
-
       <div class="hero-buttons">
         <% if user_signed_in? %>
           <!-- Logged IN: send them into the app -->
           <%= link_to "Go to chatroom", chatroom_path, class: "btn btn-primary" %>
-          <%= link_to "View profile", profile_path, class: "btn btn-primary" %>
+          <%= link_to "View profile", profile_path, class: "btn btn-secondary" %>
         <% else %>
           <!-- Logged OUT: open modal via Stimulus -->
-          <button
-            type="button"
-            class="btn btn-primary"
-            data-action="click->auth-modal#openLogin">
+          <button type="button" class="btn btn-primary" data-action="click->auth-modal#openLogin">
             Log in
           </button>
 
-          <button
-            type="button"
-            class="btn btn-primary"
-            data-action="click->auth-modal#openSignup">
+          <button type="button" class="btn btn-secondary" data-action="click->auth-modal#openSignup">
             Sign up
           </button>
         <% end %>
