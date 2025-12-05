@@ -3,6 +3,11 @@ class ApplicationController < ActionController::Base
   before_action :configure_permitted_parameters, if: :devise_controller?
   around_action :set_time_zone, if: :current_user
 
+  # Meta
+  def default_url_options
+    { host: ENV.fetch("DOMAIN", "localhost:3000") }
+  end
+
   # --------- DEVISE REDIRECTS ---------
 
   # After login
