@@ -97,15 +97,16 @@ body {
 .hero-buttons {
   margin-top: 0.8rem;
   text-align: left;
-  margin-left: -0.5rem;
+  margin-left: -0.7rem;
 }
 
 .hero-buttons .btn {
   display: inline-block;
-  margin: 0 0.85rem;
-  min-width: 120px; 
-  padding: 0.75rem 2rem; 
-  font-size: 1rem;    
+  margin: 0 0.6rem;
+  width: 150px;          // ⬅ fixed width so both buttons match
+  padding: 0.75rem 0;    // vertical padding only, width handles the rest
+  font-size: 1rem;
+  text-align: center;    // text nicely centered inside
 }
 
 /* Button styles */
