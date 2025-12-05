@@ -19,6 +19,16 @@ body {
     min-height: 280px;
   }
 
+  .hero-logo {
+    position: absolute;
+    z-index: 3;
+    width: 180px;
+    height: auto;
+    top: -47%;
+    left:5%;
+    transform: translateX(-50%);
+  }
+
   .hero-shape {
     position: absolute;
     width: 60vw;
