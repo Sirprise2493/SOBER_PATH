@@ -3,12 +3,12 @@
   flex-direction: column;
   height: 100%;
   padding-bottom: 0.75rem;
-  background: $accent-peach-soft;
+  background: #ffffff;
 
   &__header {
     padding: 1rem 1.25rem 0.75rem;
     //border-bottom: 1px solid #e5e7eb;
-    background: $accent-peach-soft;
+    background: #ffffff;
 
     h2 {
       margin: 0;
@@ -32,7 +32,6 @@
     flex-direction: column;
     gap: 0.85rem;
     background: #ffffff;
-    justify-content: center;
   }
 
   &__item {
@@ -142,7 +141,7 @@
 .encouragements-panel__pagination {
   padding: 0.75rem 1.25rem 0.9rem;
   //border-top: 1px solid #e5e7eb;
-  background: $accent-peach-soft;
+  background: #ffffff;
 }
 
 .encouragement-chat__pagination {
