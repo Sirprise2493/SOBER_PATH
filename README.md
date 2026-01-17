@@ -7,7 +7,7 @@ Rails app generated with [lewagon/rails-templates](https://github.com/lewagon/ra
 </p>
 
 <p align="center">
-  <img src="assets/soberpath-1.png" alt="SoberPath logo" width="140" />
+  <img src="app/assets/githubReadme/soberpath-1.png" alt="SoberPath logo" width="140" />
 </p>
 
 <p align="center">
@@ -27,7 +27,7 @@ Rails app generated with [lewagon/rails-templates](https://github.com/lewagon/ra
 ## ✨ Quick Peek
 
 <p align="center">
-  <img src="assets/soberpath-2.png" alt="SoberPath start page" width="920"/>
+  <img src="app/assets/githubReadme/soberpath-2.png" alt="SoberPath start page" width="920"/>
 </p>
 
 > **SoberPath** helps you carry less alone: journal your days, connect with others, celebrate progress — and find support when you need it.
@@ -61,7 +61,7 @@ SoberPath aims to ease some of this weight by giving you a discreet, digital com
 Capture your thoughts, cravings, wins, and difficult moments in a daily journal. Based on what you write, an **AI-generated image** can reflect the mood of your entry and make your journey visible over time.
 
 <p align="center">
-  <img src="assets/soberpath-3.png" alt="Journal" width="920"/>
+  <img src="app/assets/githubReadme/soberpath-3.png" alt="Journal" width="920"/>
 </p>
 
 **GIF idea (optional):**  
@@ -75,7 +75,7 @@ Talk to an AI when you want to sort your thoughts anonymously, and join a genera
 Every message can feel like a mini meeting: you share, you listen, you encourage.
 
 <p align="center">
-  <img src="assets/soberpath-4.png" alt="Chat" width="920"/>
+  <img src="app/assets/githubReadme/soberpath-4.png" alt="Chat" width="920"/>
 </p>
 
 **GIF idea (optional):**  
@@ -88,7 +88,7 @@ Suggested filename: `assets/gif-chat-live.gif`
 See your sober milestones in one place and read the congratulations and encouragement from other users. Progress becomes not only measurable, but emotionally real.
 
 <p align="center">
-  <img src="assets/soberpath-6.png" alt="Milestones" width="920"/>
+  <img src="app/assets/githubReadme/soberpath-6.png" alt="Milestones" width="920"/>
 </p>
 
 **GIF idea (optional):**  
@@ -101,7 +101,7 @@ Suggested filename: `assets/gif-milestones.gif`
 When you feel the need for in-person support, you can look up registered AA meetings in your area and seek additional real-life connection.
 
 <p align="center">
-  <img src="assets/soberpath-5.png" alt="AA meetings map" width="920"/>
+  <img src="app/assets/githubReadme/soberpath-5.png" alt="AA meetings map" width="920"/>
 </p>
 
 **GIF idea (optional):**  
