@@ -173,3 +173,21 @@ bin/rails server
 ### ✅ Open the app
 After starting the server, open the app in your browser:
 👉 http://localhost:3000
+
+
+### ✅ Open the app
+After starting the server, open the app in your browser:
+
+👉 http://localhost:3000
+
+---
+
+## 🔌 Real-time features (Chat / Community)
+SoberPath uses Action Cable + Turbo Streams for a live community experience.
+
+If live updates don’t show locally, check:
+
+- `config/cable.yml`
+- adapter requirements (async/redis depending on your setup)
+- browser console + Rails logs for Action Cable connection messages
+
