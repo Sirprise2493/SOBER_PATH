@@ -143,3 +143,10 @@ Integrations:
 ```bash
 git clone https://github.com/<your-username>/soberpath.git
 cd soberpath
+
+### 2) Environment variables
+```.env
+CLOUDINARY_URL=
+MAPBOX_API_KEY=
+OPENAI_ACCESS_TOKEN=
+
