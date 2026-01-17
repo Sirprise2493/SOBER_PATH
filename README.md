@@ -167,6 +167,7 @@ bin/rails db:seed
 ```
 
 ### 5) Run
+```bash
 bin/rails server
 ```
 ### ✅ Open the app
