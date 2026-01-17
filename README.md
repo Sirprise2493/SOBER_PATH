@@ -64,9 +64,7 @@ Capture your thoughts, cravings, wins, and difficult moments in a daily journal.
   <img src="app/assets/githubReadme/soberpath-3.png" alt="Journal" width="920"/>
 </p>
 
-**GIF idea (optional):**  
-Create a 6–10s clip: write entry → submit → AI image appears → timeline shows it.  
-Suggested filename: `assets/gif-journal-ai.gif`
+
 
 ---
 
