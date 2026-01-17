@@ -143,10 +143,32 @@ Integrations:
 ```bash
 git clone https://github.com/<your-username>/soberpath.git
 cd soberpath
+```
 
 ### 2) Environment variables
 ```.env
-CLOUDINARY_URL=
-MAPBOX_API_KEY=
-OPENAI_ACCESS_TOKEN=
+CLOUDINARY_URL=...
+MAPBOX_API_KEY=...
+OPENAI_ACCESS_TOKEN=...
+```
+✅ Required for uploads (Cloudinary), maps (Mapbox), and AI features (OpenAI).
+❗ Don’t commit .env.
 
+### 3) Install dependencies
+```bash
+bundle install
+```
+
+### 4) Database
+```bash
+bin/rails db:create db:migrate
+# optional:
+bin/rails db:seed
+```
+
+### 5) Run
+bin/rails server
+```
+### ✅ Open the app
+After starting the server, open the app in your browser:
+👉 http://localhost:3000
