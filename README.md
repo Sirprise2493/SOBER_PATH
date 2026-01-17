@@ -223,38 +223,6 @@ If live updates don’t show locally, check:
   <img src="assets/soberpath-6.png" alt="Milestones" width="49%" />
 </p>
 
-
-### ✅ Open the app
-After starting the server, open the app in your browser:
-
-👉 http://localhost:3000
-
----
-
-## 🔌 Real-time features (Chat / Community)
-SoberPath uses Action Cable + Turbo Streams for a live community experience.
-
-If live updates don’t show locally, check:
-
-- `config/cable.yml`
-- adapter requirements (async/redis depending on your setup)
-- browser console + Rails logs for Action Cable connection messages
-
----
-
-## 🖼️ Screenshot Gallery (All in one place)
-<p align="center">
-  <img src="assets/soberpath-2.png" alt="Start page" width="49%" />
-  <img src="assets/soberpath-3.png" alt="Journal" width="49%" />
-</p>
-<p align="center">
-  <img src="assets/soberpath-4.png" alt="Chat" width="49%" />
-  <img src="assets/soberpath-5.png" alt="AA meetings" width="49%" />
-</p>
-<p align="center">
-  <img src="assets/soberpath-6.png" alt="Milestones" width="49%" />
-</p>
-
 ---
 
 ## 🗺️ Roadmap (Ideas)
