@@ -212,15 +212,15 @@ If live updates don’t show locally, check:
 
 ## 🖼️ Screenshot Gallery (All in one place)
 <p align="center">
-  <img src="assets/soberpath-2.png" alt="Start page" width="49%" />
-  <img src="assets/soberpath-3.png" alt="Journal" width="49%" />
+  <img src="app/assets/githubReadme/soberpath-2.png" alt="Start page" width="49%" />
+  <img src="app/assets/githubReadme/soberpath-3.png" alt="Journal" width="49%" />
 </p>
 <p align="center">
-  <img src="assets/soberpath-4.png" alt="Chat" width="49%" />
-  <img src="assets/soberpath-5.png" alt="AA meetings" width="49%" />
+  <img src="app/assets/githubReadme/soberpath-4.png" alt="Chat" width="49%" />
+  <img src="app/assets/githubReadme/soberpath-5.png" alt="AA meetings" width="49%" />
 </p>
 <p align="center">
-  <img src="assets/soberpath-6.png" alt="Milestones" width="49%" />
+  <img src="app/assets/githubReadme/soberpath-6.png" alt="Milestones" width="49%" />
 </p>
 
 ---
